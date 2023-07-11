@@ -98,20 +98,28 @@ class _MainAppState extends State<MainApp> {
           child: Column(children: []),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Column(
             children: [
-              ...tasks.expand((e) {
-                return [
-                  TaskCard(
-                    taskData: e,
-                    onCheckPressed: onCheckPressed,
-                    onRemovePressed: onRemovePressed,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ...tasks.expand((e) {
+                        return [
+                          TaskCard(
+                            taskData: e,
+                            onCheckPressed: onCheckPressed,
+                            onRemovePressed: onRemovePressed,
+                          ),
+                          if (tasks.last != e) SizedBox(height: 10),
+                        ];
+                      }),
+                      // Spacer(),
+                    ],
                   ),
-                  if (tasks.last != e) SizedBox(height: 10),
-                ];
-              }),
-              Spacer(),
+                ),
+              ),
               SizedBox(
                 height: 60,
                 child: Row(
@@ -126,6 +134,7 @@ class _MainAppState extends State<MainApp> {
                         ),
                         child: TextField(
                           controller: inputCtrl,
+                          onEditingComplete: onAddTaskPressed,
                           decoration: InputDecoration(
                             hintText: 'type you\'re task here!',
                             border: InputBorder.none,
