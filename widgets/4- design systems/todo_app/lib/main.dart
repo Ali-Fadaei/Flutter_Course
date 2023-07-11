@@ -81,21 +81,23 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       title: 'todo-app',
       theme: ThemeData.from(
+        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF235D65),
+          brightness: Brightness.dark,
+          // brightness: Brightness.light,
+          seedColor: Colors.cyan,
         ),
-        useMaterial3: false,
       ),
       home: Scaffold(
-        backgroundColor: Color(0xFFE6E6E6),
         appBar: AppBar(
-          title: const Text('TODO APP'),
-          toolbarHeight: 70,
           centerTitle: true,
+          title: const Text('TODO APP'),
+          scrolledUnderElevation: 6,
         ),
-        drawer: const Drawer(
-          backgroundColor: Color(0xFF67AFB9),
-          child: Column(children: []),
+        drawer: Drawer(
+          child: Column(
+            children: [],
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -115,7 +117,6 @@ class _MainAppState extends State<MainApp> {
                           if (tasks.last != e) SizedBox(height: 10),
                         ];
                       }),
-                      // Spacer(),
                     ],
                   ),
                 ),
@@ -125,34 +126,26 @@ class _MainAppState extends State<MainApp> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.cyan[800],
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: TextField(
-                          controller: inputCtrl,
-                          onEditingComplete: onAddTaskPressed,
-                          decoration: InputDecoration(
-                            hintText: 'type you\'re task here!',
-                            border: InputBorder.none,
+                      child: TextField(
+                        controller: inputCtrl,
+                        onEditingComplete: onAddTaskPressed,
+                        decoration: InputDecoration(
+                          filled: true,
+                          hintText: 'type you\'re task here!',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            // gapPadding: 100,
                           ),
                         ),
                       ),
                     ),
                     SizedBox(width: 10),
                     SizedBox(
+                      width: 60,
                       height: 60,
-                      child: ElevatedButton(
+                      child: IconButton.filled(
                         onPressed: inputIsEmpty ? null : onAddTaskPressed,
-                        style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(CircleBorder()),
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.cyan[800]),
-                        ),
-                        child: Icon(Icons.add_task),
+                        icon: Icon(Icons.add_task),
                       ),
                     ),
                   ],

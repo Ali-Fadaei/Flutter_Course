@@ -14,58 +14,52 @@ class TaskCard extends StatelessWidget {
     required this.onRemovePressed,
   });
 
-  //on check -> functional
-  //on remove -> functional
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      height: 80,
-      decoration: BoxDecoration(
-        color: Color(0xFFF4F4F4),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () => onCheckPressed(taskData),
-            child: taskData.isChecked
-                ? Icon(Icons.check_box_rounded)
-                : Icon(Icons.check_box_outline_blank_rounded),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            flex: 90,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  taskData.text,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                Divider(
-                  thickness: 1.5,
-                  height: 10,
-                  indent: 5,
-                ),
-                // SizedBox(height: 10),
-                Text(taskData.date.toLocal().toString()),
-              ],
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Checkbox(
+              shape: CircleBorder(),
+              value: taskData.isChecked,
+              onChanged: (_) => onCheckPressed(taskData),
             ),
-          ),
-          Spacer(flex: 10),
-          GestureDetector(
-            onTap: () => onRemovePressed(taskData),
-            child: Icon(Icons.remove_circle_outline_rounded),
-          )
-        ],
+            SizedBox(width: 10),
+            Expanded(
+              flex: 90,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    taskData.text,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 20,
+                      decoration: taskData.isChecked
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.5,
+                    height: 10,
+                  ),
+                  Text(taskData.date.toLocal().toString()),
+                ],
+              ),
+            ),
+            Spacer(flex: 10),
+            IconButton(
+              hoverColor: Colors.red.shade100,
+              icon: Icon(Icons.remove_circle_outline_rounded),
+              onPressed: () => onRemovePressed(taskData),
+            ),
+          ],
+        ),
       ),
     );
   }
