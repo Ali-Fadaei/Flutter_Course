@@ -83,8 +83,8 @@ class _MainAppState extends State<MainApp> {
       theme: ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          brightness: Brightness.dark,
-          // brightness: Brightness.light,
+          // brightness: Brightness.dark,
+          brightness: Brightness.light,
           seedColor: Colors.cyan,
         ),
       ),

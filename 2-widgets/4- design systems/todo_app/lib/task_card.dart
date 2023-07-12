@@ -54,7 +54,7 @@ class TaskCard extends StatelessWidget {
             ),
             Spacer(flex: 10),
             IconButton(
-              hoverColor: Colors.red.shade100,
+              hoverColor: Theme.of(context).colorScheme.errorContainer,
               icon: Icon(Icons.remove_circle_outline_rounded),
               onPressed: () => onRemovePressed(taskData),
             ),
