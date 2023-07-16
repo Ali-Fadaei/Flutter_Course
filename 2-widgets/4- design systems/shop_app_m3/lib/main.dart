@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/pages/cart/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
@@ -41,6 +43,12 @@ class _MainAppState extends State<MainApp> {
           seedColor: Colors.cyan,
         ),
       ),
+      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.touch,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.unknown,
+      }),
       home: Scaffold(
         appBar: AppBar(
           actions: [
@@ -92,7 +100,10 @@ class _MainAppState extends State<MainApp> {
             ),
           ],
         ),
-        body: pages[selectedDes],
+        body: Padding(
+          padding: EdgeInsets.all(12),
+          child: pages[selectedDes],
+        ),
         // body: IndexedStack(
         //   index: selectedDes,
         //   children: [
