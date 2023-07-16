@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/pages/cart/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
-import 'package:shop_app_m3/pages/faviorates/faviorates_page.dart';
+import 'package:shop_app_m3/pages/favorites/faviorates_page.dart';
 import 'package:shop_app_m3/pages/profile/profile_page.dart';
 import 'package:shop_app_m3/pages/store/store_page.dart';
 
@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
 
   List<Widget> pages = [
     ProfilePage(),
-    FavioratesPage(),
+    FavoritesPage(),
     StorePage(),
     CartPage(),
     CategoriesPage(),
@@ -51,19 +51,15 @@ class _MainAppState extends State<MainApp> {
       }),
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 65,
+          title: Center(child: Image.asset('assets/icons/Amazon.png')),
           actions: [
-            SizedBox.square(
-              dimension: 50,
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_none_rounded,
-                ),
-              ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.notifications_none_rounded),
             ),
           ],
-          centerTitle: true,
-          title: Image.asset('assets/icons/Amazon.png'),
         ),
         drawer: Drawer(
           child: Column(
@@ -71,6 +67,7 @@ class _MainAppState extends State<MainApp> {
           ),
         ),
         bottomNavigationBar: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           onDestinationSelected: (index) {
             setState(() {
               selectedDes = index;
@@ -81,22 +78,27 @@ class _MainAppState extends State<MainApp> {
             NavigationDestination(
               icon: Icon(Icons.person_2_outlined),
               label: 'profile',
+              tooltip: '',
             ),
             NavigationDestination(
               icon: Icon(Icons.favorite_border_outlined),
-              label: 'faviorates',
+              label: 'favorites',
+              tooltip: '',
             ),
             NavigationDestination(
               icon: Icon(Icons.store_mall_directory_outlined),
               label: 'store',
+              tooltip: '',
             ),
             NavigationDestination(
               icon: Icon(Icons.shopping_cart_outlined),
               label: 'cart',
+              tooltip: '',
             ),
             NavigationDestination(
               icon: Icon(Icons.manage_search_outlined),
               label: 'categories',
+              tooltip: '',
             ),
           ],
         ),
