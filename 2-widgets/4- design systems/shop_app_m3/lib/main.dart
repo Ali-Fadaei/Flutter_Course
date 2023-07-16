@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/pages/cart/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
-import 'package:shop_app_m3/pages/favorites/faviorates_page.dart';
+import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
 import 'package:shop_app_m3/pages/profile/profile_page.dart';
 import 'package:shop_app_m3/pages/store/store_page.dart';
 
