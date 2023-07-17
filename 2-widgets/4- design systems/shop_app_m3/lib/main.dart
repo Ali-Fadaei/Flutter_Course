@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_m3/pages/cart/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
@@ -49,6 +50,16 @@ class _MainAppState extends State<MainApp> {
         PointerDeviceKind.stylus,
         PointerDeviceKind.unknown,
       }),
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('fa', 'IR'),
+        Locale('en', 'US'),
+      ],
+      locale: Locale('en', 'US'),
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
