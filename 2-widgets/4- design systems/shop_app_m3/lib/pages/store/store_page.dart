@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_m3/models/product.dart';
 import 'package:shop_app_m3/pages/store/product_card.dart';
 
 class StorePage extends StatelessWidget {
 //
-  const StorePage({super.key});
+  final List<Product> products;
+
+  const StorePage({
+    super.key,
+    this.products = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +70,16 @@ class StorePage extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              children: [
-                ProductCard(),
-                ProductCard(),
-                ProductCard(),
-                ProductCard(),
-                ProductCard(),
-                ProductCard(),
-              ],
+              children: products
+                  .expand(
+                    (element) => [
+                      ProductCard(
+                        product: element,
+                      ),
+                      SizedBox(width: 8),
+                    ],
+                  )
+                  .toList(),
             ),
           ),
           Spacer(),

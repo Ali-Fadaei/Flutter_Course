@@ -2,11 +2,92 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shop_app_m3/models/category.dart';
+import 'package:shop_app_m3/models/product.dart';
 import 'package:shop_app_m3/pages/cart/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
 import 'package:shop_app_m3/pages/profile/profile_page.dart';
 import 'package:shop_app_m3/pages/store/store_page.dart';
+
+List<Category> categories = [
+  Category(
+    title: 'e-Devices',
+    image: 'assets/imgs/categories/e-devices.png',
+    color: Colors.red,
+  ),
+  Category(
+    title: 'e-Devices',
+    image: 'assets/imgs/categories/e-devices.png',
+    color: Colors.redAccent,
+  ),
+  Category(
+    title: 'e-Devices',
+    image: 'assets/imgs/categories/e-devices.png',
+    color: Colors.cyan,
+  ),
+  Category(
+    title: 'e-Devices',
+    image: 'assets/imgs/categories/e-devices.png',
+    color: Colors.cyan,
+  ),
+  Category(
+    title: 'e-Devices',
+    image: 'assets/imgs/categories/e-devices.png',
+    color: Colors.cyan,
+  ),
+];
+
+List<Product> products = [
+  Product(
+    title: 'samsung a14',
+    rating: 5,
+    price: 150000,
+    image: 'assets/imgs/products/a14.jpg',
+    description: '',
+    category: categories[0],
+  ),
+  Product(
+    title: 'samsung dokme',
+    rating: 2,
+    price: 150000,
+    image: 'assets/imgs/products/dokme.jpg',
+    description: '',
+    category: categories[0],
+  ),
+  Product(
+    title: 'lenovo idepad',
+    rating: 5,
+    price: 150000,
+    image: 'assets/imgs/products/ideapad.jpg',
+    description: '',
+    category: categories[0],
+  ),
+  Product(
+    title: 'Asus VivoBook',
+    rating: 5,
+    price: 150000,
+    image: 'assets/imgs/products/vivabook.jpg',
+    description: '',
+    category: categories[0],
+  ),
+  Product(
+    title: 'Asus VivoBook',
+    rating: 5,
+    price: 150000,
+    image: 'assets/imgs/products/vivabook.jpg',
+    description: '',
+    category: categories[0],
+  ),
+  Product(
+    title: 'Asus VivoBook',
+    rating: 5,
+    price: 150000,
+    image: 'assets/imgs/products/vivabook.jpg',
+    description: '',
+    category: categories[0],
+  ),
+];
 
 void main() {
   runApp(const MainApp());
@@ -27,7 +108,7 @@ class _MainAppState extends State<MainApp> {
   List<Widget> pages = [
     ProfilePage(),
     FavoritesPage(),
-    StorePage(),
+    StorePage(products: products),
     CartPage(),
     CategoriesPage(),
   ];
@@ -44,12 +125,12 @@ class _MainAppState extends State<MainApp> {
           seedColor: Colors.cyan,
         ),
       ),
-      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.touch,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.unknown,
-      }),
+      // scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
+      //   PointerDeviceKind.mouse,
+      //   PointerDeviceKind.touch,
+      //   PointerDeviceKind.stylus,
+      //   PointerDeviceKind.unknown,
+      // }),
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
