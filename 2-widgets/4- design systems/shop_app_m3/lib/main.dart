@@ -44,7 +44,8 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/a14.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -52,7 +53,8 @@ List<Product> products = [
     rating: 2,
     price: 150000,
     image: 'assets/imgs/products/dokme.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -60,7 +62,8 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/ideapad.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -68,7 +71,8 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -76,7 +80,8 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -84,7 +89,8 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
+    description:
+        'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
 ];
@@ -105,16 +111,32 @@ class _MainAppState extends State<MainApp> {
 //
   int selectedDes = 2;
 
-  List<Widget> pages = [
-    ProfilePage(),
-    FavoritesPage(),
-    StorePage(products: products),
-    CartPage(),
-    CategoriesPage(),
-  ];
+  List<Product> favorites = [];
+
+  void onFavoriatePressed(Product product) {
+    setState(() {
+      if (favorites.contains(product)) {
+        favorites.remove(product);
+      } else {
+        favorites.add(product);
+      }
+    });
+  }
+
+  Widget getPage(int index) {
+    var temp = [
+      ProfilePage(),
+      FavoritesPage(),
+      StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
+      CartPage(),
+      CategoriesPage(),
+    ];
+    return temp[index];
+  }
 
   @override
   Widget build(BuildContext context) {
+//
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
@@ -194,20 +216,20 @@ class _MainAppState extends State<MainApp> {
             ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(12),
-          child: pages[selectedDes],
+        body: IndexedStack(
+          index: selectedDes,
+          children: [
+            ProfilePage(),
+            FavoritesPage(),
+            StorePage(
+              products: products,
+              favorites: favorites,
+              onFavoriatePressed: onFavoriatePressed,
+            ),
+            CartPage(),
+            CategoriesPage(),
+          ],
         ),
-        // body: IndexedStack(
-        //   index: selectedDes,
-        //   children: [
-        //     ProfilePage(),
-        //     FavioratesPage(),
-        //     StorePage(),
-        //     CartPage(),
-        //     CategoriesPage(),
-        //   ],
-        // ),
       ),
     );
   }

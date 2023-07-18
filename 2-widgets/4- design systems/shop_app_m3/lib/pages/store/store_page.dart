@@ -6,9 +6,15 @@ class StorePage extends StatelessWidget {
 //
   final List<Product> products;
 
+  final List<Product> favorites;
+
+  final void Function(Product) onFavoriatePressed;
+
   const StorePage({
     super.key,
     this.products = const [],
+    this.favorites = const [],
+    required this.onFavoriatePressed,
   });
 
   @override
@@ -17,9 +23,9 @@ class StorePage extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 25),
-    
+
           /// search bar
-    
+
           TextField(
             enabled: false,
             decoration: InputDecoration(
@@ -35,7 +41,7 @@ class StorePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 50),
-    
+
           /// Offer Banner
           Container(
             width: double.infinity,
@@ -54,7 +60,7 @@ class StorePage extends StatelessWidget {
             child: Text('Promotions Slider'),
           ),
           SizedBox(height: 50),
-    
+
           /// Exclusive Offers
           Row(
             children: [
@@ -77,12 +83,13 @@ class StorePage extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              
               children: products
                   .expand(
                     (element) => [
                       ProductCard(
                         product: element,
+                        favorites: favorites,
+                        onFavoriatePressed: onFavoriatePressed,
                       ),
                       SizedBox(width: 8),
                     ],
@@ -91,7 +98,7 @@ class StorePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-    
+
           /// Popular Options
           Row(
             children: [
@@ -117,6 +124,8 @@ class StorePage extends StatelessWidget {
                     (element) => [
                       ProductCard(
                         product: element,
+                        favorites: favorites,
+                        onFavoriatePressed: onFavoriatePressed,
                       ),
                       SizedBox(width: 8),
                     ],

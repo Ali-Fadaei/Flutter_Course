@@ -6,15 +6,26 @@ class ProductCard extends StatelessWidget {
 //
   final Product product;
 
+  final List<Product> favorites;
+
+  final void Function(Product) onFavoriatePressed;
+
   const ProductCard({
     super.key,
     required this.product,
+    required this.favorites,
+    required this.onFavoriatePressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => ProductBottomSheet.show(context, product),
+      onTap: () => ProductBottomSheet.show(
+        context,
+        product,
+        favorites,
+        onFavoriatePressed,
+      ),
       child: SizedBox(
         width: 220,
         child: Card(
