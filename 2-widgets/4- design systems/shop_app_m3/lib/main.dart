@@ -40,19 +40,19 @@ List<Category> categories = [
 
 List<Product> products = [
   Product(
-    title: 'samsung a14',
+    title: 'Samsung A14',
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/a14.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
-    title: 'samsung dokme',
+    title: 'Samsung Dokme',
     rating: 2,
     price: 150000,
     image: 'assets/imgs/products/dokme.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -60,7 +60,7 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/ideapad.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -68,7 +68,7 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -76,7 +76,7 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
   Product(
@@ -84,7 +84,7 @@ List<Product> products = [
     rating: 5,
     price: 150000,
     image: 'assets/imgs/products/vivabook.png',
-    description: '',
+    description: 'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
     category: categories[0],
   ),
 ];

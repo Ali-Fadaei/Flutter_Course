@@ -19,9 +19,9 @@ class ProductCard extends StatelessWidget {
         width: 220,
         child: Card(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(17.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(product.image),
                 SizedBox(height: 15),
@@ -31,17 +31,17 @@ class ProductCard extends StatelessWidget {
                 SizedBox(height: 20),
                 Row(
                   children: [
+                    Text(
+                      '${product.price} tomans',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    Spacer(),
                     FloatingActionButton(
                       onPressed: () {},
                       elevation: 2,
                       mini: true,
                       child: Icon(Icons.add),
                     ),
-                    Spacer(),
-                    Text(
-                      '${product.price} tomans',
-                      style: TextStyle(fontSize: 14),
-                    )
                   ],
                 ),
               ],
