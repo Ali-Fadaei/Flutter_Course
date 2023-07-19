@@ -122,6 +122,11 @@ class _MainAppState extends State<MainApp> {
       }
     });
   }
+  // void onDisLikePressed(Product product){
+  //   setState(() {
+  //     favorites.remove(product);
+  //   });
+  // }
 
   Widget getPage(int index) {
     var temp = [
@@ -129,7 +134,10 @@ class _MainAppState extends State<MainApp> {
       FavoritesPage(
           favorites: favorites,
           onFavoriatePressed: onFavoriatePressed,
-          products: products),
+          products: products,
+          // onDisLikePressed: onDisLikePressed,
+          
+          ),
       StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
       CartPage(),
       CategoriesPage(),
