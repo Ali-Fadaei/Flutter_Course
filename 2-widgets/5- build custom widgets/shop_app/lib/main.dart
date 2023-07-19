@@ -11,6 +11,8 @@ import 'package:shop_app/pages/favorites/favorites_page.dart';
 import 'package:shop_app/pages/profile/profile_page.dart';
 import 'package:shop_app/pages/store/store_page.dart';
 
+import 'ui_kit/ui_kit.dart' as U;
+
 List<Category> categories = [
   Category(
     title: 'e-Devices',
@@ -205,17 +207,21 @@ class _MainAppState extends State<MainApp> {
       ],
       locale: Locale('en', 'US'),
       home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 65,
-          title: Center(child: Image.asset('assets/icons/Amazon.png')),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications_none_rounded),
-            ),
-          ],
+        appBar: U.AppBar.primary(
+          onMenuPressed: () {},
+          onNotifPressed: () {},
         ),
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   toolbarHeight: 65,
+        //   title: Center(child: U.Image(path: U.Images.shopLogo)),
+        //   actions: [
+        //     IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(Icons.notifications_none_rounded),
+        //     ),
+        //   ],
+        // ),
         drawer: Drawer(
           child: Column(
             children: [],
