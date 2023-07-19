@@ -1,19 +1,48 @@
 import 'package:flutter/material.dart';
 
-class FavoritesPage extends StatelessWidget {
+import '../../main.dart';
+import '../../models/product.dart';
+import 'favorites_card.dart';
+
+class FavoritesPage extends StatefulWidget {
 //
-  const FavoritesPage({super.key});
+  final List<Product> products;
+  final List<Product> favorites;
+  final void Function(Product) onFavoriatePressed;
+  // final void Function(Product product) onDisLikePressed;
+
+  const FavoritesPage(
+      {super.key,
+      required this.products,
+      required this.favorites,
+      required this.onFavoriatePressed,
+      });
 
   @override
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
+
+class _FavoritesPageState extends State<FavoritesPage> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
-        children: [
-          Spacer(),
-          Text('Faviorates Page'),
-          Spacer(),
-        ],
-      ),
+          children: widget.favorites
+              .expand(
+                (element) => [
+                  FavoritesCard(
+                      product: element,
+                      favorites: widget.favorites,
+                      onFavoriatePressed: widget.onFavoriatePressed,
+                      // onDisLikePressed: widget.onDisLikePressed,
+                      ),
+                  SizedBox(
+                    height: 15,
+                  )
+                ],
+              )
+              .toList()),
     );
   }
 }

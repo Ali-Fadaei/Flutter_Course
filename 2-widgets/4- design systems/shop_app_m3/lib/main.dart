@@ -42,7 +42,7 @@ List<Product> products = [
   Product(
     title: 'Samsung A14',
     rating: 5,
-    price: 150000,
+    price: 545454545,
     image: 'assets/imgs/products/a14.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -51,7 +51,7 @@ List<Product> products = [
   Product(
     title: 'Samsung Dokme',
     rating: 2,
-    price: 150000,
+    price: 12312,
     image: 'assets/imgs/products/dokme.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -60,7 +60,7 @@ List<Product> products = [
   Product(
     title: 'lenovo idepad',
     rating: 5,
-    price: 150000,
+    price: 456320,
     image: 'assets/imgs/products/ideapad.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -69,7 +69,7 @@ List<Product> products = [
   Product(
     title: 'Asus VivoBook',
     rating: 5,
-    price: 150000,
+    price: 1221000,
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -78,7 +78,7 @@ List<Product> products = [
   Product(
     title: 'Asus VivoBook',
     rating: 5,
-    price: 150000,
+    price: 9990009,
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -87,7 +87,7 @@ List<Product> products = [
   Product(
     title: 'Asus VivoBook',
     rating: 5,
-    price: 150000,
+    price: 33434,
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
@@ -126,7 +126,10 @@ class _MainAppState extends State<MainApp> {
   Widget getPage(int index) {
     var temp = [
       ProfilePage(),
-      FavoritesPage(),
+      FavoritesPage(
+          favorites: favorites,
+          onFavoriatePressed: onFavoriatePressed,
+          products: products),
       StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
       CartPage(),
       CategoriesPage(),
@@ -220,7 +223,10 @@ class _MainAppState extends State<MainApp> {
           index: selectedDes,
           children: [
             ProfilePage(),
-            FavoritesPage(),
+            FavoritesPage(
+                favorites: favorites,
+                onFavoriatePressed: onFavoriatePressed,
+                products: products),
             StorePage(
               products: products,
               favorites: favorites,
