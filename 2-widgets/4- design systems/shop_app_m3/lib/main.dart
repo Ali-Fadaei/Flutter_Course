@@ -114,30 +114,25 @@ class _MainAppState extends State<MainApp> {
   List<Product> favorites = [];
 
   void onFavoriatePressed(Product product) {
-    setState(() {
-      if (favorites.contains(product)) {
-        favorites.remove(product);
-      } else {
-        favorites.add(product);
-      }
-    });
+    setState(
+      () {
+        if (favorites.contains(product)) {
+          favorites.remove(product);
+        } else {
+          favorites.add(product);
+        }
+      },
+    );
   }
-  // void onDisLikePressed(Product product){
-  //   setState(() {
-  //     favorites.remove(product);
-  //   });
-  // }
 
   Widget getPage(int index) {
     var temp = [
       ProfilePage(),
       FavoritesPage(
-          favorites: favorites,
-          onFavoriatePressed: onFavoriatePressed,
-          products: products,
-          // onDisLikePressed: onDisLikePressed,
-          
-          ),
+        favorites: favorites,
+        onFavoriatePressed: onFavoriatePressed,
+        products: products,
+      ),
       StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
       CartPage(),
       CategoriesPage(),
@@ -227,22 +222,25 @@ class _MainAppState extends State<MainApp> {
             ),
           ],
         ),
-        body: IndexedStack(
-          index: selectedDes,
-          children: [
-            ProfilePage(),
-            FavoritesPage(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IndexedStack(
+            index: selectedDes,
+            children: [
+              ProfilePage(),
+              FavoritesPage(
+                  favorites: favorites,
+                  onFavoriatePressed: onFavoriatePressed,
+                  products: products),
+              StorePage(
+                products: products,
                 favorites: favorites,
                 onFavoriatePressed: onFavoriatePressed,
-                products: products),
-            StorePage(
-              products: products,
-              favorites: favorites,
-              onFavoriatePressed: onFavoriatePressed,
-            ),
-            CartPage(),
-            CategoriesPage(),
-          ],
+              ),
+              CartPage(),
+              CategoriesPage(),
+            ],
+          ),
         ),
       ),
     );

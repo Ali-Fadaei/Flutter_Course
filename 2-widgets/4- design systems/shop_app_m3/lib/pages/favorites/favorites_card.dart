@@ -9,7 +9,7 @@ class FavoritesCard extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final void Function(Product) onFavoriatePressed;
+  final void Function(Product product) onFavoriatePressed;
 
   const FavoritesCard({
     super.key,
@@ -17,10 +17,9 @@ class FavoritesCard extends StatelessWidget {
     required this.favorites,
     required this.onFavoriatePressed,
   });
-   
+
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
@@ -35,11 +34,12 @@ class FavoritesCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                  width: 120,
-                  child: Image.asset(
-                    product.image,
-                    fit: BoxFit.contain,
-                  )),
+                width: 120,
+                child: Image.asset(
+                  product.image,
+                  fit: BoxFit.contain,
+                ),
+              ),
               SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,15 +53,14 @@ class FavoritesCard extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              IconButton(onPressed: ()=> {
-
-              }, icon: Icon(Icons.favorite))
+              IconButton(
+                onPressed: () => onFavoriatePressed(product),
+                icon: Icon(Icons.favorite),
+              )
             ],
           ),
         ),
       ),
     );
   }
-
- 
 }

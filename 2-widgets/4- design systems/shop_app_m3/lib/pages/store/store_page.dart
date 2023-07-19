@@ -25,7 +25,6 @@ class StorePage extends StatelessWidget {
           SizedBox(height: 25),
 
           /// search bar
-
           TextField(
             enabled: false,
             decoration: InputDecoration(
