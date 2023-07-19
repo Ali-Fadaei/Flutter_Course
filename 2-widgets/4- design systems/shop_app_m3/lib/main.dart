@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_m3/models/category.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/pages/cart/cart_page.dart';
+import 'package:shop_app_m3/models/shod_card.dart';
+import 'package:shop_app_m3/pages/shop_card/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
 import 'package:shop_app_m3/pages/profile/profile_page.dart';
@@ -111,6 +112,8 @@ class _MainAppState extends State<MainApp> {
 //
   int selectedDes = 2;
 
+  var shopCard = ShopCard();
+
   List<Product> favorites = [];
 
   void onFavoriatePressed(Product product) {
@@ -120,6 +123,38 @@ class _MainAppState extends State<MainApp> {
           favorites.remove(product);
         } else {
           favorites.add(product);
+        }
+      },
+    );
+  }
+
+  void onAddtoShopCardPressed(Product product) {
+    setState(
+      () {
+        for (var element in shopCard.shopItems) {
+          if (element.product == product) {
+            element.count++;
+          } else {
+            shopCard.shopItems.add(
+              ShopItem(product: product),
+            );
+          }
+        }
+      },
+    );
+  }
+
+  void onRemovetoShopCardPressed(Product product) {
+    setState(
+      () {
+        for (var element in shopCard.shopItems) {
+          if (element.product == product) {
+            if (element.count <= 1) {
+              shopCard.shopItems.remove(element);
+            } else {
+              element.count--;
+            }
+          }
         }
       },
     );
