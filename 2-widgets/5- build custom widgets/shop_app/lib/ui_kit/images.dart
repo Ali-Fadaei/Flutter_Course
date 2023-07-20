@@ -42,6 +42,8 @@ abstract class Images {
   static const shareIcon = 'assets/icons/share.png';
   static const shopCartIcon = 'assets/icons/shopCart.png';
   static const storeIcon = 'assets/icons/store.png';
+  static const checkBoxFilledIcon = 'assets/icons/check_box_fill.png';
+  static const checkBoxEmptyIcon = 'assets/icons/check_box_empty.png';
 }
 
 class Image extends M.StatelessWidget {
