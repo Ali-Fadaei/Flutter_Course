@@ -49,6 +49,7 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
               ? U.Image(path: U.Images.shopLogo)
               : U.Text(
                   title!,
+                  font: U.TextFont.ghasem,
                   size: U.TextSize.xl,
                   weight: U.TextWeight.bold,
                 ),
