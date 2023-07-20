@@ -4,11 +4,11 @@ import 'package:shop_app_m3/models/product.dart';
 class ProductBottomSheet extends StatefulWidget {
 //
   static show(
-    BuildContext context,
-    Product product,
-    List<Product> favorites,
-    void Function(Product product) onFavoriatePressed,
-  ) {
+      BuildContext context,
+      Product product,
+      List<Product> favorites,
+      void Function(Product product) onFavoriatePressed,
+      void Function(Product product) onAddtoShopCardPressed) {
     // var colorScheme = ColorScheme.fromSeed(seedColor: product.category.color);
     showBottomSheet(
       // backgroundColor: colorScheme.surfaceVariant,
@@ -18,6 +18,7 @@ class ProductBottomSheet extends StatefulWidget {
           product: product,
           onFavoriatePressed: onFavoriatePressed,
           favorits: favorites,
+          onAddtoShopCardPressed: onAddtoShopCardPressed,
         );
       },
     );
@@ -28,20 +29,30 @@ class ProductBottomSheet extends StatefulWidget {
   final bool isFavorit;
 
   final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onAddtoShopCardPressed;
 
   ProductBottomSheet({
     super.key,
     required List<Product> favorits,
     required this.product,
     required this.onFavoriatePressed,
+    required this.onAddtoShopCardPressed,
   }) : isFavorit = favorits.contains(product);
 
   @override
-  State<ProductBottomSheet> createState() => _ProductBottomSheetState();
+  State<ProductBottomSheet> createState() => ProductBottomSheetState();
 }
 
-class _ProductBottomSheetState extends State<ProductBottomSheet> {
+class ProductBottomSheetState extends State<ProductBottomSheet> {
 //
+
+  void onAddtoShopCardPressed(Product product ){
+    onAddtoShopCardPressed(product);
+  }
+
+   Product? product;
+
+  
   var count = 1;
 
   var isFav = false;
@@ -243,6 +254,11 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     /// Add to Cart
                     SizedBox(
                         child: GestureDetector(
+                      onTap: () => {
+                        product= product,
+                        onAddtoShopCardPressed(product!),
+                        print("*** Add to Cart Button is Workin Correctly *** ")
+                      },
                       child: Container(
                         width: 300,
                         height: 60,

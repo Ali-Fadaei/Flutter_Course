@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_m3/models/category.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shod_card.dart';
+import 'package:shop_app_m3/models/shop_card.dart';
 import 'package:shop_app_m3/pages/shop_card/cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
@@ -40,6 +40,7 @@ List<Category> categories = [
 ];
 
 List<Product> products = [
+  
   Product(
     title: 'Samsung A14',
     rating: 5,
@@ -117,6 +118,7 @@ class _MainAppState extends State<MainApp> {
   List<Product> favorites = [];
 
   void onFavoriatePressed(Product product) {
+
     setState(
       () {
         if (favorites.contains(product)) {
@@ -166,9 +168,10 @@ class _MainAppState extends State<MainApp> {
       FavoritesPage(
         favorites: favorites,
         onFavoriatePressed: onFavoriatePressed,
+        onAddtoShopCardPressed: onAddtoShopCardPressed,
         products: products,
       ),
-      StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
+      StorePage(products: products, onFavoriatePressed: onFavoriatePressed, onAddtoShopCardPressed: onAddtoShopCardPressed,),
       CartPage(),
       CategoriesPage(),
     ];
@@ -266,11 +269,13 @@ class _MainAppState extends State<MainApp> {
               FavoritesPage(
                   favorites: favorites,
                   onFavoriatePressed: onFavoriatePressed,
+                  onAddtoShopCardPressed: onAddtoShopCardPressed,
                   products: products),
               StorePage(
                 products: products,
                 favorites: favorites,
                 onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCardPressed: onAddtoShopCardPressed,
               ),
               CartPage(),
               CategoriesPage(),

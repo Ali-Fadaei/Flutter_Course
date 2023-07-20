@@ -10,23 +10,21 @@ class FavoritesCard extends StatelessWidget {
   final List<Product> favorites;
 
   final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onAddtoShopCardPressed;
 
   const FavoritesCard({
     super.key,
     required this.product,
     required this.favorites,
     required this.onFavoriatePressed,
+    required this.onAddtoShopCardPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => ProductBottomSheet.show(
-        context,
-        product,
-        favorites,
-        onFavoriatePressed,
-      ),
+      onTap: () => ProductBottomSheet.show(context, product, favorites,
+          onFavoriatePressed, onAddtoShopCardPressed),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(12.0),

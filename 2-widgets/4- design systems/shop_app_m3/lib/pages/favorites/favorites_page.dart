@@ -8,12 +8,14 @@ class FavoritesPage extends StatefulWidget {
   final List<Product> products;
   final List<Product> favorites;
   final void Function(Product) onFavoriatePressed;
+  final void Function(Product) onAddtoShopCardPressed;
 
   const FavoritesPage({
     super.key,
     required this.products,
     required this.favorites,
     required this.onFavoriatePressed,
+    required this.onAddtoShopCardPressed,
   });
 
   @override
@@ -34,6 +36,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   product: element,
                   favorites: widget.favorites,
                   onFavoriatePressed: widget.onFavoriatePressed,
+                  onAddtoShopCardPressed: widget.onAddtoShopCardPressed,
                 ),
                 SizedBox(height: 15)
               ],

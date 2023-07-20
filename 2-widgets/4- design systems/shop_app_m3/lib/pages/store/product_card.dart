@@ -7,14 +7,15 @@ class ProductCard extends StatelessWidget {
   final Product product;
 
   final List<Product> favorites;
-
+  final void Function(Product) onAddtoShopCardPressed ; 
+  
   final void Function(Product) onFavoriatePressed;
 
   const ProductCard({
     super.key,
     required this.product,
     required this.favorites,
-    required this.onFavoriatePressed,
+    required this.onFavoriatePressed, required this.onAddtoShopCardPressed,
   });
 
   @override
@@ -25,6 +26,7 @@ class ProductCard extends StatelessWidget {
         product,
         favorites,
         onFavoriatePressed,
+        onAddtoShopCardPressed
       ),
       child: SizedBox(
         width: 220,
