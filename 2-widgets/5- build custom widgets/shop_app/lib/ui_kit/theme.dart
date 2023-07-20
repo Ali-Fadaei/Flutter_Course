@@ -18,5 +18,11 @@ abstract class Theme {
   //
   static const primary = Color(0xFFF34E4E);
 
+  static const onPrimary = surface;
+
   static const secondary = Color(0xFF110E39);
+
+  static const onSecondary = surface;
+
+  static const radius = 15.0;
 }
