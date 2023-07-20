@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/pages/store/product_card.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
 //
@@ -63,10 +64,11 @@ class StorePage extends StatelessWidget {
           /// Exclusive Offers
           Row(
             children: [
-              Text(
-                'Exclusive Offers',
-                //todo: make styles
-                style: TextStyle(),
+              U.Text(
+                'پیشنهاد ویژه',
+                font: U.TextFont.bYekan,
+                size: U.TextSize.xxl,
+                weight: U.TextWeight.bold,
               ),
               Spacer(),
               //todo: make styles

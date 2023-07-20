@@ -2,25 +2,17 @@ import 'package:flutter/material.dart' as M;
 import 'package:flutter/widgets.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
-enum TextSize {
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
-}
+enum TextFont { bYekan, iranSans }
 
-enum TextWeight {
-  light,
-  regular,
-  normal,
-  bold,
-}
+enum TextSize { xs, sm, md, lg, xl, xxl }
+
+enum TextWeight { light, regular, normal, bold }
 
 class Text extends M.StatelessWidget {
 //
   final String text;
+
+  final TextFont font;
 
   final TextSize size;
 
@@ -28,13 +20,23 @@ class Text extends M.StatelessWidget {
 
   final M.Color? color;
 
-  const Text({
+  const Text(
+    this.text, {
     super.key,
-    required this.text,
+    this.font = TextFont.iranSans,
     this.size = TextSize.md,
     this.weight = TextWeight.regular,
     this.color = U.Theme.onSurface,
   });
+
+  String get fontFamily {
+    switch (font) {
+      case TextFont.bYekan:
+        return 'BYekan';
+      case TextFont.iranSans:
+        return 'IranSans';
+    }
+  }
 
   double get fontSize {
     switch (size) {
@@ -71,6 +73,7 @@ class Text extends M.StatelessWidget {
     return M.Text(
       text,
       style: TextStyle(
+        fontFamily: fontFamily,
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: color,

@@ -22,12 +22,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/logos/
-    - assets/imgs/products/
-    - assets/imgs/categories/
-    - assets/icons/
-
   fonts:
     - family: IranSans
       fonts:
@@ -43,3 +37,11 @@ flutter:
           weight: 700
         # - asset: assets/fonts/IRANSans_FaNum_Black.ttf
         # weight: 800
+    - family: BYekan
+      fonts:
+        - asset:  assets/fonts/Yekan.ttf
+  assets:
+    - assets/logos/
+    - assets/imgs/products/
+    - assets/imgs/categories/
+    - assets/icons/

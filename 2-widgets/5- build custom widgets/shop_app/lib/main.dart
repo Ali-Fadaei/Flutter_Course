@@ -205,7 +205,7 @@ class _MainAppState extends State<MainApp> {
         Locale('fa', 'IR'),
         Locale('en', 'US'),
       ],
-      locale: Locale('en', 'US'),
+      locale: Locale('fa', 'IR'),
       home: Scaffold(
         appBar: U.AppBar.primary(
           onMenuPressed: () {},
@@ -265,7 +265,9 @@ class _MainAppState extends State<MainApp> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: IndexedStack(
+          child:
+              // getPage(selectedDes),
+              IndexedStack(
             index: selectedDes,
             children: [
               ProfilePage(),
