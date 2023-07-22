@@ -1,16 +1,16 @@
 import 'package:shop_app_m3/models/product.dart';
 
 class ShopCard {
-//
-  List<ShopItem> shopItems;
+
+   List<Product> shopItems;
 
   String deliveryAddress;
 
   DateTime? deliveryTime;
 
   ShopCard({
-    this.shopItems = const [],
-    this.deliveryAddress = '',
+    required this.shopItems,
+    this.deliveryAddress = 'Ohadi',
     this.deliveryTime,
   });
 
@@ -19,14 +19,3 @@ class ShopCard {
   }
 }
 
-class ShopItem {
-  //
-  Product product;
-
-  int count;
-
-  ShopItem({
-    required this.product,
-    this.count = 1,
-  });
-}

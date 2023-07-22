@@ -16,7 +16,6 @@ class Product {
   final String description;
 
   final Category category;
-
   Product({
     required this.title,
     required this.rating,

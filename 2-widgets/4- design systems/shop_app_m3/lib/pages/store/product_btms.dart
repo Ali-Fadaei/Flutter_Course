@@ -46,11 +46,8 @@ class ProductBottomSheet extends StatefulWidget {
 class ProductBottomSheetState extends State<ProductBottomSheet> {
 //
 
-  void onAddtoShopCardPressed(Product product ){
-    onAddtoShopCardPressed(product);
-  }
+  
 
-   Product? product;
 
   
   var count = 1;
@@ -255,9 +252,8 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                     SizedBox(
                         child: GestureDetector(
                       onTap: () => {
-                        product= product,
-                        onAddtoShopCardPressed(product!),
-                        print("*** Add to Cart Button is Workin Correctly *** ")
+                        widget.onAddtoShopCardPressed(widget.product),
+                        print("*** Add to Cart Button is Workin Correctly when calling from product btms *** ")
                       },
                       child: Container(
                         width: 300,

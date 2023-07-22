@@ -40,7 +40,6 @@ List<Category> categories = [
 ];
 
 List<Product> products = [
-  
   Product(
     title: 'Samsung A14',
     rating: 5,
@@ -97,6 +96,9 @@ List<Product> products = [
   ),
 ];
 
+List<Product> shopItems=[];
+
+ShopCard shopCard = ShopCard(shopItems: shopItems);
 void main() {
   runApp(const MainApp());
 }
@@ -113,12 +115,9 @@ class _MainAppState extends State<MainApp> {
 //
   int selectedDes = 2;
 
-  var shopCard = ShopCard();
-
   List<Product> favorites = [];
 
   void onFavoriatePressed(Product product) {
-
     setState(
       () {
         if (favorites.contains(product)) {
@@ -129,55 +128,68 @@ class _MainAppState extends State<MainApp> {
       },
     );
   }
-
   void onAddtoShopCardPressed(Product product) {
     setState(
       () {
-        for (var element in shopCard.shopItems) {
-          if (element.product == product) {
-            element.count++;
-          } else {
-            shopCard.shopItems.add(
-              ShopItem(product: product),
-            );
-          }
-        }
+        // for (var element in shopCard.shopItems) {
+        //   if (element.product == product) {
+        //     print("product counter incremented correclty");
+        //     element.count++;
+        //   } else {
+        //     print("on Add shop Card Pressed Event is Working Correctly from main when that item doesnt exist in shop item list");
+        //     shopCard.shopItems.add(
+        //       ShopItem(product: product),
+
+        //     );
+        //   }
+        // }
+        // Create a new list and copy all the elements from the original list.
+        List<Product> newShopItems = List.from(shopItems);
+
+        // Now, you can modify the new list as usual.
+        newShopItems.add(product);
+
+        // Update the shopItems property in the ShopCard class.
+        shopCard.shopItems = newShopItems;
       },
     );
   }
-
-  void onRemovetoShopCardPressed(Product product) {
-    setState(
-      () {
-        for (var element in shopCard.shopItems) {
-          if (element.product == product) {
-            if (element.count <= 1) {
-              shopCard.shopItems.remove(element);
-            } else {
-              element.count--;
-            }
-          }
-        }
-      },
-    );
-  }
-
-  Widget getPage(int index) {
-    var temp = [
-      ProfilePage(),
-      FavoritesPage(
-        favorites: favorites,
-        onFavoriatePressed: onFavoriatePressed,
-        onAddtoShopCardPressed: onAddtoShopCardPressed,
-        products: products,
-      ),
-      StorePage(products: products, onFavoriatePressed: onFavoriatePressed, onAddtoShopCardPressed: onAddtoShopCardPressed,),
-      CartPage(),
-      CategoriesPage(),
-    ];
-    return temp[index];
-  }
-
+  // void onRemovetoShopCardPressed(Product product) {
+  //   setState(
+  //     () {
+  //       for (var element in shopCard.shopItems) {
+  //         if (element.product == product) {
+  //           if (element.count <= 1) {
+  //             shopCard.shopItems.remove(element);
+  //           } else {
+  //             element.count--;
+  //           }
+  //         }
+  //       }
+  //     },
+  //   );
+  // }
+  // Widget getPage(int index) {
+  //   var temp = [
+  //     ProfilePage(),
+  //     FavoritesPage(
+  //       favorites: favorites,
+  //       onFavoriatePressed: onFavoriatePressed,
+  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
+  //       products: products,
+  //     ),
+  //     StorePage(
+  //       products: products,
+  //       onFavoriatePressed: onFavoriatePressed,
+  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
+  //     ),
+  //     CartPage(
+  //       shopCard: shopCard,
+  //     ),
+  //     CategoriesPage(),
+  //   ];
+  //   return temp[index];
+  // }
   @override
   Widget build(BuildContext context) {
 //
@@ -277,7 +289,13 @@ class _MainAppState extends State<MainApp> {
                 onFavoriatePressed: onFavoriatePressed,
                 onAddtoShopCardPressed: onAddtoShopCardPressed,
               ),
-              CartPage(),
+              CartPage(
+                 favorites: favorites,
+                  onFavoriatePressed: onFavoriatePressed,
+                  onAddtoShopCardPressed: onAddtoShopCardPressed,
+                  products: products,
+                shopCard: shopCard,
+              ),
               CategoriesPage(),
             ],
           ),
