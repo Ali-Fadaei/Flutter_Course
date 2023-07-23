@@ -1,6 +1,6 @@
 import 'package:shop_app_m3/models/product.dart';
 
-class ShopCard {
+class ShopCart {
 //
   List<ShopItem> shopItems;
 
@@ -8,7 +8,7 @@ class ShopCard {
 
   DateTime? deliveryTime;
 
-  ShopCard({
+  ShopCart({
     required this.shopItems,
     this.deliveryAddress = '',
     this.deliveryTime,

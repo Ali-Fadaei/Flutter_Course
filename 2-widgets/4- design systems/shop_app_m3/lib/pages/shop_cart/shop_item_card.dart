@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shop_card.dart';
+import 'package:shop_app_m3/models/shop_cart.dart';
 
 import '../store/product_btms.dart';
 
@@ -12,7 +12,7 @@ class ShopCardItem extends StatelessWidget {
 
   final Product product;
 
-  final ShopCard shopCard;
+  final ShopCart shopCard;
 
   final void Function(Product product) onFavoriatePressed;
 

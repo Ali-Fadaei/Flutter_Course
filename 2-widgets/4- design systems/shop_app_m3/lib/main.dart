@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_m3/models/category.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shop_card.dart';
-import 'package:shop_app_m3/pages/shop_card/cart_page.dart';
+import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/pages/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
 import 'package:shop_app_m3/pages/profile/profile_page.dart';
@@ -114,7 +114,7 @@ class _MainAppState extends State<MainApp> {
 
   List<Product> favorites = [];
 
-  ShopCard shopCard = ShopCard(shopItems: []);
+  ShopCart shopCard = ShopCart(shopItems: []);
 
   void onFavoriatePressed(Product product) {
     setState(
