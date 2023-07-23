@@ -12,6 +12,8 @@ class CartPage extends StatefulWidget {
 
   final void Function(Product product) onFavoriatePressed;
   final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onCounterIncremented;
+  final void Function(Product product) onCounterDecremented;
   CartPage({
     super.key,
     required this.shopCard,
@@ -19,6 +21,8 @@ class CartPage extends StatefulWidget {
     required this.onFavoriatePressed,
     required this.onAddtoShopCardPressed,
     required this.products,
+    required this.onCounterIncremented,
+    required this.onCounterDecremented,
   });
 
   @override
@@ -39,7 +43,10 @@ class _CartPageState extends State<CartPage> {
                       product: element,
                       favorites: widget.favorites,
                       onFavoriatePressed: widget.onFavoriatePressed,
-                      onAddtoShopCardPressed: widget.onAddtoShopCardPressed),
+                      onAddtoShopCardPressed: widget.onAddtoShopCardPressed,
+                      onCounterIncremented: widget.onCounterIncremented,
+                      onCounterDecremented: widget.onCounterDecremented,
+                      ),
                   SizedBox(height: 15)
                 ],
               )

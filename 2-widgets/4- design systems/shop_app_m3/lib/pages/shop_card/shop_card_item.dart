@@ -12,6 +12,8 @@ class ShopCardItem extends StatelessWidget {
 
   final void Function(Product product) onFavoriatePressed;
   final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onCounterIncremented;
+  final void Function(Product product) onCounterDecremented;
 
   const ShopCardItem({
     super.key,
@@ -20,13 +22,19 @@ class ShopCardItem extends StatelessWidget {
     required this.favorites,
     required this.onFavoriatePressed,
     required this.onAddtoShopCardPressed,
+    required this.onCounterIncremented,
+    required this.onCounterDecremented,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => ProductBottomSheet.show(context, product, favorites,
-          onFavoriatePressed, onAddtoShopCardPressed),
+      onTap: () => ProductBottomSheet.show(
+          context,
+          product,
+          favorites,
+          onFavoriatePressed,
+          onAddtoShopCardPressed),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -49,7 +57,42 @@ class ShopCardItem extends StatelessWidget {
                     textAlign: TextAlign.right,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  Text('${product.price}تومان', textAlign: TextAlign.right),
+                  Text('${product.price}تومان',
+                      textAlign: TextAlign.right),
+                  Row(
+                    children: [
+                      IconButton.outlined(
+                        onPressed: () =>
+                          onCounterDecremented(product),
+                        icon: Icon(Icons.remove),
+                      ),
+                      // Text(
+                      //   " - ",
+                      //   style: TextStyle(
+                      //     fontSize: 20,
+                      //   ),
+                      // ),
+                      SizedBox(width: 10),
+                      Text(
+                        product.count.toString(),
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      IconButton.outlined(
+                        onPressed: () =>
+                          onCounterIncremented(product),
+                        icon: Icon(Icons.add),
+                      ),
+                      // Text(
+                      // " + ",
+                      // style: TextStyle(
+                      // fontSize: 20,
+                      // ),
+                      // )
+                    ],
+                  ),
                 ],
               ),
               Spacer(),

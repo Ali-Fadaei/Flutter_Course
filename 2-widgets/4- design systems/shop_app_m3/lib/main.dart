@@ -96,7 +96,7 @@ List<Product> products = [
   ),
 ];
 
-List<Product> shopItems=[];
+List<Product> shopItems = [];
 
 ShopCard shopCard = ShopCard(shopItems: shopItems);
 void main() {
@@ -128,6 +128,29 @@ class _MainAppState extends State<MainApp> {
       },
     );
   }
+
+  void onCounterIncremented(Product product) {
+    setState(() {
+      product.count++;
+    });
+  }
+
+  void onCounterDecremented(Product product) {
+    setState(() {
+      if (product.count <= 1) {
+        
+        print("products count became 0!");
+        List<Product> newShopItems = List.from(shopItems);
+        shopItems.remove(product);
+        print(shopItems);
+        newShopItems.remove(product);
+      }
+      else{
+        product.count--;
+      }
+    });
+  }
+
   void onAddtoShopCardPressed(Product product) {
     setState(
       () {
@@ -148,12 +171,13 @@ class _MainAppState extends State<MainApp> {
 
         // Now, you can modify the new list as usual.
         newShopItems.add(product);
-
+      shopCard.shopItems.add(product);
         // Update the shopItems property in the ShopCard class.
-        shopCard.shopItems = newShopItems;
       },
+      
     );
   }
+
   // void onRemovetoShopCardPressed(Product product) {
   //   setState(
   //     () {
@@ -290,11 +314,13 @@ class _MainAppState extends State<MainApp> {
                 onAddtoShopCardPressed: onAddtoShopCardPressed,
               ),
               CartPage(
-                 favorites: favorites,
-                  onFavoriatePressed: onFavoriatePressed,
-                  onAddtoShopCardPressed: onAddtoShopCardPressed,
-                  products: products,
+                favorites: favorites,
+                onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCardPressed: onAddtoShopCardPressed,
+                products: products,
                 shopCard: shopCard,
+                onCounterDecremented: onCounterDecremented,
+                onCounterIncremented: onCounterIncremented,
               ),
               CategoriesPage(),
             ],

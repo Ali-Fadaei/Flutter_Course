@@ -16,6 +16,7 @@ class Product {
   final String description;
 
   final Category category;
+  int count;
   Product({
     required this.title,
     required this.rating,
@@ -23,5 +24,6 @@ class Product {
     required this.image,
     required this.description,
     required this.category,
+    this.count = 1
   }) : id = UniqueKey();
 }
