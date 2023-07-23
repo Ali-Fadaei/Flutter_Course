@@ -15,7 +15,11 @@ class ShopCart {
   });
 
   int get totalAmount {
-    return 0;
+    var temp = 0;
+    for (var element in shopItems) {
+      temp += element.product.price;
+    }
+    return temp;
   }
 }
 

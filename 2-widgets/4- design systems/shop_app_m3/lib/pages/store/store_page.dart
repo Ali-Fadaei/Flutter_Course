@@ -9,11 +9,11 @@ class StorePage extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovetoShopCartPressed;
 
   final void Function(Product) onFavoriatePressed;
 
@@ -22,9 +22,9 @@ class StorePage extends StatelessWidget {
     this.products = const [],
     this.favorites = const [],
     required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.shopCard,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovetoShopCartPressed,
+    required this.shopCart,
   });
 
   @override
@@ -99,9 +99,9 @@ class StorePage extends StatelessWidget {
                         product: element,
                         favorites: favorites,
                         onFavoriatePressed: onFavoriatePressed,
-                        shopCard: shopCard,
-                        onAddtoShopCardPressed: onAddtoShopCardPressed,
-                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+                        shopCart: shopCart,
+                        onAddtoShopCartPressed: onAddtoShopCartPressed,
+                        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
                       ),
                       SizedBox(width: 8),
                     ],
@@ -137,10 +137,10 @@ class StorePage extends StatelessWidget {
                       ProductCard(
                         product: element,
                         favorites: favorites,
-                        shopCard: shopCard,
+                        shopCart: shopCart,
                         onFavoriatePressed: onFavoriatePressed,
-                        onAddtoShopCardPressed: onAddtoShopCardPressed,
-                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+                        onAddtoShopCartPressed: onAddtoShopCartPressed,
+                        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
                       ),
                       SizedBox(width: 8),
                     ],

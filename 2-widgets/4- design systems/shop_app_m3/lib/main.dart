@@ -114,7 +114,7 @@ class _MainAppState extends State<MainApp> {
 
   List<Product> favorites = [];
 
-  ShopCart shopCard = ShopCart(shopItems: []);
+  ShopCart shopCart = ShopCart(shopItems: []);
 
   void onFavoriatePressed(Product product) {
     setState(
@@ -128,50 +128,54 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  void onAddtoShopCardPressed(Product product) {
-    print(product.id);
+  void onAddtoShopCartPressed(Product product) {
     setState(
       () {
-        if (shopCard.shopItems.isEmpty) {
-          print("created empty");
-          shopCard.shopItems.add(
-            ShopItem(product: product),
-          );
-        } else {
-          // var temp = shopCard.shopItems.firstWhere((element) {
-          //   return element.product == product;
-          // });
-          try {
-            var temp = shopCard.shopItems.firstWhere((element) {
-              return element.product == product;
-            });
-            temp.count++;
-          } catch (_) {
-            print(_);
-            shopCard.shopItems.add(
-              ShopItem(product: product),
-            );
-          }
+        // var existingShopItemIndex = shopCard.shopItems.indexWhere(
+        //   (element) => element.product == product,
+        // );
+        // if (existingShopItemIndex == -1) {
+        //   shopCard.shopItems.add(ShopItem(product: product));
+        // } else {
+        //   var existingShopItem = shopCard.shopItems[existingShopItemIndex];
+        //   if (existingShopItem.count <= 10) existingShopItem.count++;
+        // }
+        try {
+          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+            return element.product == product;
+          });
+          if (existingShopItem.count <= 10) existingShopItem.count++;
+        } catch (_) {
+          shopCart.shopItems.add(ShopItem(product: product));
         }
       },
     );
   }
 
-  void onRemovetoShopCardPressed(
-    Product product,
-  ) {
+  void onRemovefromShopCartPressed(Product product) {
     setState(
       () {
-        for (var element in shopCard.shopItems) {
-          if (element.product == product) {
-            if (element.count <= 1) {
-              shopCard.shopItems.remove(element);
-              break;
-            } else {
-              element.count--;
-            }
+        // var existingShopItemIndex = shopCard.shopItems.indexWhere(
+        //   (element) => element.product == product,
+        // );
+        // if (existingShopItemIndex != -1) {
+        //   var existingShopItem = shopCard.shopItems[existingShopItemIndex];
+        //   if (existingShopItem.count <= 1) {
+        //     shopCard.shopItems.remove(existingShopItem);
+        //   } else {
+        //     existingShopItem.count--;
+        //   }
+        // }
+        try {
+          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+            return element.product == product;
+          });
+          if (existingShopItem.count <= 1) {
+            shopCart.shopItems.remove(existingShopItem);
+          } else {
+            existingShopItem.count--;
           }
-        }
+        } catch (_) {}
       },
     );
   }
@@ -245,13 +249,9 @@ class _MainAppState extends State<MainApp> {
           ),
         ),
         bottomNavigationBar: NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          onDestinationSelected: (index) {
-            setState(() {
-              selectedDes = index;
-            });
-          },
           selectedIndex: selectedDes,
+          onDestinationSelected: (index) => setState(() => selectedDes = index),
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.person_2_outlined),
@@ -288,31 +288,32 @@ class _MainAppState extends State<MainApp> {
               ProfilePage(),
               FavoritesPage(
                 favorites: favorites,
-                shopCard: shopCard,
+                shopCart: shopCart,
                 products: products,
                 onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCardPressed: onAddtoShopCardPressed,
-                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
               ),
               StorePage(
                 products: products,
                 favorites: favorites,
-                shopCard: shopCard,
+                shopCart: shopCart,
                 onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCardPressed: onAddtoShopCardPressed,
-                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
               ),
               CartPage(
                 products: products,
-                shopCard: shopCard,
+                shopCard: shopCart,
                 favorites: favorites,
                 onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCardPressed: onAddtoShopCardPressed,
-                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
               ),
               CategoriesPage(),
             ],
           ),
+          // getPage[selectedDes],
         ),
       ),
     );
