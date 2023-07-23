@@ -282,6 +282,12 @@ class _MainAppState extends State<MainApp> {
               ),
               CartPage(),
               CategoriesPage(),
+              U.OutlinedButton(
+                title: 'hahahaha',
+                onPressed: (){},
+                color: U.OutlinedButtonColor.primary,
+                size: U.OutlinedButtonSize.md,
+              )
             ],
           ),
         ),
