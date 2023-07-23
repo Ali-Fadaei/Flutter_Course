@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
+import 'package:shop_app_m3/models/shop_card.dart';
 import 'package:shop_app_m3/pages/store/product_card.dart';
 
 class StorePage extends StatelessWidget {
@@ -7,7 +8,12 @@ class StorePage extends StatelessWidget {
   final List<Product> products;
 
   final List<Product> favorites;
-  final void Function(Product) onAddtoShopCardPressed ; 
+
+  final ShopCard shopCard;
+
+  final void Function(Product product) onAddtoShopCardPressed;
+
+  final void Function(Product product) onRemovetoShopCardPressed;
 
   final void Function(Product) onFavoriatePressed;
 
@@ -15,7 +21,10 @@ class StorePage extends StatelessWidget {
     super.key,
     this.products = const [],
     this.favorites = const [],
-    required this.onFavoriatePressed, required this.onAddtoShopCardPressed,
+    required this.onFavoriatePressed,
+    required this.onAddtoShopCardPressed,
+    required this.onRemovetoShopCardPressed,
+    required this.shopCard,
   });
 
   @override
@@ -90,7 +99,9 @@ class StorePage extends StatelessWidget {
                         product: element,
                         favorites: favorites,
                         onFavoriatePressed: onFavoriatePressed,
+                        shopCard: shopCard,
                         onAddtoShopCardPressed: onAddtoShopCardPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
                       ),
                       SizedBox(width: 8),
                     ],
@@ -126,8 +137,10 @@ class StorePage extends StatelessWidget {
                       ProductCard(
                         product: element,
                         favorites: favorites,
+                        shopCard: shopCard,
                         onFavoriatePressed: onFavoriatePressed,
                         onAddtoShopCardPressed: onAddtoShopCardPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
                       ),
                       SizedBox(width: 8),
                     ],

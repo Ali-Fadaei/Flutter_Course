@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
+import 'package:shop_app_m3/models/shop_card.dart';
 
 class ProductBottomSheet extends StatefulWidget {
 //
   static show(
-      BuildContext context,
-      Product product,
-      List<Product> favorites,
-      void Function(Product product) onFavoriatePressed,
-      void Function(Product product) onAddtoShopCardPressed) {
-    // var colorScheme = ColorScheme.fromSeed(seedColor: product.category.color);
+    BuildContext context,
+    Product product,
+    List<Product> favorites,
+    ShopCard shopCard,
+    void Function(Product product) onFavoriatePressed,
+    void Function(Product product) onAddtoShopCardPressed,
+    void Function(Product product) onRemovetoShopCardPressed,
+  ) {
+    int count = 0;
+    for (var element in shopCard.shopItems) {
+      if (element.product == product) {
+        count = element.count;
+      }
+    }
     showBottomSheet(
-      // backgroundColor: colorScheme.surfaceVariant,
       context: context,
       builder: (context) {
         return ProductBottomSheet(
@@ -19,6 +27,8 @@ class ProductBottomSheet extends StatefulWidget {
           onFavoriatePressed: onFavoriatePressed,
           favorits: favorites,
           onAddtoShopCardPressed: onAddtoShopCardPressed,
+          onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+          count: count,
         );
       },
     );
@@ -28,15 +38,22 @@ class ProductBottomSheet extends StatefulWidget {
 
   final bool isFavorit;
 
+  final int count;
+
   final void Function(Product product) onFavoriatePressed;
+
   final void Function(Product product) onAddtoShopCardPressed;
+
+  final void Function(Product product) onRemovetoShopCardPressed;
 
   ProductBottomSheet({
     super.key,
     required List<Product> favorits,
+    required this.count,
     required this.product,
     required this.onFavoriatePressed,
     required this.onAddtoShopCardPressed,
+    required this.onRemovetoShopCardPressed,
   }) : isFavorit = favorits.contains(product);
 
   @override
@@ -45,25 +62,22 @@ class ProductBottomSheet extends StatefulWidget {
 
 class ProductBottomSheetState extends State<ProductBottomSheet> {
 //
-
-  
-
-
-  
-  var count = 1;
+  var count = 0;
 
   var isFav = false;
 
-  void onCounterIncremented() {
+  void _onAddtoShopCardPressed() {
     if (count < 10) {
+      widget.onAddtoShopCardPressed(widget.product);
       setState(() {
         count++;
       });
     }
   }
 
-  void onCounterDecremented() {
+  void _onRemovetoShopCardPressed() {
     if (count > 1) {
+      widget.onRemovetoShopCardPressed(widget.product);
       setState(() {
         count--;
       });
@@ -80,6 +94,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   @override
   void initState() {
     isFav = widget.isFavorit;
+    count = widget.count;
     super.initState();
   }
 
@@ -138,7 +153,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             Text(widget.product.category.title)
                           ],
                         ),
-                        Container(
+                        Center(
                           child: IconButton(
                             onPressed: _onFavoriatePressed,
                             icon: Icon(
@@ -154,51 +169,13 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                       height: 25,
                     ),
 
-                    /// Counter and Price
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            IconButton.outlined(
-                              onPressed: onCounterDecremented,
-                              icon: Icon(Icons.remove),
-                            ),
-                            // Text(
-                            //   " - ",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //   ),
-                            // ),
-                            SizedBox(width: 10),
-                            Text(
-                              count.toString(),
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            IconButton.outlined(
-                              onPressed: onCounterIncremented,
-                              icon: Icon(Icons.add),
-                            ),
-                            // Text(
-                            // " + ",
-                            // style: TextStyle(
-                            // fontSize: 20,
-                            // ),
-                            // )
-                          ],
-                        ),
-                        Container(
-                          child: Text(
-                            "${widget.product.price.toString()} تومان",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
+                    ///  Price
+                    Center(
+                      child: Text(
+                        "${widget.product.price.toString()} تومان",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(
                       height: 25,
@@ -250,26 +227,47 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
                     /// Add to Cart
                     SizedBox(
-                        child: GestureDetector(
-                      onTap: () => {
-                        widget.onAddtoShopCardPressed(widget.product),
-                        print("*** Add to Cart Button is Workin Correctly when calling from product btms *** ")
-                      },
-                      child: Container(
                         width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Add to Cart",
-                            style: TextStyle(color: Colors.white),
+                        child: GestureDetector(
+                          onTap: () => {
+                            widget.onAddtoShopCardPressed(
+                              widget.product,
+                            ),
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton.outlined(
+                                onPressed: _onRemovetoShopCardPressed,
+                                icon: Icon(Icons.remove),
+                              ),
+                              // Text(
+                              //   " - ",
+                              //   style: TextStyle(
+                              //     fontSize: 20,
+                              //   ),
+                              // ),
+                              SizedBox(width: 15),
+                              Text(
+                                count.toString(),
+                                style: TextStyle(
+                                  fontSize: 24,
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              IconButton.outlined(
+                                onPressed: _onAddtoShopCardPressed,
+                                icon: Icon(Icons.add),
+                              ),
+                              // Text(
+                              // " + ",
+                              // style: TextStyle(
+                              // fontSize: 20,
+                              // ),
+                              // )
+                            ],
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                     SizedBox(
                       height: 15,
                     ),

@@ -1,8 +1,8 @@
 import 'package:shop_app_m3/models/product.dart';
 
 class ShopCard {
-
-   List<Product> shopItems;
+//
+  List<ShopItem> shopItems;
 
   String deliveryAddress;
 
@@ -10,7 +10,7 @@ class ShopCard {
 
   ShopCard({
     required this.shopItems,
-    this.deliveryAddress = 'Ohadi',
+    this.deliveryAddress = '',
     this.deliveryTime,
   });
 
@@ -19,3 +19,14 @@ class ShopCard {
   }
 }
 
+class ShopItem {
+//
+  final Product product;
+
+  int count;
+
+  ShopItem({
+    required this.product,
+    this.count = 1,
+  });
+}

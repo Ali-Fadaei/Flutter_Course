@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
+import 'package:shop_app_m3/models/shop_card.dart';
 import 'package:shop_app_m3/pages/store/product_btms.dart';
 
 class ProductCard extends StatelessWidget {
 //
   final Product product;
 
+  final ShopCard shopCard;
+
   final List<Product> favorites;
-  final void Function(Product) onAddtoShopCardPressed ; 
-  
+
+  final void Function(Product product) onAddtoShopCardPressed;
+
+  final void Function(Product product) onRemovetoShopCardPressed;
+
   final void Function(Product) onFavoriatePressed;
 
   const ProductCard({
     super.key,
     required this.product,
     required this.favorites,
-    required this.onFavoriatePressed, required this.onAddtoShopCardPressed,
+    required this.shopCard,
+    required this.onFavoriatePressed,
+    required this.onAddtoShopCardPressed,
+    required this.onRemovetoShopCardPressed,
   });
 
   @override
@@ -25,8 +34,10 @@ class ProductCard extends StatelessWidget {
         context,
         product,
         favorites,
+        shopCard,
         onFavoriatePressed,
-        onAddtoShopCardPressed
+        onAddtoShopCardPressed,
+        onRemovetoShopCardPressed,
       ),
       child: SizedBox(
         width: 220,
@@ -50,7 +61,9 @@ class ProductCard extends StatelessWidget {
                     ),
                     Spacer(),
                     FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        onAddtoShopCardPressed(product);
+                      },
                       elevation: 2,
                       mini: true,
                       child: Icon(Icons.add),

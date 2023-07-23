@@ -96,9 +96,6 @@ List<Product> products = [
   ),
 ];
 
-List<Product> shopItems = [];
-
-ShopCard shopCard = ShopCard(shopItems: shopItems);
 void main() {
   runApp(const MainApp());
 }
@@ -117,6 +114,8 @@ class _MainAppState extends State<MainApp> {
 
   List<Product> favorites = [];
 
+  ShopCard shopCard = ShopCard(shopItems: []);
+
   void onFavoriatePressed(Product product) {
     setState(
       () {
@@ -129,70 +128,54 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  void onCounterIncremented(Product product) {
-    setState(() {
-      product.count++;
-    });
-  }
-
-  void onCounterDecremented(Product product) {
-    setState(() {
-      if (product.count <= 1) {
-        
-        print("products count became 0!");
-        List<Product> newShopItems = List.from(shopItems);
-        shopItems.remove(product);
-        print(shopItems);
-        newShopItems.remove(product);
-      }
-      else{
-        product.count--;
-      }
-    });
-  }
-
   void onAddtoShopCardPressed(Product product) {
+    print(product.id);
     setState(
       () {
-        // for (var element in shopCard.shopItems) {
-        //   if (element.product == product) {
-        //     print("product counter incremented correclty");
-        //     element.count++;
-        //   } else {
-        //     print("on Add shop Card Pressed Event is Working Correctly from main when that item doesnt exist in shop item list");
-        //     shopCard.shopItems.add(
-        //       ShopItem(product: product),
-
-        //     );
-        //   }
-        // }
-        // Create a new list and copy all the elements from the original list.
-        List<Product> newShopItems = List.from(shopItems);
-
-        // Now, you can modify the new list as usual.
-        newShopItems.add(product);
-      shopCard.shopItems.add(product);
-        // Update the shopItems property in the ShopCard class.
+        if (shopCard.shopItems.isEmpty) {
+          print("created empty");
+          shopCard.shopItems.add(
+            ShopItem(product: product),
+          );
+        } else {
+          // var temp = shopCard.shopItems.firstWhere((element) {
+          //   return element.product == product;
+          // });
+          try {
+            var temp = shopCard.shopItems.firstWhere((element) {
+              return element.product == product;
+            });
+            temp.count++;
+          } catch (_) {
+            print(_);
+            shopCard.shopItems.add(
+              ShopItem(product: product),
+            );
+          }
+        }
       },
-      
     );
   }
 
-  // void onRemovetoShopCardPressed(Product product) {
-  //   setState(
-  //     () {
-  //       for (var element in shopCard.shopItems) {
-  //         if (element.product == product) {
-  //           if (element.count <= 1) {
-  //             shopCard.shopItems.remove(element);
-  //           } else {
-  //             element.count--;
-  //           }
-  //         }
-  //       }
-  //     },
-  //   );
-  // }
+  void onRemovetoShopCardPressed(
+    Product product,
+  ) {
+    setState(
+      () {
+        for (var element in shopCard.shopItems) {
+          if (element.product == product) {
+            if (element.count <= 1) {
+              shopCard.shopItems.remove(element);
+              break;
+            } else {
+              element.count--;
+            }
+          }
+        }
+      },
+    );
+  }
+
   // Widget getPage(int index) {
   //   var temp = [
   //     ProfilePage(),
@@ -214,6 +197,7 @@ class _MainAppState extends State<MainApp> {
   //   ];
   //   return temp[index];
   // }
+
   @override
   Widget build(BuildContext context) {
 //
@@ -303,24 +287,28 @@ class _MainAppState extends State<MainApp> {
             children: [
               ProfilePage(),
               FavoritesPage(
-                  favorites: favorites,
-                  onFavoriatePressed: onFavoriatePressed,
-                  onAddtoShopCardPressed: onAddtoShopCardPressed,
-                  products: products),
+                favorites: favorites,
+                shopCard: shopCard,
+                products: products,
+                onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCardPressed: onAddtoShopCardPressed,
+                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
+              ),
               StorePage(
                 products: products,
                 favorites: favorites,
+                shopCard: shopCard,
                 onFavoriatePressed: onFavoriatePressed,
                 onAddtoShopCardPressed: onAddtoShopCardPressed,
+                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
               ),
               CartPage(
+                products: products,
+                shopCard: shopCard,
                 favorites: favorites,
                 onFavoriatePressed: onFavoriatePressed,
                 onAddtoShopCardPressed: onAddtoShopCardPressed,
-                products: products,
-                shopCard: shopCard,
-                onCounterDecremented: onCounterDecremented,
-                onCounterIncremented: onCounterIncremented,
+                onRemovetoShopCardPressed: onRemovetoShopCardPressed,
               ),
               CategoriesPage(),
             ],
