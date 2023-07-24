@@ -10,22 +10,22 @@ class FavoritesPage extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final void Function(Product product) onFavoriatePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovetoShopCartPressed;
 
   const FavoritesPage({
     super.key,
     required this.products,
     required this.favorites,
     required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.shopCard,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovetoShopCartPressed,
+    required this.shopCart,
   });
 
   @override
@@ -45,10 +45,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 FavoritesCard(
                   product: element,
                   favorites: widget.favorites,
-                  shopCard: widget.shopCard,
+                  shopCard: widget.shopCart,
                   onFavoriatePressed: widget.onFavoriatePressed,
-                  onAddtoShopCardPressed: widget.onAddtoShopCardPressed,
-                  onRemovetoShopCardPressed: widget.onRemovetoShopCardPressed,
+                  onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
+                  onRemovetoShopCardPressed: widget.onRemovetoShopCartPressed,
                 ),
                 SizedBox(height: 15)
               ],

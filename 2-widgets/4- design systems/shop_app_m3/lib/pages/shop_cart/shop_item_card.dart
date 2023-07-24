@@ -36,12 +36,12 @@ class ShopCardItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
-        shopItem.product,
-        favorites,
-        shopCard,
-        onFavoriatePressed,
-        onAddtoShopCardPressed,
-        onRemovetoShopCardPressed,
+        product: shopItem.product,
+        favorites: favorites,
+        shopCart: shopCard,
+        onFavoriatePressed: onFavoriatePressed,
+        onAddtoShopCartPressed: onAddtoShopCardPressed,
+        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
         child: Padding(

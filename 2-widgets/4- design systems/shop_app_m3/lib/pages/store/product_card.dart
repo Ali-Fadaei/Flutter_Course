@@ -7,13 +7,13 @@ class ProductCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final List<Product> favorites;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovetoShopCartPressed;
 
   final void Function(Product) onFavoriatePressed;
 
@@ -21,10 +21,10 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.favorites,
-    required this.shopCard,
+    required this.shopCart,
     required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovetoShopCartPressed,
   });
 
   @override
@@ -32,12 +32,12 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
-        product,
-        favorites,
-        shopCard,
-        onFavoriatePressed,
-        onAddtoShopCardPressed,
-        onRemovetoShopCardPressed,
+        product: product,
+        favorites: favorites,
+        shopCart: shopCart,
+        onFavoriatePressed: onFavoriatePressed,
+        onAddtoShopCartPressed: onAddtoShopCartPressed,
+        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
       ),
       child: SizedBox(
         width: 220,
@@ -62,7 +62,7 @@ class ProductCard extends StatelessWidget {
                     Spacer(),
                     FloatingActionButton(
                       onPressed: () {
-                        onAddtoShopCardPressed(product);
+                        onAddtoShopCartPressed(product);
                       },
                       elevation: 2,
                       mini: true,

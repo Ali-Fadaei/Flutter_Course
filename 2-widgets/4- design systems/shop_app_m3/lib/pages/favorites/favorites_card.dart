@@ -31,13 +31,14 @@ class FavoritesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
-          context,
-          product,
-          favorites,
-          shopCard,
-          onFavoriatePressed,
-          onAddtoShopCardPressed,
-          onRemovetoShopCardPressed),
+        context,
+        product: product,
+        favorites: favorites,
+        shopCart: shopCard,
+        onFavoriatePressed: onFavoriatePressed,
+        onAddtoShopCartPressed: onAddtoShopCardPressed,
+        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+      ),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
