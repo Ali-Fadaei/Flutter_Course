@@ -15,7 +15,7 @@ class TextInput extends StatelessWidget {
 
   const TextInput({
     super.key,
-    this.title = 'notTitle',
+    this.title = 'emptyTitle',
     this.hintText,
     this.isRequired = false,
     this.onEditingCompleted,
