@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/shop_cart.dart';
+import 'package:shop_app/pages/shop_cart/shop_item_card.dart';
 
 import '../../models/product.dart';
-import 'favorites_card.dart';
 
-class FavoritesPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
 //
   final List<Product> products;
 
-  final List<Product> favorites;
+  final ShopCart shopCard;
 
-  final ShopCart shopCart;
+  final List<Product> favorites;
 
   final void Function(Product product) onFavoriatePressed;
 
@@ -18,24 +18,29 @@ class FavoritesPage extends StatelessWidget {
 
   final void Function(Product product) onRemovetoShopCartPressed;
 
-  const FavoritesPage({
+  const CartPage({
     super.key,
-    required this.products,
+    required this.shopCard,
     required this.favorites,
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
+    required this.products,
     required this.onRemovetoShopCartPressed,
-    required this.shopCart,
   });
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
   Widget build(BuildContext context) {
-    return favorites.isEmpty
+    return widget.shopCard.shopItems.isEmpty
         ? Center(
-            child: SizedBox(
+            child: Container(
               width: 400,
               child: Image.asset(
-                'assets/imgs/vectors/empty_fav.png',
+                'assets/imgs/vectors/empty_cart.png',
                 fit: BoxFit.fill,
               ),
             ),
@@ -43,16 +48,18 @@ class FavoritesPage extends StatelessWidget {
         : SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
-              children: favorites
+              children: widget.shopCard.shopItems
                   .expand(
                     (element) => [
-                      FavoritesCard(
-                        product: element,
-                        favorites: favorites,
-                        shopCard: shopCart,
-                        onFavoriatePressed: onFavoriatePressed,
-                        onAddtoShopCardPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+                      ShopCardItem(
+                        shopItem: element,
+                        favorites: widget.favorites,
+                        shopCard: widget.shopCard,
+                        onFavoriatePressed: widget.onFavoriatePressed,
+                        onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
+                        onRemovetoShopCardPressed:
+                            widget.onRemovetoShopCartPressed,
+                        product: element.product,
                       ),
                       SizedBox(height: 15)
                     ],

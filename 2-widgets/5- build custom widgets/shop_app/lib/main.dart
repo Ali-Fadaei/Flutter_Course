@@ -4,40 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app/models/category.dart';
 import 'package:shop_app/models/product.dart';
-import 'package:shop_app/models/shod_card.dart';
-import 'package:shop_app/pages/shop_card/cart_page.dart';
+import 'package:shop_app/models/shop_cart.dart';
+import 'package:shop_app/pages/shop_cart/shop_cart_page.dart';
 import 'package:shop_app/pages/categories/categories_page.dart';
 import 'package:shop_app/pages/favorites/favorites_page.dart';
 import 'package:shop_app/pages/profile/profile_page.dart';
 import 'package:shop_app/pages/store/store_page.dart';
 
-import 'ui_kit/ui_kit.dart' as U;
-
 List<Category> categories = [
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.red,
+    color: Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.redAccent,
+    color: Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
+    color: Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
-  ),
-  Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
+    color: Color.fromARGB(255, 218, 241, 254),
   ),
 ];
 
@@ -114,9 +107,9 @@ class _MainAppState extends State<MainApp> {
 //
   int selectedDes = 2;
 
-  var shopCard = ShopCard();
-
   List<Product> favorites = [];
+
+  ShopCart shopCart = ShopCart(shopItems: []);
 
   void onFavoriatePressed(Product product) {
     setState(
@@ -130,65 +123,88 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  void onAddtoShopCardPressed(Product product) {
+  void onAddtoShopCartPressed(Product product) {
     setState(
       () {
-        for (var element in shopCard.shopItems) {
-          if (element.product == product) {
-            element.count++;
+        // var existingShopItemIndex = shopCard.shopItems.indexWhere(
+        //   (element) => element.product == product,
+        // );
+        // if (existingShopItemIndex == -1) {
+        //   shopCard.shopItems.add(ShopItem(product: product));
+        // } else {
+        //   var existingShopItem = shopCard.shopItems[existingShopItemIndex];
+        //   if (existingShopItem.count <= 10) existingShopItem.count++;
+        // }
+        try {
+          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+            return element.product == product;
+          });
+          if (existingShopItem.count <= 10) existingShopItem.count++;
+        } catch (_) {
+          shopCart.shopItems.add(ShopItem(product: product));
+        }
+      },
+    );
+  }
+
+  void onRemovefromShopCartPressed(Product product) {
+    setState(
+      () {
+        // var existingShopItemIndex = shopCard.shopItems.indexWhere(
+        //   (element) => element.product == product,
+        // );
+        // if (existingShopItemIndex != -1) {
+        //   var existingShopItem = shopCard.shopItems[existingShopItemIndex];
+        //   if (existingShopItem.count <= 1) {
+        //     shopCard.shopItems.remove(existingShopItem);
+        //   } else {
+        //     existingShopItem.count--;
+        //   }
+        // }
+        try {
+          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+            return element.product == product;
+          });
+          if (existingShopItem.count <= 1) {
+            shopCart.shopItems.remove(existingShopItem);
           } else {
-            shopCard.shopItems.add(
-              ShopItem(product: product),
-            );
+            existingShopItem.count--;
           }
-        }
+        } catch (_) {}
       },
     );
   }
 
-  void onRemovetoShopCardPressed(Product product) {
-    setState(
-      () {
-        for (var element in shopCard.shopItems) {
-          if (element.product == product) {
-            if (element.count <= 1) {
-              shopCard.shopItems.remove(element);
-            } else {
-              element.count--;
-            }
-          }
-        }
-      },
-    );
-  }
-
-  Widget getPage(int index) {
-    var temp = [
-      ProfilePage(),
-      FavoritesPage(
-        favorites: favorites,
-        onFavoriatePressed: onFavoriatePressed,
-        products: products,
-      ),
-      StorePage(products: products, onFavoriatePressed: onFavoriatePressed),
-      CartPage(),
-      CategoriesPage(),
-    ];
-    return temp[index];
-  }
+  // Widget getPage(int index) {
+  //   var temp = [
+  //     ProfilePage(),
+  //     FavoritesPage(
+  //       favorites: favorites,
+  //       onFavoriatePressed: onFavoriatePressed,
+  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
+  //       products: products,
+  //     ),
+  //     StorePage(
+  //       products: products,
+  //       onFavoriatePressed: onFavoriatePressed,
+  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
+  //     ),
+  //     CartPage(
+  //       shopCard: shopCard,
+  //     ),
+  //     CategoriesPage(),
+  //   ];
+  //   return temp[index];
+  // }
 
   @override
   Widget build(BuildContext context) {
 //
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
+      theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          // brightness: Brightness.dark,
-          brightness: Brightness.light,
-          seedColor: Colors.cyan,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
       ),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
@@ -205,59 +221,66 @@ class _MainAppState extends State<MainApp> {
         Locale('fa', 'IR'),
         Locale('en', 'US'),
       ],
-      locale: Locale('fa', 'IR'),
+      locale: Locale('en', 'US'),
       home: Scaffold(
-        appBar: U.AppBar.primary(
-          onMenuPressed: () {},
-          onNotifPressed: () {},
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 65,
+          title: Center(child: Image.asset('assets/icons/Amazon.png')),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.notifications_none_rounded),
+            ),
+          ],
         ),
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   toolbarHeight: 65,
-        //   title: Center(child: U.Image(path: U.Images.shopLogo)),
-        //   actions: [
-        //     IconButton(
-        //       onPressed: () {},
-        //       icon: Icon(Icons.notifications_none_rounded),
-        //     ),
-        //   ],
-        // ),
         drawer: Drawer(
           child: Column(
             children: [],
           ),
         ),
         bottomNavigationBar: NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          onDestinationSelected: (index) {
-            setState(() {
-              selectedDes = index;
-            });
-          },
           selectedIndex: selectedDes,
+          onDestinationSelected: (index) => setState(() => selectedDes = index),
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.person_2_outlined),
+              icon: Icon(
+                Icons.person_2_outlined,
+                size: 28,
+              ),
               label: 'profile',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.favorite_border_outlined),
+              icon: Icon(
+                Icons.favorite_border_outlined,
+                size: 28,
+              ),
               label: 'favorites',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.store_mall_directory_outlined),
+              icon: Icon(
+                Icons.store_mall_directory_outlined,
+                size: 28,
+              ),
               label: 'store',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.shopping_cart_outlined),
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                size: 28,
+              ),
               label: 'cart',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.manage_search_outlined),
+              icon: Icon(
+                Icons.manage_search_outlined,
+                size: 28,
+              ),
               label: 'categories',
               tooltip: '',
             ),
@@ -265,31 +288,38 @@ class _MainAppState extends State<MainApp> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child:
-              // getPage(selectedDes),
-              IndexedStack(
+          child: IndexedStack(
             index: selectedDes,
             children: [
               ProfilePage(),
               FavoritesPage(
-                  favorites: favorites,
-                  onFavoriatePressed: onFavoriatePressed,
-                  products: products),
+                favorites: favorites,
+                shopCart: shopCart,
+                products: products,
+                onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
+              ),
               StorePage(
                 products: products,
                 favorites: favorites,
+                shopCart: shopCart,
                 onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
               ),
-              CartPage(),
+              CartPage(
+                products: products,
+                shopCard: shopCart,
+                favorites: favorites,
+                onFavoriatePressed: onFavoriatePressed,
+                onAddtoShopCartPressed: onAddtoShopCartPressed,
+                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
+              ),
               CategoriesPage(),
-              U.OutlinedButton(
-                title: 'hahahaha',
-                onPressed: (){},
-                color: U.OutlinedButtonColor.primary,
-                size: U.OutlinedButtonSize.md,
-              )
             ],
           ),
+          // getPage[selectedDes],
         ),
       ),
     );

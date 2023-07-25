@@ -1,6 +1,6 @@
 import 'package:shop_app/models/product.dart';
 
-class ShopCard {
+class ShopCart {
 //
   List<ShopItem> shopItems;
 
@@ -8,20 +8,24 @@ class ShopCard {
 
   DateTime? deliveryTime;
 
-  ShopCard({
-    this.shopItems = const [],
+  ShopCart({
+    required this.shopItems,
     this.deliveryAddress = '',
     this.deliveryTime,
   });
 
   int get totalAmount {
-    return 0;
+    var temp = 0;
+    for (var element in shopItems) {
+      temp += element.product.price;
+    }
+    return temp;
   }
 }
 
 class ShopItem {
-  //
-  Product product;
+//
+  final Product product;
 
   int count;
 
