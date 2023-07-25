@@ -3,4 +3,5 @@ export './text.dart';
 export './theme.dart';
 export './app_bar.dart';
 export './button.dart';
-export 'check_box.dart';
+export './check_box.dart';
+export './navigation_bar.dart';

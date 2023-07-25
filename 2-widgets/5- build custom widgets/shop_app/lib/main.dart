@@ -10,6 +10,7 @@ import 'package:shop_app/pages/categories/categories_page.dart';
 import 'package:shop_app/pages/favorites/favorites_page.dart';
 import 'package:shop_app/pages/profile/profile_page.dart';
 import 'package:shop_app/pages/store/store_page.dart';
+import 'ui_kit/ui_kit.dart' as U;
 
 List<Category> categories = [
   Category(
@@ -226,7 +227,9 @@ class _MainAppState extends State<MainApp> {
         appBar: AppBar(
           centerTitle: true,
           toolbarHeight: 65,
-          title: Center(child: Image.asset('assets/icons/Amazon.png')),
+          title: Center(
+            child: U.Image(path: U.Images.shopLogo),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
@@ -239,50 +242,29 @@ class _MainAppState extends State<MainApp> {
             children: [],
           ),
         ),
-        bottomNavigationBar: NavigationBar(
+        bottomNavigationBar: U.NavigationBar(
           selectedIndex: selectedDes,
-          onDestinationSelected: (index) => setState(() => selectedDes = index),
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(
-                Icons.person_2_outlined,
-                size: 28,
-              ),
-              label: 'profile',
-              tooltip: '',
+          onDestnationChange: (index) => setState(() => selectedDes = index),
+          destinations: [
+            U.NavigationBarDestination(
+              title: 'پروفایل',
+              icon: U.Images.profileIcon,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-                size: 28,
-              ),
-              label: 'favorites',
-              tooltip: '',
+            U.NavigationBarDestination(
+              title: 'علاقه‌مندی‌ها',
+              icon: U.Images.favoriteIcon,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.store_mall_directory_outlined,
-                size: 28,
-              ),
-              label: 'store',
-              tooltip: '',
+            U.NavigationBarDestination(
+              title: 'فروشگاه',
+              icon: U.Images.storeIcon,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-                size: 28,
-              ),
-              label: 'cart',
-              tooltip: '',
+            U.NavigationBarDestination(
+              title: 'سبدخرید',
+              icon: U.Images.shopCartIcon,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.manage_search_outlined,
-                size: 28,
-              ),
-              label: 'categories',
-              tooltip: '',
+            U.NavigationBarDestination(
+              title: 'دسته‌بندی',
+              icon: U.Images.categoriesIcon,
             ),
           ],
         ),
