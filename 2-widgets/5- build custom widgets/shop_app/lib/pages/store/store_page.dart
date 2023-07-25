@@ -43,10 +43,10 @@ class _StorePageState extends State<StorePage> {
           /// search bar
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 1000),
-            child: U.TextInput(
-              title: 'آدرس',
-              hintText: 'ولیعصر...........',
+            child: U.SearchInput(
               controller: TextEditingController(),
+              hintText: 'جستجوی کنید',
+              onSearch: (text) => {},
             ),
             // child: U.SearchInput(
             //   controller: TextEditingController(),
@@ -87,25 +87,22 @@ class _StorePageState extends State<StorePage> {
           /// Exclusive Offers
           Row(
             children: [
-              Text(
-                'Exclusive Offers',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: Color(0xFF100D39),
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              U.Text(
+                "پر فروش های هفته",
+                color: U.Theme.secondary,
+                font: U.TextFont.bYekan,
+                size: U.TextSize.xxl,
+                weight: U.TextWeight.normal,
               ),
               Spacer(),
               //todo: make styles
-              Text(
-                'all',
-                style: TextStyle(
-                  color: Color(0xFFF34E4E),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
+              U.Text(
+                "همه",
+                color: U.Theme.primary,
+                font: U.TextFont.iranSans,
+                size: U.TextSize.xl,
+                weight: U.TextWeight.regular,
+              ),
             ],
           ),
           SizedBox(height: 20),
@@ -137,24 +134,21 @@ class _StorePageState extends State<StorePage> {
           /// Popular Options
           Row(
             children: [
-              Text(
-                'BestPrice',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: Color(0xFF100D39),
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              U.Text(
+                "باکیفیت ترین ها",
+                color: U.Theme.secondary,
+                font: U.TextFont.bYekan,
+                size: U.TextSize.xxl,
+                weight: U.TextWeight.normal,
               ),
               Spacer(),
-              Text(
-                'all',
-                style: TextStyle(
-                  color: Color(0xFFF34E4E),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
+              U.Text(
+                "همه",
+                color: U.Theme.primary,
+                font: U.TextFont.iranSans,
+                size: U.TextSize.xl,
+                weight: U.TextWeight.regular,
+              ),
             ],
           ),
           SizedBox(height: 20),
