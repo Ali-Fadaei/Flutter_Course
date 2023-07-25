@@ -68,22 +68,43 @@ class ShopCardItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    IconButton.outlined(
+                    IconButton(
                       onPressed: () => onRemovetoShopCardPressed(product),
-                      icon: Icon(Icons.remove),
+                      icon: Icon(
+                        Icons.remove,
+                        size: 24,
+                        color: Colors.grey,
+                      ),
                     ),
 
                     SizedBox(width: 10),
-                    Text(
-                      shopItem.count.toString(),
-                      style: TextStyle(
-                        fontSize: 20,
+                    Container(
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color.fromARGB(255, 222, 222, 222),
+                            width: 2,
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Center(
+                        child: Text(
+                          shopItem.count.toString(),
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(width: 10),
-                    IconButton.outlined(
+                    IconButton(
                       onPressed: () => onAddtoShopCardPressed(product),
-                      icon: Icon(Icons.add),
+                      icon: Icon(
+                        Icons.add,
+                        size: 24,
+                        color: Color(0xFFF34E4E),
+                      ),
                     ),
                     // Text(
                     // " + ",
@@ -97,7 +118,7 @@ class ShopCardItem extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              '${shopItem.product.price * shopItem.count}تومان',
+              '${shopItem.product.price * shopItem.count} T',
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),

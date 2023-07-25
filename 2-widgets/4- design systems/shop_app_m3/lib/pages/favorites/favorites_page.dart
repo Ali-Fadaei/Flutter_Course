@@ -4,7 +4,7 @@ import 'package:shop_app_m3/models/shop_cart.dart';
 import '../../models/product.dart';
 import 'favorites_card.dart';
 
-class FavoritesPage extends StatefulWidget {
+class FavoritesPage extends StatelessWidget {
 //
   final List<Product> products;
 
@@ -29,32 +29,36 @@ class FavoritesPage extends StatefulWidget {
   });
 
   @override
-  State<FavoritesPage> createState() => _FavoritesPageState();
-}
-
-class _FavoritesPageState extends State<FavoritesPage> {
-//
-  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: widget.favorites
-            .expand(
-              (element) => [
-                FavoritesCard(
-                  product: element,
-                  favorites: widget.favorites,
-                  shopCard: widget.shopCart,
-                  onFavoriatePressed: widget.onFavoriatePressed,
-                  onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
-                  onRemovetoShopCardPressed: widget.onRemovetoShopCartPressed,
-                ),
-                SizedBox(height: 15)
-              ],
-            )
-            .toList(),
-      ),
-    );
+    return favorites.isEmpty
+        ? Center(
+            child: SizedBox(
+              width: 400,
+              child: Image.asset(
+                'assets/imgs/vectors/empty_fav.png',
+                fit: BoxFit.fill,
+              ),
+            ),
+          )
+        : SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: favorites
+                  .expand(
+                    (element) => [
+                      FavoritesCard(
+                        product: element,
+                        favorites: favorites,
+                        shopCard: shopCart,
+                        onFavoriatePressed: onFavoriatePressed,
+                        onAddtoShopCardPressed: onAddtoShopCartPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+                      ),
+                      SizedBox(height: 15)
+                    ],
+                  )
+                  .toList(),
+            ),
+          );
   }
 }

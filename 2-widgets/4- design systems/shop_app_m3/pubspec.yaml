@@ -15,6 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -26,6 +27,7 @@ flutter:
     - assets/icons/
     - assets/imgs/products/
     - assets/imgs/categories/
+    - assets/imgs/vectors/
   fonts:
     - family: IranSans
       fonts:
@@ -39,5 +41,12 @@ flutter:
           weight: 500
         - asset: assets/fonts/IRANSans(FaNum)_Bold.ttf
           weight: 700
+
+    - family: BYekan
+      fonts:
+        - asset:  assets/fonts/Yekan.ttf
+    - family: AGhasem
+      fonts:
+        - asset: assets/fonts/AGhasem.ttf
         # - asset: assets/fonts/IRANSans_FaNum_Black.ttf
         # weight: 800
