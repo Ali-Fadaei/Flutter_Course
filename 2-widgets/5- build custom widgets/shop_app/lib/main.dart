@@ -222,8 +222,9 @@ class _MainAppState extends State<MainApp> {
         Locale('fa', 'IR'),
         Locale('en', 'US'),
       ],
-      locale: Locale('en', 'US'),
+      locale: Locale('fa', 'IR'),
       home: Scaffold(
+        backgroundColor: U.Theme.background,
         appBar: AppBar(
           centerTitle: true,
           toolbarHeight: 65,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/shop_cart.dart';
 import 'package:shop_app/pages/store/product_card.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatefulWidget {
 //
@@ -40,25 +41,47 @@ class _StorePageState extends State<StorePage> {
           SizedBox(height: 25),
 
           /// search bar
-          Container(
-            color: Colors.white,
-            child: TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                focusColor: Colors.red,
-                hoverColor: Colors.red,
-                filled: false,
-                hintText: 'Search Here',
-                prefixIcon: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 12),
-                  child: Icon(Icons.search, color: Colors.black),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 1000),
+            child: U.TextInput(
+              title: 'آدرس',
+              hintText: 'ولیعصر...........',
+              controller: TextEditingController(),
             ),
+            // child: U.SearchInput(
+            //   controller: TextEditingController(),
+            //   onSearch: (text) {},
+            // ),
           ),
+          // U.OutlinedButton(
+          //   onPressed: () {},
+          //   color: U.OutlinedButtonColor.secondary,
+          //   title: 'dsadasd',
+          // ),
+          // U.IconButton(
+          //   icon: Icons.ac_unit,
+          //   onPressed: () {},
+          //   title: 'dsad',
+          // ),
+          // Container(
+          //   color: Colors.white,
+          //   child: TextField(
+          //     enabled: false,
+          //     decoration: InputDecoration(
+          //       focusColor: Colors.red,
+          //       hoverColor: Colors.red,
+          //       filled: false,
+          //       hintText: 'Search Here',
+          //       prefixIcon: Padding(
+          //         padding: const EdgeInsetsDirectional.only(start: 12),
+          //         child: Icon(Icons.search, color: Colors.black),
+          //       ),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(15),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 50),
 
           /// Exclusive Offers
