@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/shop_cart.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ProductBottomSheet extends StatefulWidget {
 //
@@ -247,65 +248,10 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                     /// Add to Cart
                     SizedBox(
                       width: 300,
-                      child: GestureDetector(
-                        onTap: () => {
-                          widget.onAddtoShopCardPressed(
-                            widget.product,
-                          ),
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: _onRemovetoShopCardPressed,
-                              icon: Icon(
-                                Icons.remove,
-                                size: 24,
-                                color: Color(0xFFF34E4E),
-                              ),
-                            ),
-                            // Text(
-                            //   " - ",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //   ),
-                            // ),
-                            SizedBox(width: 15),
-                            Container(
-                              width: 45.67,
-                              height: 45.67,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 222, 222, 222),
-                                      width: 2,
-                                      style: BorderStyle.solid),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                child: Text(
-                                  count.toString(),
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 15),
-                            IconButton(
-                              onPressed: _onAddtoShopCardPressed,
-                              icon: Icon(
-                                Icons.add,
-                                size: 24,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            // Text(
-                            // " + ",
-                            // style: TextStyle(
-                            // fontSize: 20,
-                            // ),
-                            // )
-                          ],
-                        ),
+                      child: U.Counter(
+                        count: count,
+                        onIncrementer: _onAddtoShopCardPressed,
+                        onDecrementer: _onRemovetoShopCardPressed,
                       ),
                     ),
                     SizedBox(
