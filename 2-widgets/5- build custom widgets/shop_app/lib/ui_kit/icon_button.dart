@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/ui_kit/images.dart';
 import './ui_kit.dart' as U;
 
 enum IconButtonSize { sm, md, lg }
@@ -8,7 +7,7 @@ enum IconButtonColor { primary, secondary }
 
 class IconButton extends StatelessWidget {
   final IconButtonSize size;
-
+  final String toolTip;
   final IconButtonColor color;
   final String iconName;
   final void Function() onPressed;
@@ -19,6 +18,7 @@ class IconButton extends StatelessWidget {
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
     required this.iconName,
+    this.toolTip = "",
   });
 
   double get _size {
@@ -54,26 +54,20 @@ class IconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: U.Theme.surface,
-      borderRadius: BorderRadius.circular(U.Theme.radius),
-      child: InkWell(
+    return Tooltip(
+      message: toolTip,
+      child: Material(
+        color: _colors.background,
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        onTap: onPressed,
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: _colors.background,
-                style: BorderStyle.solid,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(U.Theme.radius),
-              color: _colors.background),
-          height: _size,
-          width: _size,
-          child: U.Image(
-            path: iconName,
-            color: _colors.foreground,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(U.Theme.radius),
+          onTap: onPressed,
+          child: SizedBox.square(
+            dimension: _size,
+            child: U.Image(
+              path: iconName,
+              color: _colors.foreground,
+            ),
           ),
         ),
       ),

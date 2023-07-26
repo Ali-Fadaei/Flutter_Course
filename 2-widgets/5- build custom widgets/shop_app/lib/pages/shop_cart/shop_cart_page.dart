@@ -37,7 +37,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return widget.shopCard.shopItems.isEmpty
         ? Center(
-            child: Container(
+            child: SizedBox(
               width: 400,
               child: Image.asset(
                 'assets/vectors/empty_cart.png',

@@ -87,7 +87,3 @@ class Button extends StatelessWidget {
     );
   }
 }
-///////////////// Outlined Button
-
-///////////////// Icon Button
-

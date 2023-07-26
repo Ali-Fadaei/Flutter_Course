@@ -48,31 +48,7 @@ class _StorePageState extends State<StorePage> {
               hintText: 'جستجوی کنید',
               onSearch: (text) => {},
             ),
-            // child: U.SearchInput(
-            //   controller: TextEditingController(),
-            //   onSearch: (text) {},
-            // ),
           ),
-
-          // Container(
-          //   color: Colors.white,
-          //   child: TextField(
-          //     enabled: false,
-          //     decoration: InputDecoration(
-          //       focusColor: Colors.red,
-          //       hoverColor: Colors.red,
-          //       filled: false,
-          //       hintText: 'Search Here',
-          //       prefixIcon: Padding(
-          //         padding: const EdgeInsetsDirectional.only(start: 12),
-          //         child: Icon(Icons.search, color: Colors.black),
-          //       ),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(15),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           SizedBox(height: 50),
 
           /// Exclusive Offers

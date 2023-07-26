@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/shop_cart.dart';
 import 'package:shop_app/pages/store/product_btms.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ProductCard extends StatelessWidget {
 //
@@ -57,7 +58,7 @@ class ProductCard extends StatelessWidget {
             )
           ],
         ),
-        child: Container(
+        child: SizedBox(
           child: Padding(
             padding: const EdgeInsets.all(17.0),
             child: Column(
@@ -91,34 +92,40 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FloatingActionButton(
-                      onPressed: () {
-                        onAddtoShopCartPressed(product);
-                      },
-                      elevation: 2,
-                      mini: true,
-                      child: Container(
-                        width: 45.67,
-                        height: 45.67,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xFFF34E4E),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    // FloatingActionButton(
+                    //   onPressed: () {
+                    //     onAddtoShopCartPressed(product);
+                    //   },
+                    //   elevation: 2,
+                    //   mini: true,
+                    //   child: Container(
+                    //     width: 45.67,
+                    //     height: 45.67,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(15),
+                    //       color: Color(0xFFF34E4E),
+                    //     ),
+                    //     child: Center(
+                    //       child: Icon(
+                    //         Icons.add,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    U.IconButton(
+                      toolTip: 'اضافه کردن به سبد خرید',
+                      iconName: U.Images.addIcon,
+                      onPressed: () => onAddtoShopCartPressed(product),
+                      color: U.IconButtonColor.primary,
+                      size: U.IconButtonSize.sm,
                     ),
-                    Text(
+                    U.Text(
                       '${product.price} T',
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 0.10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'IRANSans'),
+                      color: U.Theme.onBackground,
+                      size: U.TextSize.md,
+                      weight: U.TextWeight.bold,
+                      font: U.TextFont.iranSans,
                     ),
                   ],
                 ),
