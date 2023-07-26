@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/shop_cart.dart';
-import 'package:shop_app/pages/shop_cart/shop_item_card.dart';
-
-import '../../models/product.dart';
+import 'package:shop_app/domains/store_repository/models/product.dart';
+import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/shop_cart/shop_item_card.dart';
 
 class CartPage extends StatefulWidget {
 //

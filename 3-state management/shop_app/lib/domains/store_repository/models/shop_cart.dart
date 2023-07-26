@@ -1,17 +1,17 @@
-import 'package:shop_app/models/product.dart';
+import 'package:shop_app/domains/store_repository/models/product.dart';
 
 class ShopCart {
 //
-  List<ShopItem> shopItems;
+  final List<ShopItem> shopItems;
 
-  String deliveryAddress;
+  final String deliveryAddress;
 
-  DateTime? deliveryTime;
+  final String deliveryTime;
 
-  ShopCart({
-    required this.shopItems,
+  const ShopCart({
+    this.shopItems = const [],
     this.deliveryAddress = '',
-    this.deliveryTime,
+    this.deliveryTime = '',
   });
 
   int get totalAmount {

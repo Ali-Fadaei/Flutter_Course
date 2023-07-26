@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/category.dart';
+import 'package:shop_app/domains/store_repository/models/category.dart';
 
 class Product {
 //

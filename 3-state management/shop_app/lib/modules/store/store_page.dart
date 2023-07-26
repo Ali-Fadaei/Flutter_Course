@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/product.dart';
-import 'package:shop_app/models/shop_cart.dart';
-import 'package:shop_app/pages/store/product_card.dart';
+import 'package:shop_app/domains/store_repository/models/product.dart';
+import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/store/product_card.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatefulWidget {

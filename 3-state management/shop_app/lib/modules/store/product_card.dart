@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/product.dart';
-import 'package:shop_app/models/shop_cart.dart';
-import 'package:shop_app/pages/store/product_btms.dart';
+import 'package:shop_app/domains/store_repository/models/product.dart';
+import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/store/product_btms.dart';
 
 class ProductCard extends StatelessWidget {
 //

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/main.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/domains/store_repository/store_repository.dart';
+import 'package:shop_app/modules/app/app.dart';
 
 class CategoriesPage extends StatelessWidget {
 //
@@ -7,10 +9,11 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var storeRepository = RepositoryProvider.of<StoreRepository>(context);
     return Center(
       child: Wrap(
         alignment: WrapAlignment.spaceEvenly,
-        children: categories
+        children: storeRepository.categories
             .expand(
               (element) => [
                 Container(
