@@ -54,11 +54,6 @@ class _StorePageState extends State<StorePage> {
             // ),
           ),
 
-          // U.IconButton(
-          //   icon: Icons.ac_unit,
-          //   onPressed: () {},
-          //   title: 'dsad',
-          // ),
           // Container(
           //   color: Colors.white,
           //   child: TextField(

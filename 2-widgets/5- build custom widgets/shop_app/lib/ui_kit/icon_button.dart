@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/ui_kit/images.dart';
 import './ui_kit.dart' as U;
 
 enum IconButtonSize { sm, md, lg }
@@ -6,22 +7,18 @@ enum IconButtonSize { sm, md, lg }
 enum IconButtonColor { primary, secondary }
 
 class IconButton extends StatelessWidget {
-  final String title;
-
   final IconButtonSize size;
 
   final IconButtonColor color;
-  final IconData icon;
-
+  final String iconName;
   final void Function() onPressed;
 
   const IconButton({
     super.key,
-    required this.title,
     required this.onPressed,
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
-    this.icon = Icons.add,
+    required this.iconName,
   });
 
   double get _size {
@@ -64,15 +61,21 @@ class IconButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(U.Theme.radius),
         onTap: onPressed,
         child: Container(
-            color: _colors.background,
-            height: _size,
-            width: _size,
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Center(
-                child: Icon(
-              icon,
-              color: _colors.foreground,
-            ))),
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: _colors.background,
+                style: BorderStyle.solid,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(U.Theme.radius),
+              color: _colors.background),
+          height: _size,
+          width: _size,
+          child: U.Image(
+            path: iconName,
+            color: _colors.foreground,
+          ),
+        ),
       ),
     );
   }
