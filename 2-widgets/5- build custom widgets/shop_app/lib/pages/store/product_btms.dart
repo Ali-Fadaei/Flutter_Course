@@ -45,7 +45,6 @@ class ProductBottomSheet extends StatefulWidget {
   final void Function(Product product) onAddtoShopCardPressed;
 
   final void Function(Product product) onRemovetoShopCardPressed;
-  final isEmpty;
 
   const ProductBottomSheet({
     super.key,
@@ -55,7 +54,6 @@ class ProductBottomSheet extends StatefulWidget {
     required this.onFavoriatePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovetoShopCardPressed,
-    this.isEmpty,
   });
 
   @override
@@ -106,163 +104,169 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var colorCheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.all(11.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 5,
-              width: 60,
-              margin: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: colorCheme.outline,
-                borderRadius: BorderRadius.circular(15),
-              ),
+    return Container(
+      padding: EdgeInsets.all(11),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(U.Theme.radius),
+        color: U.Theme.background,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 5,
+            width: 70,
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: U.Theme.secondary,
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 200,
-                      child: Image.asset(
-                        widget.product.image,
-                        fit: BoxFit.contain,
-                      ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: widget.product.category.color,
                     ),
-
-                    /// Product Details
-                    SizedBox(
-                      height: 25,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Image.asset(
+                      widget.product.image,
+                      fit: BoxFit.contain,
                     ),
+                  ),
 
-                    /// Name and Category ,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.product.title,
-                              style: TextStyle(
-                                color: Color(0xFF181725),
-                                fontSize: 20,
-                                fontFamily: 'IRANSans',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.10,
-                              ),
-                            ),
-                            Text(
-                              widget.product.category.title,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontFamily: 'IRANSans',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.10,
-                              ),
-                            )
-                          ],
-                        ),
-                        Center(
-                          child: IconButton(
-                            onPressed: _onFavoriatePressed,
-                            icon: Icon(
-                              isFav
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
+                  /// Product Details
+                  SizedBox(
+                    height: 25,
+                  ),
+
+                  /// Name and Category ,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.product.title,
+                            style: TextStyle(
+                              color: Color(0xFF181725),
+                              fontSize: 20,
+                              fontFamily: 'IRANSans',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.10,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
+                          Text(
+                            widget.product.category.title,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontFamily: 'IRANSans',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.10,
+                            ),
+                          )
+                        ],
+                      ),
+                      Center(
+                        child: IconButton(
+                          onPressed: _onFavoriatePressed,
+                          icon: Icon(
+                            isFav
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
 
-                    ///  Price
-                    Center(
-                      child: Text(
-                        "${widget.product.price.toString()} تومان",
+                  ///  Price
+                  Center(
+                    child: Text(
+                      "${widget.product.price.toString()} تومان",
+                      style: TextStyle(
+                        color: Color(0xFF181725),
+                        fontSize: 24,
+                        fontFamily: 'IRANSans',
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.10,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+
+                  /// Product Details
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "توضیحات محصول",
+                            style: TextStyle(
+                                fontSize: 19, fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.keyboard_arrow_down_rounded))
+                        ],
+                      ),
+                      Text(widget.product.description)
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+
+                  /// Rating
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "امتیاز",
                         style: TextStyle(
-                          color: Color(0xFF181725),
-                          fontSize: 24,
-                          fontFamily: 'IRANSans',
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.10,
-                        ),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Product Details
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "توضیحات محصول",
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.bold),
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.keyboard_arrow_down_rounded))
-                          ],
+                      Text(
+                        "${widget.product.rating} از5 ",
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
-                        Text(widget.product.description)
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
 
-                    /// Rating
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "امتیاز",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "${widget.product.rating} از5 ",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        )
-                      ],
+                  /// Add to Cart
+                  SizedBox(
+                    width: 300,
+                    child: U.Counter(
+                      count: count,
+                      onIncrementer: _onAddtoShopCardPressed,
+                      onDecrementer: _onRemovetoShopCardPressed,
                     ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Add to Cart
-                    SizedBox(
-                      width: 300,
-                      child: U.Counter(
-                        count: count,
-                        onIncrementer: _onAddtoShopCardPressed,
-                        onDecrementer: _onRemovetoShopCardPressed,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

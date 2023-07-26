@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/shop_cart.dart';
-
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 import '../store/product_btms.dart';
 
 class ShopCardItem extends StatelessWidget {
@@ -44,6 +44,7 @@ class ShopCardItem extends StatelessWidget {
         onRemovetoShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
+        color: product.category.color,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [

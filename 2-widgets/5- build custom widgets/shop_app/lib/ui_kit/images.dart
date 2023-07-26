@@ -45,6 +45,11 @@ abstract class Images {
   static const checkBoxFilledIcon = 'assets/icons/check_box_fill.png';
   static const checkBoxEmptyIcon = 'assets/icons/check_box_empty.png';
   static const requiredIcon = 'assets/icons/required.png';
+  static const removIcon = 'assets/icons/removIcon.png';
+
+  // Vectors
+  static const favEmpty = 'assets/vectors/empty_fav.png';
+  static const cartEmpty = 'assets/vectors/empty_cart.png';
 }
 
 class Image extends M.StatelessWidget {

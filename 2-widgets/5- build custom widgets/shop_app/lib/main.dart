@@ -14,22 +14,22 @@ import 'ui_kit/ui_kit.dart' as U;
 
 List<Category> categories = [
   Category(
-    title: 'e-Devices',
+    title: 'کالای دیجیتال',
     image: 'assets/imgs/categories/e-devices.png',
     color: Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
-    title: 'e-Devices',
+    title: 'لباس مردانه و زنانه',
     image: 'assets/imgs/categories/e-devices.png',
     color: Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
-    title: 'e-Devices',
+    title: 'ابزار صنعتی',
     image: 'assets/imgs/categories/e-devices.png',
     color: Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
-    title: 'e-Devices',
+    title: 'لوازم بهداشتی',
     image: 'assets/imgs/categories/e-devices.png',
     color: Color.fromARGB(255, 218, 241, 254),
   ),
@@ -37,7 +37,7 @@ List<Category> categories = [
 
 List<Product> products = [
   Product(
-    title: 'Samsung A14',
+    title: ' گوشی Samsung A14',
     rating: 5,
     price: 545454545,
     image: 'assets/imgs/products/a14.png',
@@ -205,7 +205,6 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
       ),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,

@@ -53,7 +53,7 @@ class Counter extends StatelessWidget {
         IconButton(
           onPressed: onDecrementer,
           icon: U.Image(
-            path: U.Images.removeIcon,
+            path: U.Images.removIcon,
             color: U.Theme.secondary,
           ),
         ),

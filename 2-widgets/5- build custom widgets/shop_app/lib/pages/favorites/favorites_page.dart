@@ -35,7 +35,7 @@ class FavoritesPage extends StatelessWidget {
             child: SizedBox(
               width: 400,
               child: Image.asset(
-                'assets/imgs/vectors/empty_fav.png',
+                'assets/vectors/empty_fav.png',
                 fit: BoxFit.fill,
               ),
             ),

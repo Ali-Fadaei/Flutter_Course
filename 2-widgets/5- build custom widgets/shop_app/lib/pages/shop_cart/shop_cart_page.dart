@@ -40,7 +40,7 @@ class _CartPageState extends State<CartPage> {
             child: Container(
               width: 400,
               child: Image.asset(
-                'assets/imgs/vectors/empty_cart.png',
+                'assets/vectors/empty_cart.png',
                 fit: BoxFit.fill,
               ),
             ),
