@@ -239,7 +239,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "${widget.product.rating} از5 ",
+                        "${widget.product.rating}  از  5",
                         style: TextStyle(
                           fontSize: 20,
                         ),
