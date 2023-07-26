@@ -53,11 +53,7 @@ class _StorePageState extends State<StorePage> {
             //   onSearch: (text) {},
             // ),
           ),
-          // U.OutlinedButton(
-          //   onPressed: () {},
-          //   color: U.OutlinedButtonColor.secondary,
-          //   title: 'dsadasd',
-          // ),
+
           // U.IconButton(
           //   icon: Icons.ac_unit,
           //   onPressed: () {},

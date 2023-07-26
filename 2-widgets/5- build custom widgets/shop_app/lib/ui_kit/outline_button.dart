@@ -62,13 +62,23 @@ class OutlinedButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(U.Theme.radius),
         onTap: onPressed,
         child: Container(
-            color: _colors.outlineColor,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: _colors.outlineColor,
+                  style: BorderStyle.solid,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(U.Theme.radius),
+                color: U.Theme.surface),
             height: _size,
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Center(
               child: U.Text(
                 title,
                 color: _colors.textColor,
+                font: U.TextFont.iranSans,
+                weight: U.TextWeight.normal,
+                size: U.TextSize.xl,
               ),
             )),
       ),

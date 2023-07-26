@@ -81,7 +81,6 @@ class _NavigationBarDestination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100,
       child: Material(
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: InkWell(
