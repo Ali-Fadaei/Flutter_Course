@@ -30,7 +30,6 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -40,10 +39,10 @@ class FavoritesPage extends StatelessWidget {
                 FavoritesCard(
                   product: element,
                   favorites: widget.favorites,
-                  shopCard: widget.shopCart,
+                  shopCard: widget.shopCard,
                   onFavoriatePressed: widget.onFavoriatePressed,
-                  onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
-                  onRemovetoShopCardPressed: widget.onRemovetoShopCartPressed,
+                  onAddtoShopCardPressed: widget.onAddtoShopCardPressed,
+                  onRemovetoShopCardPressed: widget.onRemovetoShopCardPressed,
                 ),
                 SizedBox(height: 15)
               ],
@@ -51,37 +50,5 @@ class FavoritesPage extends StatelessWidget {
             .toList(),
       ),
     );
-=======
-    return favorites.isEmpty
-        ? Center(
-            child: SizedBox(
-              width: 400,
-              child: Image.asset(
-                'assets/imgs/vectors/empty_fav.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-          )
-        : SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: favorites
-                  .expand(
-                    (element) => [
-                      FavoritesCard(
-                        product: element,
-                        favorites: favorites,
-                        shopCard: shopCart,
-                        onFavoriatePressed: onFavoriatePressed,
-                        onAddtoShopCardPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCardPressed: onRemovetoShopCartPressed,
-                      ),
-                      SizedBox(height: 15)
-                    ],
-                  )
-                  .toList(),
-            ),
-          );
->>>>>>> 3d1fc743488bd078c9b88eb7763132fb3b544e58
   }
 }

@@ -96,20 +96,11 @@ class _StorePageState extends State<StorePage> {
                     (element) => [
                       ProductCard(
                         product: element,
-<<<<<<< HEAD
                         favorites: favorites,
                         onFavoriatePressed: onFavoriatePressed,
-                        shopCart: shopCart,
-                        onAddtoShopCartPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
-=======
-                        favorites: widget.favorites,
-                        onFavoriatePressed: widget.onFavoriatePressed,
-                        shopCart: widget.shopCart,
-                        onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
->>>>>>> 3d1fc743488bd078c9b88eb7763132fb3b544e58
+                        shopCard: shopCard,
+                        onAddtoShopCardPressed: onAddtoShopCardPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
                       ),
                       SizedBox(width: 8),
                     ],
@@ -153,20 +144,11 @@ class _StorePageState extends State<StorePage> {
                     (element) => [
                       ProductCard(
                         product: element,
-<<<<<<< HEAD
                         favorites: favorites,
-                        shopCart: shopCart,
+                        shopCard: shopCard,
                         onFavoriatePressed: onFavoriatePressed,
-                        onAddtoShopCartPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
-=======
-                        favorites: widget.favorites,
-                        shopCart: widget.shopCart,
-                        onFavoriatePressed: widget.onFavoriatePressed,
-                        onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
->>>>>>> 3d1fc743488bd078c9b88eb7763132fb3b544e58
+                        onAddtoShopCardPressed: onAddtoShopCardPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCardPressed,
                       ),
                       SizedBox(width: 8),
                     ],
