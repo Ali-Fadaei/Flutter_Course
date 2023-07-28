@@ -4,7 +4,7 @@ import 'package:shop_app_m3/models/shop_cart.dart';
 import '../../models/product.dart';
 import 'favorites_card.dart';
 
-class FavoritesPage extends StatefulWidget {
+class FavoritesPage extends StatelessWidget {
 //
   final List<Product> products;
 
@@ -29,13 +29,8 @@ class FavoritesPage extends StatefulWidget {
   });
 
   @override
-  State<FavoritesPage> createState() => _FavoritesPageState();
-}
-
-class _FavoritesPageState extends State<FavoritesPage> {
-//
-  @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -56,5 +51,37 @@ class _FavoritesPageState extends State<FavoritesPage> {
             .toList(),
       ),
     );
+=======
+    return favorites.isEmpty
+        ? Center(
+            child: SizedBox(
+              width: 400,
+              child: Image.asset(
+                'assets/imgs/vectors/empty_fav.png',
+                fit: BoxFit.fill,
+              ),
+            ),
+          )
+        : SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: favorites
+                  .expand(
+                    (element) => [
+                      FavoritesCard(
+                        product: element,
+                        favorites: favorites,
+                        shopCard: shopCart,
+                        onFavoriatePressed: onFavoriatePressed,
+                        onAddtoShopCardPressed: onAddtoShopCartPressed,
+                        onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+                      ),
+                      SizedBox(height: 15)
+                    ],
+                  )
+                  .toList(),
+            ),
+          );
+>>>>>>> 3d1fc743488bd078c9b88eb7763132fb3b544e58
   }
 }

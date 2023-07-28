@@ -15,27 +15,22 @@ List<Category> categories = [
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.red,
+    color: Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.redAccent,
+    color: Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
+    color: Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
     title: 'e-Devices',
     image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
-  ),
-  Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
-    color: Colors.cyan,
+    color: Color.fromARGB(255, 218, 241, 254),
   ),
 ];
 
@@ -207,13 +202,9 @@ class _MainAppState extends State<MainApp> {
 //
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
+      theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          // brightness: Brightness.dark,
-          brightness: Brightness.light,
-          seedColor: Colors.cyan,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
       ),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
@@ -254,27 +245,42 @@ class _MainAppState extends State<MainApp> {
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.person_2_outlined),
+              icon: Icon(
+                Icons.person_2_outlined,
+                size: 28,
+              ),
               label: 'profile',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.favorite_border_outlined),
+              icon: Icon(
+                Icons.favorite_border_outlined,
+                size: 28,
+              ),
               label: 'favorites',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.store_mall_directory_outlined),
+              icon: Icon(
+                Icons.store_mall_directory_outlined,
+                size: 28,
+              ),
               label: 'store',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.shopping_cart_outlined),
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                size: 28,
+              ),
               label: 'cart',
               tooltip: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.manage_search_outlined),
+              icon: Icon(
+                Icons.manage_search_outlined,
+                size: 28,
+              ),
               label: 'categories',
               tooltip: '',
             ),

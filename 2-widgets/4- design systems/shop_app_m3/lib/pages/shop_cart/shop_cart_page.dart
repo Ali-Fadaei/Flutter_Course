@@ -35,6 +35,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -56,5 +57,39 @@ class _CartPageState extends State<CartPage> {
             .toList(),
       ),
     );
+=======
+    return widget.shopCard.shopItems.isEmpty
+        ? Center(
+            child: Container(
+              width: 400,
+              child: Image.asset(
+                'assets/imgs/vectors/empty_cart.png',
+                fit: BoxFit.fill,
+              ),
+            ),
+          )
+        : SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: widget.shopCard.shopItems
+                  .expand(
+                    (element) => [
+                      ShopCardItem(
+                        shopItem: element,
+                        favorites: widget.favorites,
+                        shopCard: widget.shopCard,
+                        onFavoriatePressed: widget.onFavoriatePressed,
+                        onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
+                        onRemovetoShopCardPressed:
+                            widget.onRemovetoShopCartPressed,
+                        product: element.product,
+                      ),
+                      SizedBox(height: 15)
+                    ],
+                  )
+                  .toList(),
+            ),
+          );
+>>>>>>> 3d1fc743488bd078c9b88eb7763132fb3b544e58
   }
 }

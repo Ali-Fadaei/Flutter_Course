@@ -59,9 +59,24 @@ class FavoritesCard extends StatelessWidget {
                   Text(
                     product.title,
                     textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Color(0xFF181725),
+                      fontSize: 16,
+                      fontFamily: 'IRANSans',
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.10,
+                    ),
                   ),
-                  Text('${product.price}تومان', textAlign: TextAlign.right),
+                  Text(
+                    '${product.price}تومان',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Color(0xFF7C7C7C),
+                      fontSize: 14,
+                      fontFamily: 'IRANSans',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
               Spacer(),

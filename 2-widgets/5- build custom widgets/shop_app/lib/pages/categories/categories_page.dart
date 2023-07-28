@@ -1,71 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app/main.dart';
 
-class CategoriesPage extends StatefulWidget {
+class CategoriesPage extends StatelessWidget {
 //
   const CategoriesPage({super.key});
 
   @override
-  State<CategoriesPage> createState() => _CategoriesPageState();
-}
-
-class _CategoriesPageState extends State<CategoriesPage> {
-//
-  var isChecked1 = false;
-
-  var isChecked2 = false;
-
-  var isChecked3 = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Spacer(),
-          U.Button(
-            title: 'افزودن به سبد خرید',
-            color: U.ButtonColor.primary,
-            size: U.ButtonSize.lg,
-            // trailing: U.Text('salam'),
-            onPressed: () {
-              print('salam');
-            },
-          ),
-          SizedBox(height: 30),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 120),
-            child: Column(
-              children: [
-                U.CheckBox(
-                  title: 'لپ‌تاپ',
-                  isChecked: isChecked1,
-                  onPressed: (checked) {
-                    setState(() => isChecked1 = checked);
-                  },
-                ),
-                SizedBox(height: 30),
-                U.CheckBox(
-                  title: 'موبایل',
-                  isChecked: isChecked2,
-                  onPressed: (checked) {
-                    setState(() => isChecked2 = checked);
-                  },
-                ),
-                SizedBox(height: 30),
-                U.CheckBox(
-                  title: 'لپ‌تاپ',
-                  isChecked: isChecked3,
-                  onPressed: (checked) {
-                    setState(() => isChecked3 = checked);
-                  },
+    return Center(
+      child: Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        children: categories
+            .expand(
+              (element) => [
+                Container(
+                  margin: EdgeInsets.all(20),
+                  width: 250.50,
+                  height: 250.11,
+                  decoration: ShapeDecoration(
+                    color: element.color,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 0.50, color: element.color),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x00000000),
+                        blurRadius: 12,
+                        offset: Offset(0, 6),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: Image.asset(
+                          element.image,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text(
+                        element.title,
+                        style: TextStyle(
+                          color: Color(0xFF181725),
+                          fontSize: 16,
+                          fontFamily: 'IRANSans',
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.10,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
-            ),
-          ),
-          Spacer(),
-        ],
+            )
+            .toList(),
       ),
     );
   }
