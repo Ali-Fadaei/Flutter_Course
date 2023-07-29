@@ -1,43 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
-import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 import '../store/product_btms.dart';
 
 class FavoritesCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCard;
-
-  final List<Product> favorites;
-
-  final void Function(Product product) onFavoriatePressed;
-
-  final void Function(Product product) onAddtoShopCardPressed;
-
-  final void Function(Product product) onRemovetoShopCardPressed;
-
   const FavoritesCard({
     super.key,
     required this.product,
-    required this.favorites,
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.shopCard,
   });
 
   @override
   Widget build(BuildContext context) {
+    var appCubit = BlocProvider.of<AppCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
-        favorites: favorites,
-        shopCart: shopCard,
-        onFavoriatePressed: onFavoriatePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        appCubit: appCubit,
       ),
       child: Card(
         child: Padding(
@@ -81,7 +64,7 @@ class FavoritesCard extends StatelessWidget {
               ),
               Spacer(),
               IconButton(
-                onPressed: () => onFavoriatePressed(product),
+                onPressed: () => appCubit.onFavoriatePressed(product),
                 icon: Icon(Icons.favorite),
               )
             ],

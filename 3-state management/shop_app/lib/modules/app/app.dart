@@ -104,41 +104,16 @@ class App extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: BlocBuilder<AppCubit, AppState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedDes != current.selectedDes,
                 builder: (context, state) {
-                  var appCubit = BlocProvider.of<AppCubit>(context);
-                  var storeRepositorty =
-                      RepositoryProvider.of<StoreRepository>(context);
                   return IndexedStack(
                     index: state.selectedDes,
                     children: [
                       ProfilePage(),
-                      FavoritesPage(
-                        favorites: state.favorites,
-                        shopCart: state.shopCart,
-                        products: storeRepositorty.products,
-                        onFavoriatePressed: appCubit.onFavoriatePressed,
-                        onAddtoShopCartPressed: appCubit.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            appCubit.onRemovefromShopCartPressed,
-                      ),
-                      StorePage(
-                        products: storeRepositorty.products,
-                        favorites: state.favorites,
-                        shopCart: state.shopCart,
-                        onFavoriatePressed: appCubit.onFavoriatePressed,
-                        onAddtoShopCartPressed: appCubit.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            appCubit.onRemovefromShopCartPressed,
-                      ),
-                      CartPage(
-                        products: storeRepositorty.products,
-                        shopCard: state.shopCart,
-                        favorites: state.favorites,
-                        onFavoriatePressed: appCubit.onFavoriatePressed,
-                        onAddtoShopCartPressed: appCubit.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            appCubit.onRemovefromShopCartPressed,
-                      ),
+                      FavoritesPage(),
+                      StorePage(),
+                      CartPage(),
                       CategoriesPage(),
                     ],
                   );

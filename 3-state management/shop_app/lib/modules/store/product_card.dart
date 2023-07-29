@@ -1,43 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
-import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app/modules/store/product_btms.dart';
 
 class ProductCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCart;
-
-  final List<Product> favorites;
-
-  final void Function(Product product) onAddtoShopCartPressed;
-
-  final void Function(Product product) onRemovetoShopCartPressed;
-
-  final void Function(Product) onFavoriatePressed;
-
   const ProductCard({
     super.key,
     required this.product,
-    required this.favorites,
-    required this.shopCart,
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCartPressed,
-    required this.onRemovetoShopCartPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    var appCubit = BlocProvider.of<AppCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
-        favorites: favorites,
-        shopCart: shopCart,
-        onFavoriatePressed: onFavoriatePressed,
-        onAddtoShopCartPressed: onAddtoShopCartPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCartPressed,
+        appCubit: appCubit,
       ),
       child: Container(
         width: 173.32,
@@ -93,7 +76,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     FloatingActionButton(
                       onPressed: () {
-                        onAddtoShopCartPressed(product);
+                        appCubit.onAddtoShopCartPressed(product);
                       },
                       elevation: 2,
                       mini: true,

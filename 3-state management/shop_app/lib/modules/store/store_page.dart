@@ -1,40 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/domains/store_repository/models/product.dart';
-import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/domains/store_repository/store_repository.dart';
 import 'package:shop_app/modules/store/product_card.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
-class StorePage extends StatefulWidget {
+class StorePage extends StatelessWidget {
 //
-  final List<Product> products;
-
-  final List<Product> favorites;
-
-  final ShopCart shopCart;
-
-  final void Function(Product product) onAddtoShopCartPressed;
-
-  final void Function(Product product) onRemovetoShopCartPressed;
-
-  final void Function(Product) onFavoriatePressed;
 
   const StorePage({
     super.key,
-    this.products = const [],
-    this.favorites = const [],
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCartPressed,
-    required this.onRemovetoShopCartPressed,
-    required this.shopCart,
   });
 
   @override
-  State<StorePage> createState() => _StorePageState();
-}
-
-class _StorePageState extends State<StorePage> {
-  @override
   Widget build(BuildContext context) {
+    var storeRepository = RepositoryProvider.of<StoreRepository>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -114,18 +93,10 @@ class _StorePageState extends State<StorePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              children: widget.products
+              children: storeRepository.products
                   .expand(
                     (element) => [
-                      ProductCard(
-                        product: element,
-                        favorites: widget.favorites,
-                        onFavoriatePressed: widget.onFavoriatePressed,
-                        shopCart: widget.shopCart,
-                        onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
-                      ),
+                      ProductCard(product: element),
                       SizedBox(width: 8),
                     ],
                   )
@@ -163,18 +134,10 @@ class _StorePageState extends State<StorePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              children: widget.products
+              children: storeRepository.products
                   .expand(
                     (element) => [
-                      ProductCard(
-                        product: element,
-                        favorites: widget.favorites,
-                        shopCart: widget.shopCart,
-                        onFavoriatePressed: widget.onFavoriatePressed,
-                        onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
-                      ),
+                      ProductCard(product: element),
                       SizedBox(width: 8),
                     ],
                   )

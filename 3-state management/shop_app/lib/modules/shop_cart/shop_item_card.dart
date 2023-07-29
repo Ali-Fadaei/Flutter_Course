@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/domains/store_repository/models/product.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 
 import '../store/product_btms.dart';
 
@@ -8,40 +9,19 @@ class ShopCardItem extends StatelessWidget {
 //
   final ShopItem shopItem;
 
-  final List<Product> favorites;
-
-  final Product product;
-
-  final ShopCart shopCard;
-
-  final void Function(Product product) onFavoriatePressed;
-
-  final void Function(Product product) onAddtoShopCardPressed;
-
-  final void Function(Product product) onRemovetoShopCardPressed;
-
   const ShopCardItem({
     super.key,
     required this.shopItem,
-    required this.favorites,
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.product,
-    required this.shopCard,
   });
 
   @override
   Widget build(BuildContext context) {
+    var appCubit = BlocProvider.of<AppCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: shopItem.product,
-        favorites: favorites,
-        shopCart: shopCard,
-        onFavoriatePressed: onFavoriatePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        appCubit: appCubit,
       ),
       child: Card(
         child: Padding(
@@ -69,7 +49,8 @@ class ShopCardItem extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () => onRemovetoShopCardPressed(product),
+                      onPressed: () => appCubit
+                          .onRemovefromShopCartPressed(shopItem.product),
                       icon: Icon(
                         Icons.remove,
                         size: 24,
@@ -99,7 +80,8 @@ class ShopCardItem extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     IconButton(
-                      onPressed: () => onAddtoShopCardPressed(product),
+                      onPressed: () =>
+                          appCubit.onAddtoShopCartPressed(shopItem.product),
                       icon: Icon(
                         Icons.add,
                         size: 24,

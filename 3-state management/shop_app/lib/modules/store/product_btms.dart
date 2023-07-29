@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
-import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 
-class ProductBottomSheet extends StatefulWidget {
+class ProductBottomSheet extends StatelessWidget {
 //
   static show(
     BuildContext context, {
     required Product product,
-    required ShopCart shopCart,
-    required List<Product> favorites,
-    required void Function(Product product) onFavoriatePressed,
-    required void Function(Product product) onAddtoShopCartPressed,
-    required void Function(Product product) onRemovetoShopCartPressed,
+    required AppCubit appCubit,
   }) {
     showModalBottomSheet(
       context: context,
@@ -21,13 +18,11 @@ class ProductBottomSheet extends StatefulWidget {
         maxHeight: MediaQuery.of(context).size.height * 0.90,
       ),
       builder: (context) {
-        return ProductBottomSheet(
-          product: product,
-          shopCart: shopCart,
-          favorits: favorites,
-          onFavoriatePressed: onFavoriatePressed,
-          onAddtoShopCardPressed: onAddtoShopCartPressed,
-          onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+        return BlocProvider.value(
+          value: appCubit,
+          child: ProductBottomSheet(
+            product: product,
+          ),
         );
       },
     );
@@ -35,76 +30,14 @@ class ProductBottomSheet extends StatefulWidget {
 
   final Product product;
 
-  final List<Product> favorits;
-
-  final ShopCart shopCart;
-
-  final void Function(Product product) onFavoriatePressed;
-
-  final void Function(Product product) onAddtoShopCardPressed;
-
-  final void Function(Product product) onRemovetoShopCardPressed;
-  final isEmpty;
-
   const ProductBottomSheet({
     super.key,
     required this.product,
-    required this.favorits,
-    required this.shopCart,
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    this.isEmpty,
   });
 
   @override
-  State<ProductBottomSheet> createState() => ProductBottomSheetState();
-}
-
-class ProductBottomSheetState extends State<ProductBottomSheet> {
-//
-  var count = 0;
-
-  var isFav = false;
-
-  void _onAddtoShopCardPressed() {
-    if (count < 10) {
-      widget.onAddtoShopCardPressed(widget.product);
-      setState(() {
-        count++;
-      });
-    }
-  }
-
-  void _onRemovetoShopCardPressed() {
-    if (count > 0) {
-      widget.onRemovetoShopCardPressed(widget.product);
-      setState(() {
-        count--;
-      });
-    }
-  }
-
-  void _onFavoriatePressed() {
-    widget.onFavoriatePressed(widget.product);
-    setState(() {
-      isFav = !isFav;
-    });
-  }
-
-  @override
-  void initState() {
-    for (var element in widget.shopCart.shopItems) {
-      if (element.product == widget.product) {
-        count = element.count;
-      }
-    }
-    isFav = widget.favorits.contains(widget.product);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var appCubit = BlocProvider.of<AppCubit>(context);
     var colorCheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.all(11.0),
@@ -128,7 +61,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                     Container(
                       height: 200,
                       child: Image.asset(
-                        widget.product.image,
+                        product.image,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -146,7 +79,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.product.title,
+                              product.title,
                               style: TextStyle(
                                 color: Color(0xFF181725),
                                 fontSize: 20,
@@ -156,7 +89,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                               ),
                             ),
                             Text(
-                              widget.product.category.title,
+                              product.category.title,
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -169,11 +102,18 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         ),
                         Center(
                           child: IconButton(
-                            onPressed: _onFavoriatePressed,
-                            icon: Icon(
-                              isFav
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
+                            onPressed: () =>
+                                appCubit.onFavoriatePressed(product),
+                            icon: BlocBuilder<AppCubit, AppState>(
+                              buildWhen: (previous, current) =>
+                                  previous.favorites != current.favorites,
+                              builder: (context, state) {
+                                return Icon(
+                                  state.favorites.contains(product)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                );
+                              },
                             ),
                           ),
                         )
@@ -186,7 +126,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                     ///  Price
                     Center(
                       child: Text(
-                        "${widget.product.price.toString()} تومان",
+                        "${product.price.toString()} تومان",
                         style: TextStyle(
                           color: Color(0xFF181725),
                           fontSize: 24,
@@ -216,7 +156,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                 icon: Icon(Icons.keyboard_arrow_down_rounded))
                           ],
                         ),
-                        Text(widget.product.description)
+                        Text(product.description)
                       ],
                     ),
                     SizedBox(
@@ -233,7 +173,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "${widget.product.rating} از5 ",
+                          "${product.rating} از5 ",
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -249,15 +189,14 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                       width: 300,
                       child: GestureDetector(
                         onTap: () => {
-                          widget.onAddtoShopCardPressed(
-                            widget.product,
-                          ),
+                          appCubit.onAddtoShopCartPressed(product),
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: _onRemovetoShopCardPressed,
+                              onPressed: () =>
+                                  appCubit.onRemovefromShopCartPressed(product),
                               icon: Icon(
                                 Icons.remove,
                                 size: 24,
@@ -281,17 +220,34 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                       style: BorderStyle.solid),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Center(
-                                child: Text(
-                                  count.toString(),
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                  ),
+                                child: BlocBuilder<AppCubit, AppState>(
+                                  buildWhen: (previous, current) =>
+                                      previous.shopCart.shopItems !=
+                                      current.shopCart.shopItems,
+                                  builder: (context, state) {
+                                    var count = 0;
+                                    try {
+                                      count = state.shopCart.shopItems
+                                          .firstWhere(
+                                            (element) =>
+                                                element.product == product,
+                                          )
+                                          .count;
+                                    } catch (_) {}
+                                    return Text(
+                                      count.toString(),
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
                             SizedBox(width: 15),
                             IconButton(
-                              onPressed: _onAddtoShopCardPressed,
+                              onPressed: () =>
+                                  appCubit.onAddtoShopCartPressed(product),
                               icon: Icon(
                                 Icons.add,
                                 size: 24,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
-import 'package:shop_app/modules/app/app.dart';
 
 class CategoriesPage extends StatelessWidget {
 //
