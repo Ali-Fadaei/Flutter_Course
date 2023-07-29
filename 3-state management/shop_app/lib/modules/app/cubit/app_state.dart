@@ -1,6 +1,6 @@
 part of 'app_cubit.dart';
 
-class AppState {
+class AppState extends Equatable {
 //
   final int selectedDes;
 
@@ -8,7 +8,7 @@ class AppState {
 
   final ShopCart shopCart;
 
-  AppState({
+  const AppState({
     this.selectedDes = 2,
     this.favorites = const [],
     this.shopCart = const ShopCart(),
@@ -25,4 +25,11 @@ class AppState {
       shopCart: shopCart ?? this.shopCart,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        selectedDes,
+        favorites,
+        shopCart,
+      ];
 }

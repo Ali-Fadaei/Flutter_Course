@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-// import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
 import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
 
@@ -25,32 +25,42 @@ class AppCubit extends Cubit<AppState> {
   }
 
   void onAddtoShopCartPressed(Product product) {
+    var shopItems = [...state.shopCart.shopItems];
     try {
-      var existingShopItem = state.shopCart.shopItems.firstWhere((element) {
+      var existingShopItem = shopItems.firstWhere((element) {
         return element.product == product;
       });
-      if (existingShopItem.count <= 10) {
-        existingShopItem.count++;
-        emit(state);
+      var existingShopItemIndex = shopItems.indexWhere((element) {
+        return element.product == product;
+      });
+      if (existingShopItem.count < 10) {
+        shopItems[existingShopItemIndex] = existingShopItem.inc();
       }
     } catch (_) {
-      state.shopCart.shopItems.add(ShopItem(product: product));
-      emit(state);
+      shopItems.add(ShopItem(product: product));
     }
+    emit(state.copywith(
+      shopCart: state.shopCart.copywith(shopItems: shopItems),
+    ));
   }
 
   void onRemovefromShopCartPressed(Product product) {
+    var shopItems = [...state.shopCart.shopItems];
     try {
-      var existingShopItem = state.shopCart.shopItems.firstWhere((element) {
+      var existingShopItem = shopItems.firstWhere((element) {
+        return element.product == product;
+      });
+      var existingShopItemIndex = shopItems.indexWhere((element) {
         return element.product == product;
       });
       if (existingShopItem.count <= 1) {
-        state.shopCart.shopItems.remove(existingShopItem);
-        emit(state);
+        shopItems.remove(existingShopItem);
       } else {
-        existingShopItem.count--;
-        emit(state);
+        shopItems[existingShopItemIndex] = existingShopItem.dec();
       }
     } catch (_) {}
+    emit(state.copywith(
+      shopCart: state.shopCart.copywith(shopItems: shopItems),
+    ));
   }
 }

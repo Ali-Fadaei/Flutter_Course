@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
 
-class ShopCart {
+class ShopCart extends Equatable {
 //
   final List<ShopItem> shopItems;
 
@@ -21,16 +22,59 @@ class ShopCart {
     }
     return temp;
   }
+
+  ShopCart copywith({
+    List<ShopItem>? shopItems,
+    String? deliveryAddress,
+    String? deliveryTime,
+  }) {
+    return ShopCart(
+      shopItems: shopItems ?? this.shopItems,
+      deliveryAddress: deliveryAddress ?? this.deliveryAddress,
+      deliveryTime: deliveryTime ?? this.deliveryTime,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        shopItems,
+        deliveryAddress,
+        deliveryTime,
+      ];
 }
 
-class ShopItem {
+class ShopItem extends Equatable {
 //
   final Product product;
 
-  int count;
+  final int count;
 
-  ShopItem({
+  const ShopItem({
     required this.product,
     this.count = 1,
   });
+
+  ShopItem copyWith({
+    Product? product,
+    int? count,
+  }) {
+    return ShopItem(
+      product: product ?? this.product,
+      count: count ?? this.count,
+    );
+  }
+
+  ShopItem inc() {
+    return copyWith(count: count + 1);
+  }
+
+  ShopItem dec() {
+    return copyWith(count: count - 1);
+  }
+
+  @override
+  List<Object?> get props => [
+        product,
+        count,
+      ];
 }
