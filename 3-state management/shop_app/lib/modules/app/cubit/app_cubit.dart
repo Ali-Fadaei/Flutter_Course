@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shop_app/domains/store_repository/models/product.dart';
 
 part 'app_state.dart';
 

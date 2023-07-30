@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
 import 'package:shop_app/modules/app/cubit/app_cubit.dart';
-import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
-import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app/modules/categories/categories_page.dart';
 import 'package:shop_app/modules/favorites/favorites_page.dart';
@@ -100,35 +98,25 @@ class App extends StatelessWidget {
                 );
               },
             ),
-            body: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (_) => ShopCartCubit(),
-                ),
-                BlocProvider(
-                  create: (_) => FavoritesCubit(),
-                ),
-              ],
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BlocBuilder<AppCubit, AppState>(
-                  buildWhen: (previous, current) =>
-                      previous.selectedDes != current.selectedDes,
-                  builder: (context, state) {
-                    return IndexedStack(
-                      index: state.selectedDes,
-                      children: [
-                        ProfilePage(),
-                        FavoritesPage(),
-                        StorePage(),
-                        CartPage(),
-                        CategoriesPage(),
-                      ],
-                    );
-                  },
-                ),
-                // getPage[selectedDes],
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocBuilder<AppCubit, AppState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedDes != current.selectedDes,
+                builder: (context, state) {
+                  return IndexedStack(
+                    index: state.selectedDes,
+                    children: [
+                      ProfilePage(),
+                      FavoritesPage(),
+                      StorePage(),
+                      CartPage(),
+                      CategoriesPage(),
+                    ],
+                  );
+                },
               ),
+              // getPage[selectedDes],
             ),
           ),
         ),
