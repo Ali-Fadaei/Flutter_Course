@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
-import 'package:shop_app/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 
 import '../store/product_btms.dart';
 
@@ -16,12 +17,14 @@ class ShopCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appCubit = BlocProvider.of<AppCubit>(context);
+    var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: shopItem.product,
-        appCubit: appCubit,
+        shopCartCubit: shopCartCubit,
+        favoritesCubit: favoritesCubit,
       ),
       child: Card(
         child: Padding(
@@ -49,7 +52,7 @@ class ShopCardItem extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () => appCubit
+                      onPressed: () => shopCartCubit
                           .onRemovefromShopCartPressed(shopItem.product),
                       icon: Icon(
                         Icons.remove,
@@ -80,8 +83,8 @@ class ShopCardItem extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     IconButton(
-                      onPressed: () =>
-                          appCubit.onAddtoShopCartPressed(shopItem.product),
+                      onPressed: () => shopCartCubit
+                          .onAddtoShopCartPressed(shopItem.product),
                       icon: Icon(
                         Icons.add,
                         size: 24,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
 import 'favorites_card.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
       buildWhen: (previous, current) => previous.favorites != current.favorites,
       builder: (context, state) {
         return state.favorites.isEmpty

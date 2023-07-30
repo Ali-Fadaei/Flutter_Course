@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
-import 'package:shop_app/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 
 class ProductBottomSheet extends StatelessWidget {
 //
   static show(
     BuildContext context, {
     required Product product,
-    required AppCubit appCubit,
+    required ShopCartCubit shopCartCubit,
+    required FavoritesCubit favoritesCubit,
   }) {
     showModalBottomSheet(
       context: context,
@@ -18,8 +20,15 @@ class ProductBottomSheet extends StatelessWidget {
         maxHeight: MediaQuery.of(context).size.height * 0.90,
       ),
       builder: (context) {
-        return BlocProvider.value(
-          value: appCubit,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: shopCartCubit,
+            ),
+            BlocProvider.value(
+              value: favoritesCubit,
+            ),
+          ],
           child: ProductBottomSheet(
             product: product,
           ),
@@ -37,7 +46,8 @@ class ProductBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appCubit = BlocProvider.of<AppCubit>(context);
+    var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     var colorCheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.all(11.0),
@@ -103,8 +113,8 @@ class ProductBottomSheet extends StatelessWidget {
                         Center(
                           child: IconButton(
                             onPressed: () =>
-                                appCubit.onFavoriatePressed(product),
-                            icon: BlocBuilder<AppCubit, AppState>(
+                                favoritesCubit.onFavoriatePressed(product),
+                            icon: BlocBuilder<FavoritesCubit, FavoritesState>(
                               buildWhen: (previous, current) =>
                                   previous.favorites != current.favorites,
                               builder: (context, state) {
@@ -189,14 +199,14 @@ class ProductBottomSheet extends StatelessWidget {
                       width: 300,
                       child: GestureDetector(
                         onTap: () => {
-                          appCubit.onAddtoShopCartPressed(product),
+                          shopCartCubit.onAddtoShopCartPressed(product),
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () =>
-                                  appCubit.onRemovefromShopCartPressed(product),
+                              onPressed: () => shopCartCubit
+                                  .onRemovefromShopCartPressed(product),
                               icon: Icon(
                                 Icons.remove,
                                 size: 24,
@@ -220,14 +230,14 @@ class ProductBottomSheet extends StatelessWidget {
                                       style: BorderStyle.solid),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Center(
-                                child: BlocBuilder<AppCubit, AppState>(
+                                child:
+                                    BlocBuilder<ShopCartCubit, ShopCartState>(
                                   buildWhen: (previous, current) =>
-                                      previous.shopCart.shopItems !=
-                                      current.shopCart.shopItems,
+                                      previous.shopItems != current.shopItems,
                                   builder: (context, state) {
                                     var count = 0;
                                     try {
-                                      count = state.shopCart.shopItems
+                                      count = state.shopItems
                                           .firstWhere(
                                             (element) =>
                                                 element.product == product,
@@ -247,7 +257,7 @@ class ProductBottomSheet extends StatelessWidget {
                             SizedBox(width: 15),
                             IconButton(
                               onPressed: () =>
-                                  appCubit.onAddtoShopCartPressed(product),
+                                  shopCartCubit.onAddtoShopCartPressed(product),
                               icon: Icon(
                                 Icons.add,
                                 size: 24,
