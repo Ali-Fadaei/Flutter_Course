@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
@@ -11,8 +9,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 //
   final StoreRepository storeRepository;
 
-  late StreamSubscription<List<Product>> favStreamListener;
-
   FavoritesCubit({
     required this.storeRepository,
   }) : super(FavoritesState(favorites: storeRepository.favorites)) {
@@ -20,9 +16,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   void init() {
-    favStreamListener = storeRepository.favStream.listen((event) {
-      emit(state.copyWith(favorites: event));
-    });
+    emit(state.copyWith(favorites: storeRepository.favorites));
   }
 
   void onFavoriatePressed(Product product) {
@@ -34,11 +28,5 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     }
     storeRepository.updateFavs(temp);
     emit(state.copyWith(favorites: temp));
-  }
-
-  @override
-  Future<void> close() {
-    favStreamListener.cancel();
-    return super.close();
   }
 }

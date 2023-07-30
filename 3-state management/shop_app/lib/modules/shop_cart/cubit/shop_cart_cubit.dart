@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
@@ -11,8 +9,6 @@ part 'shop_cart_state.dart';
 class ShopCartCubit extends Cubit<ShopCartState> {
 //
   final StoreRepository storeRepository;
-
-  late final StreamSubscription shopItemsListener;
 
   ShopCartCubit({
     required this.storeRepository,
@@ -26,9 +22,6 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       deliveryAddress: storeRepository.deliveryAddress,
       deliveryTime: storeRepository.deliveryTime,
     ));
-    shopItemsListener = storeRepository.shopItemsStream.listen((event) {
-      emit(state.copywith(shopItems: event));
-    });
   }
 
   void onAddtoShopCartPressed(Product product) {
@@ -67,11 +60,5 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     } catch (_) {}
     storeRepository.updateShopItems(shopItems);
     emit(state.copywith(shopItems: shopItems));
-  }
-
-  @override
-  Future<void> close() {
-    shopItemsListener.cancel();
-    return super.close();
   }
 }

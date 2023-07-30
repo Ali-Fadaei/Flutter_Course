@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:shop_app/domains/store_repository/models/category.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
@@ -18,14 +16,6 @@ class StoreRepository {
   String deliveryAddress = '';
 
   String deliveryTime = '';
-
-  final _favCtrl = StreamController<List<Product>>.broadcast();
-
-  final _shopItemsCtrl = StreamController<List<ShopItem>>.broadcast();
-
-  Stream<List<Product>> get favStream => _favCtrl.stream;
-
-  Stream<List<ShopItem>> get shopItemsStream => _shopItemsCtrl.stream;
 
   StoreRepository() {
     categories = [
@@ -110,12 +100,10 @@ class StoreRepository {
 
   void updateFavs(List<Product> favs) {
     favorites = favs;
-    _favCtrl.add(favs);
   }
 
   void updateShopItems(List<ShopItem> shopItems) {
     this.shopItems = shopItems;
-    _shopItemsCtrl.add(this.shopItems);
   }
 
   void updateDeliveryAddress(String address) {
