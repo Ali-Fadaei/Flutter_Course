@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_m3/models/category.dart';
 import 'package:shop_app_m3/models/product.dart';
 import 'package:shop_app_m3/models/shop_cart.dart';
@@ -212,16 +211,6 @@ class _MainAppState extends State<MainApp> {
         PointerDeviceKind.stylus,
         PointerDeviceKind.unknown,
       }),
-      localizationsDelegates: [
-        GlobalWidgetsLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('fa', 'IR'),
-        Locale('en', 'US'),
-      ],
-      locale: Locale('en', 'US'),
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
