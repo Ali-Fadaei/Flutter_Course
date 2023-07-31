@@ -24,14 +24,39 @@ class _MainAppState extends State<MainApp> {
   var inputIsEmpty = true;
 
   List<TaskData> tasks = [
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
-    TaskData(text: 'test', date: DateTime.now()),
+    TaskData(
+      text: 'join Flutter Course! 🚀',
+      date: DateTime.now(),
+    ),
+    TaskData(
+      text: 'pay attention to lecture in class. 👀',
+      date: DateTime.now(),
+    ),
+    TaskData(
+      text: 'watch lecture records after class session. 📽️',
+      date: DateTime.now(),
+    ),
+    TaskData(
+      text: 'take notes and learn deeply. 🧠',
+      date: DateTime.now(),
+    ),
+    TaskData(
+      text: 'Code, Code, Code! 🧑🏻‍💻',
+      date: DateTime.now(),
+    ),
+    TaskData(
+      text: 'become a Flutter Developer as soon as possible. 😎',
+      date: DateTime.now(),
+    ),
   ];
+
+  @override
+  void initState() {
+    inputCtrl.addListener(() {
+      setState(() => inputIsEmpty = inputCtrl.text.isEmpty);
+    });
+    super.initState();
+  }
 
   void onAddTaskPressed() {
     if (inputCtrl.text.isNotEmpty) {
@@ -47,27 +72,17 @@ class _MainAppState extends State<MainApp> {
     }
   }
 
-  void onRemovePressed(TaskData data) {
-    // tasks.removeWhere((element) => element.id == id);
-    tasks.remove(data);
-    setState(() {});
-  }
-
-  void onCheckPressed(TaskData data) {
-    var temp = tasks.firstWhere((element) => element == data);
-    temp.isChecked = !temp.isChecked;
-    setState(() {});
-    // tasks.
-  }
-
-  @override
-  void initState() {
-    inputCtrl.addListener(() {
-      setState(() {
-        inputIsEmpty = inputCtrl.text.isEmpty;
-      });
+  void onRemoveTaskPressed(TaskData data) {
+    setState(() {
+      tasks.remove(data);
     });
-    super.initState();
+  }
+
+  void onCheckTaskPressed(TaskData data) {
+    setState(() {
+      var temp = tasks.firstWhere((element) => element == data);
+      temp.isChecked = !temp.isChecked;
+    });
   }
 
   @override
@@ -79,13 +94,13 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'todo-app',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           // brightness: Brightness.dark,
           brightness: Brightness.light,
-          seedColor: Colors.cyan,
+          seedColor: Colors.teal,
         ),
       ),
       home: Scaffold(
@@ -111,8 +126,8 @@ class _MainAppState extends State<MainApp> {
                         return [
                           TaskCard(
                             taskData: e,
-                            onCheckPressed: onCheckPressed,
-                            onRemovePressed: onRemovePressed,
+                            onCheckPressed: onCheckTaskPressed,
+                            onRemovePressed: onRemoveTaskPressed,
                           ),
                           if (tasks.last != e) SizedBox(height: 10),
                         ];

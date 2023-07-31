@@ -48,7 +48,7 @@ class TaskCard extends StatelessWidget {
                     thickness: 1.5,
                     height: 10,
                   ),
-                  Text(taskData.date.toLocal().toString()),
+                  Text(taskData.date.toString().substring(0, 16)),
                 ],
               ),
             ),
