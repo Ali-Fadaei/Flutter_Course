@@ -11,33 +11,34 @@ class ExpandedRowPage extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       color: Colors.grey.shade200,
-      child: const Column(
+      child: const Stack(
+        alignment: Alignment.center,
         children: [
-          SizedBox(height: 10),
-          Text('Expanded Row Page'),
-          SizedBox(height: 20),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Spacer(),
-                Expanded(
-                  flex: 20,
-                  child: Box(color: Colors.teal, size: 100),
-                ),
-                Spacer(flex: 1),
-                Expanded(
-                  flex: 20,
-                  child: Box(color: Colors.green, size: 150),
-                ),
-                Spacer(flex: 1),
-                Expanded(
-                  flex: 20,
-                  child: Box(color: Colors.lime, size: 200),
-                ),
-                Spacer(flex: 1),
-              ],
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Spacer(),
+              Expanded(
+                flex: 20,
+                child: Box(color: Colors.teal, size: 100),
+              ),
+              Spacer(flex: 1),
+              Expanded(
+                flex: 20,
+                child: Box(color: Colors.green, size: 150),
+              ),
+              Spacer(flex: 1),
+              Expanded(
+                flex: 20,
+                child: Box(color: Colors.lime, size: 200),
+              ),
+              Spacer(flex: 1),
+            ],
+          ),
+          Positioned(
+            left: 10,
+            bottom: 10,
+            child: Text('Expanded Row Page'),
           ),
         ],
       ),

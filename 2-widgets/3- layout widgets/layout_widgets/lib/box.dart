@@ -18,6 +18,9 @@ class Box extends StatelessWidget {
       width: size,
       height: size,
       color: color,
+      // padding: const EdgeInsets.all(25),
+      // margin: const EdgeInsets.all(25),
+      child: Text('size: $size\ncolor: ${color.value}'),
     );
   }
 }

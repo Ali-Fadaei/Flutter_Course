@@ -5,6 +5,8 @@ import 'package:layout_widgets/pages/layout_page.dart';
 import 'package:layout_widgets/pages/column_page.dart';
 import 'package:layout_widgets/pages/expanded_column_page.dart';
 import 'package:layout_widgets/pages/expanded_row_page.dart';
+import 'package:layout_widgets/pages/mq_column_page.dart';
+import 'package:layout_widgets/pages/mq_row_page.dart';
 import 'package:layout_widgets/pages/row_page.dart';
 import 'package:layout_widgets/pages/stack_page.dart';
 
@@ -26,8 +28,10 @@ class _MainAppState extends State<MainApp> {
 
   List<Widget> pages = const [
     ColumnPage(),
+    MediaQueryColumnPage(),
     ExpandedColumnPage(),
     RowPage(),
+    MediaQueryRowPage(),
     ExpandedRowPage(),
     StackPage(),
     LayoutPage(),
@@ -35,7 +39,7 @@ class _MainAppState extends State<MainApp> {
 
   void onPageChangeButtonPressed() {
     setState(() {
-      if (selectedPageIndex == 5) {
+      if (selectedPageIndex == 7) {
         selectedPageIndex = 0;
       } else {
         selectedPageIndex++;
@@ -51,7 +55,7 @@ class _MainAppState extends State<MainApp> {
           onPressed: onPageChangeButtonPressed,
           child: const Icon(Icons.change_circle_outlined),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade200,
         body: pages[selectedPageIndex],
       ),
     );

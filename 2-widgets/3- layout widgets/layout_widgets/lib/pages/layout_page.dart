@@ -9,21 +9,15 @@ class LayoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.transparent,
-        // height: double.infinity,
-        child: const Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: ExpandedRowPage()),
-            Expanded(child: ExpandedColumnPage()),
-            Expanded(child: StackPage()),
-          ],
-        ),
+    return const SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: Column(
+        children: [
+          Expanded(child: ExpandedRowPage()),
+          Expanded(child: ExpandedColumnPage()),
+          Expanded(child: StackPage()),
+        ],
       ),
     );
   }

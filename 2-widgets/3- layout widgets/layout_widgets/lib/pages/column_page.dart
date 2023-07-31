@@ -11,21 +11,21 @@ class ColumnPage extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       color: Colors.grey.shade200,
-      child: const Column(
+      child: const Stack(
+        alignment: Alignment.center,
         children: [
-          SizedBox(height: 10),
-          Text('Column Page'),
-          SizedBox(height: 20),
-          Expanded(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Box(color: Colors.teal),
-                Box(color: Colors.green),
-                Box(color: Colors.lime),
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Box(color: Colors.teal),
+              Box(color: Colors.green),
+              Box(color: Colors.lime),
+            ],
+          ),
+          Positioned(
+            left: 10,
+            bottom: 10,
+            child: Text('Column Page'),
           ),
         ],
       ),
