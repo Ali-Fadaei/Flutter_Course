@@ -20,6 +20,7 @@ class FavoritesCard extends StatelessWidget {
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
+        favoritesCubit: favoritesCubit,
       ),
       child: Card(
         child: Padding(

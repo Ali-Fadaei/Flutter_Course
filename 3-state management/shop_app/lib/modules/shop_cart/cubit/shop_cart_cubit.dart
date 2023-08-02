@@ -16,11 +16,16 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     init();
   }
 
-  void init() {
+  Future<void> init() async {
+    emit(state.copywith(loading: true));
+    var shopItemsRes = await storeRepository.readShopItems();
+    var deliveryAddressRes = await storeRepository.readDeliveryAddress();
+    var deliveryTimeRes = await storeRepository.readDeliveryTime();
     emit(state.copywith(
-      shopItems: storeRepository.shopItems,
-      deliveryAddress: storeRepository.deliveryAddress,
-      deliveryTime: storeRepository.deliveryTime,
+      loading: false,
+      shopItems: shopItemsRes,
+      deliveryAddress: deliveryAddressRes,
+      deliveryTime: deliveryTimeRes,
     ));
   }
 
@@ -28,10 +33,10 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     var shopItems = [...state.shopItems];
     try {
       var existingShopItem = shopItems.firstWhere((element) {
-        return element.product == product;
+        return element.product.id == product.id;
       });
       var existingShopItemIndex = shopItems.indexWhere((element) {
-        return element.product == product;
+        return element.product.id == product.id;
       });
       if (existingShopItem.count < 10) {
         shopItems[existingShopItemIndex] = existingShopItem.inc();
@@ -47,13 +52,13 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     var shopItems = [...state.shopItems];
     try {
       var existingShopItem = shopItems.firstWhere((element) {
-        return element.product == product;
+        return element.product.id == product.id;
       });
       var existingShopItemIndex = shopItems.indexWhere((element) {
-        return element.product == product;
+        return element.product.id == product.id;
       });
       if (existingShopItem.count <= 1) {
-        shopItems.remove(existingShopItem);
+        shopItems.removeAt(existingShopItemIndex);
       } else {
         shopItems[existingShopItemIndex] = existingShopItem.dec();
       }

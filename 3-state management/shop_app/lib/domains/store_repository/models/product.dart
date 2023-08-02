@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:shop_app/domains/store_repository/models/category.dart';
 
 class Product {
 //
-  final UniqueKey id;
+  final int id;
 
   final String title;
 
@@ -18,11 +17,12 @@ class Product {
   final Category category;
 
   Product({
+    required this.id,
     required this.title,
     required this.rating,
     required this.price,
     required this.image,
     required this.description,
     required this.category,
-  }) : id = UniqueKey();
+  });
 }

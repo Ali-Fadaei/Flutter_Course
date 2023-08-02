@@ -24,32 +24,34 @@ class CartPage extends StatelessWidget {
           }
         },
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
-          buildWhen: (previous, current) =>
-              previous.shopItems != current.shopItems,
           builder: (context, state) {
-            return state.shopItems.isEmpty
+            return state.loading
                 ? Center(
-                    child: Container(
-                      width: 400,
-                      child: Image.asset(
-                        'assets/imgs/vectors/empty_cart.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    child: CircularProgressIndicator(),
                   )
-                : SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: state.shopItems
-                          .expand(
-                            (element) => [
-                              ShopCardItem(shopItem: element),
-                              SizedBox(height: 15)
-                            ],
-                          )
-                          .toList(),
-                    ),
-                  );
+                : state.shopItems.isEmpty
+                    ? Center(
+                        child: Container(
+                          width: 400,
+                          child: Image.asset(
+                            'assets/imgs/vectors/empty_cart.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Column(
+                          children: state.shopItems
+                              .expand(
+                                (element) => [
+                                  ShopCardItem(shopItem: element),
+                                  SizedBox(height: 15)
+                                ],
+                              )
+                              .toList(),
+                        ),
+                      );
           },
         ),
       ),

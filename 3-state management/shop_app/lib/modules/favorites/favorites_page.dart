@@ -13,7 +13,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => FavoritesCubit(
-        storeRepository: RepositoryProvider.of<StoreRepository>(context),
+        storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
       child: BlocListener<AppCubit, AppState>(
         listener: (context, state) {
@@ -23,10 +23,10 @@ class FavoritesPage extends StatelessWidget {
           }
         },
         child: BlocBuilder<FavoritesCubit, FavoritesState>(
-            buildWhen: (previous, current) =>
-                previous.favorites != current.favorites,
             builder: (context, state) {
-              return state.favorites.isEmpty
+          return state.loading
+              ? Center(child: CircularProgressIndicator())
+              : state.favorites.isEmpty
                   ? Center(
                       child: SizedBox(
                         width: 400,
@@ -49,7 +49,7 @@ class FavoritesPage extends StatelessWidget {
                             .toList(),
                       ),
                     );
-            }),
+        }),
       ),
     );
   }

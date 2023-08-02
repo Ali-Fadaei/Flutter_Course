@@ -21,6 +21,7 @@ class ShopCardItem extends StatelessWidget {
       onTap: () => ProductBottomSheet.show(
         context,
         product: shopItem.product,
+        shopCartCubit: shopCartCubit,
       ),
       child: Card(
         child: Padding(

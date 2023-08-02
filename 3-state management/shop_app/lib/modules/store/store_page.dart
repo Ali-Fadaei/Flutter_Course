@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
 import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import 'package:shop_app/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app/modules/store/product_card.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
@@ -15,10 +16,17 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var storeRepository = RepositoryProvider.of<StoreRepository>(context);
-    return BlocProvider(
-      create: (context) => ShopCartCubit(
-        storeRepository: RepositoryProvider.of<StoreRepository>(context),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => StoreCubit(storeRepo: storeRepository),
+        ),
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepository: storeRepository,
+          ),
+        ),
+      ],
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -95,17 +103,25 @@ class StorePage extends StatelessWidget {
             SizedBox(height: 20),
             SizedBox(
               height: 350,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                children: storeRepository.products
-                    .expand(
-                      (element) => [
-                        ProductCard(product: element),
-                        SizedBox(width: 8),
-                      ],
-                    )
-                    .toList(),
+              child: BlocBuilder<StoreCubit, StoreState>(
+                builder: (context, state) {
+                  return state.loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          children: state.products
+                              .expand(
+                                (element) => [
+                                  ProductCard(product: element),
+                                  SizedBox(width: 8),
+                                ],
+                              )
+                              .toList(),
+                        );
+                },
               ),
             ),
             SizedBox(height: 20),
@@ -136,17 +152,23 @@ class StorePage extends StatelessWidget {
             SizedBox(height: 20),
             SizedBox(
               height: 350,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                children: storeRepository.products
-                    .expand(
-                      (element) => [
-                        ProductCard(product: element),
-                        SizedBox(width: 8),
-                      ],
-                    )
-                    .toList(),
+              child: BlocBuilder<StoreCubit, StoreState>(
+                builder: (context, state) {
+                  return state.loading
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          children: state.products
+                              .expand(
+                                (element) => [
+                                  ProductCard(product: element),
+                                  SizedBox(width: 8),
+                                ],
+                              )
+                              .toList(),
+                        );
+                },
               ),
             ),
           ],

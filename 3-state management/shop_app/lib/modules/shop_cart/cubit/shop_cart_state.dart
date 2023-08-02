@@ -2,6 +2,8 @@ part of 'shop_cart_cubit.dart';
 
 class ShopCartState extends Equatable {
 //
+  final bool loading;
+
   final List<ShopItem> shopItems;
 
   final String deliveryAddress;
@@ -9,6 +11,7 @@ class ShopCartState extends Equatable {
   final String deliveryTime;
 
   const ShopCartState({
+    this.loading = false,
     this.shopItems = const [],
     this.deliveryAddress = '',
     this.deliveryTime = '',
@@ -23,11 +26,13 @@ class ShopCartState extends Equatable {
   }
 
   ShopCartState copywith({
+    bool? loading,
     List<ShopItem>? shopItems,
     String? deliveryAddress,
     String? deliveryTime,
   }) {
     return ShopCartState(
+      loading: loading ?? this.loading,
       shopItems: shopItems ?? this.shopItems,
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
       deliveryTime: deliveryTime ?? this.deliveryTime,
@@ -36,6 +41,7 @@ class ShopCartState extends Equatable {
 
   @override
   List<Object?> get props => [
+        loading,
         shopItems,
         deliveryAddress,
         deliveryTime,

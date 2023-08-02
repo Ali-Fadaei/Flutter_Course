@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Category {
 //
-  final UniqueKey id;
+  final int id;
 
   final String title;
 
@@ -11,8 +11,9 @@ class Category {
   final Color color;
 
   Category({
+    required this.id,
     required this.title,
     required this.image,
     required this.color,
-  }) : id = UniqueKey();
+  });
 }

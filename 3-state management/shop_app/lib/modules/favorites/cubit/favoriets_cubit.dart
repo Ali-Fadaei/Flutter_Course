@@ -7,26 +7,29 @@ part 'favoriets_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
 //
-  final StoreRepository storeRepository;
+  final StoreRepository storeRepo;
 
   FavoritesCubit({
-    required this.storeRepository,
-  }) : super(FavoritesState(favorites: storeRepository.favorites)) {
+    required this.storeRepo,
+  }) : super(FavoritesState()) {
     init();
   }
 
-  void init() {
-    emit(state.copyWith(favorites: storeRepository.favorites));
+  Future<void> init() async {
+    emit(state.copyWith(loading: true));
+    var res = await storeRepo.readFavorites();
+    emit(state.copyWith(loading: false, favorites: res));
   }
 
-  void onFavoriatePressed(Product product) {
+  void onFavoriatePressed(Product product) async {
     var temp = [...state.favorites];
     if (temp.contains(product)) {
       temp.remove(product);
     } else {
       temp.add(product);
     }
-    storeRepository.updateFavs(temp);
-    emit(state.copyWith(favorites: temp));
+    await storeRepo.updateFavorites(temp);
+    var res = await storeRepo.readFavorites();
+    emit(state.copyWith(favorites: res));
   }
 }

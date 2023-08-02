@@ -7,11 +7,13 @@ import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 
 class ProductBottomSheet extends StatelessWidget {
 //
-  static show(
+  static Future show(
     BuildContext context, {
     required Product product,
+    FavoritesCubit? favoritesCubit,
+    ShopCartCubit? shopCartCubit,
   }) {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       constraints: BoxConstraints(
@@ -21,18 +23,22 @@ class ProductBottomSheet extends StatelessWidget {
       builder: (context) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (_) => ShopCartCubit(
-                storeRepository:
-                    RepositoryProvider.of<StoreRepository>(context),
-              ),
-            ),
-            BlocProvider(
-              create: (_) => FavoritesCubit(
-                storeRepository:
-                    RepositoryProvider.of<StoreRepository>(context),
-              ),
-            ),
+            shopCartCubit == null
+                ? BlocProvider(
+                    create: (_) => ShopCartCubit(
+                      storeRepository:
+                          RepositoryProvider.of<StoreRepository>(context),
+                    ),
+                  )
+                : BlocProvider.value(value: shopCartCubit),
+            favoritesCubit == null
+                ? BlocProvider(
+                    create: (_) => FavoritesCubit(
+                      storeRepo:
+                          RepositoryProvider.of<StoreRepository>(context),
+                    ),
+                  )
+                : BlocProvider.value(value: favoritesCubit),
           ],
           child: ProductBottomSheet(
             product: product,
@@ -245,7 +251,8 @@ class ProductBottomSheet extends StatelessWidget {
                                       count = state.shopItems
                                           .firstWhere(
                                             (element) =>
-                                                element.product == product,
+                                                element.product.id ==
+                                                product.id,
                                           )
                                           .count;
                                     } catch (_) {}
