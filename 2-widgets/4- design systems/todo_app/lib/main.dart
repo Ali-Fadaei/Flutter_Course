@@ -106,8 +106,8 @@ class _MainAppState extends State<MainApp> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('TODO APP'),
           scrolledUnderElevation: 6,
+          title: const Text('TODO APP'),
         ),
         drawer: Drawer(
           child: Column(
