@@ -30,36 +30,39 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return favorites.isEmpty
-        ? Center(
-            child: SizedBox(
-              width: 400,
-              child: Image.asset(
-                'assets/imgs/vectors/empty_fav.png',
-                fit: BoxFit.fill,
+    return SizedBox.expand(
+      child: favorites.isEmpty
+          ? Center(
+              child: SizedBox(
+                width: 400,
+                child: Image.asset(
+                  'assets/imgs/vectors/empty_fav.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )
+          : SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: favorites
+                    .expand(
+                      (element) => [
+                        FavoritesCard(
+                          product: element,
+                          favorites: favorites,
+                          shopCard: shopCart,
+                          onFavoriatePressed: onFavoriatePressed,
+                          onAddtoShopCardPressed: onAddtoShopCartPressed,
+                          onRemovetoShopCardPressed:
+                              onRemovefromShopCartPressed,
+                        ),
+                        SizedBox(height: 15)
+                      ],
+                    )
+                    .toList(),
               ),
             ),
-          )
-        : SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: favorites
-                  .expand(
-                    (element) => [
-                      FavoritesCard(
-                        product: element,
-                        favorites: favorites,
-                        shopCard: shopCart,
-                        onFavoriatePressed: onFavoriatePressed,
-                        onAddtoShopCardPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCardPressed: onRemovefromShopCartPressed,
-                      ),
-                      SizedBox(height: 15)
-                    ],
-                  )
-                  .toList(),
-            ),
-          );
+    );
   }
 }

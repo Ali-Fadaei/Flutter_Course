@@ -35,37 +35,39 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return widget.shopCard.shopItems.isEmpty
-        ? Center(
-            child: SizedBox(
-              width: 400,
-              child: Image.asset(
-                'assets/imgs/vectors/empty_cart.png',
-                fit: BoxFit.fill,
+    return SizedBox.expand(
+      child: widget.shopCard.shopItems.isEmpty
+          ? Center(
+              child: SizedBox(
+                width: 400,
+                child: Image.asset(
+                  'assets/imgs/vectors/empty_cart.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )
+          : SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: widget.shopCard.shopItems
+                    .expand(
+                      (element) => [
+                        ShopCardItem(
+                          shopItem: element,
+                          favorites: widget.favorites,
+                          shopCard: widget.shopCard,
+                          onFavoriatePressed: widget.onFavoriatePressed,
+                          onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
+                          onRemovetoShopCardPressed:
+                              widget.onRemovefromShopCartPressed,
+                        ),
+                        SizedBox(height: 15)
+                      ],
+                    )
+                    .toList(),
               ),
             ),
-          )
-        : SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: widget.shopCard.shopItems
-                  .expand(
-                    (element) => [
-                      ShopCardItem(
-                        shopItem: element,
-                        favorites: widget.favorites,
-                        shopCard: widget.shopCard,
-                        onFavoriatePressed: widget.onFavoriatePressed,
-                        onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCardPressed:
-                            widget.onRemovefromShopCartPressed,
-                      ),
-                      SizedBox(height: 15)
-                    ],
-                  )
-                  .toList(),
-            ),
-          );
+    );
   }
 }

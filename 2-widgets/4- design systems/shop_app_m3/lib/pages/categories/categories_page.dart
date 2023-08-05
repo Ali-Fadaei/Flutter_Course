@@ -14,13 +14,15 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    return GridView.count(
-      crossAxisCount: (screenWidth / 180).floor(),
-      mainAxisSpacing: 20,
-      crossAxisSpacing: 20,
-      childAspectRatio: 2 / 3,
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      children: categories.map((e) => CategoryCard(category: e)).toList(),
+    return SizedBox.expand(
+      child: GridView.count(
+        crossAxisCount: (screenWidth / 180).floor(),
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
+        childAspectRatio: 2 / 3,
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        children: categories.map((e) => CategoryCard(category: e)).toList(),
+      ),
     );
   }
 }
