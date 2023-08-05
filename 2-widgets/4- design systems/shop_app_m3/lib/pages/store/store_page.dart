@@ -84,7 +84,7 @@ class _StorePageState extends State<StorePage> {
           SizedBox(height: 20),
           //products listview
           SizedBox(
-            height: 300,
+            height: 350,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
@@ -137,11 +137,11 @@ class _StorePageState extends State<StorePage> {
           SizedBox(height: 20),
           //products listview
           SizedBox(
-            height: 300,
+            height: 350,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              children: widget.products
+              children: widget.products.reversed
                   .expand(
                     (element) => [
                       SizedBox(width: 8),

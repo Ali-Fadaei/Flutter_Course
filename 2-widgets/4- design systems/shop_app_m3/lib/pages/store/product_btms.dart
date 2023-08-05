@@ -237,9 +237,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           ),
                         ],
                       ),
-
-                      SizedBox(height: 25),
-                      // Add to Cart
+                      SizedBox(height: 80),
                     ],
                   ),
                 ),

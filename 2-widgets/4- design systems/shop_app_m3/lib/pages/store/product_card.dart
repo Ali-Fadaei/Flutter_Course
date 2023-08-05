@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
       ),
       child: SizedBox(
         width: 180,
-        height: 240,
+        height: 350,
         child: Card(
           // surfaceTintColor: product.category.color,
           child: Padding(
