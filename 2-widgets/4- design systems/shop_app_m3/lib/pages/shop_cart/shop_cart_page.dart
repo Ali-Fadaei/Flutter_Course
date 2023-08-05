@@ -16,7 +16,7 @@ class CartPage extends StatefulWidget {
 
   final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCartPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const CartPage({
     super.key,
@@ -25,7 +25,7 @@ class CartPage extends StatefulWidget {
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
     required this.products,
-    required this.onRemovetoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
   });
 
   @override
@@ -37,7 +37,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return widget.shopCard.shopItems.isEmpty
         ? Center(
-            child: Container(
+            child: SizedBox(
               width: 400,
               child: Image.asset(
                 'assets/imgs/vectors/empty_cart.png',
@@ -46,6 +46,7 @@ class _CartPageState extends State<CartPage> {
             ),
           )
         : SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 8),
             physics: BouncingScrollPhysics(),
             child: Column(
               children: widget.shopCard.shopItems
@@ -58,8 +59,7 @@ class _CartPageState extends State<CartPage> {
                         onFavoriatePressed: widget.onFavoriatePressed,
                         onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
                         onRemovetoShopCardPressed:
-                            widget.onRemovetoShopCartPressed,
-                        product: element.product,
+                            widget.onRemovefromShopCartPressed,
                       ),
                       SizedBox(height: 15)
                     ],

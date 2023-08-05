@@ -12,23 +12,23 @@ import 'package:shop_app_m3/pages/store/store_page.dart';
 
 List<Category> categories = [
   Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
+    title: 'Mobile Phone',
+    image: 'assets/imgs/categories/mobile.png',
     color: Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
+    title: 'Laptop',
+    image: 'assets/imgs/categories/laptop.png',
     color: Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
+    title: 'AirBuds',
+    image: 'assets/imgs/categories/headphone.png',
     color: Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
-    title: 'e-Devices',
-    image: 'assets/imgs/categories/e-devices.png',
+    title: 'Network Devices',
+    image: 'assets/imgs/categories/network.png',
     color: Color.fromARGB(255, 218, 241, 254),
   ),
 ];
@@ -59,7 +59,7 @@ List<Product> products = [
     image: 'assets/imgs/products/ideapad.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
-    category: categories[0],
+    category: categories[1],
   ),
   Product(
     title: 'Asus VivoBook',
@@ -68,7 +68,7 @@ List<Product> products = [
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
-    category: categories[0],
+    category: categories[1],
   ),
   Product(
     title: 'Asus VivoBook',
@@ -77,7 +77,7 @@ List<Product> products = [
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
-    category: categories[0],
+    category: categories[1],
   ),
   Product(
     title: 'Asus VivoBook',
@@ -86,7 +86,7 @@ List<Product> products = [
     image: 'assets/imgs/products/vivabook.png',
     description:
         'sdfvsdfasdfasdfasdfasdfsd asdf.,sdjn fsdlkfjsdn fkljsdn flasdkj fhasdlfjkasdhklfjsd nflkasdj fnasdlkfjnasd lkjasdn flksdjn fsdklfjnasdl kjdbn flasdkj fnasd; kfjna;',
-    category: categories[0],
+    category: categories[1],
   ),
 ];
 
@@ -110,7 +110,7 @@ class _MainAppState extends State<MainApp> {
 
   ShopCart shopCart = ShopCart(shopItems: []);
 
-  void onFavoriatePressed(Product product) {
+  void onFavoritePressed(Product product) {
     setState(
       () {
         if (favorites.contains(product)) {
@@ -174,28 +174,6 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  // Widget getPage(int index) {
-  //   var temp = [
-  //     ProfilePage(),
-  //     FavoritesPage(
-  //       favorites: favorites,
-  //       onFavoriatePressed: onFavoriatePressed,
-  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
-  //       products: products,
-  //     ),
-  //     StorePage(
-  //       products: products,
-  //       onFavoriatePressed: onFavoriatePressed,
-  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
-  //     ),
-  //     CartPage(
-  //       shopCard: shopCard,
-  //     ),
-  //     CategoriesPage(),
-  //   ];
-  //   return temp[index];
-  // }
-
   @override
   Widget build(BuildContext context) {
 //
@@ -203,19 +181,27 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+        colorScheme: ColorScheme.fromSeed(
+          brightness: Brightness.light,
+          // brightness: Brightness.dark,
+          seedColor: Colors.cyan,
+        ),
       ),
-      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.touch,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.unknown,
-      }),
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+        },
+      ),
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           toolbarHeight: 65,
-          title: Center(child: Image.asset('assets/icons/Amazon.png')),
+          title: Center(
+            child: Image.asset('assets/icons/Amazon.png'),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
@@ -262,7 +248,7 @@ class _MainAppState extends State<MainApp> {
                 Icons.shopping_cart_outlined,
                 size: 28,
               ),
-              label: 'cart',
+              label: 'shop cart',
               tooltip: '',
             ),
             NavigationDestination(
@@ -275,40 +261,38 @@ class _MainAppState extends State<MainApp> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IndexedStack(
-            index: selectedDes,
-            children: [
-              ProfilePage(),
-              FavoritesPage(
-                favorites: favorites,
-                shopCart: shopCart,
-                products: products,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              StorePage(
-                products: products,
-                favorites: favorites,
-                shopCart: shopCart,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              CartPage(
-                products: products,
-                shopCard: shopCart,
-                favorites: favorites,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              CategoriesPage(),
-            ],
-          ),
-          // getPage[selectedDes],
+        body: IndexedStack(
+          index: selectedDes,
+          children: [
+            ProfilePage(),
+            FavoritesPage(
+              favorites: favorites,
+              shopCart: shopCart,
+              products: products,
+              onFavoriatePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            StorePage(
+              products: products,
+              favorites: favorites,
+              shopCart: shopCart,
+              onFavoriatePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            CartPage(
+              products: products,
+              shopCard: shopCart,
+              favorites: favorites,
+              onFavoriatePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            CategoriesPage(
+              categories: categories,
+            ),
+          ],
         ),
       ),
     );

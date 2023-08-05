@@ -37,13 +37,13 @@ class FavoritesCard extends StatelessWidget {
         shopCart: shopCard,
         onFavoriatePressed: onFavoriatePressed,
         onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        onRemovefromShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
+        surfaceTintColor: product.category.color,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width: 120,
@@ -58,31 +58,36 @@ class FavoritesCard extends StatelessWidget {
                 children: [
                   Text(
                     product.title,
-                    textAlign: TextAlign.right,
                     style: TextStyle(
-                      color: Color(0xFF181725),
                       fontSize: 16,
-                      fontFamily: 'IRANSans',
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.10,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    '${product.price}تومان',
-                    textAlign: TextAlign.right,
+                    product.category.title,
                     style: TextStyle(
-                      color: Color(0xFF7C7C7C),
                       fontSize: 14,
-                      fontFamily: 'IRANSans',
-                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ],
               ),
               Spacer(),
-              IconButton(
-                onPressed: () => onFavoriatePressed(product),
-                icon: Icon(Icons.favorite),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () => onFavoriatePressed(product),
+                    icon: Icon(Icons.favorite),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '\$${product.price}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               )
             ],
           ),

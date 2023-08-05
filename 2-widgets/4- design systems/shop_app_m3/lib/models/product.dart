@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/category.dart';
 
 class Product {
 //
-  final UniqueKey id;
-
   final String title;
 
   final double rating;
@@ -24,5 +21,5 @@ class Product {
     required this.image,
     required this.description,
     required this.category,
-  }) : id = UniqueKey();
+  });
 }

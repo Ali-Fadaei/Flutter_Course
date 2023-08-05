@@ -16,7 +16,7 @@ class FavoritesPage extends StatelessWidget {
 
   final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCartPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const FavoritesPage({
     super.key,
@@ -24,7 +24,7 @@ class FavoritesPage extends StatelessWidget {
     required this.favorites,
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
-    required this.onRemovetoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
     required this.shopCart,
   });
 
@@ -41,6 +41,7 @@ class FavoritesPage extends StatelessWidget {
             ),
           )
         : SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 8),
             physics: BouncingScrollPhysics(),
             child: Column(
               children: favorites
@@ -52,7 +53,7 @@ class FavoritesPage extends StatelessWidget {
                         shopCard: shopCart,
                         onFavoriatePressed: onFavoriatePressed,
                         onAddtoShopCardPressed: onAddtoShopCartPressed,
-                        onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+                        onRemovetoShopCardPressed: onRemovefromShopCartPressed,
                       ),
                       SizedBox(height: 15)
                     ],

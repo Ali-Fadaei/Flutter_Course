@@ -10,8 +10,6 @@ class ShopCardItem extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final Product product;
-
   final ShopCart shopCard;
 
   final void Function(Product product) onFavoriatePressed;
@@ -27,7 +25,6 @@ class ShopCardItem extends StatelessWidget {
     required this.onFavoriatePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovetoShopCardPressed,
-    required this.product,
     required this.shopCard,
   });
 
@@ -41,88 +38,71 @@ class ShopCardItem extends StatelessWidget {
         shopCart: shopCard,
         onFavoriatePressed: onFavoriatePressed,
         onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        onRemovefromShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
+        surfaceTintColor: shopItem.product.category.color,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(
-              width: 120,
-              child: Image.asset(
-                shopItem.product.image,
-                fit: BoxFit.contain,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 120,
+                child: Image.asset(
+                  shopItem.product.image,
+                ),
               ),
-            ),
-            SizedBox(width: 15),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  shopItem.product.title,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => onRemovetoShopCardPressed(product),
-                      icon: Icon(
-                        Icons.remove,
-                        size: 24,
-                        color: Colors.grey,
-                      ),
+              SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    shopItem.product.title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-
-                    SizedBox(width: 10),
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(255, 222, 222, 222),
-                            width: 2,
-                            style: BorderStyle.solid,
-                          ),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                        child: Text(
-                          shopItem.count.toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
+                  ),
+                  Text(
+                    shopItem.product.category.title,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
-                    SizedBox(width: 10),
-                    IconButton(
-                      onPressed: () => onAddtoShopCardPressed(product),
-                      icon: Icon(
-                        Icons.add,
-                        size: 24,
-                        color: Color(0xFFF34E4E),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      IconButton.filledTonal(
+                        onPressed: () =>
+                            onRemovetoShopCardPressed(shopItem.product),
+                        icon: Icon(Icons.remove),
                       ),
-                    ),
-                    // Text(
-                    // " + ",
-                    // style: TextStyle(
-                    // fontSize: 20,
-                    // ),
-                    // )
-                  ],
+                      SizedBox(width: 10),
+                      Text(
+                        shopItem.count.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(width: 10),
+                      IconButton.filledTonal(
+                        onPressed: () =>
+                            onAddtoShopCardPressed(shopItem.product),
+                        icon: Icon(Icons.add),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Spacer(),
+              Text(
+                '\$${shopItem.product.price * shopItem.count}',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ),
-            Spacer(),
-            Text(
-              '${shopItem.product.price * shopItem.count} T',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
