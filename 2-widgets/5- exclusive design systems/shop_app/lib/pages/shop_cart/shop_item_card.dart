@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/shop_cart.dart';
-import '../store/product_btms.dart';
+import 'package:shop_app/pages/store/product_btms.dart';
+
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ShopCardItem extends StatelessWidget {
 //
@@ -9,24 +11,21 @@ class ShopCardItem extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final Product product;
-
   final ShopCart shopCard;
 
-  final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onFavoritePressed;
 
   final void Function(Product product) onAddtoShopCardPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovefromShopCardPressed;
 
   const ShopCardItem({
     super.key,
     required this.shopItem,
     required this.favorites,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.product,
+    required this.onRemovefromShopCardPressed,
     required this.shopCard,
   });
 
@@ -38,88 +37,52 @@ class ShopCardItem extends StatelessWidget {
         product: shopItem.product,
         favorites: favorites,
         shopCart: shopCard,
-        onFavoriatePressed: onFavoriatePressed,
+        onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        onRemovetoShopCartPressed: onRemovefromShopCardPressed,
       ),
-      child: Card(
-        color: product.category.color,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 120,
-                child: Image.asset(
-                  shopItem.product.image,
-                  fit: BoxFit.contain,
+      child: U.Card(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              child: U.Image(path: shopItem.product.image),
+            ),
+            SizedBox(width: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                U.Text(
+                  shopItem.product.title,
+                  size: U.TextSize.xl,
+                  weight: U.TextWeight.bold,
                 ),
-              ),
-              SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    shopItem.product.title,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => onRemovetoShopCardPressed(product),
-                        icon: Icon(
-                          Icons.remove,
-                          size: 24,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(255, 222, 222, 222),
-                            width: 2,
-                            style: BorderStyle.solid,
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Text(
-                            shopItem.count.toString(),
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 24,
-                          color: Color(0xFFF34E4E),
-                        ),
-                        onPressed: () => onAddtoShopCardPressed(product),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Spacer(),
-              Text(
-                '${shopItem.product.price * shopItem.count} T',
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+                U.Text(
+                  shopItem.product.category.title,
+                  size: U.TextSize.md,
+                  color: U.Theme.outline2,
+                ),
+              ],
+            ),
+            Spacer(),
+            Column(
+              children: [
+                U.Text(
+                  '${shopItem.product.price * shopItem.count} تومان',
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.bold,
+                ),
+                SizedBox(height: 8),
+                U.Counter(
+                  count: shopItem.count,
+                  onIncrementer: () => onAddtoShopCardPressed(shopItem.product),
+                  onDecrementer: () =>
+                      onRemovefromShopCardPressed(shopItem.product),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

@@ -59,7 +59,7 @@ class _CartPageState extends State<CartPage> {
                           shopCard: widget.shopCard,
                           onFavoritePressed: widget.onFavoritePressed,
                           onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
-                          onRemovetoShopCardPressed:
+                          onRemovefromShopCardPressed:
                               widget.onRemovefromShopCartPressed,
                         ),
                         SizedBox(height: 15)

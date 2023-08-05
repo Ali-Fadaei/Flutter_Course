@@ -10,7 +10,7 @@ class ProductBottomSheet extends StatefulWidget {
     required Product product,
     required ShopCart shopCart,
     required List<Product> favorites,
-    required void Function(Product product) onFavoriatePressed,
+    required void Function(Product product) onFavoritePressed,
     required void Function(Product product) onAddtoShopCartPressed,
     required void Function(Product product) onRemovetoShopCartPressed,
   }) {
@@ -26,7 +26,7 @@ class ProductBottomSheet extends StatefulWidget {
           product: product,
           shopCart: shopCart,
           favorits: favorites,
-          onFavoriatePressed: onFavoriatePressed,
+          onFavoritePressed: onFavoritePressed,
           onAddtoShopCardPressed: onAddtoShopCartPressed,
           onRemovetoShopCardPressed: onRemovetoShopCartPressed,
         );
@@ -40,7 +40,7 @@ class ProductBottomSheet extends StatefulWidget {
 
   final ShopCart shopCart;
 
-  final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onFavoritePressed;
 
   final void Function(Product product) onAddtoShopCardPressed;
 
@@ -51,7 +51,7 @@ class ProductBottomSheet extends StatefulWidget {
     required this.product,
     required this.favorits,
     required this.shopCart,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovetoShopCardPressed,
   });
@@ -75,7 +75,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
     }
   }
 
-  void _onRemovetoShopCardPressed() {
+  void _onRemovefromShopCardPressed() {
     if (count > 0) {
       widget.onRemovetoShopCardPressed(widget.product);
       setState(() {
@@ -85,7 +85,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   }
 
   void _onFavoriatePressed() {
-    widget.onFavoriatePressed(widget.product);
+    widget.onFavoritePressed(widget.product);
     setState(() {
       isFav = !isFav;
     });
@@ -105,13 +105,12 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(11),
+      padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(U.Theme.radius),
         color: U.Theme.background,
+        borderRadius: BorderRadius.circular(U.Theme.radius),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             height: 5,
@@ -123,147 +122,137 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
             ),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: widget.product.category.color,
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    child: Image.asset(
-                      widget.product.image,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-
-                  /// Product Details
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  /// Name and Category ,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(
+                        height: 400,
+                        child: U.Image(path: widget.product.image),
+                      ),
+                      SizedBox(height: 25),
+                      Row(
                         children: [
-                          Text(
-                            widget.product.title,
-                            style: TextStyle(
-                              color: Color(0xFF181725),
-                              fontSize: 20,
-                              fontFamily: 'IRANSans',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.10,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              U.Text(
+                                widget.product.title,
+                                size: U.TextSize.xxl,
+                                weight: U.TextWeight.bold,
+                              ),
+                              U.Text(widget.product.category.title)
+                            ],
                           ),
-                          Text(
-                            widget.product.category.title,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                              fontFamily: 'IRANSans',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.10,
+                          Spacer(),
+                          IconButton(
+                            onPressed: _onFavoriatePressed,
+                            icon: Icon(
+                              isFav
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_outlined,
                             ),
                           )
                         ],
                       ),
-                      Center(
-                        child: IconButton(
-                          onPressed: _onFavoriatePressed,
-                          icon: Icon(
-                            isFav
-                                ? Icons.favorite
-                                : Icons.favorite_border_outlined,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  ///  Price
-                  Center(
-                    child: Text(
-                      "${widget.product.price.toString()} تومان",
-                      style: TextStyle(
-                        color: Color(0xFF181725),
-                        fontSize: 24,
-                        fontFamily: 'IRANSans',
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.10,
+                      SizedBox(
+                        height: 25,
+                        child: Divider(),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  /// Product Details
-                  Column(
-                    children: [
+                      // Product Details
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "توضیحات محصول",
-                            style: TextStyle(
-                                fontSize: 19, fontWeight: FontWeight.bold),
+                          U.Text(
+                            'توضیحات محصول',
+                            size: U.TextSize.xl,
+                            weight: U.TextWeight.bold,
                           ),
+                          Spacer(),
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.keyboard_arrow_down_rounded))
+                            onPressed: () {},
+                            icon: Icon(Icons.keyboard_arrow_down_rounded),
+                          )
                         ],
                       ),
-                      Text(widget.product.description)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  /// Rating
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "امتیاز",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      U.Text(widget.product.description),
+                      SizedBox(
+                        height: 25,
+                        child: Divider(),
                       ),
-                      Text(
-                        "${widget.product.rating}  از  5",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                U.Text(
+                                  "امتیاز: ",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Spacer(),
+                                U.Text(
+                                  "${widget.product.rating}",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: VerticalDivider(),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                U.Text(
+                                  "قیمت: ",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Spacer(),
+                                U.Text(
+                                  count == 0
+                                      ? '${widget.product.price} تومان'
+                                      : '${widget.product.price * count} تومان',
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 80),
                     ],
                   ),
-                  SizedBox(
-                    height: 25,
+                ),
+                Align(
+                  alignment: Alignment(0, 0.95),
+                  child: SizedBox(
+                    height: 45,
+                    width: 400,
+                    child: count == 0
+                        ? U.Button(
+                            title: 'افزودن به سبدخرید',
+                            size: U.ButtonSize.lg,
+                            onPressed: _onAddtoShopCardPressed,
+                          )
+                        : U.Counter(
+                            count: count,
+                            onIncrementer: _onAddtoShopCardPressed,
+                            onDecrementer: _onRemovefromShopCardPressed,
+                          ),
                   ),
-
-                  /// Add to Cart
-                  SizedBox(
-                    width: 300,
-                    child: U.Counter(
-                      count: count,
-                      onIncrementer: _onAddtoShopCardPressed,
-                      onDecrementer: _onRemovetoShopCardPressed,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

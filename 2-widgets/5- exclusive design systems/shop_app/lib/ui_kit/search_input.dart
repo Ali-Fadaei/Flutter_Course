@@ -35,12 +35,8 @@ class _SearchInputState extends State<SearchInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return U.Card(
       padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: U.Theme.surface,
-        borderRadius: BorderRadius.circular(15),
-      ),
       child: Row(
         children: [
           GestureDetector(

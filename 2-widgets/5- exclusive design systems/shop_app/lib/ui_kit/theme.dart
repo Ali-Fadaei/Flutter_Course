@@ -3,7 +3,7 @@ import 'dart:ui';
 abstract class Theme {
 //
   //
-  static const background = Color(0xFFFAFAFA);
+  static const background = Color(0xFFF6F6F6);
 
   static const surface = Color(0xFFFEFEFE);
 

@@ -93,7 +93,7 @@ List<Product> products = [
   Product(
     title: 'ایسوس Zenbook 14X',
     rating: 4.9,
-    price: 1500,
+    price: 75000000,
     image: 'assets/imgs/products/zenbook_14x.png',
     description:
         'لپ تاپ‌های سری ZenBook 14X شرکت ایسوس از جمله محصولات فوق‌العاده زیبای این شرکت هستند که می‌توانند انتخابی بسیار ایده آل برای طراحان باشند. لپ تاپ ZenBook 14X OLED UX5401ZA-L7036 هم از این دسته از محصولات است و مشخصات سخت افزاری جالب توجه‌ای دارد. این لپ تاپ به پردازنده‌ی مرکزی بسیار قدرتمند شرکت اینتل یعنی Core i7 12700H مجهز شده است. همچنین، 16 گیگابایت رم LPDDR5 در کنار یک ترابایت حافظه‌ی SSD NVMe PCIe 4.0 برای این لپ تاپ در نظر گرفته شده است. اما نمایشگر این لپ تاپ است که آن را از بسیاری از محصولات مشابه متمایز می‌کند. این لپ تاپ دارای یک نمایشگر 14 اینچی با وضوح فوق‌العاده‌ی 1800 در 2880 یا 2.8K از نوع OLED مجهز شده است.',
@@ -175,7 +175,7 @@ class _MainAppState extends State<MainApp> {
 
   ShopCart shopCart = ShopCart(shopItems: []);
 
-  void onFavoriatePressed(Product product) {
+  void onFavoritePressed(Product product) {
     setState(
       () {
         if (favorites.contains(product)) {
@@ -239,28 +239,6 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  // Widget getPage(int index) {
-  //   var temp = [
-  //     ProfilePage(),
-  //     FavoritesPage(
-  //       favorites: favorites,
-  //       onFavoriatePressed: onFavoriatePressed,
-  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
-  //       products: products,
-  //     ),
-  //     StorePage(
-  //       products: products,
-  //       onFavoriatePressed: onFavoriatePressed,
-  //       onAddtoShopCardPressed: onAddtoShopCardPressed,
-  //     ),
-  //     CartPage(
-  //       shopCard: shopCard,
-  //     ),
-  //     CategoriesPage(),
-  //   ];
-  //   return temp[index];
-  // }
-
   @override
   Widget build(BuildContext context) {
 //
@@ -269,12 +247,14 @@ class _MainAppState extends State<MainApp> {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.touch,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.unknown,
-      }),
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+        },
+      ),
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -287,18 +267,9 @@ class _MainAppState extends State<MainApp> {
       locale: Locale('fa', 'IR'),
       home: Scaffold(
         backgroundColor: U.Theme.background,
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 65,
-          title: Center(
-            child: U.Image(path: U.Images.shopLogo),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications_none_rounded),
-            ),
-          ],
+        appBar: U.AppBar.primary(
+          onMenuPressed: () {},
+          onNotifPressed: () {},
         ),
         drawer: Drawer(
           child: Column(
@@ -331,40 +302,38 @@ class _MainAppState extends State<MainApp> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IndexedStack(
-            index: selectedDes,
-            children: [
-              ProfilePage(),
-              FavoritesPage(
-                favorites: favorites,
-                shopCart: shopCart,
-                products: products,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              StorePage(
-                products: products,
-                favorites: favorites,
-                shopCart: shopCart,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              CartPage(
-                products: products,
-                shopCard: shopCart,
-                favorites: favorites,
-                onFavoriatePressed: onFavoriatePressed,
-                onAddtoShopCartPressed: onAddtoShopCartPressed,
-                onRemovetoShopCartPressed: onRemovefromShopCartPressed,
-              ),
-              CategoriesPage(),
-            ],
-          ),
-          // getPage[selectedDes],
+        body: IndexedStack(
+          index: selectedDes,
+          children: [
+            ProfilePage(),
+            FavoritesPage(
+              favorites: favorites,
+              shopCart: shopCart,
+              products: products,
+              onFavoritePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            StorePage(
+              products: products,
+              favorites: favorites,
+              shopCart: shopCart,
+              onFavoritePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            CartPage(
+              products: products,
+              shopCard: shopCart,
+              favorites: favorites,
+              onFavoritePressed: onFavoritePressed,
+              onAddtoShopCartPressed: onAddtoShopCartPressed,
+              onRemovefromShopCartPressed: onRemovefromShopCartPressed,
+            ),
+            CategoriesPage(
+              categories: categories,
+            ),
+          ],
         ),
       ),
     );

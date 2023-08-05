@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
 import 'package:shop_app_m3/models/shop_cart.dart';
-
-import '../store/product_btms.dart';
+import 'package:shop_app_m3/pages/store/product_btms.dart';
 
 class ShopCardItem extends StatelessWidget {
 //
@@ -16,7 +15,7 @@ class ShopCardItem extends StatelessWidget {
 
   final void Function(Product product) onAddtoShopCardPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovefromShopCardPressed;
 
   const ShopCardItem({
     super.key,
@@ -24,7 +23,7 @@ class ShopCardItem extends StatelessWidget {
     required this.favorites,
     required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
+    required this.onRemovefromShopCardPressed,
     required this.shopCard,
   });
 
@@ -38,7 +37,7 @@ class ShopCardItem extends StatelessWidget {
         shopCart: shopCard,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovefromShopCartPressed: onRemovetoShopCardPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCardPressed,
       ),
       child: Card(
         child: Padding(
@@ -47,9 +46,7 @@ class ShopCardItem extends StatelessWidget {
             children: [
               SizedBox(
                 width: 120,
-                child: Image.asset(
-                  shopItem.product.image,
-                ),
+                child: Image.asset(shopItem.product.image),
               ),
               SizedBox(width: 15),
               Column(
@@ -69,12 +66,24 @@ class ShopCardItem extends StatelessWidget {
                       color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
-                  SizedBox(height: 10),
+                ],
+              ),
+              Spacer(),
+              Column(
+                children: [
+                  Text(
+                    '\$${shopItem.product.price * shopItem.count}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
                   Row(
                     children: [
                       IconButton.filledTonal(
                         onPressed: () =>
-                            onRemovetoShopCardPressed(shopItem.product),
+                            onRemovefromShopCardPressed(shopItem.product),
                         icon: Icon(Icons.remove),
                       ),
                       SizedBox(width: 10),
@@ -91,14 +100,6 @@ class ShopCardItem extends StatelessWidget {
                     ],
                   ),
                 ],
-              ),
-              Spacer(),
-              Text(
-                '\$${shopItem.product.price * shopItem.count}',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
             ],
           ),

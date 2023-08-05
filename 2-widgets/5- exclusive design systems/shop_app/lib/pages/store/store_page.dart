@@ -12,20 +12,20 @@ class StorePage extends StatefulWidget {
 
   final ShopCart shopCart;
 
+  final void Function(Product) onFavoritePressed;
+
   final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCartPressed;
-
-  final void Function(Product) onFavoriatePressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const StorePage({
     super.key,
     this.products = const [],
     this.favorites = const [],
-    required this.onFavoriatePressed,
-    required this.onAddtoShopCartPressed,
-    required this.onRemovetoShopCartPressed,
     required this.shopCart,
+    required this.onFavoritePressed,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
   });
 
   @override
@@ -38,41 +38,49 @@ class _StorePageState extends State<StorePage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 25),
-
-          /// search bar
+          //witeSpace
+          SizedBox(height: 15),
+          // search bar
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 1000),
-            child: U.SearchInput(
-              controller: TextEditingController(),
-              hintText: 'جستجوی کنید',
-              onSearch: (text) => {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: U.SearchInput(
+                controller: TextEditingController(),
+                hintText: 'جستجوی کنید',
+                onSearch: (text) => {},
+              ),
             ),
           ),
-          SizedBox(height: 50),
-
-          /// Exclusive Offers
-          Row(
-            children: [
-              U.Text(
-                "پر فروش های هفته",
-                color: U.Theme.secondary,
-                font: U.TextFont.bYekan,
-                size: U.TextSize.xxl,
-                weight: U.TextWeight.normal,
-              ),
-              Spacer(),
-              //todo: make styles
-              U.Text(
-                "همه",
-                color: U.Theme.primary,
-                font: U.TextFont.iranSans,
-                size: U.TextSize.xl,
-                weight: U.TextWeight.regular,
-              ),
-            ],
+          //witeSpace
+          SizedBox(height: 30),
+          // Exclusive Offers
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                U.Text(
+                  'پیشنهادهای ویژه',
+                  color: U.Theme.secondary,
+                  font: U.TextFont.bYekan,
+                  size: U.TextSize.xxxl,
+                  weight: U.TextWeight.bold,
+                ),
+                Spacer(),
+                //todo: make styles
+                U.Text(
+                  "همه",
+                  color: U.Theme.primary,
+                  font: U.TextFont.iranSans,
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.medium,
+                ),
+              ],
+            ),
           ),
+          //witeSpace
           SizedBox(height: 20),
+          //products listview
           SizedBox(
             height: 350,
             child: ListView(
@@ -81,67 +89,76 @@ class _StorePageState extends State<StorePage> {
               children: widget.products
                   .expand(
                     (element) => [
+                      SizedBox(width: 8),
                       ProductCard(
                         product: element,
                         favorites: widget.favorites,
-                        onFavoriatePressed: widget.onFavoriatePressed,
+                        onFavoritePressed: widget.onFavoritePressed,
                         shopCart: widget.shopCart,
                         onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
+                        onRemovefromShopCartPressed:
+                            widget.onRemovefromShopCartPressed,
                       ),
-                      SizedBox(width: 8),
+                      if (element == widget.products.last) SizedBox(width: 8),
                     ],
                   )
                   .toList(),
             ),
           ),
-          SizedBox(height: 20),
-
-          /// Popular Options
-          Row(
-            children: [
-              U.Text(
-                "باکیفیت ترین ها",
-                color: U.Theme.secondary,
-                font: U.TextFont.bYekan,
-                size: U.TextSize.xxl,
-                weight: U.TextWeight.normal,
-              ),
-              Spacer(),
-              U.Text(
-                "همه",
-                color: U.Theme.primary,
-                font: U.TextFont.iranSans,
-                size: U.TextSize.xl,
-                weight: U.TextWeight.regular,
-              ),
-            ],
+          //witeSpace
+          SizedBox(height: 30),
+          //Best Sellers
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                U.Text(
+                  'پرفروش‌ها',
+                  color: U.Theme.secondary,
+                  font: U.TextFont.bYekan,
+                  size: U.TextSize.xxxl,
+                  weight: U.TextWeight.bold,
+                ),
+                Spacer(),
+                U.Text(
+                  "همه",
+                  color: U.Theme.primary,
+                  font: U.TextFont.iranSans,
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.medium,
+                ),
+              ],
+            ),
           ),
+          //witeSpace
           SizedBox(height: 20),
+          //Best Sellers listview
           SizedBox(
             height: 350,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              children: widget.products
+              children: widget.products.reversed
                   .expand(
                     (element) => [
+                      SizedBox(width: 8),
                       ProductCard(
                         product: element,
                         favorites: widget.favorites,
                         shopCart: widget.shopCart,
-                        onFavoriatePressed: widget.onFavoriatePressed,
+                        onFavoritePressed: widget.onFavoritePressed,
                         onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                        onRemovetoShopCartPressed:
-                            widget.onRemovetoShopCartPressed,
+                        onRemovefromShopCartPressed:
+                            widget.onRemovefromShopCartPressed,
                       ),
-                      SizedBox(width: 8),
+                      if (element == widget.products.last) SizedBox(width: 8),
                     ],
                   )
                   .toList(),
             ),
           ),
+          //witeSpace
+          SizedBox(height: 10),
         ],
       ),
     );

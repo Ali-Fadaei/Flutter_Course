@@ -47,7 +47,7 @@ class OutlinedButton extends StatelessWidget {
       case OutlinedButtonSize.sm:
         return (size: U.TextSize.sm, weight: U.TextWeight.regular);
       case OutlinedButtonSize.md:
-        return (size: U.TextSize.md, weight: U.TextWeight.normal);
+        return (size: U.TextSize.md, weight: U.TextWeight.medium);
       case OutlinedButtonSize.lg:
         return (size: U.TextSize.lg, weight: U.TextWeight.bold);
     }
@@ -77,7 +77,7 @@ class OutlinedButton extends StatelessWidget {
                 title,
                 color: _colors.textColor,
                 font: U.TextFont.iranSans,
-                weight: U.TextWeight.normal,
+                weight: U.TextWeight.medium,
                 size: U.TextSize.xl,
               ),
             )),

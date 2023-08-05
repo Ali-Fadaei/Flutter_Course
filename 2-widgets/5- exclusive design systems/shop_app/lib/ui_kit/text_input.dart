@@ -24,12 +24,8 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return U.Card(
       padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: U.Theme.surface,
-        borderRadius: BorderRadius.circular(15),
-      ),
       child: Row(
         children: [
           Stack(

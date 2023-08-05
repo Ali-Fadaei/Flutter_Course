@@ -9,7 +9,7 @@ class IconButton extends StatelessWidget {
   final IconButtonSize size;
   final String toolTip;
   final IconButtonColor color;
-  final String iconName;
+  final String icon;
   final void Function() onPressed;
 
   const IconButton({
@@ -17,7 +17,7 @@ class IconButton extends StatelessWidget {
     required this.onPressed,
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
-    required this.iconName,
+    required this.icon,
     this.toolTip = "",
   });
 
@@ -46,7 +46,7 @@ class IconButton extends StatelessWidget {
       case IconButtonSize.sm:
         return (size: U.TextSize.sm, weight: U.TextWeight.regular);
       case IconButtonSize.md:
-        return (size: U.TextSize.md, weight: U.TextWeight.normal);
+        return (size: U.TextSize.md, weight: U.TextWeight.medium);
       case IconButtonSize.lg:
         return (size: U.TextSize.lg, weight: U.TextWeight.bold);
     }
@@ -65,7 +65,7 @@ class IconButton extends StatelessWidget {
           child: SizedBox.square(
             dimension: _size,
             child: U.Image(
-              path: iconName,
+              path: icon,
               color: _colors.foreground,
             ),
           ),

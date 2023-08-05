@@ -19,11 +19,20 @@ class NavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
+      height: 65,
+      padding: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: U.Theme.surface,
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(U.Theme.radius)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(U.Theme.radius),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: U.Theme.secondary,
+            blurRadius: 20,
+            offset: Offset(0, 12),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,7 +108,7 @@ class _NavigationBarDestination extends StatelessWidget {
                   title,
                   size: U.TextSize.md,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,
-                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.normal,
+                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.regular,
                 ),
               ],
             ),

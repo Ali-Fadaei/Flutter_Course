@@ -42,15 +42,18 @@ class _StorePageState extends State<StorePage> {
             //witeSpace
             SizedBox(height: 15),
             // search bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Here',
-                  contentPadding: const EdgeInsets.only(left: 80),
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1000),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search Here',
+                    contentPadding: const EdgeInsets.only(left: 80),
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
                 ),
               ),
@@ -59,13 +62,13 @@ class _StorePageState extends State<StorePage> {
             SizedBox(height: 30),
             // Exclusive Offers
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Row(
                 children: [
                   Text(
                     'Exclusive Offers',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -75,7 +78,7 @@ class _StorePageState extends State<StorePage> {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.normal,
                     ),
                   )
                 ],
@@ -83,7 +86,7 @@ class _StorePageState extends State<StorePage> {
             ),
             //witeSpace
             SizedBox(height: 20),
-            //products listview
+            //Exclusive Offers listview
             SizedBox(
               height: 350,
               child: ListView(
@@ -116,9 +119,9 @@ class _StorePageState extends State<StorePage> {
               child: Row(
                 children: [
                   Text(
-                    'BestPrice',
+                    'Best Sellers',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -128,7 +131,7 @@ class _StorePageState extends State<StorePage> {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.normal,
                     ),
                   )
                 ],
@@ -136,7 +139,7 @@ class _StorePageState extends State<StorePage> {
             ),
             //witeSpace
             SizedBox(height: 20),
-            //products listview
+            //Best Sellers listview
             SizedBox(
               height: 350,
               child: ListView(

@@ -28,28 +28,20 @@ class Counter extends StatelessWidget {
             color: U.Theme.primary,
           ),
         ),
-        SizedBox(width: 15),
-        Container(
-          width: 45.67,
-          height: 45.67,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: U.Theme.outline,
-              width: 2,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: BorderRadius.circular(U.Theme.radius),
-          ),
+        SizedBox(width: 10),
+        U.Card(
+          width: 40,
+          height: 40,
           child: Center(
             child: U.Text(
               count.toString(),
-              color: U.Theme.outline2,
-              size: U.TextSize.xxl,
+              size: U.TextSize.xl,
+              color: U.Theme.onSurface,
               weight: U.TextWeight.bold,
             ),
           ),
         ),
-        SizedBox(width: 15),
+        SizedBox(width: 10),
         IconButton(
           onPressed: onDecrementer,
           icon: U.Image(

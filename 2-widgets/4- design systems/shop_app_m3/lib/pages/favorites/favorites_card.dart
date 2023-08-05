@@ -69,24 +69,19 @@ class FavoritesCard extends StatelessWidget {
                       color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
-                ],
-              ),
-              Spacer(),
-              Column(
-                children: [
-                  IconButton(
-                    onPressed: () => onFavoritePressed(product),
-                    icon: Icon(Icons.favorite),
-                  ),
-                  SizedBox(height: 5),
                   Text(
                     '\$${product.price}',
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ],
+              ),
+              Spacer(),
+              IconButton(
+                onPressed: () => onFavoritePressed(product),
+                icon: Icon(Icons.favorite),
               )
             ],
           ),

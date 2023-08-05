@@ -22,6 +22,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/logos/
+    - assets/imgs/categories/
+    - assets/imgs/products/
+    - assets/imgs/vectors/
   fonts:
     - family: IranSans
       fonts:
@@ -43,8 +49,3 @@ flutter:
     - family: AGhasem
       fonts:
         - asset: assets/fonts/AGhasem.ttf
-  assets:
-    - assets/logos/
-    - assets/imgs/products/
-    - assets/imgs/vectors/
-    - assets/icons/

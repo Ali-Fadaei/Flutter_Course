@@ -74,7 +74,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
     }
   }
 
-  void _onRemovetoShopCardPressed() {
+  void _onRemovefromShopCardPressed() {
     if (count > 0) {
       widget.onRemovefromShopCartPressed(widget.product);
       setState(() {
@@ -158,14 +158,15 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         height: 25,
                         child: Divider(),
                       ),
-
                       // Product Details
                       Row(
                         children: [
                           Text(
-                            "Product Details",
+                            'Product Details',
                             style: TextStyle(
-                                fontSize: 19, fontWeight: FontWeight.bold),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Spacer(),
                           IconButton(
@@ -185,7 +186,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             child: Row(
                               children: [
                                 Text(
-                                  "Rating: ",
+                                  'Rating: ',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -193,7 +194,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  "${widget.product.rating}",
+                                  '${widget.product.rating}',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -215,7 +216,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             child: Row(
                               children: [
                                 Text(
-                                  "Price: ",
+                                  'Price: ',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -224,8 +225,8 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                 Spacer(),
                                 Text(
                                   count == 0
-                                      ? "\$${widget.product.price}"
-                                      : "\$${widget.product.price * count}",
+                                      ? '\$${widget.product.price}'
+                                      : '\$${widget.product.price * count}',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -261,7 +262,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton.filledTonal(
-                                onPressed: _onRemovetoShopCardPressed,
+                                onPressed: _onRemovefromShopCardPressed,
                                 icon: Icon(Icons.remove),
                               ),
                               SizedBox(width: 25),
