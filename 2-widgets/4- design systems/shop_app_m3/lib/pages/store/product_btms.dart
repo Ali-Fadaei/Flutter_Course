@@ -9,7 +9,7 @@ class ProductBottomSheet extends StatefulWidget {
     required Product product,
     required ShopCart shopCart,
     required List<Product> favorites,
-    required void Function(Product product) onFavoriatePressed,
+    required void Function(Product product) onFavoritePressed,
     required void Function(Product product) onAddtoShopCartPressed,
     required void Function(Product product) onRemovefromShopCartPressed,
   }) {
@@ -25,7 +25,7 @@ class ProductBottomSheet extends StatefulWidget {
           product: product,
           shopCart: shopCart,
           favorites: favorites,
-          onFavoriatePressed: onFavoriatePressed,
+          onFavoritePressed: onFavoritePressed,
           onAddtoShopCardPressed: onAddtoShopCartPressed,
           onRemovefromShopCartPressed: onRemovefromShopCartPressed,
         );
@@ -39,7 +39,7 @@ class ProductBottomSheet extends StatefulWidget {
 
   final ShopCart shopCart;
 
-  final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onFavoritePressed;
 
   final void Function(Product product) onAddtoShopCardPressed;
 
@@ -50,7 +50,7 @@ class ProductBottomSheet extends StatefulWidget {
     required this.product,
     required this.favorites,
     required this.shopCart,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovefromShopCartPressed,
   });
@@ -84,7 +84,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   }
 
   void _onFavoriatePressed() {
-    widget.onFavoriatePressed(widget.product);
+    widget.onFavoritePressed(widget.product);
     setState(() {
       isFav = !isFav;
     });

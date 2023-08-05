@@ -12,7 +12,7 @@ class ShopCardItem extends StatelessWidget {
 
   final ShopCart shopCard;
 
-  final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onFavoritePressed;
 
   final void Function(Product product) onAddtoShopCardPressed;
 
@@ -22,7 +22,7 @@ class ShopCardItem extends StatelessWidget {
     super.key,
     required this.shopItem,
     required this.favorites,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovetoShopCardPressed,
     required this.shopCard,
@@ -36,7 +36,7 @@ class ShopCardItem extends StatelessWidget {
         product: shopItem.product,
         favorites: favorites,
         shopCart: shopCard,
-        onFavoriatePressed: onFavoriatePressed,
+        onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCardPressed,
         onRemovefromShopCartPressed: onRemovetoShopCardPressed,
       ),

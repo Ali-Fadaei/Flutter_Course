@@ -96,7 +96,7 @@ class _StorePageState extends State<StorePage> {
                         ProductCard(
                           product: element,
                           favorites: widget.favorites,
-                          onFavoriatePressed: widget.onFavoriatePressed,
+                          onFavoritePressed: widget.onFavoriatePressed,
                           shopCart: widget.shopCart,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                           onRemovetoShopCartPressed:
@@ -150,7 +150,7 @@ class _StorePageState extends State<StorePage> {
                           product: element,
                           favorites: widget.favorites,
                           shopCart: widget.shopCart,
-                          onFavoriatePressed: widget.onFavoriatePressed,
+                          onFavoritePressed: widget.onFavoriatePressed,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                           onRemovetoShopCartPressed:
                               widget.onRemovefromShopCartPressed,

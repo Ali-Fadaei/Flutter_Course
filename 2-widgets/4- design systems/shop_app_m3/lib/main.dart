@@ -348,7 +348,7 @@ class _MainAppState extends State<MainApp> {
               products: products,
               shopCard: shopCart,
               favorites: favorites,
-              onFavoriatePressed: onFavoritePressed,
+              onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
               onRemovefromShopCartPressed: onRemovefromShopCartPressed,
             ),

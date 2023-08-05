@@ -22,10 +22,10 @@ class FavoritesPage extends StatelessWidget {
     super.key,
     required this.products,
     required this.favorites,
+    required this.shopCart,
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
-    required this.shopCart,
   });
 
   @override
@@ -52,7 +52,7 @@ class FavoritesPage extends StatelessWidget {
                           product: element,
                           favorites: favorites,
                           shopCard: shopCart,
-                          onFavoriatePressed: onFavoriatePressed,
+                          onFavoritePressed: onFavoriatePressed,
                           onAddtoShopCardPressed: onAddtoShopCartPressed,
                           onRemovetoShopCardPressed:
                               onRemovefromShopCartPressed,

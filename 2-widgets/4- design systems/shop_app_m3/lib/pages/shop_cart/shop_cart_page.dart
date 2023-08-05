@@ -12,7 +12,7 @@ class CartPage extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final void Function(Product product) onFavoriatePressed;
+  final void Function(Product product) onFavoritePressed;
 
   final void Function(Product product) onAddtoShopCartPressed;
 
@@ -22,7 +22,7 @@ class CartPage extends StatefulWidget {
     super.key,
     required this.shopCard,
     required this.favorites,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.products,
     required this.onRemovefromShopCartPressed,
@@ -57,7 +57,7 @@ class _CartPageState extends State<CartPage> {
                           shopItem: element,
                           favorites: widget.favorites,
                           shopCard: widget.shopCard,
-                          onFavoriatePressed: widget.onFavoriatePressed,
+                          onFavoritePressed: widget.onFavoritePressed,
                           onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
                           onRemovetoShopCardPressed:
                               widget.onRemovefromShopCartPressed,

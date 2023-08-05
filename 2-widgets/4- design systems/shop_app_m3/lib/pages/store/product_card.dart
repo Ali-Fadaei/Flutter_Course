@@ -11,18 +11,18 @@ class ProductCard extends StatelessWidget {
 
   final List<Product> favorites;
 
+  final void Function(Product) onFavoritePressed;
+
   final void Function(Product product) onAddtoShopCartPressed;
 
   final void Function(Product product) onRemovetoShopCartPressed;
-
-  final void Function(Product) onFavoriatePressed;
 
   const ProductCard({
     super.key,
     required this.product,
     required this.favorites,
     required this.shopCart,
-    required this.onFavoriatePressed,
+    required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovetoShopCartPressed,
   });
@@ -35,7 +35,7 @@ class ProductCard extends StatelessWidget {
         product: product,
         favorites: favorites,
         shopCart: shopCart,
-        onFavoriatePressed: onFavoriatePressed,
+        onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovetoShopCartPressed,
       ),
@@ -43,7 +43,6 @@ class ProductCard extends StatelessWidget {
         width: 180,
         height: 350,
         child: Card(
-          // surfaceTintColor: product.category.color,
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
