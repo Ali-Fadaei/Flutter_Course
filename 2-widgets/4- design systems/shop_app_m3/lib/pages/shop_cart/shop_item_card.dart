@@ -41,7 +41,6 @@ class ShopCardItem extends StatelessWidget {
         onRemovefromShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
-        surfaceTintColor: shopItem.product.category.color,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(

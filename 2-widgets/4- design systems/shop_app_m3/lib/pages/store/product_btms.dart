@@ -104,12 +104,8 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        color: widget.product.category.color.withOpacity(0.15),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
-      ),
-      padding: const EdgeInsets.all(11.0),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
           Container(

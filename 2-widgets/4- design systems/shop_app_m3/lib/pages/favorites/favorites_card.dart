@@ -40,7 +40,6 @@ class FavoritesCard extends StatelessWidget {
         onRemovefromShopCartPressed: onRemovetoShopCardPressed,
       ),
       child: Card(
-        surfaceTintColor: product.category.color,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(

@@ -43,7 +43,7 @@ class ProductCard extends StatelessWidget {
         width: 180,
         height: 240,
         child: Card(
-          surfaceTintColor: product.category.color,
+          // surfaceTintColor: product.category.color,
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
