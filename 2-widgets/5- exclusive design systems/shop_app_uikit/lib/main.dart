@@ -245,11 +245,7 @@ class _AppState extends State<App> {
 //
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'iranSans',
-        brightness: Brightness.light,
-      ),
+      theme: ThemeData(useMaterial3: true),
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
