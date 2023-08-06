@@ -154,18 +154,18 @@ List<Product> products = [
 ];
 
 void main() {
-  runApp(const MainApp());
+  runApp(const App());
 }
 
-class MainApp extends StatefulWidget {
+class App extends StatefulWidget {
 //
-  const MainApp({super.key});
+  const App({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<App> createState() => _AppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _AppState extends State<App> {
 //
   int selectedDes = 2;
 
