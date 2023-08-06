@@ -42,17 +42,20 @@ class FavoritesCard extends StatelessWidget {
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: U.Card(
+        height: 140,
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
             SizedBox(
               width: 120,
+              height: 120,
               child: U.Image(path: product.image),
             ),
             const SizedBox(width: 15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Spacer(),
                 U.Text(
                   product.title,
                   size: U.TextSize.lg,
@@ -68,12 +71,16 @@ class FavoritesCard extends StatelessWidget {
                   size: U.TextSize.md,
                   color: U.Theme.outline2,
                 ),
+                const Spacer(),
               ],
             ),
             const Spacer(),
             IconButton(
               onPressed: () => onFavoriatePressed(product),
-              icon: const Icon(Icons.favorite),
+              icon: const Icon(
+                Icons.favorite,
+                color: U.Theme.primary,
+              ),
             )
           ],
         ),

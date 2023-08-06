@@ -39,69 +39,76 @@ class ShopCardItem extends StatelessWidget {
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: Image.asset(shopItem.product.image),
-              ),
-              const SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    shopItem.product.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    shopItem.product.category.title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Column(
-                children: [
-                  Text(
-                    '\$${shopItem.product.price * shopItem.count}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      IconButton.filledTonal(
-                        onPressed: () =>
-                            onRemovefromShopCartPressed(shopItem.product),
-                        icon: const Icon(Icons.remove),
+      child: SizedBox(
+        height: 140,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 120,
+                  child: Image.asset(shopItem.product.image),
+                ),
+                const SizedBox(width: 15),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      shopItem.product.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(width: 10),
-                      Text(
-                        shopItem.count.toString(),
-                        style: const TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      shopItem.product.category.title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
-                      const SizedBox(width: 10),
-                      IconButton.filledTonal(
-                        onPressed: () =>
-                            onAddtoShopCartPressed(shopItem.product),
-                        icon: const Icon(Icons.add),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  children: [
+                    const Spacer(),
+                    Text(
+                      '\$${shopItem.product.price * shopItem.count}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton.filledTonal(
+                          onPressed: () =>
+                              onRemovefromShopCartPressed(shopItem.product),
+                          icon: const Icon(Icons.remove),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          shopItem.count.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        const SizedBox(width: 10),
+                        IconButton.filledTonal(
+                          onPressed: () =>
+                              onAddtoShopCartPressed(shopItem.product),
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

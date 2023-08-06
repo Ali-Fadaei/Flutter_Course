@@ -154,28 +154,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 25,
-                        child: Divider(),
-                      ),
-                      // Product Details
-                      Row(
-                        children: [
-                          const Text(
-                            'Product Details',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                          )
-                        ],
-                      ),
-                      Text(widget.product.description),
+
                       const SizedBox(
                         height: 25,
                         child: Divider(),
@@ -238,6 +217,28 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 25,
+                        child: Divider(),
+                      ),
+                      // Product Details
+                      Row(
+                        children: [
+                          const Text(
+                            'Product Details',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                          )
+                        ],
+                      ),
+                      Text(widget.product.description),
                       const SizedBox(height: 80),
                     ],
                   ),

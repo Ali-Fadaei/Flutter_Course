@@ -39,51 +39,56 @@ class FavoritesCard extends StatelessWidget {
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.contain,
+      child: SizedBox(
+        height: 140,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 120,
+                  child: Image.asset(
+                    product.image,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                const SizedBox(width: 15),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      product.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    product.category.title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.outline,
+                    Text(
+                      product.category.title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '\$${product.price}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.outline,
+                    Text(
+                      '\$${product.price}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () => onFavoritePressed(product),
-                icon: const Icon(Icons.favorite),
-              )
-            ],
+                    const Spacer(),
+                  ],
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () => onFavoritePressed(product),
+                  icon: const Icon(Icons.favorite),
+                )
+              ],
+            ),
           ),
         ),
       ),

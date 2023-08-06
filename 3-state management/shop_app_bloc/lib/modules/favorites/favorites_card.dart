@@ -24,6 +24,7 @@ class FavoritesCard extends StatelessWidget {
         favoritesCubit: favoritesCubit,
       ),
       child: U.Card(
+        height: 140,
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
@@ -35,6 +36,7 @@ class FavoritesCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Spacer(),
                 U.Text(
                   product.title,
                   size: U.TextSize.lg,
@@ -50,12 +52,16 @@ class FavoritesCard extends StatelessWidget {
                   size: U.TextSize.md,
                   color: U.Theme.outline2,
                 ),
+                const Spacer(),
               ],
             ),
             const Spacer(),
             IconButton(
               onPressed: () => favoritesCubit.onFavoriatePressed(product),
-              icon: const Icon(Icons.favorite),
+              icon: const Icon(
+                Icons.favorite,
+                color: U.Theme.primary,
+              ),
             )
           ],
         ),

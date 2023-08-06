@@ -42,6 +42,7 @@ class ShopCardItem extends StatelessWidget {
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: U.Card(
+        height: 140,
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
@@ -53,6 +54,7 @@ class ShopCardItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Spacer(),
                 U.Text(
                   shopItem.product.title,
                   size: U.TextSize.xl,
@@ -63,11 +65,13 @@ class ShopCardItem extends StatelessWidget {
                   size: U.TextSize.md,
                   color: U.Theme.outline2,
                 ),
+                const Spacer(),
               ],
             ),
             const Spacer(),
             Column(
               children: [
+                const Spacer(),
                 U.Text(
                   '${shopItem.product.price * shopItem.count} تومان',
                   size: U.TextSize.lg,
@@ -81,6 +85,7 @@ class ShopCardItem extends StatelessWidget {
                   onDecrementer: () =>
                       onRemovefromShopCartPressed(shopItem.product),
                 ),
+                const Spacer(),
               ],
             ),
           ],

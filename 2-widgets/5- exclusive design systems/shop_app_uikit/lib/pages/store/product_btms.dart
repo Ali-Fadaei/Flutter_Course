@@ -163,29 +163,6 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         height: 25,
                         child: U.Divider.horizontal(),
                       ),
-                      // Product Details
-                      Row(
-                        children: [
-                          const U.Text(
-                            'توضیحات محصول',
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: U.Theme.onBackground,
-                            ),
-                          )
-                        ],
-                      ),
-                      U.Text(widget.product.description),
-                      const SizedBox(
-                        height: 25,
-                        child: U.Divider.horizontal(),
-                      ),
                       Row(
                         children: [
                           Expanded(
@@ -236,6 +213,29 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 25,
+                        child: U.Divider.horizontal(),
+                      ),
+                      // Product Details
+                      Row(
+                        children: [
+                          const U.Text(
+                            'توضیحات محصول',
+                            size: U.TextSize.xl,
+                            weight: U.TextWeight.bold,
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: U.Theme.onBackground,
+                            ),
+                          )
+                        ],
+                      ),
+                      U.Text(widget.product.description),
                       const SizedBox(height: 80),
                     ],
                   ),
