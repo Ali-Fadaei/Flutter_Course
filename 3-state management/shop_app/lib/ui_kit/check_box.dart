@@ -30,7 +30,7 @@ class CheckBox extends StatelessWidget {
                   ? U.Images.checkBoxFilledIcon
                   : U.Images.checkBoxEmptyIcon,
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             U.Text(
               title,
               color: isChecked ? U.Theme.primary : U.Theme.secondary,

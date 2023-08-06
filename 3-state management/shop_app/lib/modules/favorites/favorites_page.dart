@@ -5,6 +5,8 @@ import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
 import 'favorites_card.dart';
 
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
+
 class FavoritesPage extends StatelessWidget {
 //
   const FavoritesPage({super.key});
@@ -23,33 +25,34 @@ class FavoritesPage extends StatelessWidget {
           }
         },
         child: BlocBuilder<FavoritesCubit, FavoritesState>(
-            builder: (context, state) {
-          return state.loading
-              ? Center(child: CircularProgressIndicator())
-              : state.favorites.isEmpty
-                  ? Center(
-                      child: SizedBox(
-                        width: 400,
-                        child: Image.asset(
-                          'assets/imgs/vectors/empty_fav.png',
-                          fit: BoxFit.fill,
+          builder: (context, state) {
+            return state.loading
+                ? U.Loading()
+                : state.favorites.isEmpty
+                    ? Center(
+                        child: SizedBox(
+                          width: 400,
+                          child: U.Image(
+                            path: 'assets/imgs/vectors/empty_fav.png',
+                          ),
                         ),
-                      ),
-                    )
-                  : SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Column(
-                        children: state.favorites
-                            .expand(
-                              (element) => [
-                                FavoritesCard(product: element),
-                                SizedBox(height: 15)
-                              ],
-                            )
-                            .toList(),
-                      ),
-                    );
-        }),
+                      )
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        physics: BouncingScrollPhysics(),
+                        child: Column(
+                          children: state.favorites
+                              .expand(
+                                (element) => [
+                                  FavoritesCard(product: element),
+                                  SizedBox(height: 15)
+                                ],
+                              )
+                              .toList(),
+                        ),
+                      );
+          },
+        ),
       ),
     );
   }

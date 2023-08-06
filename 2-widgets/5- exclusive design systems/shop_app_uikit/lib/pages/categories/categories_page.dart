@@ -20,7 +20,7 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 20,
         crossAxisSpacing: 20,
         childAspectRatio: 2 / 3,
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         children: categories.map((e) => CategoryCard(category: e)).toList(),
       ),
     );

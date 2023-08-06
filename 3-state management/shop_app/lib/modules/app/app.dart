@@ -25,16 +25,15 @@ class App extends StatelessWidget {
         create: (context) => AppCubit(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+          theme: ThemeData(useMaterial3: true),
+          scrollBehavior: const MaterialScrollBehavior().copyWith(
+            dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+              PointerDeviceKind.stylus,
+              PointerDeviceKind.unknown,
+            },
           ),
-          scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-            PointerDeviceKind.mouse,
-            PointerDeviceKind.touch,
-            PointerDeviceKind.stylus,
-            PointerDeviceKind.unknown,
-          }),
           localizationsDelegates: [
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -47,18 +46,9 @@ class App extends StatelessWidget {
           locale: Locale('fa', 'IR'),
           home: Scaffold(
             backgroundColor: U.Theme.background,
-            appBar: AppBar(
-              centerTitle: true,
-              toolbarHeight: 65,
-              title: Center(
-                child: U.Image(path: U.Images.shopLogo),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.notifications_none_rounded),
-                ),
-              ],
+            appBar: U.AppBar.primary(
+              onMenuPressed: () {},
+              onNotifPressed: () {},
             ),
             drawer: Drawer(
               child: Column(
@@ -98,25 +88,21 @@ class App extends StatelessWidget {
                 );
               },
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BlocBuilder<AppCubit, AppState>(
-                buildWhen: (previous, current) =>
-                    previous.selectedDes != current.selectedDes,
-                builder: (context, state) {
-                  return IndexedStack(
-                    index: state.selectedDes,
-                    children: [
-                      ProfilePage(),
-                      FavoritesPage(),
-                      StorePage(),
-                      CartPage(),
-                      CategoriesPage(),
-                    ],
-                  );
-                },
-              ),
-              // getPage[selectedDes],
+            body: BlocBuilder<AppCubit, AppState>(
+              buildWhen: (previous, current) =>
+                  previous.selectedDes != current.selectedDes,
+              builder: (context, state) {
+                return IndexedStack(
+                  index: state.selectedDes,
+                  children: [
+                    ProfilePage(),
+                    FavoritesPage(),
+                    StorePage(),
+                    CartPage(),
+                    CategoriesPage(),
+                  ],
+                );
+              },
             ),
           ),
         ),

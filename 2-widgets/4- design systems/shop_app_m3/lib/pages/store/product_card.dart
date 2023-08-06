@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
 
   final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCartPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const ProductCard({
     super.key,
@@ -24,7 +24,7 @@ class ProductCard extends StatelessWidget {
     required this.shopCart,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
-    required this.onRemovetoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
   });
 
   @override
@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
         shopCart: shopCart,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
-        onRemovefromShopCartPressed: onRemovetoShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: SizedBox(
         width: 185,
@@ -49,15 +49,15 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(product.image),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Text(
                   product.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Row(
                   children: [
                     Text(
@@ -75,17 +75,17 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
                     IconButton.filledTonal(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () => onAddtoShopCartPressed(product),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       '\$${product.price}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),

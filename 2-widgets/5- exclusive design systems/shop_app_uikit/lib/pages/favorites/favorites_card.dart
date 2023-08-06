@@ -9,24 +9,24 @@ class FavoritesCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final List<Product> favorites;
 
   final void Function(Product product) onFavoriatePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const FavoritesCard({
     super.key,
     required this.product,
     required this.favorites,
-    required this.shopCard,
+    required this.shopCart,
     required this.onFavoriatePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
   });
 
   @override
@@ -36,10 +36,10 @@ class FavoritesCard extends StatelessWidget {
         context,
         product: product,
         favorites: favorites,
-        shopCart: shopCard,
+        shopCart: shopCart,
         onFavoritePressed: onFavoriatePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovetoShopCardPressed,
+        onAddtoShopCartPressed: onAddtoShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: U.Card(
         padding: const EdgeInsets.all(12.0),
@@ -49,7 +49,7 @@ class FavoritesCard extends StatelessWidget {
               width: 120,
               child: U.Image(path: product.image),
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,10 +70,10 @@ class FavoritesCard extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
               onPressed: () => onFavoriatePressed(product),
-              icon: Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite),
             )
           ],
         ),

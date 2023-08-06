@@ -27,7 +27,7 @@ class GoogleMaterial extends StatelessWidget {
         drawer: Drawer(
           child: Container(
             color: Colors.grey,
-            child: Column(),
+            child: const Column(),
           ),
         ),
         body: const Center(

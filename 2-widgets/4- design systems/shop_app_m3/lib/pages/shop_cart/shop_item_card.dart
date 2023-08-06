@@ -9,22 +9,22 @@ class ShopCardItem extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final void Function(Product product) onFavoritePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovefromShopCardPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const ShopCardItem({
     super.key,
     required this.shopItem,
     required this.favorites,
     required this.onFavoritePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovefromShopCardPressed,
-    required this.shopCard,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
+    required this.shopCart,
   });
 
   @override
@@ -34,10 +34,10 @@ class ShopCardItem extends StatelessWidget {
         context,
         product: shopItem.product,
         favorites: favorites,
-        shopCart: shopCard,
+        shopCart: shopCart,
         onFavoritePressed: onFavoritePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovefromShopCartPressed: onRemovefromShopCardPressed,
+        onAddtoShopCartPressed: onAddtoShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: Card(
         child: Padding(
@@ -48,13 +48,13 @@ class ShopCardItem extends StatelessWidget {
                 width: 120,
                 child: Image.asset(shopItem.product.image),
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     shopItem.product.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -68,34 +68,34 @@ class ShopCardItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Column(
                 children: [
                   Text(
                     '\$${shopItem.product.price * shopItem.count}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       IconButton.filledTonal(
                         onPressed: () =>
-                            onRemovefromShopCardPressed(shopItem.product),
-                        icon: Icon(Icons.remove),
+                            onRemovefromShopCartPressed(shopItem.product),
+                        icon: const Icon(Icons.remove),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         shopItem.count.toString(),
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       IconButton.filledTonal(
                         onPressed: () =>
-                            onAddtoShopCardPressed(shopItem.product),
-                        icon: Icon(Icons.add),
+                            onAddtoShopCartPressed(shopItem.product),
+                        icon: const Icon(Icons.add),
                       ),
                     ],
                   ),

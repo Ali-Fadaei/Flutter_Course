@@ -36,19 +36,19 @@ class _SearchInputState extends State<SearchInput> {
   @override
   Widget build(BuildContext context) {
     return U.Card(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           GestureDetector(
             onTap: () => widget.onSearch(widget.controller.text),
-            child: U.Image(path: U.Images.searchIcon),
+            child: const U.Image(path: U.Images.searchIcon),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: widget.controller,
               onEditingComplete: () => widget.onSearch(widget.controller.text),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'IranSans',
                 fontWeight: FontWeight.w500,
@@ -56,7 +56,7 @@ class _SearchInputState extends State<SearchInput> {
               ),
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
                   fontWeight: FontWeight.w500,
@@ -67,10 +67,10 @@ class _SearchInputState extends State<SearchInput> {
             ),
           ),
           if (!textIsEmpty) ...[
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             GestureDetector(
               onTap: () => widget.controller.clear(),
-              child: U.Image(path: U.Images.removeIcon),
+              child: const U.Image(path: U.Images.removeIcon),
             ),
           ],
         ],

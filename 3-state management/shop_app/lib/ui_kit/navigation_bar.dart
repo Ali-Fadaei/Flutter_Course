@@ -19,16 +19,25 @@ class NavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
-      decoration: BoxDecoration(
+      height: 65,
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      decoration: const BoxDecoration(
         color: U.Theme.surface,
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(U.Theme.radius)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(U.Theme.radius),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: U.Theme.secondary,
+            blurRadius: 20,
+            offset: Offset(0, 12),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Spacer(),
+          const Spacer(),
           ...destinations.expand(
             (element) => [
               _NavigationBarDestination(
@@ -39,10 +48,10 @@ class NavigationBar extends StatelessWidget {
                   destinations.indexOf(element),
                 ),
               ),
-              if (destinations.last != element) Spacer(),
+              if (destinations.last != element) const Spacer(),
             ],
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );
@@ -81,8 +90,8 @@ class _NavigationBarDestination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100,
       child: Material(
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: InkWell(
           borderRadius: BorderRadius.circular(U.Theme.radius),
@@ -95,12 +104,12 @@ class _NavigationBarDestination extends StatelessWidget {
                   path: icon,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 U.Text(
                   title,
                   size: U.TextSize.md,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,
-                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.normal,
+                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.regular,
                 ),
               ],
             ),

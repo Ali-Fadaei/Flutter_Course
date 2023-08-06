@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
 import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app/modules/store/product_btms.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ProductCard extends StatelessWidget {
 //
@@ -21,92 +22,58 @@ class ProductCard extends StatelessWidget {
         context,
         product: product,
       ),
-      child: Container(
-        width: 173.32,
-        height: 248.51,
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(width: 0.50, color: Color(0xFFE2E2E2)),
-            borderRadius: BorderRadius.circular(18),
-          ),
-          shadows: [
-            BoxShadow(
-              color: Color(0x00000000),
-              blurRadius: 12,
-              offset: Offset(0, 6),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(17.0),
-            child: Column(
+      child: U.Card(
+        width: 185,
+        height: 350,
+        padding: const EdgeInsets.all(18.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(product.image),
+            SizedBox(height: 15),
+            U.Text(
+              product.title,
+              size: U.TextSize.md,
+              weight: U.TextWeight.bold,
+            ),
+            SizedBox(height: 5),
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(product.image),
-                SizedBox(height: 15),
-                Text(
-                  product.title,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontFamily: 'IRANSans',
-                      fontSize: 16,
-                      color: Color(0xFF100D39),
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Text(
+                U.Text(
                   'امتیاز: ${product.rating}',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color(0xFF7C7C7C),
-                    fontSize: 12,
-                    fontFamily: 'IRANSans',
-                    fontWeight: FontWeight.bold,
-                  ),
+                  size: U.TextSize.sm,
+                  color: U.Theme.outline2,
+                  weight: U.TextWeight.bold,
                 ),
-                SizedBox(height: 20),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () {
-                        shopCartCubit.onAddtoShopCartPressed(product);
-                      },
-                      elevation: 2,
-                      mini: true,
-                      child: Container(
-                        width: 45.67,
-                        height: 45.67,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xFFF34E4E),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      '${product.price} T',
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 0.10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'IRANSans'),
-                    ),
-                  ],
+                Icon(
+                  Icons.star,
+                  size: 14,
+                  color: Colors.amber.shade700,
                 ),
               ],
             ),
-          ),
+            Spacer(),
+            Row(
+              children: [
+                U.IconButton(
+                  toolTip: 'اضافه کردن به سبد خرید',
+                  icon: U.Images.addIcon,
+                  size: U.IconButtonSize.sm,
+                  color: U.IconButtonColor.primary,
+                  onPressed: () =>
+                      shopCartCubit.onAddtoShopCartPressed(product),
+                ),
+                Spacer(),
+                U.Text(
+                  '${product.price} تومان',
+                  font: U.TextFont.iranSans,
+                  size: U.TextSize.md,
+                  weight: U.TextWeight.bold,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

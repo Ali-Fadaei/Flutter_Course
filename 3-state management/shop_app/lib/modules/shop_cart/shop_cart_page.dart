@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
 import 'package:shop_app/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app/modules/shop_cart/shop_item_card.dart';
-
-import 'cubit/shop_cart_cubit.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class CartPage extends StatelessWidget {
 //
@@ -26,20 +26,16 @@ class CartPage extends StatelessWidget {
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
           builder: (context, state) {
             return state.loading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? U.Loading()
                 : state.shopItems.isEmpty
                     ? Center(
-                        child: Container(
+                        child: SizedBox(
                           width: 400,
-                          child: Image.asset(
-                            'assets/imgs/vectors/empty_cart.png',
-                            fit: BoxFit.fill,
-                          ),
+                          child: U.Image(path: U.Images.cartEmpty),
                         ),
                       )
                     : SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
                         physics: BouncingScrollPhysics(),
                         child: Column(
                           children: state.shopItems

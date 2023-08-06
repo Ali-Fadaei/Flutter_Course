@@ -4,6 +4,7 @@ import 'package:shop_app/domains/store_repository/models/product.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
 import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ProductBottomSheet extends StatelessWidget {
 //
@@ -59,242 +60,197 @@ class ProductBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
     var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
-    var colorCheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.all(11.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 5,
-              width: 60,
-              margin: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: colorCheme.outline,
-                borderRadius: BorderRadius.circular(15),
-              ),
+    return Container(
+      padding: EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: U.Theme.background,
+        borderRadius: BorderRadius.circular(U.Theme.radius),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 5,
+            width: 70,
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: U.Theme.outline2,
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 200,
-                      child: Image.asset(
-                        product.image,
-                        fit: BoxFit.contain,
+          ),
+          Expanded(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 400,
+                        child: U.Image(path: product.image),
                       ),
-                    ),
-
-                    /// Product Details
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Name and Category ,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.title,
-                              style: TextStyle(
-                                color: Color(0xFF181725),
-                                fontSize: 20,
-                                fontFamily: 'IRANSans',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.10,
+                      SizedBox(height: 25),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              U.Text(
+                                product.title,
+                                size: U.TextSize.xxl,
+                                weight: U.TextWeight.bold,
                               ),
-                            ),
-                            Text(
-                              product.category.title,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontFamily: 'IRANSans',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.10,
-                              ),
-                            )
-                          ],
-                        ),
-                        Center(
-                          child: IconButton(
-                            onPressed: () =>
-                                favoritesCubit.onFavoriatePressed(product),
-                            icon: BlocBuilder<FavoritesCubit, FavoritesState>(
-                              buildWhen: (previous, current) =>
-                                  previous.favorites != current.favorites,
-                              builder: (context, state) {
-                                return Icon(
-                                  state.favorites.contains(product)
+                              U.Text(product.category.title)
+                            ],
+                          ),
+                          Spacer(),
+                          BlocBuilder<FavoritesCubit, FavoritesState>(
+                            buildWhen: (previous, current) =>
+                                previous.favorites != current.favorites,
+                            builder: (context, state) {
+                              var isFav = state.favorites.contains(product);
+                              return IconButton(
+                                onPressed: () {
+                                  favoritesCubit.onFavoriatePressed(product);
+                                },
+                                icon: Icon(
+                                  isFav
                                       ? Icons.favorite
                                       : Icons.favorite_border_outlined,
-                                );
-                              },
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    ///  Price
-                    Center(
-                      child: Text(
-                        "${product.price.toString()} تومان",
-                        style: TextStyle(
-                          color: Color(0xFF181725),
-                          fontSize: 24,
-                          fontFamily: 'IRANSans',
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.10,
-                        ),
+                                  color: isFav
+                                      ? U.Theme.primary
+                                      : U.Theme.onBackground,
+                                ),
+                              );
+                            },
+                          )
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Product Details
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "توضیحات محصول",
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.bold),
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.keyboard_arrow_down_rounded))
-                          ],
-                        ),
-                        Text(product.description)
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Rating
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "امتیاز",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "${product.rating} از5 ",
-                          style: TextStyle(
-                            fontSize: 20,
+                      SizedBox(
+                        height: 25,
+                        child: U.Divider.horizontal(),
+                      ),
+                      // Product Details
+                      Row(
+                        children: [
+                          U.Text(
+                            'توضیحات محصول',
+                            size: U.TextSize.xl,
+                            weight: U.TextWeight.bold,
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    /// Add to Cart
-                    SizedBox(
-                      width: 300,
-                      child: GestureDetector(
-                        onTap: () => {
-                          shopCartCubit.onAddtoShopCartPressed(product),
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: () => shopCartCubit
-                                  .onRemovefromShopCartPressed(product),
-                              icon: Icon(
-                                Icons.remove,
-                                size: 24,
-                                color: Color(0xFFF34E4E),
-                              ),
+                          Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: U.Theme.onBackground,
                             ),
-                            // Text(
-                            //   " - ",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //   ),
-                            // ),
-                            SizedBox(width: 15),
-                            Container(
-                              width: 45.67,
-                              height: 45.67,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 222, 222, 222),
-                                      width: 2,
-                                      style: BorderStyle.solid),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                child:
-                                    BlocBuilder<ShopCartCubit, ShopCartState>(
-                                  buildWhen: (previous, current) =>
-                                      previous.shopItems != current.shopItems,
+                          )
+                        ],
+                      ),
+                      U.Text(product.description),
+                      SizedBox(
+                        height: 25,
+                        child: U.Divider.horizontal(),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                U.Text(
+                                  "امتیاز: ",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Spacer(),
+                                U.Text(
+                                  "${product.rating}",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: U.Divider.vertical(),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                U.Text(
+                                  "قیمت: ",
+                                  size: U.TextSize.xl,
+                                  weight: U.TextWeight.bold,
+                                ),
+                                Spacer(),
+                                BlocBuilder<ShopCartCubit, ShopCartState>(
                                   builder: (context, state) {
                                     var count = 0;
                                     try {
                                       count = state.shopItems
-                                          .firstWhere(
-                                            (element) =>
-                                                element.product.id ==
-                                                product.id,
-                                          )
+                                          .firstWhere((element) =>
+                                              element.product.id == product.id)
                                           .count;
                                     } catch (_) {}
-                                    return Text(
-                                      count.toString(),
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                      ),
+                                    return U.Text(
+                                      count == 0
+                                          ? '${product.price} تومان'
+                                          : '${product.price * count} تومان',
+                                      size: U.TextSize.xl,
+                                      weight: U.TextWeight.bold,
                                     );
                                   },
                                 ),
-                              ),
+                                Spacer(),
+                              ],
                             ),
-                            SizedBox(width: 15),
-                            IconButton(
-                              onPressed: () =>
-                                  shopCartCubit.onAddtoShopCartPressed(product),
-                              icon: Icon(
-                                Icons.add,
-                                size: 24,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            // Text(
-                            // " + ",
-                            // style: TextStyle(
-                            // fontSize: 20,
-                            // ),
-                            // )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
+                      SizedBox(height: 80),
+                    ],
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment(0, 0.95),
+                  child: SizedBox(
+                    width: 400,
+                    child: BlocBuilder<ShopCartCubit, ShopCartState>(
+                      builder: (context, state) {
+                        var count = 0;
+                        try {
+                          count = state.shopItems
+                              .firstWhere(
+                                  (element) => element.product.id == product.id)
+                              .count;
+                        } catch (_) {}
+                        return count == 0
+                            ? U.Button(
+                                title: 'افزودن به سبدخرید',
+                                size: U.ButtonSize.lg,
+                                onPressed: () => shopCartCubit
+                                    .onAddtoShopCartPressed(product),
+                              )
+                            : U.Counter(
+                                count: count,
+                                onIncrementer: () => shopCartCubit
+                                    .onAddtoShopCartPressed(product),
+                                onDecrementer: () => shopCartCubit
+                                    .onRemovefromShopCartPressed(product),
+                              );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

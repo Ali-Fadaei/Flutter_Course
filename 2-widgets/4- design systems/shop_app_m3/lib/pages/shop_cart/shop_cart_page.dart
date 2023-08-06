@@ -8,7 +8,7 @@ class CartPage extends StatefulWidget {
 //
   final List<Product> products;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final List<Product> favorites;
 
@@ -20,7 +20,7 @@ class CartPage extends StatefulWidget {
 
   const CartPage({
     super.key,
-    required this.shopCard,
+    required this.shopCart,
     required this.favorites,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
@@ -36,7 +36,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-      child: widget.shopCard.shopItems.isEmpty
+      child: widget.shopCart.shopItems.isEmpty
           ? Center(
               child: SizedBox(
                 width: 400,
@@ -47,22 +47,22 @@ class _CartPageState extends State<CartPage> {
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              physics: const BouncingScrollPhysics(),
               child: Column(
-                children: widget.shopCard.shopItems
+                children: widget.shopCart.shopItems
                     .expand(
                       (element) => [
                         ShopCardItem(
                           shopItem: element,
                           favorites: widget.favorites,
-                          shopCard: widget.shopCard,
+                          shopCart: widget.shopCart,
                           onFavoritePressed: widget.onFavoritePressed,
-                          onAddtoShopCardPressed: widget.onAddtoShopCartPressed,
-                          onRemovefromShopCardPressed:
+                          onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
+                          onRemovefromShopCartPressed:
                               widget.onRemovefromShopCartPressed,
                         ),
-                        SizedBox(height: 15)
+                        const SizedBox(height: 15)
                       ],
                     )
                     .toList(),

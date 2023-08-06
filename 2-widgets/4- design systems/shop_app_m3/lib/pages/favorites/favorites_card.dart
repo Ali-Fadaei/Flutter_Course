@@ -7,24 +7,24 @@ class FavoritesCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final List<Product> favorites;
 
   final void Function(Product product) onFavoritePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const FavoritesCard({
     super.key,
     required this.product,
     required this.favorites,
     required this.onFavoritePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
-    required this.shopCard,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
+    required this.shopCart,
   });
 
   @override
@@ -34,10 +34,10 @@ class FavoritesCard extends StatelessWidget {
         context,
         product: product,
         favorites: favorites,
-        shopCart: shopCard,
+        shopCart: shopCart,
         onFavoritePressed: onFavoritePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovefromShopCartPressed: onRemovetoShopCardPressed,
+        onAddtoShopCartPressed: onAddtoShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: Card(
         child: Padding(
@@ -51,13 +51,13 @@ class FavoritesCard extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     product.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -78,10 +78,10 @@ class FavoritesCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
                 onPressed: () => onFavoritePressed(product),
-                icon: Icon(Icons.favorite),
+                icon: const Icon(Icons.favorite),
               )
             ],
           ),

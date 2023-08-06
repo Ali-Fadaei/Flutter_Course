@@ -16,23 +16,23 @@ import 'ui_kit/ui_kit.dart' as U;
 List<Category> categories = [
   Category(
     title: 'موبایل',
-    image: 'assets/imgs/categories/e-devices.png',
-    color: Color.fromARGB(255, 161, 207, 178),
+    image: 'assets/imgs/products/Z_Fold_4.png',
+    color: const Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
     title: 'لپتاپ',
-    image: 'assets/imgs/categories/laptop.png',
-    color: Color.fromARGB(255, 255, 210, 161),
+    image: 'assets/imgs/products/zenbook_14x.png',
+    color: const Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
     title: 'هندزفری',
-    image: 'assets/imgs/categories/headphone.png',
-    color: Color.fromARGB(255, 217, 197, 224),
+    image: 'assets/imgs/products/sony_airbuds.png',
+    color: const Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
     title: 'ابزار شبکه',
-    image: 'assets/imgs/categories/network.png',
-    color: Color.fromARGB(255, 218, 241, 254),
+    image: 'assets/imgs/products/asus_rt.png',
+    color: const Color.fromARGB(255, 218, 241, 254),
   ),
 ];
 
@@ -247,6 +247,8 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        fontFamily: 'iranSans',
+        brightness: Brightness.light,
       ),
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
@@ -256,23 +258,23 @@ class _AppState extends State<App> {
           PointerDeviceKind.unknown,
         },
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('fa', 'IR'),
         Locale('en', 'US'),
       ],
-      locale: Locale('fa', 'IR'),
+      locale: const Locale('fa', 'IR'),
       home: Scaffold(
         backgroundColor: U.Theme.background,
         appBar: U.AppBar.primary(
           onMenuPressed: () {},
           onNotifPressed: () {},
         ),
-        drawer: Drawer(
+        drawer: const Drawer(
           child: Column(
             children: [],
           ),
@@ -280,7 +282,7 @@ class _AppState extends State<App> {
         bottomNavigationBar: U.NavigationBar(
           selectedIndex: selectedDes,
           onDestnationChange: (index) => setState(() => selectedDes = index),
-          destinations: [
+          destinations: const [
             U.NavigationBarDestination(
               title: 'پروفایل',
               icon: U.Images.profileIcon,
@@ -306,7 +308,7 @@ class _AppState extends State<App> {
         body: IndexedStack(
           index: selectedDes,
           children: [
-            ProfilePage(),
+            const ProfilePage(),
             FavoritesPage(
               favorites: favorites,
               shopCart: shopCart,
@@ -325,7 +327,7 @@ class _AppState extends State<App> {
             ),
             CartPage(
               products: products,
-              shopCard: shopCart,
+              shopCart: shopCart,
               favorites: favorites,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,

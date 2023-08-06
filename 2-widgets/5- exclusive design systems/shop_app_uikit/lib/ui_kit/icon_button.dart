@@ -41,20 +41,9 @@ class IconButton extends StatelessWidget {
     }
   }
 
-  ({U.TextSize size, U.TextWeight weight}) get _textStyle {
-    switch (size) {
-      case IconButtonSize.sm:
-        return (size: U.TextSize.sm, weight: U.TextWeight.regular);
-      case IconButtonSize.md:
-        return (size: U.TextSize.md, weight: U.TextWeight.medium);
-      case IconButtonSize.lg:
-        return (size: U.TextSize.lg, weight: U.TextWeight.bold);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
+    return U.Tooltip(
       message: toolTip,
       child: Material(
         color: _colors.background,

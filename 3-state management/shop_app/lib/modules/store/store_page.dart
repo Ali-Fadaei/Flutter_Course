@@ -30,93 +30,65 @@ class StorePage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 25),
-
-            /// search bar
+            //witeSpace
+            SizedBox(height: 15),
+            // search bar
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 1000),
-              child: U.TextInput(
-                title: 'آدرس',
-                hintText: 'ولیعصر...........',
-                controller: TextEditingController(),
-              ),
-              // child: U.SearchInput(
-              //   controller: TextEditingController(),
-              //   onSearch: (text) {},
-              // ),
-            ),
-            // U.OutlinedButton(
-            //   onPressed: () {},
-            //   color: U.OutlinedButtonColor.secondary,
-            //   title: 'dsadasd',
-            // ),
-            // U.IconButton(
-            //   icon: Icons.ac_unit,
-            //   onPressed: () {},
-            //   title: 'dsad',
-            // ),
-            // Container(
-            //   color: Colors.white,
-            //   child: TextField(
-            //     enabled: false,
-            //     decoration: InputDecoration(
-            //       focusColor: Colors.red,
-            //       hoverColor: Colors.red,
-            //       filled: false,
-            //       hintText: 'Search Here',
-            //       prefixIcon: Padding(
-            //         padding: const EdgeInsetsDirectional.only(start: 12),
-            //         child: Icon(Icons.search, color: Colors.black),
-            //       ),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(15),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(height: 50),
-
-            /// Exclusive Offers
-            Row(
-              children: [
-                Text(
-                  'Exclusive Offers',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color(0xFF100D39),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: U.SearchInput(
+                  controller: TextEditingController(),
+                  hintText: 'جستجوی کنید',
+                  onSearch: (text) => {},
                 ),
-                Spacer(),
-                //todo: make styles
-                Text(
-                  'all',
-                  style: TextStyle(
-                    color: Color(0xFFF34E4E),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
+              ),
             ),
+            //witeSpace
+            SizedBox(height: 30),
+            // Exclusive Offers
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  U.Text(
+                    'پیشنهادهای ویژه',
+                    color: U.Theme.secondary,
+                    font: U.TextFont.bYekan,
+                    size: U.TextSize.xxxl,
+                    weight: U.TextWeight.bold,
+                  ),
+                  Spacer(),
+                  //todo: make styles
+                  U.Text(
+                    "همه",
+                    color: U.Theme.primary,
+                    font: U.TextFont.iranSans,
+                    size: U.TextSize.lg,
+                    weight: U.TextWeight.medium,
+                  ),
+                ],
+              ),
+            ),
+            //witeSpace
             SizedBox(height: 20),
+            //products listview
             SizedBox(
               height: 350,
               child: BlocBuilder<StoreCubit, StoreState>(
                 builder: (context, state) {
                   return state.loading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
+                      ? U.Loading()
                       : ListView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           children: state.products
                               .expand(
                                 (element) => [
-                                  ProductCard(product: element),
                                   SizedBox(width: 8),
+                                  ProductCard(product: element),
+                                  if (element == state.products.last)
+                                    SizedBox(width: 8),
                                 ],
                               )
                               .toList(),
@@ -124,46 +96,50 @@ class StorePage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 20),
-
-            /// Popular Options
-            Row(
-              children: [
-                Text(
-                  'BestPrice',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color(0xFF100D39),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+            //witeSpace
+            SizedBox(height: 30),
+            //Best Sellers
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  U.Text(
+                    'پرفروش‌ها',
+                    color: U.Theme.secondary,
+                    font: U.TextFont.bYekan,
+                    size: U.TextSize.xxxl,
+                    weight: U.TextWeight.bold,
                   ),
-                ),
-                Spacer(),
-                Text(
-                  'all',
-                  style: TextStyle(
-                    color: Color(0xFFF34E4E),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                  Spacer(),
+                  U.Text(
+                    "همه",
+                    color: U.Theme.primary,
+                    font: U.TextFont.iranSans,
+                    size: U.TextSize.lg,
+                    weight: U.TextWeight.medium,
                   ),
-                )
-              ],
+                ],
+              ),
             ),
+            //witeSpace
             SizedBox(height: 20),
+            //Best Sellers listview
             SizedBox(
               height: 350,
               child: BlocBuilder<StoreCubit, StoreState>(
                 builder: (context, state) {
                   return state.loading
-                      ? Center(child: CircularProgressIndicator())
+                      ? U.Loading()
                       : ListView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
-                          children: state.products
+                          children: state.products.reversed
                               .expand(
                                 (element) => [
-                                  ProductCard(product: element),
                                   SizedBox(width: 8),
+                                  ProductCard(product: element),
+                                  if (element == state.products.last)
+                                    SizedBox(width: 8),
                                 ],
                               )
                               .toList(),
@@ -171,6 +147,8 @@ class StorePage extends StatelessWidget {
                 },
               ),
             ),
+            //witeSpace
+            SizedBox(height: 10),
           ],
         ),
       ),

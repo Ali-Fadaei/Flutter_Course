@@ -75,9 +75,9 @@ class Button extends StatelessWidget {
               Spacer(),
               U.Text(
                 title,
-                color: _colors.foreground,
                 size: _textStyle.size,
                 weight: _textStyle.weight,
+                color: _colors.foreground,
               ),
               if (!_hasTrailing) Spacer(),
             ],

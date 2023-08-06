@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_uikit/models/product.dart';
 import 'package:shop_app_uikit/models/shop_cart.dart';
+import 'package:shop_app_uikit/pages/favorites/favorites_card.dart';
 
-import '../../models/product.dart';
-import 'favorites_card.dart';
+import 'package:shop_app_uikit/ui_kit/ui_kit.dart' as U;
 
 class FavoritesPage extends StatelessWidget {
 //
@@ -32,18 +33,15 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: favorites.isEmpty
-          ? Center(
+          ? const Center(
               child: SizedBox(
                 width: 400,
-                child: Image.asset(
-                  'assets/imgs/vectors/empty_fav.png',
-                  fit: BoxFit.fill,
-                ),
+                child: U.Image(path: 'assets/imgs/vectors/empty_fav.png'),
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: favorites
                     .expand(
@@ -51,13 +49,13 @@ class FavoritesPage extends StatelessWidget {
                         FavoritesCard(
                           product: element,
                           favorites: favorites,
-                          shopCard: shopCart,
+                          shopCart: shopCart,
                           onFavoriatePressed: onFavoritePressed,
-                          onAddtoShopCardPressed: onAddtoShopCartPressed,
-                          onRemovetoShopCardPressed:
+                          onAddtoShopCartPressed: onAddtoShopCartPressed,
+                          onRemovefromShopCartPressed:
                               onRemovefromShopCartPressed,
                         ),
-                        SizedBox(height: 15)
+                        const SizedBox(height: 15)
                       ],
                     )
                     .toList(),

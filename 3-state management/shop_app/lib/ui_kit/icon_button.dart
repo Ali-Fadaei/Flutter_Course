@@ -6,22 +6,19 @@ enum IconButtonSize { sm, md, lg }
 enum IconButtonColor { primary, secondary }
 
 class IconButton extends StatelessWidget {
-  final String title;
-
   final IconButtonSize size;
-
+  final String toolTip;
   final IconButtonColor color;
-  final IconData icon;
-
+  final String icon;
   final void Function() onPressed;
 
   const IconButton({
     super.key,
-    required this.title,
     required this.onPressed,
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
-    this.icon = Icons.add,
+    required this.icon,
+    this.toolTip = "",
   });
 
   double get _size {
@@ -44,35 +41,24 @@ class IconButton extends StatelessWidget {
     }
   }
 
-  ({U.TextSize size, U.TextWeight weight}) get _textStyle {
-    switch (size) {
-      case IconButtonSize.sm:
-        return (size: U.TextSize.sm, weight: U.TextWeight.regular);
-      case IconButtonSize.md:
-        return (size: U.TextSize.md, weight: U.TextWeight.normal);
-      case IconButtonSize.lg:
-        return (size: U.TextSize.lg, weight: U.TextWeight.bold);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: U.Theme.surface,
-      borderRadius: BorderRadius.circular(U.Theme.radius),
-      child: InkWell(
+    return U.Tooltip(
+      message: toolTip,
+      child: Material(
+        color: _colors.background,
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        onTap: onPressed,
-        child: Container(
-            color: _colors.background,
-            height: _size,
-            width: _size,
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Center(
-                child: Icon(
-              icon,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(U.Theme.radius),
+          onTap: onPressed,
+          child: SizedBox.square(
+            dimension: _size,
+            child: U.Image(
+              path: icon,
               color: _colors.foreground,
-            ))),
+            ),
+          ),
+        ),
       ),
     );
   }

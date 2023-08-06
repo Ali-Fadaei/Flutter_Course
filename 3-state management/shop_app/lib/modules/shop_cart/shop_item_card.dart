@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/shop_cart.dart';
 import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
-
-import '../store/product_btms.dart';
+import 'package:shop_app/modules/store/product_btms.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ShopCardItem extends StatelessWidget {
 //
@@ -23,88 +23,49 @@ class ShopCardItem extends StatelessWidget {
         product: shopItem.product,
         shopCartCubit: shopCartCubit,
       ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      child: U.Card(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
             SizedBox(
               width: 120,
-              child: Image.asset(
-                shopItem.product.image,
-                fit: BoxFit.contain,
-              ),
+              child: U.Image(path: shopItem.product.image),
             ),
             SizedBox(width: 15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                U.Text(
                   shopItem.product.title,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  size: U.TextSize.xl,
+                  weight: U.TextWeight.bold,
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => shopCartCubit
-                          .onRemovefromShopCartPressed(shopItem.product),
-                      icon: Icon(
-                        Icons.remove,
-                        size: 24,
-                        color: Colors.grey,
-                      ),
-                    ),
-
-                    SizedBox(width: 10),
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(255, 222, 222, 222),
-                            width: 2,
-                            style: BorderStyle.solid,
-                          ),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                        child: Text(
-                          shopItem.count.toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    IconButton(
-                      onPressed: () => shopCartCubit
-                          .onAddtoShopCartPressed(shopItem.product),
-                      icon: Icon(
-                        Icons.add,
-                        size: 24,
-                        color: Color(0xFFF34E4E),
-                      ),
-                    ),
-                    // Text(
-                    // " + ",
-                    // style: TextStyle(
-                    // fontSize: 20,
-                    // ),
-                    // )
-                  ],
+                U.Text(
+                  shopItem.product.category.title,
+                  size: U.TextSize.md,
+                  color: U.Theme.outline2,
                 ),
               ],
             ),
             Spacer(),
-            Text(
-              '${shopItem.product.price * shopItem.count} T',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Column(
+              children: [
+                U.Text(
+                  '${shopItem.product.price * shopItem.count} تومان',
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.bold,
+                ),
+                SizedBox(height: 8),
+                U.Counter(
+                  count: shopItem.count,
+                  onIncrementer: () =>
+                      shopCartCubit.onAddtoShopCartPressed(shopItem.product),
+                  onDecrementer: () => shopCartCubit
+                      .onRemovefromShopCartPressed(shopItem.product),
+                ),
+              ],
             ),
-          ]),
+          ],
         ),
       ),
     );

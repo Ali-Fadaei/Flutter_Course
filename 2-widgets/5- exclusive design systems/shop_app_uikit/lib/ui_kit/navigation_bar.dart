@@ -20,8 +20,8 @@ class NavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 65,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      decoration: const BoxDecoration(
         color: U.Theme.surface,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(U.Theme.radius),
@@ -37,7 +37,7 @@ class NavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Spacer(),
+          const Spacer(),
           ...destinations.expand(
             (element) => [
               _NavigationBarDestination(
@@ -48,10 +48,10 @@ class NavigationBar extends StatelessWidget {
                   destinations.indexOf(element),
                 ),
               ),
-              if (destinations.last != element) Spacer(),
+              if (destinations.last != element) const Spacer(),
             ],
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );
@@ -91,6 +91,7 @@ class _NavigationBarDestination extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Material(
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: InkWell(
           borderRadius: BorderRadius.circular(U.Theme.radius),
@@ -103,7 +104,7 @@ class _NavigationBarDestination extends StatelessWidget {
                   path: icon,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 U.Text(
                   title,
                   size: U.TextSize.md,

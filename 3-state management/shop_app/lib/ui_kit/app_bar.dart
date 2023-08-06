@@ -36,28 +36,28 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
       height: 60,
       width: double.infinity,
       color: U.Theme.background,
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           leftSection ??
               IconButton(
                 onPressed: () {},
-                icon: U.Image(path: U.Images.menuIcon),
+                icon: const U.Image(path: U.Images.menuIcon),
               ),
-          Spacer(),
+          const Spacer(),
           title == null
-              ? U.Image(path: U.Images.shopLogo)
+              ? const U.Image(path: U.Images.shopLogo)
               : U.Text(
                   title!,
                   font: U.TextFont.ghasem,
                   size: U.TextSize.xl,
                   weight: U.TextWeight.bold,
                 ),
-          Spacer(),
+          const Spacer(),
           rightSection ??
               IconButton(
                 onPressed: () {},
-                icon: U.Image(path: U.Images.notifIcon),
+                icon: const U.Image(path: U.Images.notifIcon),
               ),
         ],
       ),
@@ -65,5 +65,5 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(120);
+  Size get preferredSize => const Size.fromHeight(120);
 }

@@ -39,10 +39,10 @@ class _StorePageState extends State<StorePage> {
       child: Column(
         children: [
           //witeSpace
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           // search bar
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 1000),
+            constraints: const BoxConstraints(maxWidth: 1000),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: U.SearchInput(
@@ -53,9 +53,9 @@ class _StorePageState extends State<StorePage> {
             ),
           ),
           //witeSpace
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           // Exclusive Offers
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
@@ -79,17 +79,17 @@ class _StorePageState extends State<StorePage> {
             ),
           ),
           //witeSpace
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           //products listview
           SizedBox(
             height: 350,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: widget.products
                   .expand(
                     (element) => [
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       ProductCard(
                         product: element,
                         favorites: widget.favorites,
@@ -99,16 +99,17 @@ class _StorePageState extends State<StorePage> {
                         onRemovefromShopCartPressed:
                             widget.onRemovefromShopCartPressed,
                       ),
-                      if (element == widget.products.last) SizedBox(width: 8),
+                      if (element == widget.products.last)
+                        const SizedBox(width: 8),
                     ],
                   )
                   .toList(),
             ),
           ),
           //witeSpace
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           //Best Sellers
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
@@ -131,17 +132,17 @@ class _StorePageState extends State<StorePage> {
             ),
           ),
           //witeSpace
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           //Best Sellers listview
           SizedBox(
             height: 350,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: widget.products.reversed
                   .expand(
                     (element) => [
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       ProductCard(
                         product: element,
                         favorites: widget.favorites,
@@ -151,14 +152,15 @@ class _StorePageState extends State<StorePage> {
                         onRemovefromShopCartPressed:
                             widget.onRemovefromShopCartPressed,
                       ),
-                      if (element == widget.products.last) SizedBox(width: 8),
+                      if (element == widget.products.last)
+                        const SizedBox(width: 8),
                     ],
                   )
                   .toList(),
             ),
           ),
           //witeSpace
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );

@@ -38,7 +38,7 @@ class ProductCard extends StatelessWidget {
         shopCart: shopCart,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
-        onRemovetoShopCartPressed: onRemovefromShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: U.Card(
         width: 185,
@@ -48,13 +48,13 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(product.image),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             U.Text(
               product.title,
               size: U.TextSize.md,
               weight: U.TextWeight.bold,
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -71,7 +71,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 U.IconButton(
@@ -81,7 +81,7 @@ class ProductCard extends StatelessWidget {
                   color: U.IconButtonColor.primary,
                   onPressed: () => onAddtoShopCartPressed(product),
                 ),
-                Spacer(),
+                const Spacer(),
                 U.Text(
                   '${product.price} تومان',
                   font: U.TextFont.iranSans,

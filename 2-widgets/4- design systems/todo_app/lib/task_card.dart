@@ -23,11 +23,11 @@ class TaskCard extends StatelessWidget {
         child: Row(
           children: [
             Checkbox(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               value: taskData.isChecked,
               onChanged: (_) => onCheckPressed(taskData),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               flex: 90,
               child: Column(
@@ -44,7 +44,7 @@ class TaskCard extends StatelessWidget {
                           : TextDecoration.none,
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1.5,
                     height: 10,
                   ),
@@ -52,10 +52,10 @@ class TaskCard extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(flex: 10),
+            const Spacer(flex: 10),
             IconButton(
               hoverColor: Theme.of(context).colorScheme.errorContainer,
-              icon: Icon(Icons.remove_circle_outline_rounded),
+              icon: const Icon(Icons.remove_circle_outline_rounded),
               onPressed: () => onRemovePressed(taskData),
             ),
           ],

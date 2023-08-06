@@ -30,11 +30,11 @@ class Button extends StatelessWidget {
   double get _size {
     switch (size) {
       case ButtonSize.sm:
-        return 40;
+        return 30;
       case ButtonSize.md:
-        return 50;
+        return 40;
       case ButtonSize.lg:
-        return 60;
+        return 50;
     }
   }
 
@@ -68,18 +68,18 @@ class Button extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           height: _size,
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
             children: [
               if (_hasTrailing) trailing!,
-              Spacer(),
+              const Spacer(),
               U.Text(
                 title,
-                color: _colors.foreground,
                 size: _textStyle.size,
                 weight: _textStyle.weight,
+                color: _colors.foreground,
               ),
-              if (!_hasTrailing) Spacer(),
+              if (!_hasTrailing) const Spacer(),
             ],
           ),
         ),

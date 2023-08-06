@@ -36,21 +36,21 @@ class _StorePageState extends State<StorePage> {
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             //witeSpace
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             // search bar
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 1000),
+              constraints: const BoxConstraints(maxWidth: 1000),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Search Here',
                     contentPadding: const EdgeInsets.only(left: 80),
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -59,20 +59,20 @@ class _StorePageState extends State<StorePage> {
               ),
             ),
             //witeSpace
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Exclusive Offers
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     'Exclusive Offers',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     'all',
                     style: TextStyle(
@@ -85,47 +85,48 @@ class _StorePageState extends State<StorePage> {
               ),
             ),
             //witeSpace
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             //Exclusive Offers listview
             SizedBox(
               height: 350,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: widget.products
                     .expand(
                       (element) => [
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         ProductCard(
                           product: element,
                           favorites: widget.favorites,
                           onFavoritePressed: widget.onFavoriatePressed,
                           shopCart: widget.shopCart,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                          onRemovetoShopCartPressed:
+                          onRemovefromShopCartPressed:
                               widget.onRemovefromShopCartPressed,
                         ),
-                        if (element == widget.products.last) SizedBox(width: 8),
+                        if (element == widget.products.last)
+                          const SizedBox(width: 8),
                       ],
                     )
                     .toList(),
               ),
             ),
             //witeSpace
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             //BestPrice
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     'Best Sellers',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     'all',
                     style: TextStyle(
@@ -138,34 +139,35 @@ class _StorePageState extends State<StorePage> {
               ),
             ),
             //witeSpace
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             //Best Sellers listview
             SizedBox(
               height: 350,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: widget.products.reversed
                     .expand(
                       (element) => [
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         ProductCard(
                           product: element,
                           favorites: widget.favorites,
                           shopCart: widget.shopCart,
                           onFavoritePressed: widget.onFavoriatePressed,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
-                          onRemovetoShopCartPressed:
+                          onRemovefromShopCartPressed:
                               widget.onRemovefromShopCartPressed,
                         ),
-                        if (element == widget.products.last) SizedBox(width: 8),
+                        if (element == widget.products.last)
+                          const SizedBox(width: 8),
                       ],
                     )
                     .toList(),
               ),
             ),
             //witeSpace
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ),

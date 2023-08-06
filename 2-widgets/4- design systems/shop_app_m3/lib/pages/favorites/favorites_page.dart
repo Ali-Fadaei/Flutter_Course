@@ -42,8 +42,8 @@ class FavoritesPage extends StatelessWidget {
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: favorites
                     .expand(
@@ -51,13 +51,13 @@ class FavoritesPage extends StatelessWidget {
                         FavoritesCard(
                           product: element,
                           favorites: favorites,
-                          shopCard: shopCart,
+                          shopCart: shopCart,
                           onFavoritePressed: onFavoriatePressed,
-                          onAddtoShopCardPressed: onAddtoShopCartPressed,
-                          onRemovetoShopCardPressed:
+                          onAddtoShopCartPressed: onAddtoShopCartPressed,
+                          onRemovefromShopCartPressed:
                               onRemovefromShopCartPressed,
                         ),
-                        SizedBox(height: 15)
+                        const SizedBox(height: 15)
                       ],
                     )
                     .toList(),

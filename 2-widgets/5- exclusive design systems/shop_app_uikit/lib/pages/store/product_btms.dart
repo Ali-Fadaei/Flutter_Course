@@ -12,7 +12,7 @@ class ProductBottomSheet extends StatefulWidget {
     required List<Product> favorites,
     required void Function(Product product) onFavoritePressed,
     required void Function(Product product) onAddtoShopCartPressed,
-    required void Function(Product product) onRemovetoShopCartPressed,
+    required void Function(Product product) onRemovefromShopCartPressed,
   }) {
     showModalBottomSheet(
       context: context,
@@ -27,8 +27,8 @@ class ProductBottomSheet extends StatefulWidget {
           shopCart: shopCart,
           favorits: favorites,
           onFavoritePressed: onFavoritePressed,
-          onAddtoShopCardPressed: onAddtoShopCartPressed,
-          onRemovetoShopCardPressed: onRemovetoShopCartPressed,
+          onAddtoShopCartPressed: onAddtoShopCartPressed,
+          onRemovefromShopCartPressed: onRemovefromShopCartPressed,
         );
       },
     );
@@ -42,9 +42,9 @@ class ProductBottomSheet extends StatefulWidget {
 
   final void Function(Product product) onFavoritePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovetoShopCardPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const ProductBottomSheet({
     super.key,
@@ -52,8 +52,8 @@ class ProductBottomSheet extends StatefulWidget {
     required this.favorits,
     required this.shopCart,
     required this.onFavoritePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovetoShopCardPressed,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
   });
 
   @override
@@ -66,18 +66,18 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
   var isFav = false;
 
-  void _onAddtoShopCardPressed() {
+  void _onAddtoShopCartPressed() {
     if (count < 10) {
-      widget.onAddtoShopCardPressed(widget.product);
+      widget.onAddtoShopCartPressed(widget.product);
       setState(() {
         count++;
       });
     }
   }
 
-  void _onRemovefromShopCardPressed() {
+  void _onRemovefromShopCartPressed() {
     if (count > 0) {
-      widget.onRemovetoShopCardPressed(widget.product);
+      widget.onRemovefromShopCartPressed(widget.product);
       setState(() {
         count--;
       });
@@ -105,7 +105,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: U.Theme.background,
         borderRadius: BorderRadius.circular(U.Theme.radius),
@@ -115,10 +115,10 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
           Container(
             height: 5,
             width: 70,
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: U.Theme.secondary,
+              color: U.Theme.outline2,
             ),
           ),
           Expanded(
@@ -131,7 +131,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         height: 400,
                         child: U.Image(path: widget.product.image),
                       ),
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
                       Row(
                         children: [
                           Column(
@@ -145,78 +145,84 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                               U.Text(widget.product.category.title)
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             onPressed: _onFavoriatePressed,
                             icon: Icon(
                               isFav
                                   ? Icons.favorite
                                   : Icons.favorite_border_outlined,
+                              color: isFav
+                                  ? U.Theme.primary
+                                  : U.Theme.onBackground,
                             ),
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
-                        child: Divider(),
+                        child: U.Divider.horizontal(),
                       ),
                       // Product Details
                       Row(
                         children: [
-                          U.Text(
+                          const U.Text(
                             'توضیحات محصول',
                             size: U.TextSize.xl,
                             weight: U.TextWeight.bold,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.keyboard_arrow_down_rounded),
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: U.Theme.onBackground,
+                            ),
                           )
                         ],
                       ),
                       U.Text(widget.product.description),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
-                        child: Divider(),
+                        child: U.Divider.horizontal(),
                       ),
                       Row(
                         children: [
                           Expanded(
                             child: Row(
                               children: [
-                                U.Text(
+                                const U.Text(
                                   "امتیاز: ",
                                   size: U.TextSize.xl,
                                   weight: U.TextWeight.bold,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 U.Text(
                                   "${widget.product.rating}",
                                   size: U.TextSize.xl,
                                   weight: U.TextWeight.bold,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
-                            child: VerticalDivider(),
+                            child: U.Divider.vertical(),
                           ),
                           Expanded(
                             child: Row(
                               children: [
-                                U.Text(
+                                const U.Text(
                                   "قیمت: ",
                                   size: U.TextSize.xl,
                                   weight: U.TextWeight.bold,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 U.Text(
                                   count == 0
                                       ? '${widget.product.price} تومان'
@@ -224,31 +230,30 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                   size: U.TextSize.xl,
                                   weight: U.TextWeight.bold,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 80),
+                      const SizedBox(height: 80),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: Alignment(0, 0.95),
+                  alignment: const Alignment(0, 0.95),
                   child: SizedBox(
-                    height: 45,
                     width: 400,
                     child: count == 0
                         ? U.Button(
                             title: 'افزودن به سبدخرید',
                             size: U.ButtonSize.lg,
-                            onPressed: _onAddtoShopCardPressed,
+                            onPressed: _onAddtoShopCartPressed,
                           )
                         : U.Counter(
                             count: count,
-                            onIncrementer: _onAddtoShopCardPressed,
-                            onDecrementer: _onRemovefromShopCardPressed,
+                            onIncrementer: _onAddtoShopCartPressed,
+                            onDecrementer: _onRemovefromShopCartPressed,
                           ),
                   ),
                 ),

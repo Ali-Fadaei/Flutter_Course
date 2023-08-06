@@ -11,22 +11,22 @@ class ShopCardItem extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCard;
+  final ShopCart shopCart;
 
   final void Function(Product product) onFavoritePressed;
 
-  final void Function(Product product) onAddtoShopCardPressed;
+  final void Function(Product product) onAddtoShopCartPressed;
 
-  final void Function(Product product) onRemovefromShopCardPressed;
+  final void Function(Product product) onRemovefromShopCartPressed;
 
   const ShopCardItem({
     super.key,
     required this.shopItem,
     required this.favorites,
     required this.onFavoritePressed,
-    required this.onAddtoShopCardPressed,
-    required this.onRemovefromShopCardPressed,
-    required this.shopCard,
+    required this.onAddtoShopCartPressed,
+    required this.onRemovefromShopCartPressed,
+    required this.shopCart,
   });
 
   @override
@@ -36,10 +36,10 @@ class ShopCardItem extends StatelessWidget {
         context,
         product: shopItem.product,
         favorites: favorites,
-        shopCart: shopCard,
+        shopCart: shopCart,
         onFavoritePressed: onFavoritePressed,
-        onAddtoShopCartPressed: onAddtoShopCardPressed,
-        onRemovetoShopCartPressed: onRemovefromShopCardPressed,
+        onAddtoShopCartPressed: onAddtoShopCartPressed,
+        onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: U.Card(
         padding: const EdgeInsets.all(12.0),
@@ -49,7 +49,7 @@ class ShopCardItem extends StatelessWidget {
               width: 120,
               child: U.Image(path: shopItem.product.image),
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,7 +65,7 @@ class ShopCardItem extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 U.Text(
@@ -73,12 +73,12 @@ class ShopCardItem extends StatelessWidget {
                   size: U.TextSize.lg,
                   weight: U.TextWeight.bold,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 U.Counter(
                   count: shopItem.count,
-                  onIncrementer: () => onAddtoShopCardPressed(shopItem.product),
+                  onIncrementer: () => onAddtoShopCartPressed(shopItem.product),
                   onDecrementer: () =>
-                      onRemovefromShopCardPressed(shopItem.product),
+                      onRemovefromShopCartPressed(shopItem.product),
                 ),
               ],
             ),

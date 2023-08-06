@@ -65,7 +65,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
   var isFav = false;
 
-  void _onAddtoShopCardPressed() {
+  void _onAddtoShopCartPressed() {
     if (count < 10) {
       widget.onAddtoShopCardPressed(widget.product);
       setState(() {
@@ -74,7 +74,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
     }
   }
 
-  void _onRemovefromShopCardPressed() {
+  void _onRemovefromShopCartPressed() {
     if (count > 0) {
       widget.onRemovefromShopCartPressed(widget.product);
       setState(() {
@@ -111,7 +111,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
           Container(
             height: 5,
             width: 60,
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: theme.colorScheme.outline,
               borderRadius: BorderRadius.circular(15),
@@ -127,7 +127,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         height: 400,
                         child: Image.asset(widget.product.image),
                       ),
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
                       Row(
                         children: [
                           Column(
@@ -135,7 +135,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             children: [
                               Text(
                                 widget.product.title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -143,7 +143,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                               Text(widget.product.category.title)
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             onPressed: _onFavoriatePressed,
                             icon: Icon(
@@ -154,29 +154,29 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                         child: Divider(),
                       ),
                       // Product Details
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Product Details',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.keyboard_arrow_down_rounded),
+                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
                           )
                         ],
                       ),
                       Text(widget.product.description),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                         child: Divider(),
                       ),
@@ -185,72 +185,72 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           Expanded(
                             child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Rating: ',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Text(
                                   '${widget.product.rating}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                             child: VerticalDivider(),
                           ),
                           Expanded(
                             child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Price: ',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Text(
                                   count == 0
                                       ? '\$${widget.product.price}'
                                       : '\$${widget.product.price * count}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 80),
+                      const SizedBox(height: 80),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: Alignment(0, 0.95),
+                  alignment: const Alignment(0, 0.95),
                   child: SizedBox(
                     height: 45,
                     width: 400,
                     child: count == 0
                         ? ElevatedButton(
-                            onPressed: _onAddtoShopCardPressed,
-                            child: Text(
+                            onPressed: _onAddtoShopCartPressed,
+                            child: const Text(
                               'Add To Cart',
                               style: TextStyle(
                                 fontSize: 18,
@@ -262,20 +262,20 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton.filledTonal(
-                                onPressed: _onRemovefromShopCardPressed,
-                                icon: Icon(Icons.remove),
+                                onPressed: _onRemovefromShopCartPressed,
+                                icon: const Icon(Icons.remove),
                               ),
-                              SizedBox(width: 25),
+                              const SizedBox(width: 25),
                               Text(
                                 count.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 24,
                                 ),
                               ),
-                              SizedBox(width: 25),
+                              const SizedBox(width: 25),
                               IconButton.filledTonal(
-                                onPressed: _onAddtoShopCardPressed,
-                                icon: Icon(Icons.add),
+                                onPressed: _onAddtoShopCartPressed,
+                                icon: const Icon(Icons.add),
                               ),
                             ],
                           ),

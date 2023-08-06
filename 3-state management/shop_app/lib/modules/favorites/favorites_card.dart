@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/models/product.dart';
 import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
-import '../store/product_btms.dart';
+import 'package:shop_app/modules/store/product_btms.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class FavoritesCard extends StatelessWidget {
 //
@@ -22,53 +23,41 @@ class FavoritesCard extends StatelessWidget {
         product: product,
         favoritesCubit: favoritesCubit,
       ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 120,
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.contain,
+      child: U.Card(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              child: U.Image(path: product.image),
+            ),
+            SizedBox(width: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                U.Text(
+                  product.title,
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.bold,
                 ),
-              ),
-              SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: Color(0xFF181725),
-                      fontSize: 16,
-                      fontFamily: 'IRANSans',
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.10,
-                    ),
-                  ),
-                  Text(
-                    '${product.price}تومان',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: Color(0xFF7C7C7C),
-                      fontSize: 14,
-                      fontFamily: 'IRANSans',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              Spacer(),
-              IconButton(
-                onPressed: () => favoritesCubit.onFavoriatePressed(product),
-                icon: Icon(Icons.favorite),
-              )
-            ],
-          ),
+                U.Text(
+                  product.category.title,
+                  size: U.TextSize.md,
+                  color: U.Theme.outline2,
+                ),
+                U.Text(
+                  '${product.price} تومان',
+                  size: U.TextSize.md,
+                  color: U.Theme.outline2,
+                ),
+              ],
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () => favoritesCubit.onFavoriatePressed(product),
+              icon: Icon(Icons.favorite),
+            )
+          ],
         ),
       ),
     );

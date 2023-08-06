@@ -24,18 +24,14 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: U.Theme.surface,
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return U.Card(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           Stack(
             children: [
               if (isRequired)
-                Positioned(
+                const Positioned(
                   top: 0,
                   left: 0,
                   child: SizedBox(
@@ -53,14 +49,14 @@ class TextInput extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Expanded(
             child: TextField(
               controller: controller,
               onEditingComplete: onEditingCompleted != null
                   ? () => onEditingCompleted!(controller.text)
                   : null,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'IranSans',
                 fontWeight: FontWeight.w500,
@@ -68,7 +64,7 @@ class TextInput extends StatelessWidget {
               ),
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
                   fontWeight: FontWeight.w500,

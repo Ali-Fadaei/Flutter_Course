@@ -56,29 +56,25 @@ class OutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: U.Theme.surface,
+      color: Colors.transparent,
       borderRadius: BorderRadius.circular(U.Theme.radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(U.Theme.radius),
         onTap: onPressed,
         child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: _colors.outlineColor,
-                  style: BorderStyle.solid,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(U.Theme.radius),
-                color: U.Theme.surface),
             height: _size,
             padding: EdgeInsets.symmetric(horizontal: 24),
+            decoration: BoxDecoration(
+              color: U.Theme.surface,
+              borderRadius: BorderRadius.circular(U.Theme.radius),
+              border: Border.all(width: 2, color: _colors.outlineColor),
+            ),
             child: Center(
               child: U.Text(
                 title,
+                size: _textStyle.size,
+                weight: _textStyle.weight,
                 color: _colors.textColor,
-                font: U.TextFont.iranSans,
-                weight: U.TextWeight.medium,
-                size: U.TextSize.xl,
               ),
             )),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/domains/store_repository/store_repository.dart';
+import 'package:shop_app/modules/categories/categories_card.dart';
 import 'package:shop_app/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class CategoriesPage extends StatelessWidget {
 //
@@ -9,70 +11,27 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => CategoriesCubit(
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
       child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, state) {
-          return state.loading
-              ? Center(child: CircularProgressIndicator())
-              : Center(
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: state.categories
-                        .expand(
-                          (element) => [
-                            Container(
-                              margin: EdgeInsets.all(20),
-                              width: 250.50,
-                              height: 250.11,
-                              decoration: ShapeDecoration(
-                                color: element.color,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 0.50, color: element.color),
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x00000000),
-                                    blurRadius: 12,
-                                    offset: Offset(0, 6),
-                                    spreadRadius: 0,
-                                  )
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: 150,
-                                    height: 150,
-                                    child: Image.asset(
-                                      element.image,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                  Text(
-                                    element.title,
-                                    style: TextStyle(
-                                      color: Color(0xFF181725),
-                                      fontSize: 16,
-                                      fontFamily: 'IRANSans',
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.10,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                        .toList(),
+          return SizedBox.expand(
+            child: state.loading
+                ? U.Loading()
+                : GridView.count(
+                    crossAxisCount: (screenWidth / 180).floor(),
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 2 / 3,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    children: state.categories.map((e) {
+                      return CategoryCard(category: e);
+                    }).toList(),
                   ),
-                );
+          );
         },
       ),
     );

@@ -13,23 +13,23 @@ import 'package:shop_app_m3/pages/store/store_page.dart';
 List<Category> categories = [
   Category(
     title: 'Mobile Phone',
-    image: 'assets/imgs/categories/mobile.png',
-    color: Color.fromARGB(255, 161, 207, 178),
+    image: 'assets/imgs/products/Z_Fold_4.png',
+    color: const Color.fromARGB(255, 161, 207, 178),
   ),
   Category(
     title: 'Laptop',
-    image: 'assets/imgs/categories/laptop.png',
-    color: Color.fromARGB(255, 255, 210, 161),
+    image: 'assets/imgs/products/zenbook_14x.png',
+    color: const Color.fromARGB(255, 255, 210, 161),
   ),
   Category(
     title: 'AirBuds',
-    image: 'assets/imgs/categories/headphone.png',
-    color: Color.fromARGB(255, 217, 197, 224),
+    image: 'assets/imgs/products/sony_airbuds.png',
+    color: const Color.fromARGB(255, 217, 197, 224),
   ),
   Category(
     title: 'Network Devices',
-    image: 'assets/imgs/categories/network.png',
-    color: Color.fromARGB(255, 218, 241, 254),
+    image: 'assets/imgs/products/asus_rt.png',
+    color: const Color.fromARGB(255, 218, 241, 254),
   ),
 ];
 
@@ -263,16 +263,16 @@ class _AppState extends State<App> {
           centerTitle: true,
           toolbarHeight: 65,
           title: Center(
-            child: Image.asset('assets/icons/Amazon.png'),
+            child: Image.asset('assets/logos/Amazon.png'),
           ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_none_rounded),
+              icon: const Icon(Icons.notifications_none_rounded),
             ),
           ],
         ),
-        drawer: Drawer(
+        drawer: const Drawer(
           child: Column(
             children: [],
           ),
@@ -327,7 +327,7 @@ class _AppState extends State<App> {
         body: IndexedStack(
           index: selectedDes,
           children: [
-            ProfilePage(),
+            const ProfilePage(),
             FavoritesPage(
               favorites: favorites,
               shopCart: shopCart,
@@ -346,7 +346,7 @@ class _AppState extends State<App> {
             ),
             CartPage(
               products: products,
-              shopCard: shopCart,
+              shopCart: shopCart,
               favorites: favorites,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
