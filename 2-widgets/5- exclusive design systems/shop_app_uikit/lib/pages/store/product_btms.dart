@@ -252,6 +252,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           )
                         : U.Counter(
                             count: count,
+                            size: U.CounterSize.lg,
                             onIncrementer: _onAddtoShopCartPressed,
                             onDecrementer: _onRemovefromShopCartPressed,
                           ),

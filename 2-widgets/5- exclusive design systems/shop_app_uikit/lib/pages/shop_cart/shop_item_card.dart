@@ -76,6 +76,7 @@ class ShopCardItem extends StatelessWidget {
                 const SizedBox(height: 8),
                 U.Counter(
                   count: shopItem.count,
+                  size: U.CounterSize.md,
                   onIncrementer: () => onAddtoShopCartPressed(shopItem.product),
                   onDecrementer: () =>
                       onRemovefromShopCartPressed(shopItem.product),
