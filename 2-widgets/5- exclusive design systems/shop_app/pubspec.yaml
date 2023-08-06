@@ -31,8 +31,6 @@ flutter:
   fonts:
     - family: IranSans
       fonts:
-        # - asset: assets/fonts/IRANSans_FaNum_UltraLight.ttf
-        # weight: 200
         - asset: assets/fonts/IRANSans(FaNum)_Light.ttf
           weight: 300
         - asset: assets/fonts/IRANSans(FaNum).ttf
@@ -41,11 +39,9 @@ flutter:
           weight: 500
         - asset: assets/fonts/IRANSans(FaNum)_Bold.ttf
           weight: 700
-        # - asset: assets/fonts/IRANSans_FaNum_Black.ttf
-        # weight: 800
     - family: BYekan
       fonts:
-        - asset:  assets/fonts/Yekan.ttf
+        - asset: assets/fonts/Yekan.ttf
     - family: AGhasem
       fonts:
         - asset: assets/fonts/AGhasem.ttf
