@@ -9,8 +9,10 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
+  final latency = 150;
+
   Future<List<Product>> readProducts() async {
-    await Future.delayed(const Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: latency));
     var categories = await readCategories();
     return [
       Product(
@@ -147,7 +149,7 @@ class StoreRepository {
   }
 
   Future<List<Category>> readCategories() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: latency));
     return [
       Category(
         id: 0,
@@ -177,23 +179,23 @@ class StoreRepository {
   }
 
   Future<List<Product>> readFavorites() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: latency));
     return _favorites;
   }
 
   Future<bool> updateFavorites(List<Product> favs) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: latency));
     _favorites = favs;
     return true;
   }
 
   Future<List<ShopItem>> readShopItems() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: latency));
     return _shopItems;
   }
 
   Future<bool> updateShopItems(List<ShopItem> shopItems) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: latency));
     _shopItems = shopItems;
     return true;
   }
