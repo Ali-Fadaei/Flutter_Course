@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/models/shop_item.dart';
 import 'package:shop_app_m3/pages/shop_cart/shop_item_card.dart';
 
 import '../../models/product.dart';
@@ -8,7 +8,7 @@ class CartPage extends StatefulWidget {
 //
   final List<Product> products;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopCart;
 
   final List<Product> favorites;
 
@@ -36,7 +36,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-      child: widget.shopCart.shopItems.isEmpty
+      child: widget.shopCart.isEmpty
           ? Center(
               child: SizedBox(
                 width: 400,
@@ -50,7 +50,7 @@ class _CartPageState extends State<CartPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               physics: const BouncingScrollPhysics(),
               child: Column(
-                children: widget.shopCart.shopItems
+                children: widget.shopCart
                     .expand(
                       (element) => [
                         ShopCardItem(

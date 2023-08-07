@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/models/shop_item.dart';
 
 class ProductBottomSheet extends StatefulWidget {
 //
   static show(
     BuildContext context, {
     required Product product,
-    required ShopCart shopCart,
+    required List<ShopItem> shopCart,
     required List<Product> favorites,
     required void Function(Product product) onFavoritePressed,
     required void Function(Product product) onAddtoShopCartPressed,
@@ -37,7 +37,7 @@ class ProductBottomSheet extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopCart;
 
   final void Function(Product product) onFavoritePressed;
 
@@ -92,7 +92,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
   @override
   void initState() {
-    for (var element in widget.shopCart.shopItems) {
+    for (var element in widget.shopCart) {
       if (element.product == widget.product) {
         count = element.count;
       }

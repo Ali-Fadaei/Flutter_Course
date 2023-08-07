@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/models/shop_item.dart';
 import 'package:shop_app_m3/pages/store/product_card.dart';
 
 class StorePage extends StatefulWidget {
@@ -9,7 +9,7 @@ class StorePage extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopCart;
 
   final void Function(Product product) onAddtoShopCartPressed;
 

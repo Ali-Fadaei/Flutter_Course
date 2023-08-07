@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shop_app_m3/models/category.dart';
 import 'package:shop_app_m3/models/product.dart';
-import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/models/shop_item.dart';
 import 'package:shop_app_m3/pages/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_m3/pages/categories/categories_page.dart';
 import 'package:shop_app_m3/pages/favorites/favorites_page.dart';
@@ -171,7 +171,7 @@ class _AppState extends State<App> {
 
   List<Product> favorites = [];
 
-  ShopCart shopCart = ShopCart(shopItems: []);
+  List<ShopItem> shopCart = [];
 
   void onFavoritePressed(Product product) {
     setState(
@@ -198,12 +198,12 @@ class _AppState extends State<App> {
         //   if (existingShopItem.count <= 10) existingShopItem.count++;
         // }
         try {
-          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+          var existingShopItem = shopCart.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 10) existingShopItem.count++;
         } catch (_) {
-          shopCart.shopItems.add(ShopItem(product: product));
+          shopCart.add(ShopItem(product: product));
         }
       },
     );
@@ -224,11 +224,11 @@ class _AppState extends State<App> {
         //   }
         // }
         try {
-          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+          var existingShopItem = shopCart.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 1) {
-            shopCart.shopItems.remove(existingShopItem);
+            shopCart.remove(existingShopItem);
           } else {
             existingShopItem.count--;
           }

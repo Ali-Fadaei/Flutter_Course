@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_m3/models/shop_cart.dart';
+import 'package:shop_app_m3/models/shop_item.dart';
 
 import '../../models/product.dart';
 import 'favorites_card.dart';
@@ -10,7 +10,7 @@ class FavoritesPage extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopCart;
 
   final void Function(Product product) onFavoriatePressed;
 
