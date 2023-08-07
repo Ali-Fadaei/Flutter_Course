@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shop_app_bloc/domains/store_repository/models/product.dart';
-import 'package:shop_app_bloc/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app_bloc/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_bloc/domains/store_repository/store_repository.dart';
 
 part 'shop_cart_state.dart';
@@ -18,18 +18,14 @@ class ShopCartCubit extends Cubit<ShopCartState> {
 
   Future<void> init() async {
     emit(state.copywith(loading: true));
-    var shopItemsRes = await storeRepository.readShopItems();
-    var deliveryAddressRes = await storeRepository.readDeliveryAddress();
-    var deliveryTimeRes = await storeRepository.readDeliveryTime();
+    var res = await storeRepository.readShopItems();
     emit(state.copywith(
       loading: false,
-      shopItems: shopItemsRes,
-      deliveryAddress: deliveryAddressRes,
-      deliveryTime: deliveryTimeRes,
+      shopItems: res,
     ));
   }
 
-  void onAddtoShopCartPressed(Product product) {
+  Future<void> onAddtoShopCartPressed(Product product) async {
     var shopItems = [...state.shopItems];
     try {
       var existingShopItem = shopItems.firstWhere((element) {
@@ -44,11 +40,11 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     } catch (_) {
       shopItems.add(ShopItem(product: product));
     }
-    storeRepository.updateShopItems(shopItems);
     emit(state.copywith(shopItems: shopItems));
+    await storeRepository.updateShopItems(shopItems);
   }
 
-  void onRemovefromShopCartPressed(Product product) {
+  Future<void> onRemovefromShopCartPressed(Product product) async {
     var shopItems = [...state.shopItems];
     try {
       var existingShopItem = shopItems.firstWhere((element) {
@@ -63,7 +59,7 @@ class ShopCartCubit extends Cubit<ShopCartState> {
         shopItems[existingShopItemIndex] = existingShopItem.dec();
       }
     } catch (_) {}
-    storeRepository.updateShopItems(shopItems);
     emit(state.copywith(shopItems: shopItems));
+    await storeRepository.updateShopItems(shopItems);
   }
 }

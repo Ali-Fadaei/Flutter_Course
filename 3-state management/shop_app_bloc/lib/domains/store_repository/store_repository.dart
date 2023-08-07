@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_bloc/domains/store_repository/models/category.dart';
 import 'package:shop_app_bloc/domains/store_repository/models/product.dart';
-import 'package:shop_app_bloc/domains/store_repository/models/shop_cart.dart';
+import 'package:shop_app_bloc/domains/store_repository/models/shop_item.dart';
 
 class StoreRepository {
 //
   List<Product> _favorites = [];
 
   List<ShopItem> _shopItems = [];
-
-  String _deliveryAddress = '';
-
-  String _deliveryTime = '';
 
   Future<List<Product>> readProducts() async {
     await Future.delayed(const Duration(milliseconds: 100));
@@ -181,11 +177,12 @@ class StoreRepository {
   }
 
   Future<List<Product>> readFavorites() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     return _favorites;
   }
 
   Future<bool> updateFavorites(List<Product> favs) async {
+    await Future.delayed(const Duration(milliseconds: 500));
     _favorites = favs;
     return true;
   }
@@ -198,28 +195,6 @@ class StoreRepository {
   Future<bool> updateShopItems(List<ShopItem> shopItems) async {
     await Future.delayed(const Duration(milliseconds: 500));
     _shopItems = shopItems;
-    return true;
-  }
-
-  Future<String> readDeliveryAddress() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return _deliveryAddress;
-  }
-
-  Future<bool> updateDeliveryAddress(String address) async {
-    await Future.delayed(const Duration(seconds: 1));
-    _deliveryAddress = address;
-    return true;
-  }
-
-  Future<String> readDeliveryTime() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return _deliveryTime;
-  }
-
-  Future<bool> updateDeliveryTime(String time) async {
-    await Future.delayed(const Duration(seconds: 1));
-    _deliveryTime = time;
     return true;
   }
 }

@@ -6,6 +6,9 @@ enum OutlinedButtonSize { sm, md, lg }
 enum OutlinedButtonColor { primary, secondary }
 
 class OutlinedButton extends StatelessWidget {
+//
+  final bool loading;
+
   final String title;
 
   final OutlinedButtonSize size;
@@ -16,6 +19,7 @@ class OutlinedButton extends StatelessWidget {
 
   const OutlinedButton({
     super.key,
+    this.loading = false,
     required this.title,
     required this.onPressed,
     this.size = OutlinedButtonSize.md,
@@ -36,9 +40,15 @@ class OutlinedButton extends StatelessWidget {
   ({Color textColor, Color outlineColor}) get _colors {
     switch (color) {
       case OutlinedButtonColor.primary:
-        return (textColor: U.Theme.primary, outlineColor: U.Theme.primary);
+        return (
+          textColor: U.Theme.primary.withOpacity(loading ? 0.75 : 1),
+          outlineColor: U.Theme.primary.withOpacity(loading ? 0.75 : 1)
+        );
       case OutlinedButtonColor.secondary:
-        return (textColor: U.Theme.secondary, outlineColor: U.Theme.secondary);
+        return (
+          textColor: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
+          outlineColor: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
+        );
     }
   }
 
@@ -59,24 +69,38 @@ class OutlinedButton extends StatelessWidget {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(U.Theme.radius),
       child: InkWell(
-        onTap: onPressed,
+        onTap: loading ? null : onPressed,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: Container(
-            height: _size,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            decoration: BoxDecoration(
-              color: U.Theme.surface,
-              borderRadius: BorderRadius.circular(U.Theme.radius),
-              border: Border.all(width: 2, color: _colors.outlineColor),
+          height: _size,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(U.Theme.radius),
+            border: Border.all(
+              width: 2,
+              color: _colors.outlineColor,
             ),
-            child: Center(
-              child: U.Text(
+          ),
+          child: Row(
+            children: [
+              const Spacer(),
+              U.Text(
                 title,
                 size: _textStyle.size,
                 weight: _textStyle.weight,
                 color: _colors.textColor,
               ),
-            )),
+              if (loading) ...[
+                const SizedBox(width: 8),
+                U.Loading(
+                  isSmall: true,
+                  color: _colors.textColor,
+                ),
+              ],
+              const Spacer(),
+            ],
+          ),
+        ),
       ),
     );
   }

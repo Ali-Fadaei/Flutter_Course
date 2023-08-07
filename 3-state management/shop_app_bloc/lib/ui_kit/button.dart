@@ -6,7 +6,10 @@ enum ButtonSize { sm, md, lg }
 enum ButtonColor { primary, secondary }
 
 class Button extends StatelessWidget {
+//
   final String title;
+
+  final bool loading;
 
   final ButtonSize size;
 
@@ -22,6 +25,7 @@ class Button extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.loading = false,
     this.size = ButtonSize.md,
     this.color = ButtonColor.primary,
     this.trailing,
@@ -41,9 +45,15 @@ class Button extends StatelessWidget {
   ({Color background, Color foreground}) get _colors {
     switch (color) {
       case ButtonColor.primary:
-        return (background: U.Theme.primary, foreground: U.Theme.onPrimary);
+        return (
+          background: U.Theme.primary.withOpacity(loading ? 0.75 : 1),
+          foreground: U.Theme.onPrimary.withOpacity(loading ? 0.75 : 1),
+        );
       case ButtonColor.secondary:
-        return (background: U.Theme.secondary, foreground: U.Theme.onSecondary);
+        return (
+          background: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
+          foreground: U.Theme.onSecondary.withOpacity(loading ? 0.75 : 1),
+        );
     }
   }
 
@@ -65,7 +75,7 @@ class Button extends StatelessWidget {
       borderRadius: BorderRadius.circular(U.Theme.radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        onTap: onPressed,
+        onTap: loading ? null : onPressed,
         child: Container(
           height: _size,
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -79,6 +89,13 @@ class Button extends StatelessWidget {
                 weight: _textStyle.weight,
                 color: _colors.foreground,
               ),
+              if (loading) ...[
+                const SizedBox(width: 10),
+                U.Loading(
+                  isSmall: true,
+                  color: _colors.foreground,
+                )
+              ],
               if (!_hasTrailing) const Spacer(),
             ],
           ),

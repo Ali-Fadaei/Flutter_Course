@@ -28,8 +28,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     } else {
       temp.add(product);
     }
+    emit(state.copyWith(favorites: temp));
     await storeRepo.updateFavorites(temp);
-    var res = await storeRepo.readFavorites();
-    emit(state.copyWith(favorites: res));
   }
 }

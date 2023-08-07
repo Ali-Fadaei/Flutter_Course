@@ -26,7 +26,7 @@ class FavoritesPage extends StatelessWidget {
         },
         child: BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
-            return state.loading
+            return state.loading && state.favorites.isEmpty
                 ? const U.Loading()
                 : state.favorites.isEmpty
                     ? const Center(
@@ -40,8 +40,8 @@ class FavoritesPage extends StatelessWidget {
                     : SingleChildScrollView(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: state.favorites
+                        child: Column(children: [
+                          ...state.favorites
                               .expand(
                                 (element) => [
                                   FavoritesCard(product: element),
@@ -49,7 +49,11 @@ class FavoritesPage extends StatelessWidget {
                                 ],
                               )
                               .toList(),
-                        ),
+                          if (state.loading) ...[
+                            const SizedBox(height: 15),
+                            const U.Loading()
+                          ],
+                        ]),
                       );
           },
         ),

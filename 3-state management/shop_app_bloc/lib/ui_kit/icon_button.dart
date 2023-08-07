@@ -6,19 +6,27 @@ enum IconButtonSize { sm, md, lg }
 enum IconButtonColor { primary, secondary }
 
 class IconButton extends StatelessWidget {
-  final IconButtonSize size;
-  final String toolTip;
-  final IconButtonColor color;
+//
   final String icon;
+
+  final String toolTip;
+
+  final bool loading;
+
+  final IconButtonSize size;
+
+  final IconButtonColor color;
+
   final void Function() onPressed;
 
   const IconButton({
     super.key,
+    required this.icon,
     required this.onPressed,
+    this.toolTip = "",
+    this.loading = false,
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
-    required this.icon,
-    this.toolTip = "",
   });
 
   double get _size {
@@ -50,13 +58,18 @@ class IconButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: InkWell(
           borderRadius: BorderRadius.circular(U.Theme.radius),
-          onTap: onPressed,
+          onTap: loading ? null : onPressed,
           child: SizedBox.square(
             dimension: _size,
-            child: U.Image(
-              path: icon,
-              color: _colors.foreground,
-            ),
+            child: loading
+                ? U.Loading(
+                    isSmall: true,
+                    color: _colors.foreground,
+                  )
+                : U.Image(
+                    path: icon,
+                    color: _colors.foreground,
+                  ),
           ),
         ),
       ),

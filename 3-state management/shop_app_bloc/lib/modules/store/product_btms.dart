@@ -109,16 +109,21 @@ class ProductBottomSheet extends StatelessWidget {
                               var isFav = state.favorites.contains(product);
                               return IconButton(
                                 onPressed: () {
-                                  favoritesCubit.onFavoriatePressed(product);
+                                  state.loading
+                                      ? null
+                                      : favoritesCubit
+                                          .onFavoriatePressed(product);
                                 },
-                                icon: Icon(
-                                  isFav
-                                      ? Icons.favorite
-                                      : Icons.favorite_border_outlined,
-                                  color: isFav
-                                      ? U.Theme.primary
-                                      : U.Theme.onBackground,
-                                ),
+                                icon: state.loading
+                                    ? const U.Loading(isSmall: true)
+                                    : Icon(
+                                        isFav
+                                            ? Icons.favorite
+                                            : Icons.favorite_border_outlined,
+                                        color: isFav
+                                            ? U.Theme.primary
+                                            : U.Theme.onBackground,
+                                      ),
                               );
                             },
                           )
@@ -233,6 +238,7 @@ class ProductBottomSheet extends StatelessWidget {
                         return count == 0
                             ? U.Button(
                                 title: 'افزودن به سبدخرید',
+                                loading: state.loading,
                                 size: U.ButtonSize.lg,
                                 onPressed: () => shopCartCubit
                                     .onAddtoShopCartPressed(product),

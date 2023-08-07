@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
         },
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
           builder: (context, state) {
-            return state.loading
+            return state.loading && state.shopItems.isEmpty
                 ? const U.Loading()
                 : state.shopItems.isEmpty
                     ? const Center(
@@ -38,14 +38,20 @@ class CartPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         physics: const BouncingScrollPhysics(),
                         child: Column(
-                          children: state.shopItems
-                              .expand(
-                                (element) => [
-                                  ShopCardItem(shopItem: element),
-                                  const SizedBox(height: 15)
-                                ],
-                              )
-                              .toList(),
+                          children: [
+                            ...state.shopItems
+                                .expand(
+                                  (element) => [
+                                    ShopCardItem(shopItem: element),
+                                    const SizedBox(height: 15)
+                                  ],
+                                )
+                                .toList(),
+                            if (state.loading) ...[
+                              const SizedBox(height: 15),
+                              const U.Loading()
+                            ],
+                          ],
                         ),
                       );
           },
