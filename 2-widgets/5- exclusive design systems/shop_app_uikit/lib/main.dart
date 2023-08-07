@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_uikit/models/category.dart';
 import 'package:shop_app_uikit/models/product.dart';
-import 'package:shop_app_uikit/models/shop_cart.dart';
+import 'package:shop_app_uikit/models/shop_item.dart';
 import 'package:shop_app_uikit/pages/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_uikit/pages/categories/categories_page.dart';
 import 'package:shop_app_uikit/pages/favorites/favorites_page.dart';
@@ -174,7 +174,7 @@ class _AppState extends State<App> {
 
   List<Product> favorites = [];
 
-  ShopCart shopCart = ShopCart(shopItems: []);
+  List<ShopItem> shopItems = [];
 
   void onFavoritePressed(Product product) {
     setState(
@@ -201,12 +201,12 @@ class _AppState extends State<App> {
         //   if (existingShopItem.count <= 10) existingShopItem.count++;
         // }
         try {
-          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+          var existingShopItem = shopItems.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 10) existingShopItem.count++;
         } catch (_) {
-          shopCart.shopItems.add(ShopItem(product: product));
+          shopItems.add(ShopItem(product: product));
         }
       },
     );
@@ -227,11 +227,11 @@ class _AppState extends State<App> {
         //   }
         // }
         try {
-          var existingShopItem = shopCart.shopItems.firstWhere((element) {
+          var existingShopItem = shopItems.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 1) {
-            shopCart.shopItems.remove(existingShopItem);
+            shopItems.remove(existingShopItem);
           } else {
             existingShopItem.count--;
           }
@@ -307,7 +307,7 @@ class _AppState extends State<App> {
             const ProfilePage(),
             FavoritesPage(
               favorites: favorites,
-              shopCart: shopCart,
+              shopItems: shopItems,
               products: products,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
@@ -316,14 +316,14 @@ class _AppState extends State<App> {
             StorePage(
               products: products,
               favorites: favorites,
-              shopCart: shopCart,
+              shopItems: shopItems,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
               onRemovefromShopCartPressed: onRemovefromShopCartPressed,
             ),
             CartPage(
               products: products,
-              shopCart: shopCart,
+              shopItems: shopItems,
               favorites: favorites,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,

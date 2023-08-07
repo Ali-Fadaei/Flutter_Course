@@ -9,7 +9,7 @@ class StorePage extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final void Function(Product product) onAddtoShopCartPressed;
 
@@ -24,7 +24,7 @@ class StorePage extends StatefulWidget {
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
-    required this.shopCart,
+    required this.shopItems,
   });
 
   @override
@@ -100,7 +100,7 @@ class _StorePageState extends State<StorePage> {
                           product: element,
                           favorites: widget.favorites,
                           onFavoritePressed: widget.onFavoriatePressed,
-                          shopCart: widget.shopCart,
+                          shopItems: widget.shopItems,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                           onRemovefromShopCartPressed:
                               widget.onRemovefromShopCartPressed,
@@ -153,7 +153,7 @@ class _StorePageState extends State<StorePage> {
                         ProductCard(
                           product: element,
                           favorites: widget.favorites,
-                          shopCart: widget.shopCart,
+                          shopItems: widget.shopItems,
                           onFavoritePressed: widget.onFavoriatePressed,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                           onRemovefromShopCartPressed:

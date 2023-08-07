@@ -3,13 +3,13 @@ import 'package:shop_app_m3/models/product.dart';
 import 'package:shop_app_m3/models/shop_item.dart';
 import 'package:shop_app_m3/pages/store/product_btms.dart';
 
-class ShopCardItem extends StatelessWidget {
+class ShopItemCard extends StatelessWidget {
 //
   final ShopItem shopItem;
 
   final List<Product> favorites;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final void Function(Product product) onFavoritePressed;
 
@@ -17,14 +17,14 @@ class ShopCardItem extends StatelessWidget {
 
   final void Function(Product product) onRemovefromShopCartPressed;
 
-  const ShopCardItem({
+  const ShopItemCard({
     super.key,
     required this.shopItem,
     required this.favorites,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
-    required this.shopCart,
+    required this.shopItems,
   });
 
   @override
@@ -34,7 +34,7 @@ class ShopCardItem extends StatelessWidget {
         context,
         product: shopItem.product,
         favorites: favorites,
-        shopCart: shopCart,
+        shopItems: shopItems,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,

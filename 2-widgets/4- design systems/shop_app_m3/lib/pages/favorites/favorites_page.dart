@@ -10,7 +10,7 @@ class FavoritesPage extends StatelessWidget {
 
   final List<Product> favorites;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final void Function(Product product) onFavoriatePressed;
 
@@ -22,7 +22,7 @@ class FavoritesPage extends StatelessWidget {
     super.key,
     required this.products,
     required this.favorites,
-    required this.shopCart,
+    required this.shopItems,
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
@@ -51,7 +51,7 @@ class FavoritesPage extends StatelessWidget {
                         FavoritesCard(
                           product: element,
                           favorites: favorites,
-                          shopCart: shopCart,
+                          shopItems: shopItems,
                           onFavoritePressed: onFavoriatePressed,
                           onAddtoShopCartPressed: onAddtoShopCartPressed,
                           onRemovefromShopCartPressed:

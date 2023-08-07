@@ -7,7 +7,7 @@ class FavoritesCard extends StatelessWidget {
 //
   final Product product;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final List<Product> favorites;
 
@@ -24,7 +24,7 @@ class FavoritesCard extends StatelessWidget {
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
-    required this.shopCart,
+    required this.shopItems,
   });
 
   @override
@@ -34,7 +34,7 @@ class FavoritesCard extends StatelessWidget {
         context,
         product: product,
         favorites: favorites,
-        shopCart: shopCart,
+        shopItems: shopItems,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_uikit/models/product.dart';
-import 'package:shop_app_uikit/models/shop_cart.dart';
+import 'package:shop_app_uikit/models/shop_item.dart';
 import 'package:shop_app_uikit/pages/store/product_btms.dart';
 
 import 'package:shop_app_uikit/ui_kit/ui_kit.dart' as U;
@@ -9,7 +9,7 @@ class FavoritesCard extends StatelessWidget {
 //
   final Product product;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopItems;
 
   final List<Product> favorites;
 
@@ -23,7 +23,7 @@ class FavoritesCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.favorites,
-    required this.shopCart,
+    required this.shopItems,
     required this.onFavoriatePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
@@ -36,7 +36,7 @@ class FavoritesCard extends StatelessWidget {
         context,
         product: product,
         favorites: favorites,
-        shopCart: shopCart,
+        shopItems: shopItems,
         onFavoritePressed: onFavoriatePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,

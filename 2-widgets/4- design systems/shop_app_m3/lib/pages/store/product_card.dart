@@ -7,7 +7,7 @@ class ProductCard extends StatelessWidget {
 //
   final Product product;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final List<Product> favorites;
 
@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.favorites,
-    required this.shopCart,
+    required this.shopItems,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
@@ -34,7 +34,7 @@ class ProductCard extends StatelessWidget {
         context,
         product: product,
         favorites: favorites,
-        shopCart: shopCart,
+        shopItems: shopItems,
         onFavoritePressed: onFavoritePressed,
         onAddtoShopCartPressed: onAddtoShopCartPressed,
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,

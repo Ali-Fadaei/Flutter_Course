@@ -7,7 +7,7 @@ class ProductBottomSheet extends StatefulWidget {
   static show(
     BuildContext context, {
     required Product product,
-    required List<ShopItem> shopCart,
+    required List<ShopItem> shopItems,
     required List<Product> favorites,
     required void Function(Product product) onFavoritePressed,
     required void Function(Product product) onAddtoShopCartPressed,
@@ -23,7 +23,7 @@ class ProductBottomSheet extends StatefulWidget {
       builder: (context) {
         return ProductBottomSheet(
           product: product,
-          shopCart: shopCart,
+          shopItems: shopItems,
           favorites: favorites,
           onFavoritePressed: onFavoritePressed,
           onAddtoShopCardPressed: onAddtoShopCartPressed,
@@ -37,7 +37,7 @@ class ProductBottomSheet extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final void Function(Product product) onFavoritePressed;
 
@@ -49,7 +49,7 @@ class ProductBottomSheet extends StatefulWidget {
     super.key,
     required this.product,
     required this.favorites,
-    required this.shopCart,
+    required this.shopItems,
     required this.onFavoritePressed,
     required this.onAddtoShopCardPressed,
     required this.onRemovefromShopCartPressed,
@@ -92,7 +92,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
 
   @override
   void initState() {
-    for (var element in widget.shopCart) {
+    for (var element in widget.shopItems) {
       if (element.product == widget.product) {
         count = element.count;
       }

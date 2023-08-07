@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_uikit/models/product.dart';
-import 'package:shop_app_uikit/models/shop_cart.dart';
+import 'package:shop_app_uikit/models/shop_item.dart';
 import 'package:shop_app_uikit/pages/store/product_card.dart';
 import 'package:shop_app_uikit/ui_kit/ui_kit.dart' as U;
 
@@ -10,7 +10,7 @@ class StorePage extends StatefulWidget {
 
   final List<Product> favorites;
 
-  final ShopCart shopCart;
+  final List<ShopItem> shopItems;
 
   final void Function(Product) onFavoritePressed;
 
@@ -22,7 +22,7 @@ class StorePage extends StatefulWidget {
     super.key,
     this.products = const [],
     this.favorites = const [],
-    required this.shopCart,
+    required this.shopItems,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
     required this.onRemovefromShopCartPressed,
@@ -94,7 +94,7 @@ class _StorePageState extends State<StorePage> {
                         product: element,
                         favorites: widget.favorites,
                         onFavoritePressed: widget.onFavoritePressed,
-                        shopCart: widget.shopCart,
+                        shopItems: widget.shopItems,
                         onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                         onRemovefromShopCartPressed:
                             widget.onRemovefromShopCartPressed,
@@ -146,7 +146,7 @@ class _StorePageState extends State<StorePage> {
                       ProductCard(
                         product: element,
                         favorites: widget.favorites,
-                        shopCart: widget.shopCart,
+                        shopItems: widget.shopItems,
                         onFavoritePressed: widget.onFavoritePressed,
                         onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                         onRemovefromShopCartPressed:

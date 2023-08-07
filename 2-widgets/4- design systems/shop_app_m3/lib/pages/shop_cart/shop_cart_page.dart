@@ -8,7 +8,7 @@ class CartPage extends StatefulWidget {
 //
   final List<Product> products;
 
-  final List<ShopItem> shopCart;
+  final List<ShopItem> shopItems;
 
   final List<Product> favorites;
 
@@ -20,7 +20,7 @@ class CartPage extends StatefulWidget {
 
   const CartPage({
     super.key,
-    required this.shopCart,
+    required this.shopItems,
     required this.favorites,
     required this.onFavoritePressed,
     required this.onAddtoShopCartPressed,
@@ -36,7 +36,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-      child: widget.shopCart.isEmpty
+      child: widget.shopItems.isEmpty
           ? Center(
               child: SizedBox(
                 width: 400,
@@ -50,13 +50,13 @@ class _CartPageState extends State<CartPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               physics: const BouncingScrollPhysics(),
               child: Column(
-                children: widget.shopCart
+                children: widget.shopItems
                     .expand(
                       (element) => [
-                        ShopCardItem(
+                        ShopItemCard(
                           shopItem: element,
                           favorites: widget.favorites,
-                          shopCart: widget.shopCart,
+                          shopItems: widget.shopItems,
                           onFavoritePressed: widget.onFavoritePressed,
                           onAddtoShopCartPressed: widget.onAddtoShopCartPressed,
                           onRemovefromShopCartPressed:

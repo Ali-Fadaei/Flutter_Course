@@ -171,7 +171,7 @@ class _AppState extends State<App> {
 
   List<Product> favorites = [];
 
-  List<ShopItem> shopCart = [];
+  List<ShopItem> shopItems = [];
 
   void onFavoritePressed(Product product) {
     setState(
@@ -198,12 +198,12 @@ class _AppState extends State<App> {
         //   if (existingShopItem.count <= 10) existingShopItem.count++;
         // }
         try {
-          var existingShopItem = shopCart.firstWhere((element) {
+          var existingShopItem = shopItems.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 10) existingShopItem.count++;
         } catch (_) {
-          shopCart.add(ShopItem(product: product));
+          shopItems.add(ShopItem(product: product));
         }
       },
     );
@@ -224,11 +224,11 @@ class _AppState extends State<App> {
         //   }
         // }
         try {
-          var existingShopItem = shopCart.firstWhere((element) {
+          var existingShopItem = shopItems.firstWhere((element) {
             return element.product == product;
           });
           if (existingShopItem.count <= 1) {
-            shopCart.remove(existingShopItem);
+            shopItems.remove(existingShopItem);
           } else {
             existingShopItem.count--;
           }
@@ -330,7 +330,7 @@ class _AppState extends State<App> {
             const ProfilePage(),
             FavoritesPage(
               favorites: favorites,
-              shopCart: shopCart,
+              shopItems: shopItems,
               products: products,
               onFavoriatePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
@@ -339,14 +339,14 @@ class _AppState extends State<App> {
             StorePage(
               products: products,
               favorites: favorites,
-              shopCart: shopCart,
+              shopItems: shopItems,
               onFavoriatePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
               onRemovefromShopCartPressed: onRemovefromShopCartPressed,
             ),
             CartPage(
               products: products,
-              shopCart: shopCart,
+              shopItems: shopItems,
               favorites: favorites,
               onFavoritePressed: onFavoritePressed,
               onAddtoShopCartPressed: onAddtoShopCartPressed,
