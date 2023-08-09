@@ -8,17 +8,17 @@ part 'shop_cart_state.dart';
 
 class ShopCartCubit extends Cubit<ShopCartState> {
 //
-  final StoreRepository storeRepository;
+  final StoreRepository storeRepo;
 
   ShopCartCubit({
-    required this.storeRepository,
+    required this.storeRepo,
   }) : super(const ShopCartState()) {
     init();
   }
 
   Future<void> init() async {
     emit(state.copywith(loading: true));
-    var res = await storeRepository.readShopItems();
+    var res = await storeRepo.readShopItems();
     emit(state.copywith(
       loading: false,
       shopItems: res,
@@ -41,7 +41,7 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       shopItems.add(ShopItem(product: product));
     }
     emit(state.copywith(shopItems: shopItems));
-    await storeRepository.updateShopItems(shopItems);
+    await storeRepo.updateShopItems(shopItems);
   }
 
   Future<void> onRemovefromShopCartPressed(Product product) async {
@@ -60,6 +60,6 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       }
     } catch (_) {}
     emit(state.copywith(shopItems: shopItems));
-    await storeRepository.updateShopItems(shopItems);
+    await storeRepo.updateShopItems(shopItems);
   }
 }

@@ -23,7 +23,7 @@ class StorePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ShopCartCubit(
-            storeRepository: storeRepository,
+            storeRepo: storeRepository,
           ),
         ),
       ],

@@ -14,7 +14,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ShopCartCubit(
-        storeRepository: RepositoryProvider.of<StoreRepository>(context),
+        storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
       child: BlocListener<AppCubit, AppState>(
         listener: (context, state) {

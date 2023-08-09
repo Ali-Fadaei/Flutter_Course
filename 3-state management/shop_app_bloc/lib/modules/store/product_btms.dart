@@ -27,7 +27,7 @@ class ProductBottomSheet extends StatelessWidget {
             shopCartCubit == null
                 ? BlocProvider(
                     create: (_) => ShopCartCubit(
-                      storeRepository:
+                      storeRepo:
                           RepositoryProvider.of<StoreRepository>(context),
                     ),
                   )
@@ -106,7 +106,8 @@ class ProductBottomSheet extends StatelessWidget {
                             buildWhen: (previous, current) =>
                                 previous.favorites != current.favorites,
                             builder: (context, state) {
-                              var isFav = state.favorites.contains(product);
+                              var isFav = state.favorites
+                                  .any((element) => element.id == product.id);
                               return IconButton(
                                 onPressed: () {
                                   state.loading
