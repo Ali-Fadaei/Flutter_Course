@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:shop_app_bloc/domains/store_repository/models/category.dart';
 
-class Product {
+class Product extends Equatable {
 //
   final int id;
 
@@ -16,7 +17,7 @@ class Product {
 
   final Category category;
 
-  Product({
+  const Product({
     required this.id,
     required this.title,
     required this.rating,
@@ -25,4 +26,15 @@ class Product {
     required this.description,
     required this.category,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        rating,
+        price,
+        image,
+        description,
+        category,
+      ];
 }
