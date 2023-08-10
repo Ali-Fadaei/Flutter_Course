@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'ui_kit.dart' as U;
 
 class Card extends StatelessWidget {
-//
+  ///
   final double? height;
 
   final double? width;

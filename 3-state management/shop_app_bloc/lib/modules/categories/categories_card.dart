@@ -16,7 +16,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 200,
-      height: 200,
+      height: 300,
       decoration: BoxDecoration(
         color: category.color,
         borderRadius: BorderRadius.circular(U.Theme.radius),

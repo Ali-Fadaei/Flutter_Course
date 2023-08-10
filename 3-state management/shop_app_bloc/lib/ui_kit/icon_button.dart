@@ -6,7 +6,7 @@ enum IconButtonSize { sm, md, lg }
 enum IconButtonColor { primary, secondary }
 
 class IconButton extends StatelessWidget {
-//
+  ///
   final String icon;
 
   final String toolTip;

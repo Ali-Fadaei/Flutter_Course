@@ -4,7 +4,7 @@ import 'ui_kit.dart' as U;
 enum CounterSize { md, lg }
 
 class Counter extends StatelessWidget {
-//
+  ///
   final int count;
 
   final CounterSize size;

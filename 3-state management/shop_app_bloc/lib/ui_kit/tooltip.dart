@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' as M;
 import 'ui_kit.dart' as U;
 
 class Tooltip extends M.StatelessWidget {
-//
+  ///
   final String message;
 
   final M.Widget child;

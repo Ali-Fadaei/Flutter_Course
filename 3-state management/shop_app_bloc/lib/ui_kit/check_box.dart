@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './ui_kit.dart' as U;
 
 class CheckBox extends StatelessWidget {
-//
+  ///
   final String title;
 
   final bool isChecked;
@@ -18,27 +18,23 @@ class CheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(U.Theme.radius),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(U.Theme.radius),
-        onTap: () => onPressed(!isChecked),
-        child: Row(
-          children: [
-            U.Image(
-              path: isChecked
-                  ? U.Images.checkBoxFilledIcon
-                  : U.Images.checkBoxEmptyIcon,
-            ),
-            const SizedBox(width: 12),
-            U.Text(
-              title,
-              color: isChecked ? U.Theme.primary : U.Theme.secondary,
-              weight: U.TextWeight.bold,
-              size: U.TextSize.lg,
-            ),
-          ],
-        ),
+    return InkWell(
+      onTap: () => onPressed(!isChecked),
+      child: Row(
+        children: [
+          U.Text(
+            title,
+            size: U.TextSize.lg,
+            weight: U.TextWeight.medium,
+            color: isChecked ? U.Theme.primary : U.Theme.secondary,
+          ),
+          const SizedBox(width: 8),
+          U.Image(
+            path: isChecked
+                ? U.Images.checkBoxFilledIcon
+                : U.Images.checkBoxEmptyIcon,
+          ),
+        ],
       ),
     );
   }

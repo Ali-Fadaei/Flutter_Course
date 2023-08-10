@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'ui_kit.dart' as U;
 
 class NavigationBar extends StatelessWidget {
-//
+  ///
   final int selectedIndex;
 
   final List<NavigationBarDestination> destinations;

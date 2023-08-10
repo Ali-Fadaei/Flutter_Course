@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 abstract class Theme {
-//
-  //
+  ///
+  //neutral colors
   static const background = Color(0xFFF6F6F6);
 
   static const surface = Color(0xFFFEFEFE);
@@ -15,7 +15,7 @@ abstract class Theme {
 
   static const outline2 = Color(0xFF7C7C7C);
 
-  //
+  //role colors
   static const primary = Color(0xFFF34E4E);
 
   static const onPrimary = surface;
@@ -24,5 +24,6 @@ abstract class Theme {
 
   static const onSecondary = surface;
 
+  //
   static const radius = 15.0;
 }

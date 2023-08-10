@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' as M;
 import 'ui_kit.dart' as U;
 
 class Divider extends M.StatelessWidget {
-//
+  ///
   final bool isVertical;
 
   const Divider.vertical({super.key}) : isVertical = true;

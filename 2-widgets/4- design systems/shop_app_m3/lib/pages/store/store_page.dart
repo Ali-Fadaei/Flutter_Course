@@ -61,26 +61,18 @@ class _StorePageState extends State<StorePage> {
             //witeSpace
             const SizedBox(height: 30),
             // Exclusive Offers
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Row(
                 children: [
-                  const Text(
+                  Text(
                     'Exclusive Offers',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Spacer(),
-                  Text(
-                    'all',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  )
+                  Spacer(),
                 ],
               ),
             ),
@@ -115,26 +107,18 @@ class _StorePageState extends State<StorePage> {
             //witeSpace
             const SizedBox(height: 30),
             //BestPrice
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  const Text(
+                  Text(
                     'Best Sellers',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Spacer(),
-                  Text(
-                    'all',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  )
+                  Spacer(),
                 ],
               ),
             ),

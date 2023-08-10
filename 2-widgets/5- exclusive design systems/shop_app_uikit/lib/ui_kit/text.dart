@@ -9,7 +9,7 @@ enum TextSize { xs, sm, md, lg, xl, xxl, xxxl }
 enum TextWeight { light, regular, medium, bold }
 
 class Text extends M.StatelessWidget {
-//
+  ///
   final String text;
 
   final TextFont font;

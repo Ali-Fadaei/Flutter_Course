@@ -6,7 +6,7 @@ enum OutlinedButtonSize { sm, md, lg }
 enum OutlinedButtonColor { primary, secondary }
 
 class OutlinedButton extends StatelessWidget {
-//
+  ///
   final bool loading;
 
   final String title;

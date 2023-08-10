@@ -5,7 +5,7 @@ class SearchInput extends StatefulWidget {
 //
   final String? hintText;
   final TextEditingController controller;
-  final void Function(String text) onSearch;
+  final void Function() onSearch;
 
   const SearchInput({
     super.key,
@@ -19,18 +19,29 @@ class SearchInput extends StatefulWidget {
 }
 
 class _SearchInputState extends State<SearchInput> {
-//
+  ///
   late bool textIsEmpty;
+
+  bool searched = false;
 
   @override
   void initState() {
     textIsEmpty = widget.controller.text.isEmpty;
     widget.controller.addListener(() {
-      setState(
-        () => textIsEmpty = widget.controller.text.isEmpty,
-      );
+      setState(() => textIsEmpty = widget.controller.text.isEmpty);
+      if (textIsEmpty && searched) {
+        widget.onSearch();
+        searched = false;
+      }
     });
     super.initState();
+  }
+
+  void _onSearch() {
+    if (!textIsEmpty) {
+      widget.onSearch();
+      searched = true;
+    }
   }
 
   @override
@@ -39,15 +50,15 @@ class _SearchInputState extends State<SearchInput> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () => widget.onSearch(widget.controller.text),
-            child: const U.Image(path: U.Images.searchIcon),
+          IconButton(
+            onPressed: _onSearch,
+            icon: const U.Image(path: U.Images.searchIcon),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: widget.controller,
-              onEditingComplete: () => widget.onSearch(widget.controller.text),
+              onEditingComplete: _onSearch,
               style: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'IranSans',

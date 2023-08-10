@@ -6,7 +6,7 @@ enum ButtonSize { sm, md, lg }
 enum ButtonColor { primary, secondary }
 
 class Button extends StatelessWidget {
-//
+  ///
   final String title;
 
   final bool loading;

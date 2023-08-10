@@ -247,7 +247,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                   alignment: const Alignment(0, 0.95),
                   child: SizedBox(
                     height: 45,
-                    width: 400,
+                    width: 500,
                     child: count == 0
                         ? ElevatedButton(
                             onPressed: _onAddtoShopCartPressed,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart' as M;
 
 abstract class Images {
-//
-  // Logos
+  /// Logos
   static const shopLogo = 'assets/logos/Amazon.png';
 
   // Icons
@@ -22,6 +21,8 @@ abstract class Images {
   static const storeIcon = 'assets/icons/store.png';
   static const checkBoxFilledIcon = 'assets/icons/check_box_fill.png';
   static const checkBoxEmptyIcon = 'assets/icons/check_box_empty.png';
+  static const radioBoxFilledIcon = 'assets/icons/radio_box_fill.png';
+  static const radioBoxEmptyIcon = 'assets/icons/radio_box_empty.png';
   static const requiredIcon = 'assets/icons/required.png';
   static const removIcon = 'assets/icons/removIcon.png';
 
@@ -31,7 +32,7 @@ abstract class Images {
 }
 
 class Image extends M.StatelessWidget {
-//
+  ///
   final String path;
 
   final M.Color? color;
@@ -48,7 +49,7 @@ class Image extends M.StatelessWidget {
 }
 
 class NetworkImage extends M.StatelessWidget {
-//
+  ///
   final String url;
 
   const NetworkImage({super.key, required this.url});

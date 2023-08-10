@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './ui_kit.dart' as U;
 
 class TextInput extends StatelessWidget {
-//
+  ///
   final String title;
 
   final String? hintText;
