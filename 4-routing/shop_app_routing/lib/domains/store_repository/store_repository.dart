@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_bloc/domains/store_repository/models/category.dart';
-import 'package:shop_app_bloc/domains/store_repository/models/product.dart';
-import 'package:shop_app_bloc/domains/store_repository/models/shop_item.dart';
+import 'package:shop_app_routing/domains/store_repository/models/category.dart';
+import 'package:shop_app_routing/domains/store_repository/models/product.dart';
+import 'package:shop_app_routing/domains/store_repository/models/shop_item.dart';
 
 class StoreRepository {
 //
@@ -9,12 +9,22 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
-  final latency = 150;
+  final latency = 100;
 
-  Future<List<Product>> readProducts() async {
+  Future<List<Product>> readProducts({
+    int? id,
+    String? title,
+    double? minRate,
+    double? maxRate,
+    int? minPrice,
+    int? maxPrice,
+    int? categoryId,
+    int sort = 1,
+    int order = 1,
+  }) async {
     await Future.delayed(Duration(milliseconds: latency));
     var categories = await readCategories();
-    return [
+    var products = [
       Product(
         id: 0,
         title: 'گلکسی S23 Ultra',
@@ -146,11 +156,57 @@ class StoreRepository {
         category: categories[3],
       ),
     ];
+
+    if (id != null) {
+      products = products.where((element) => element.id == id).toList();
+    }
+
+    if (categoryId != null) {
+      products = products
+          .where((element) => element.category.id == categoryId)
+          .toList();
+    }
+    if (title != null) {
+      products =
+          products.where((element) => element.title.contains(title)).toList();
+    }
+    if (minPrice != null) {
+      products =
+          products.where((element) => element.price >= minPrice).toList();
+    }
+    if (maxPrice != null) {
+      products =
+          products.where((element) => element.price <= maxPrice).toList();
+    }
+    if (minRate != null) {
+      products =
+          products.where((element) => element.rating >= minRate).toList();
+    }
+    if (maxRate != null) {
+      products =
+          products.where((element) => element.rating <= maxRate).toList();
+    }
+
+    switch (sort) {
+      //price
+      case 1:
+        products.sort((a, b) => a.price.compareTo(b.price));
+      //rate
+      case 2:
+        products.sort((a, b) => a.rating.compareTo(b.rating));
+    }
+
+    //1=> asc 2=> dec
+    if (order == 2) {
+      products = products.reversed.toList();
+    }
+
+    return products;
   }
 
-  Future<List<Category>> readCategories() async {
+  Future<List<Category>> readCategories({int? id}) async {
     await Future.delayed(Duration(milliseconds: latency));
-    return [
+    var categories = [
       const Category(
         id: 0,
         title: 'موبایل',
@@ -176,6 +232,12 @@ class StoreRepository {
         color: Color.fromARGB(255, 218, 241, 254),
       ),
     ];
+
+    if (id != null) {
+      categories = categories.where((element) => element.id == id).toList();
+    }
+
+    return categories;
   }
 
   Future<List<Product>> readFavorites() async {

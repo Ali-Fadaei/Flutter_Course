@@ -111,12 +111,12 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
           Container(
             height: 5,
             width: 60,
-            margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: theme.colorScheme.outline,
               borderRadius: BorderRadius.circular(15),
             ),
           ),
+          const SizedBox(height: 12),
           Expanded(
             child: Stack(
               children: [
