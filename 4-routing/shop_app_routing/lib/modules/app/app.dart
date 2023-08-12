@@ -44,11 +44,11 @@ class App extends StatelessWidget {
           ],
           locale: const Locale('fa', 'IR'),
           initialRoute: '/home',
-          routes: {
-            '/home': (context) => const HomePage(),
-            '/apage': (context) => const APage(),
-            '/bpage': (context) => const BPage(id: 5),
-          },
+          // routes: {
+          //   '/home': (context) => const HomePage(),
+          //   '/apage': (context) => const APage(),
+          //   '/bpage': (context) => const BPage(id: 5),
+          // },
           onGenerateRoute: (settings) {
             switch (settings.name) {
               case '/home':
