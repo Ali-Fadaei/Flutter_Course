@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
 import 'package:shop_app_routing/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_routing/modules/category/category_page.dart';
 import 'package:shop_app_routing/modules/home/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/modules/profile/a_page.dart';
@@ -40,24 +41,34 @@ class App extends StatelessWidget {
             Locale('en', 'US'),
           ],
           locale: const Locale('fa', 'IR'),
-          initialRoute: '/home',
-          // routes: {
-          //   '/home': (context) => const HomePage(),
-          //   '/apage': (context) => const APage(),
-          // },
+          initialRoute: HomePage.route,
           onGenerateRoute: (settings) {
             switch (settings.name) {
-              case '/home':
+              case HomePage.route:
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) {
                     return const HomePage();
                   },
                 );
-              case '/categories':
+              case CategoryPage.route:
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (context) => CategoryPage(
+                    categoryId: settings.arguments as int,
+                  ),
+                );
+              case APage.route:
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) => const APage(),
+                );
+              default:
+                return MaterialPageRoute(
+                  settings: const RouteSettings(name: HomePage.route),
+                  builder: (context) {
+                    return const HomePage();
+                  },
                 );
             }
           },

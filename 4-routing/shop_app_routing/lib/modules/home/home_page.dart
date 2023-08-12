@@ -10,6 +10,8 @@ import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
 class HomePage extends StatelessWidget {
   ///
+  static const route = '/home';
+
   const HomePage({super.key});
 
   @override
