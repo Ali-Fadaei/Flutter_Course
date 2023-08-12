@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
-import 'package:shop_app_routing/modules/categories/category/category_filter_btms.dart';
-import 'package:shop_app_routing/modules/categories/category/cubit/category_cubit.dart';
+import 'package:shop_app_routing/modules/category/category_filter_btms.dart';
+import 'package:shop_app_routing/modules/category/cubit/category_cubit.dart';
 import 'package:shop_app_routing/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_routing/modules/store/product_card.dart';
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
 class CategoryPage extends StatelessWidget {
   ///
+  static const route = '/category';
+
   final int categoryId;
 
   final String categoryTitle;

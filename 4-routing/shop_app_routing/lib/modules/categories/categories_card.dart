@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_routing/domains/store_repository/models/category.dart';
-import 'package:shop_app_routing/modules/categories/category/category_page.dart';
+// import 'package:shop_app_routing/modules/categories/category/category_page.dart';
 
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
@@ -17,13 +17,14 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return CategoryPage(categoryId: category.id);
-            },
-          ),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) {
+        //       return CategoryPage(categoryId: category.id);
+        //     },
+        //   ),
+        // );
+        Navigator.of(context).pushNamed('/category', arguments: category.id);
       },
       child: Container(
         width: 200,

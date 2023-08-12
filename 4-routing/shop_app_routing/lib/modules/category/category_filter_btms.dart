@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_routing/modules/categories/category/cubit/category_cubit.dart';
+import 'package:shop_app_routing/modules/category/cubit/category_cubit.dart';
 import 'package:shop_app_routing/ui_kit/text.dart';
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 

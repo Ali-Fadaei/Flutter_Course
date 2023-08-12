@@ -2,22 +2,15 @@ part of 'app_cubit.dart';
 
 class AppState extends Equatable {
 //
-  final int selectedDes;
 
-  const AppState({
-    this.selectedDes = 2,
-  });
+  const AppState();
 
   AppState copywith({
     int? selectedDes,
   }) {
-    return AppState(
-      selectedDes: selectedDes ?? this.selectedDes,
-    );
+    return const AppState();
   }
 
   @override
-  List<Object?> get props => [
-        selectedDes,
-      ];
+  List<Object?> get props => [];
 }
