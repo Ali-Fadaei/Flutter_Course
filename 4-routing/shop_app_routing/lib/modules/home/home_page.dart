@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/modules/categories/categories_page.dart';
+import 'package:shop_app_routing/modules/category/category_page.dart';
 import 'package:shop_app_routing/modules/favorites/favorites_page.dart';
 import 'package:shop_app_routing/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_routing/modules/profile/profile_page.dart';
@@ -20,10 +21,10 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeCubit(),
       child: Scaffold(
         backgroundColor: U.Theme.background,
-        appBar: U.AppBar.primary(
-          onMenuPressed: () {},
-          onNotifPressed: () {},
-        ),
+        // appBar: U.AppBar.primary(
+        //   onMenuPressed: () {},
+        //   onNotifPressed: () {},
+        // ),
         drawer: const Drawer(
           child: Column(
             children: [],
@@ -68,29 +69,37 @@ class HomePage extends StatelessWidget {
           builder: (context, state) {
             return IndexedStack(
               index: state.selectedDes,
-              children: const [
-                ProfilePage(),
-                FavoritesPage(),
-                StorePage(),
-                CartPage(),
-                CategoriesPage(),
-                // Navigator(
-                //   initialRoute: '/categories',
-                //   onGenerateRoute: (settings) {
-                //     switch (settings.name) {
-                //       case '/categories':
-                //         return MaterialPageRoute(
-                //           builder: (context) => const CategoriesPage(),
-                //         );
-                //       case '/category':
-                //         return MaterialPageRoute(
-                //           builder: (context) => CategoryPage(
-                //             categoryId: settings.arguments as int,
-                //           ),
-                //         );
-                //     }
-                //   },
-                // ),
+              children: [
+                const ProfilePage(),
+                const FavoritesPage(),
+                const StorePage(),
+                const CartPage(),
+                Navigator(
+                  initialRoute: CategoriesPage.route,
+                  onGenerateRoute: (settings) {
+                    switch (settings.name) {
+                      case CategoriesPage.route:
+                        return MaterialPageRoute(
+                          settings: settings,
+                          builder: (context) => const CategoriesPage(),
+                        );
+                      case CategoryPage.route:
+                        return MaterialPageRoute(
+                          settings: settings,
+                          builder: (context) => CategoryPage(
+                            categoryId: settings.arguments as int,
+                          ),
+                        );
+                      default:
+                        return MaterialPageRoute(
+                          settings: const RouteSettings(
+                            name: CategoriesPage.route,
+                          ),
+                          builder: (context) => const CategoriesPage(),
+                        );
+                    }
+                  },
+                ),
               ],
             );
           },

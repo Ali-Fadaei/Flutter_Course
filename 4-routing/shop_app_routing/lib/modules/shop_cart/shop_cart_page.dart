@@ -25,35 +25,46 @@ class CartPage extends StatelessWidget {
         },
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
           builder: (context, state) {
-            return state.loading && state.shopItems.isEmpty
-                ? const U.Loading()
-                : state.shopItems.isEmpty
-                    ? const Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: U.Image(path: U.Images.cartEmpty),
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            ...state.shopItems
-                                .expand(
-                                  (element) => [
-                                    ShopCardItem(shopItem: element),
-                                    const SizedBox(height: 15)
+            return Column(
+              children: [
+                U.AppBar.primary(
+                  onMenuPressed: () {},
+                  onNotifPressed: () {},
+                ),
+                Expanded(
+                  child: state.loading && state.shopItems.isEmpty
+                      ? const U.Loading()
+                      : state.shopItems.isEmpty
+                          ? const Center(
+                              child: SizedBox(
+                                width: 400,
+                                child: U.Image(path: U.Images.cartEmpty),
+                              ),
+                            )
+                          : SingleChildScrollView(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  ...state.shopItems
+                                      .expand(
+                                        (element) => [
+                                          ShopCardItem(shopItem: element),
+                                          const SizedBox(height: 15)
+                                        ],
+                                      )
+                                      .toList(),
+                                  if (state.loading) ...[
+                                    const SizedBox(height: 15),
+                                    const U.Loading()
                                   ],
-                                )
-                                .toList(),
-                            if (state.loading) ...[
-                              const SizedBox(height: 15),
-                              const U.Loading()
-                            ],
-                          ],
-                        ),
-                      );
+                                ],
+                              ),
+                            ),
+                ),
+              ],
+            );
           },
         ),
       ),

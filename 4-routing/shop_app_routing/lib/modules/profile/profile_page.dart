@@ -11,6 +11,10 @@ class ProfilePage extends StatelessWidget {
     return SizedBox.expand(
       child: Column(
         children: [
+          U.AppBar.primary(
+            onMenuPressed: () {},
+            onNotifPressed: () {},
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),

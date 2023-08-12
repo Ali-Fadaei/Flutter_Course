@@ -27,115 +27,127 @@ class StorePage extends StatelessWidget {
           ),
         ),
       ],
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            //witeSpace
-            const SizedBox(height: 15),
-            // search bar
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1000),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: U.SearchInput(
-                  controller: TextEditingController(),
-                  hintText: 'جستجوی محصول',
-                  onSearch: () {},
-                ),
-              ),
-            ),
-            //witeSpace
-            const SizedBox(height: 30),
-            // Exclusive Offers
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
+      child: Column(
+        children: [
+          U.AppBar.primary(
+            onMenuPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            onNotifPressed: () {},
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  U.Text(
-                    'پیشنهادهای ویژه',
-                    color: U.Theme.secondary,
-                    font: U.TextFont.bYekan,
-                    size: U.TextSize.xxxl,
-                    weight: U.TextWeight.bold,
+                  //witeSpace
+                  const SizedBox(height: 15),
+                  // search bar
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1000),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: U.SearchInput(
+                        controller: TextEditingController(),
+                        hintText: 'جستجوی محصول',
+                        onSearch: () {},
+                      ),
+                    ),
                   ),
-                  Spacer(),
+                  //witeSpace
+                  const SizedBox(height: 30),
+                  // Exclusive Offers
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      children: [
+                        U.Text(
+                          'پیشنهادهای ویژه',
+                          color: U.Theme.secondary,
+                          font: U.TextFont.bYekan,
+                          size: U.TextSize.xxxl,
+                          weight: U.TextWeight.bold,
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 20),
+                  //products listview
+                  SizedBox(
+                    height: 350,
+                    child: BlocBuilder<StoreCubit, StoreState>(
+                      builder: (context, state) {
+                        return state.loading
+                            ? const U.Loading()
+                            : ListView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                children: state.products
+                                    .expand(
+                                      (element) => [
+                                        const SizedBox(width: 8),
+                                        ProductCard(product: element),
+                                        if (element == state.products.last)
+                                          const SizedBox(width: 8),
+                                      ],
+                                    )
+                                    .toList(),
+                              );
+                      },
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 30),
+                  //Best Sellers
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      children: [
+                        U.Text(
+                          'پرفروش‌ها',
+                          color: U.Theme.secondary,
+                          font: U.TextFont.bYekan,
+                          size: U.TextSize.xxxl,
+                          weight: U.TextWeight.bold,
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 20),
+                  //Best Sellers listview
+                  SizedBox(
+                    height: 350,
+                    child: BlocBuilder<StoreCubit, StoreState>(
+                      builder: (context, state) {
+                        return state.loading
+                            ? const U.Loading()
+                            : ListView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                children: state.products.reversed
+                                    .expand(
+                                      (element) => [
+                                        const SizedBox(width: 8),
+                                        ProductCard(product: element),
+                                        if (element == state.products.last)
+                                          const SizedBox(width: 8),
+                                      ],
+                                    )
+                                    .toList(),
+                              );
+                      },
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
-            //witeSpace
-            const SizedBox(height: 20),
-            //products listview
-            SizedBox(
-              height: 350,
-              child: BlocBuilder<StoreCubit, StoreState>(
-                builder: (context, state) {
-                  return state.loading
-                      ? const U.Loading()
-                      : ListView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          children: state.products
-                              .expand(
-                                (element) => [
-                                  const SizedBox(width: 8),
-                                  ProductCard(product: element),
-                                  if (element == state.products.last)
-                                    const SizedBox(width: 8),
-                                ],
-                              )
-                              .toList(),
-                        );
-                },
-              ),
-            ),
-            //witeSpace
-            const SizedBox(height: 30),
-            //Best Sellers
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: [
-                  U.Text(
-                    'پرفروش‌ها',
-                    color: U.Theme.secondary,
-                    font: U.TextFont.bYekan,
-                    size: U.TextSize.xxxl,
-                    weight: U.TextWeight.bold,
-                  ),
-                  Spacer(),
-                ],
-              ),
-            ),
-            //witeSpace
-            const SizedBox(height: 20),
-            //Best Sellers listview
-            SizedBox(
-              height: 350,
-              child: BlocBuilder<StoreCubit, StoreState>(
-                builder: (context, state) {
-                  return state.loading
-                      ? const U.Loading()
-                      : ListView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          children: state.products.reversed
-                              .expand(
-                                (element) => [
-                                  const SizedBox(width: 8),
-                                  ProductCard(product: element),
-                                  if (element == state.products.last)
-                                    const SizedBox(width: 8),
-                                ],
-                              )
-                              .toList(),
-                        );
-                },
-              ),
-            ),
-            //witeSpace
-            const SizedBox(height: 10),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
