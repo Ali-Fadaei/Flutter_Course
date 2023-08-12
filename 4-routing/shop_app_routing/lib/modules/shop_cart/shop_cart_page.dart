@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
-import 'package:shop_app_routing/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_routing/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_routing/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_routing/modules/shop_cart/shop_item_card.dart';
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
@@ -16,7 +16,7 @@ class CartPage extends StatelessWidget {
       create: (context) => ShopCartCubit(
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
-      child: BlocListener<AppCubit, AppState>(
+      child: BlocListener<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state.selectedDes == 3) {
             var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);

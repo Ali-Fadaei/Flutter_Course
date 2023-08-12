@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
-import 'package:shop_app_routing/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_routing/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app_routing/modules/home/cubit/home_cubit.dart';
 import 'favorites_card.dart';
 
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
@@ -17,7 +17,7 @@ class FavoritesPage extends StatelessWidget {
       create: (context) => FavoritesCubit(
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
-      child: BlocListener<AppCubit, AppState>(
+      child: BlocListener<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state.selectedDes == 1) {
             var favCubit = BlocProvider.of<FavoritesCubit>(context);

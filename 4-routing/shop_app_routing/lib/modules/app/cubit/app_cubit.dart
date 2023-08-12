@@ -6,9 +6,4 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
 //
   AppCubit() : super(const AppState());
-
-  //Events
-  void onDestnationChange(int index) {
-    emit(state.copywith(selectedDes: index));
-  }
 }

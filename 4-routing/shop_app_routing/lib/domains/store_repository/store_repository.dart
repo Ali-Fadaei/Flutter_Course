@@ -9,7 +9,7 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
-  final latency = 150;
+  final latency = 1000;
 
   Future<List<Product>> readProducts() async {
     await Future.delayed(Duration(milliseconds: latency));
