@@ -8,6 +8,7 @@ import 'package:shop_app_routing/modules/category/category_page.dart';
 import 'package:shop_app_routing/modules/home/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_routing/modules/profile/a_page.dart';
+import 'package:shop_app_routing/modules/profile/b_page.dart';
 
 class App extends StatelessWidget {
 //
@@ -62,6 +63,13 @@ class App extends StatelessWidget {
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) => const APage(),
+                );
+              case BPage.route:
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (context) => BPage(
+                    id: settings.arguments as int,
+                  ),
                 );
               default:
                 return MaterialPageRoute(

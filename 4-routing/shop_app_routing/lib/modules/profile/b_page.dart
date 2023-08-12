@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_routing/modules/profile/b_page.dart';
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
-class APage extends StatelessWidget {
+class BPage extends StatelessWidget {
 //
-  static const route = '/apage';
+  final int id;
 
-  const APage({super.key});
+  static const route = '/bpage';
+
+  const BPage({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +22,7 @@ class APage extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              const U.Text('Page-A'),
-              const Spacer(),
-              U.Button(
-                title: 'go to Page B',
-                onPressed: () => Navigator.of(context).pushNamed(
-                  BPage.route,
-                  arguments: 2442,
-                ),
-              ),
+              U.Text('Page-B, id: $id'),
               const Spacer(),
               U.Button(
                 title: 'go back',
