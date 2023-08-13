@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class BPage extends StatelessWidget {
 //
   final int id;
 
-  static const route = '/bpage';
+  static const route = 'bpage/:id';
 
   const BPage({
     super.key,
@@ -26,7 +27,7 @@ class BPage extends StatelessWidget {
               const Spacer(),
               U.Button(
                 title: 'go back',
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => GoRouter.of(context).pop(),
               ),
               const Spacer(),
             ],
