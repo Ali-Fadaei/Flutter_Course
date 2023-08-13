@@ -3,6 +3,8 @@ import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
 class BPage extends StatelessWidget {
 //
+  static const route = 'bpage';
+
   final int id;
 
   const BPage({

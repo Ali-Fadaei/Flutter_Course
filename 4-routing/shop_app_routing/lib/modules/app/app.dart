@@ -43,7 +43,7 @@ class App extends StatelessWidget {
             Locale('en', 'US'),
           ],
           locale: const Locale('fa', 'IR'),
-          initialRoute: '/home',
+          initialRoute: HomePage.route,
           // routes: {
           //   '/home': (context) => const HomePage(),
           //   '/apage': (context) => const APage(),
@@ -51,21 +51,21 @@ class App extends StatelessWidget {
           // },
           onGenerateRoute: (settings) {
             switch (settings.name) {
-              case '/home':
+              case HomePage.route:
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) {
                     return const HomePage();
                   },
                 );
-              case '/apage':
+              case APage.route:
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) {
                     return const APage();
                   },
                 );
-              case '/bpage':
+              case BPage.route:
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (context) {
@@ -74,7 +74,7 @@ class App extends StatelessWidget {
                 );
               default:
                 return MaterialPageRoute(
-                  settings: settings,
+                  settings: const RouteSettings(name: HomePage.route),
                   builder: (context) {
                     return const HomePage();
                   },

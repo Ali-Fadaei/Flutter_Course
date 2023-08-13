@@ -4,6 +4,8 @@ import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
 class APage extends StatelessWidget {
 //
+  static const route = 'apage';
+
   const APage({super.key});
 
   @override
@@ -28,7 +30,7 @@ class APage extends StatelessWidget {
                 title: 'goto page B',
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    '/bpage',
+                    BPage.route,
                     arguments: 2,
                   );
                 },

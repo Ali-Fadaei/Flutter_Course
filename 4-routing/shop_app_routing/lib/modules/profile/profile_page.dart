@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
             child: U.Button(
               title: 'goto Page A',
               onPressed: () {
-                Navigator.of(context).pushNamed('/apage');
+                Navigator.of(context).pushNamed(APage.route);
               },
             ),
           ),
