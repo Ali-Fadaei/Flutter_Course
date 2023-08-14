@@ -7,6 +7,8 @@ import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
 
 class CategoriesPage extends StatelessWidget {
 //
+  static const route = '/categories';
+
   const CategoriesPage({super.key});
 
   @override
@@ -19,18 +21,28 @@ class CategoriesPage extends StatelessWidget {
       child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, state) {
           return SizedBox.expand(
-            child: state.loading
-                ? const U.Loading()
-                : GridView.count(
-                    crossAxisCount: (screenWidth / 180).floor(),
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 2 / 3,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    children: state.categories.map((e) {
-                      return CategoryCard(category: e);
-                    }).toList(),
-                  ),
+            child: Column(
+              children: [
+                U.AppBar.primary(
+                  onMenuPressed: () => Scaffold.of(context).openDrawer(),
+                  onNotifPressed: () {},
+                ),
+                Expanded(
+                  child: state.loading
+                      ? const U.Loading()
+                      : GridView.count(
+                          crossAxisCount: (screenWidth / 180).floor(),
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                          childAspectRatio: 2 / 3,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          children: state.categories.map((e) {
+                            return CategoryCard(category: e);
+                          }).toList(),
+                        ),
+                ),
+              ],
+            ),
           );
         },
       ),

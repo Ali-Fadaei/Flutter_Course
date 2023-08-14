@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
 import 'package:shop_app_routing/modules/app/cubit/app_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_routing/modules/category/category_page.dart';
 import 'package:shop_app_routing/modules/home/home_page.dart';
 import 'package:shop_app_routing/modules/profile/a_page.dart';
 import 'package:shop_app_routing/modules/profile/b_page.dart';
@@ -59,15 +58,7 @@ class App extends StatelessWidget {
                     return const HomePage();
                   },
                 );
-              case CategoryPage.route:
-                return MaterialPageRoute(
-                  settings: settings,
-                  builder: (context) {
-                    return CategoryPage(
-                      id: settings.arguments as int? ?? 1,
-                    );
-                  },
-                );
+
               case APage.route:
                 return MaterialPageRoute(
                   settings: settings,
