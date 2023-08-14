@@ -14,13 +14,13 @@ class StoreRepository {
   Future<List<Product>> readProducts({
     int? id,
     String? title,
-    double? minRate,
-    double? maxRate,
+    double? minRating,
+    double? maxRating,
     int? minPrice,
     int? maxPrice,
     int? categoryId,
-    int sort = 1,
-    int order = 1,
+    int? sort,
+    int? order,
   }) async {
     await Future.delayed(Duration(milliseconds: latency));
     var categories = await readCategories();
@@ -178,27 +178,31 @@ class StoreRepository {
       products =
           products.where((element) => element.price <= maxPrice).toList();
     }
-    if (minRate != null) {
+    if (minRating != null) {
       products =
-          products.where((element) => element.rating >= minRate).toList();
+          products.where((element) => element.rating >= minRating).toList();
     }
-    if (maxRate != null) {
+    if (maxRating != null) {
       products =
-          products.where((element) => element.rating <= maxRate).toList();
+          products.where((element) => element.rating <= maxRating).toList();
     }
 
-    switch (sort) {
-      //price
-      case 1:
-        products.sort((a, b) => a.price.compareTo(b.price));
-      //rate
-      case 2:
-        products.sort((a, b) => a.rating.compareTo(b.rating));
+    if (sort != null) {
+      switch (sort) {
+        //price
+        case 1:
+          products.sort((a, b) => a.price.compareTo(b.price));
+        //rate
+        case 2:
+          products.sort((a, b) => a.rating.compareTo(b.rating));
+      }
     }
 
     //1=> asc 2=> dec
-    if (order == 2) {
-      products = products.reversed.toList();
+    if (order != null) {
+      if (order == 2) {
+        products = products.reversed.toList();
+      }
     }
 
     return products;

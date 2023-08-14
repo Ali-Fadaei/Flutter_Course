@@ -60,9 +60,9 @@ class CategoryFilterBtms extends StatelessWidget {
               return U.RangeSlider(
                 minValue: 0,
                 maxValue: 5,
+                divisions: 10,
                 minRangeValue: state.minRating,
                 maxRangeValue: state.maxRating,
-                divisions: 10,
                 sign: const Icon(
                   Icons.star,
                   color: Colors.amber,
@@ -90,9 +90,9 @@ class CategoryFilterBtms extends StatelessWidget {
               return U.RangeSlider(
                 minValue: 0,
                 maxValue: 500000000,
-                minRangeValue: state.minPrice,
-                maxRangeValue: state.maxPrice,
                 divisions: 500,
+                minRangeValue: state.minPrice.toDouble(),
+                maxRangeValue: state.maxPrice.toDouble(),
                 sign: const U.Text(' تومان'),
                 showType: U.RangeSliderShowType.int,
                 onChanged: categoryCubit.onPriceRangeChanged,
