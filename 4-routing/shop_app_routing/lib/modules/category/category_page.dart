@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_routing/domains/store_repository/models/category.dart';
-import 'package:shop_app_routing/domains/store_repository/models/product.dart';
 import 'package:shop_app_routing/domains/store_repository/store_repository.dart';
 import 'package:shop_app_routing/modules/category/category_filter_btms.dart';
+import 'package:shop_app_routing/modules/category/cubit/category_cubit.dart';
 import 'package:shop_app_routing/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_routing/modules/store/product_card.dart';
 import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
@@ -21,67 +20,86 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShopCartCubit(
-        storeRepo: RepositoryProvider.of<StoreRepository>(context),
-      ),
-      child: Scaffold(
-        appBar: U.AppBar.secondary(
-          title: ' دسته‌بندی $id',
-          onBackPressed: () => Navigator.of(context).pop(),
-          action: IconButton(
-            onPressed: () {
-              CategoryFilterBtms.show(context);
-            },
-            icon: const U.Image(
-              path: U.Images.filterIcon,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CategoryCubit(
+            categoryId: id,
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+      ],
+      child: BlocBuilder<CategoryCubit, CategoryState>(
+        buildWhen: (previous, current) =>
+            previous.category != current.category ||
+            previous.loading != current.loading,
+        builder: (context, state) {
+          var categoryCubit = BlocProvider.of<CategoryCubit>(context);
+          return Scaffold(
+            appBar: U.AppBar.secondary(
+              title: (state.category?.title) ?? 'دسته‌بندی',
+              onBackPressed: () => Navigator.of(context).pop(),
+              action: IconButton(
+                onPressed: () {
+                  CategoryFilterBtms.show(
+                    context,
+                    categoryCubit: categoryCubit,
+                  );
+                },
+                icon: const U.Image(
+                  path: U.Images.filterIcon,
+                ),
+              ),
             ),
-          ),
-        ),
-        body: SizedBox.expand(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: U.SearchInput(
-                  controller: TextEditingController(),
-                  onSearch: () {},
-                ),
-              ),
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
-                        (MediaQuery.of(context).size.width / 230).floor(),
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 2 / 3.2,
+            body: SizedBox.expand(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: U.SearchInput(
+                      controller: categoryCubit.searchCtrl,
+                      onSearch: categoryCubit.onFilterApplyPressed,
+                    ),
                   ),
-                  itemCount: 40,
-                  itemBuilder: (context, index) {
-                    return const ProductCard(
-                      product: Product(
-                        id: 0,
-                        title: 'tes',
-                        rating: 5,
-                        price: 5656465456,
-                        image: 'assets/imgs/products/Z_Fold_4.png',
-                        description: '',
-                        category: Category(
-                          id: 0,
-                          title: 'dsad',
-                          image: '',
-                          color: Colors.cyan,
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                  Expanded(
+                    child: state.loading
+                        ? const U.Loading()
+                        : BlocBuilder<CategoryCubit, CategoryState>(
+                            buildWhen: (previous, current) =>
+                                previous.products != current.products,
+                            builder: (context, state) {
+                              return GridView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      (MediaQuery.of(context).size.width / 230)
+                                          .floor(),
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20,
+                                  childAspectRatio: 2 / 3.2,
+                                ),
+                                itemCount: state.products.length,
+                                itemBuilder: (context, index) {
+                                  return ProductCard(
+                                    product: state.products[index],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

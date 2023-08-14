@@ -11,10 +11,20 @@ class StoreRepository {
 
   final latency = 1000;
 
-  Future<List<Product>> readProducts() async {
+  Future<List<Product>> readProducts({
+    int? id,
+    int? categoryId,
+    String? title,
+    double? minRating,
+    double? maxRating,
+    int? maxPrice,
+    int? minPrice,
+    int? sortId,
+    int? orderId,
+  }) async {
     await Future.delayed(Duration(milliseconds: latency));
     var categories = await readCategories();
-    return [
+    var products = [
       Product(
         id: 0,
         title: 'گلکسی S23 Ultra',
@@ -146,36 +156,113 @@ class StoreRepository {
         category: categories[3],
       ),
     ];
+
+    if (id != null) {
+      products = products.where((element) => element.id == id).toList();
+    }
+
+    if (categoryId != null) {
+      products = products
+          .where((element) => element.category.id == categoryId)
+          .toList();
+    }
+
+    if (title != null) {
+      products = products
+          .where(
+            (element) => element.title.contains(title),
+          )
+          .toList();
+    }
+
+    if (minRating != null) {
+      products = products
+          .where(
+            (element) => element.rating >= minRating,
+          )
+          .toList();
+    }
+
+    if (maxRating != null) {
+      products = products
+          .where(
+            (element) => element.rating <= maxRating,
+          )
+          .toList();
+    }
+
+    if (minPrice != null) {
+      products = products
+          .where(
+            (element) => element.price >= minPrice,
+          )
+          .toList();
+    }
+
+    if (maxPrice != null) {
+      products = products
+          .where(
+            (element) => element.price <= maxPrice,
+          )
+          .toList();
+    }
+
+    //1: price 2: rating
+    if (sortId != null) {
+      switch (sortId) {
+        case 1:
+          products.sort(
+            (a, b) => a.price.compareTo(b.price),
+          );
+        case 2:
+          products.sort(
+            (a, b) => a.rating.compareTo(b.rating),
+          );
+      }
+    }
+
+    //1: asc 2: dcs
+    if (orderId != null) {
+      if (orderId == 2) {
+        products = products.reversed.toList();
+      }
+    }
+
+    return products;
   }
 
-  Future<List<Category>> readCategories() async {
+  Future<List<Category>> readCategories({int? id}) async {
     await Future.delayed(Duration(milliseconds: latency));
-    return [
+    var categories = const [
       Category(
         id: 0,
         title: 'موبایل',
         image: 'assets/imgs/products/Z_Fold_4.png',
-        color: const Color.fromARGB(255, 161, 207, 178),
+        color: Color.fromARGB(255, 161, 207, 178),
       ),
       Category(
         id: 1,
         title: 'لپتاپ',
         image: 'assets/imgs/products/zenbook_14x.png',
-        color: const Color.fromARGB(255, 255, 210, 161),
+        color: Color.fromARGB(255, 255, 210, 161),
       ),
       Category(
         id: 2,
         title: 'هندزفری',
         image: 'assets/imgs/products/sony_airbuds.png',
-        color: const Color.fromARGB(255, 217, 197, 224),
+        color: Color.fromARGB(255, 217, 197, 224),
       ),
       Category(
         id: 3,
         title: 'ابزار شبکه',
         image: 'assets/imgs/products/asus_rt.png',
-        color: const Color.fromARGB(255, 218, 241, 254),
+        color: Color.fromARGB(255, 218, 241, 254),
       ),
     ];
+    if (id != null) {
+      categories = categories.where((element) => element.id == id).toList();
+    }
+    return categories;
   }
 
   Future<List<Product>> readFavorites() async {
