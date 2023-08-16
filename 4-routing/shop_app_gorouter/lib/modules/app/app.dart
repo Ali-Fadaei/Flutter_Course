@@ -40,44 +40,6 @@ class App extends StatelessWidget {
           ],
           locale: const Locale('fa', 'IR'),
           routerConfig: router,
-          // initialRoute: HomePage.route,
-          // onGenerateRoute: (settings) {
-          //   switch (settings.name) {
-          //     case HomePage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) {
-          //           return const HomePage();
-          //         },
-          //       );
-          //     // case CategoryPage.route:
-          //     //   return MaterialPageRoute(
-          //     //     settings: settings,
-          //     //     builder: (context) => CategoryPage(
-          //     //       categoryId: settings.arguments as int,
-          //     //     ),
-          //     //   );
-          //     case APage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) => const APage(),
-          //       );
-          //     case BPage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) => BPage(
-          //           id: settings.arguments as int,
-          //         ),
-          //       );
-          //     default:
-          //       return MaterialPageRoute(
-          //         settings: const RouteSettings(name: HomePage.route),
-          //         builder: (context) {
-          //           return const HomePage();
-          //         },
-          //       );
-          //   }
-          // },
         ),
       ),
     );

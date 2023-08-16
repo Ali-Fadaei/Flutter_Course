@@ -23,6 +23,10 @@ class ProfilePage extends StatelessWidget {
               title: 'go Page a',
               onPressed: () {
                 GoRouter.of(context).goNamed(APage.route);
+                // GoRouter.of(context).goNamed(
+                //   BPage.route,
+                //   pathParameters: {'id': '552'},
+                // );
               },
             ),
           ),

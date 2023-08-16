@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/category/cubit/category_cubit.dart';
 import 'package:shop_app_gorouter/ui_kit/text.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
@@ -165,7 +166,7 @@ class CategoryFilterBtms extends StatelessWidget {
                   onPressed: () {
                     categoryCubit
                         .onFilterApplyPressed()
-                        .then((value) => Navigator.of(context).pop());
+                        .then((value) => GoRouter.of(context).pop());
                   },
                 ),
               );

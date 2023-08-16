@@ -25,13 +25,15 @@ class APage extends StatelessWidget {
                 title: 'go to Page B',
                 onPressed: () => GoRouter.of(context).goNamed(
                   BPage.route,
-                  pathParameters: {'id': '24'},
+                  pathParameters: {
+                    'id': '110',
+                  },
                 ),
               ),
               const Spacer(),
               U.Button(
                 title: 'go back',
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => GoRouter.of(context).pop(),
               ),
               const Spacer(),
             ],
