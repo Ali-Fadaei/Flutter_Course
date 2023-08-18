@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
+import 'package:shop_app_gorouter/modules/categories/categories_card.dart';
+import 'package:shop_app_gorouter/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_gorouter/modules/category/category_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/product_card.dart';
@@ -21,6 +25,9 @@ class StorePage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => StoreCubit(storeRepo: storeRepository),
+        ),
+        BlocProvider(
+          create: (context) => CategoriesCubit(storeRepo: storeRepository),
         ),
         BlocProvider(
           create: (context) => ShopCartCubit(
@@ -50,7 +57,10 @@ class StorePage extends StatelessWidget {
                       child: U.SearchInput(
                         controller: TextEditingController(),
                         hintText: 'جستجوی محصول',
-                        onSearch: () {},
+                        onSearch: () => GoRouter.of(context).pushNamed(
+                          CategoryPage.route,
+                          pathParameters: {'id': '2'},
+                        ),
                       ),
                     ),
                   ),
@@ -106,6 +116,53 @@ class StorePage extends StatelessWidget {
                     child: Row(
                       children: [
                         U.Text(
+                          'دسته‌بندی‌های پر طرفدار',
+                          color: U.Theme.secondary,
+                          font: U.TextFont.bYekan,
+                          size: U.TextSize.xxxl,
+                          weight: U.TextWeight.bold,
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 20),
+                  //Hot Categories listview
+                  SizedBox(
+                    height: 200,
+                    child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                      builder: (context, state) {
+                        return state.loading
+                            ? const U.Loading()
+                            : ListView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                children: state.categories
+                                    .expand(
+                                      (element) => [
+                                        const SizedBox(width: 8),
+                                        CategoryCard(
+                                          pushRoute: true,
+                                          category: element,
+                                        ),
+                                        if (element == state.categories.last)
+                                          const SizedBox(width: 8),
+                                      ],
+                                    )
+                                    .toList(),
+                              );
+                      },
+                    ),
+                  ),
+                  //witeSpace
+                  const SizedBox(height: 30),
+                  //Best Sellers
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      children: [
+                        U.Text(
                           'پرفروش‌ها',
                           color: U.Theme.secondary,
                           font: U.TextFont.bYekan,
@@ -142,6 +199,7 @@ class StorePage extends StatelessWidget {
                       },
                     ),
                   ),
+
                   //witeSpace
                   const SizedBox(height: 10),
                 ],

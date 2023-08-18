@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/models/category.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
-// import 'package:shop_app_routing/modules/categories/category/category_page.dart';
 
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
@@ -10,8 +9,11 @@ class CategoryCard extends StatelessWidget {
 //
   final Category category;
 
+  final bool pushRoute;
+
   const CategoryCard({
     super.key,
+    this.pushRoute = false,
     required this.category,
   });
 
@@ -19,10 +21,15 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).goNamed(
-          CategoryPage.route,
-          pathParameters: {'id': category.id.toString()},
-        );
+        pushRoute
+            ? GoRouter.of(context).pushNamed(
+                CategoryPage.route,
+                pathParameters: {'id': category.id.toString()},
+              )
+            : GoRouter.of(context).goNamed(
+                CategoryPage.route,
+                pathParameters: {'id': category.id.toString()},
+              );
       },
       child: Container(
         width: 200,

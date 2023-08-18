@@ -74,24 +74,25 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-                path: CategoriesPage.route,
-                name: CategoriesPage.route,
-                builder: (context, state) {
-                  return const CategoriesPage();
-                },
-                routes: [
-                  GoRoute(
-                    path: CategoryPage.route,
-                    name: CategoryPage.route,
-                    pageBuilder: (context, state) {
-                      return CupertinoPage(
-                        child: CategoryPage(
-                          categoryId: int.parse(state.pathParameters['id']!),
-                        ),
-                      );
-                    },
-                  ),
-                ]),
+              path: CategoriesPage.route,
+              name: CategoriesPage.route,
+              builder: (context, state) {
+                return const CategoriesPage();
+              },
+              routes: [
+                GoRoute(
+                  path: CategoryPage.route,
+                  name: CategoryPage.route,
+                  pageBuilder: (context, state) {
+                    return CupertinoPage(
+                      child: CategoryPage(
+                        categoryId: int.parse(state.pathParameters['id']!),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ],
