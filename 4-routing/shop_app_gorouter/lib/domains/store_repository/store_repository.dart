@@ -9,7 +9,7 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
-  final latency = 100;
+  final latency = 1000;
 
   Future<List<Product>> readProducts({
     int? id,
@@ -18,7 +18,7 @@ class StoreRepository {
     double? maxRating,
     int? minPrice,
     int? maxPrice,
-    int? categoryId,
+    List<int>? categoriesId,
     int? sort,
     int? order,
   }) async {
@@ -161,9 +161,9 @@ class StoreRepository {
       products = products.where((element) => element.id == id).toList();
     }
 
-    if (categoryId != null) {
+    if (categoriesId != null && categoriesId.isNotEmpty) {
       products = products
-          .where((element) => element.category.id == categoryId)
+          .where((element) => categoriesId.any((e) => e == element.category.id))
           .toList();
     }
     if (title != null) {

@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_gorouter/modules/category/cubit/category_cubit.dart';
+import 'package:shop_app_gorouter/modules/search/cubit/search_cubit.dart';
 import 'package:shop_app_gorouter/ui_kit/text.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
-class CategoryFilterBtms extends StatelessWidget {
+class SearchFilterBtms extends StatelessWidget {
 //
   static Future<void> show(
     BuildContext context, {
-    required CategoryCubit categoryCubit,
+    required SearchCubit searchCubit,
   }) {
     return U.BottomSheet.show(
       context,
-      maxHeight: 500,
+      maxHeight: 600,
       builder: (context) {
         return BlocProvider.value(
-          value: categoryCubit,
-          child: const CategoryFilterBtms(),
+          value: searchCubit,
+          child: const SearchFilterBtms(),
         );
       },
     );
   }
 
-  const CategoryFilterBtms({super.key});
+  const SearchFilterBtms({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var categoryCubit = BlocProvider.of<CategoryCubit>(context);
+    var searchCubit = BlocProvider.of<SearchCubit>(context);
     return U.BottomSheet(
       child: Column(
         children: [
-          Row(
+          const Row(
             children: [
-              const U.Image(path: U.Images.filterIcon),
-              const SizedBox(width: 8),
+              U.Image(path: U.Images.filterIcon),
+              SizedBox(width: 8),
               U.Text(
-                'فیلتر محصولات ${categoryCubit.state.category?.title ?? ''}',
+                'فیلتر جستحو',
                 size: TextSize.xxl,
                 weight: TextWeight.medium,
               ),
-              const Spacer(),
+              Spacer(),
             ],
           ),
           const U.Divider.horizontal(),
@@ -56,7 +56,7 @@ class CategoryFilterBtms extends StatelessWidget {
               Spacer(),
             ],
           ),
-          BlocBuilder<CategoryCubit, CategoryState>(
+          BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               return U.RangeSlider(
                 minValue: 0,
@@ -68,7 +68,7 @@ class CategoryFilterBtms extends StatelessWidget {
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onChanged: categoryCubit.onRatingRangeChanged,
+                onChanged: searchCubit.onRatingRangeChanged,
               );
             },
           ),
@@ -83,7 +83,7 @@ class CategoryFilterBtms extends StatelessWidget {
               Spacer(),
             ],
           ),
-          BlocBuilder<CategoryCubit, CategoryState>(
+          BlocBuilder<SearchCubit, SearchState>(
             buildWhen: (previous, current) =>
                 previous.maxPrice != current.maxPrice ||
                 previous.minPrice != current.minPrice,
@@ -96,7 +96,47 @@ class CategoryFilterBtms extends StatelessWidget {
                 maxRangeValue: state.maxPrice.toDouble(),
                 sign: const U.Text(' تومان'),
                 showType: U.RangeSliderShowType.int,
-                onChanged: categoryCubit.onPriceRangeChanged,
+                onChanged: searchCubit.onPriceRangeChanged,
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          const Row(
+            children: [
+              U.Text(
+                'در دسته‌بندی های: ',
+                size: TextSize.xl,
+                font: TextFont.iranSans,
+                weight: TextWeight.medium,
+              ),
+              Spacer(),
+            ],
+          ),
+          const SizedBox(height: 10),
+          BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              return Row(
+                children: state.categories
+                    .expand(
+                      (element) => [
+                        const Spacer(),
+                        U.CheckBox(
+                          title: element.title,
+                          // isChecked: state.selectedCategories
+                          //     .where(
+                          //       (s) => s.id == element.id,
+                          //     )
+                          //     .isNotEmpty,
+                          isChecked: state.selectedCategories.any(
+                            (s) => s.id == element.id,
+                          ),
+                          onPressed: (checked) => searchCubit
+                              .onSelectedCategoryChanged(checked, element),
+                        ),
+                        if (element == state.categories.last) const Spacer(),
+                      ],
+                    )
+                    .toList(),
               );
             },
           ),
@@ -112,7 +152,8 @@ class CategoryFilterBtms extends StatelessWidget {
               Spacer(),
             ],
           ),
-          BlocBuilder<CategoryCubit, CategoryState>(
+          const SizedBox(height: 10),
+          BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               return Row(
                 children: [
@@ -121,14 +162,14 @@ class CategoryFilterBtms extends StatelessWidget {
                     title: 'قیمت',
                     value: 1,
                     groupValue: state.sort,
-                    onPressed: categoryCubit.onSortChanged,
+                    onPressed: searchCubit.onSortChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'امتیاز',
                     value: 2,
                     groupValue: state.sort,
-                    onPressed: categoryCubit.onSortChanged,
+                    onPressed: searchCubit.onSortChanged,
                   ),
                   const Spacer(),
                   const SizedBox(
@@ -140,14 +181,14 @@ class CategoryFilterBtms extends StatelessWidget {
                     title: 'صعودی',
                     value: 1,
                     groupValue: state.order,
-                    onPressed: categoryCubit.onOrderChanged,
+                    onPressed: searchCubit.onOrderChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'نزولی',
                     value: 2,
                     groupValue: state.order,
-                    onPressed: categoryCubit.onOrderChanged,
+                    onPressed: searchCubit.onOrderChanged,
                   ),
                   const Spacer(),
                 ],
@@ -155,7 +196,7 @@ class CategoryFilterBtms extends StatelessWidget {
             },
           ),
           const Spacer(),
-          BlocBuilder<CategoryCubit, CategoryState>(
+          BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               return SizedBox(
                 width: 500,
@@ -164,7 +205,7 @@ class CategoryFilterBtms extends StatelessWidget {
                   size: U.ButtonSize.lg,
                   loading: state.loading,
                   onPressed: () {
-                    categoryCubit
+                    searchCubit
                         .onFilterApplyPressed()
                         .then((value) => GoRouter.of(context).pop());
                   },

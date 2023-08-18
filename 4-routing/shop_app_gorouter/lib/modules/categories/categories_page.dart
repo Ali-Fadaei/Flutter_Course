@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_card.dart';
 import 'package:shop_app_gorouter/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_gorouter/modules/search/search_page.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class CategoriesPage extends StatelessWidget {
@@ -20,12 +22,30 @@ class CategoriesPage extends StatelessWidget {
       ),
       child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, state) {
+          var categoriesCubit = BlocProvider.of<CategoriesCubit>(context);
           return SizedBox.expand(
             child: Column(
               children: [
                 U.AppBar.primary(
                   onMenuPressed: () {},
                   onNotifPressed: () {},
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: U.SearchInput(
+                    hintText: 'جستجوی محصول',
+                    controller: categoriesCubit.searchCtrl,
+                    onSearch: () {
+                      if (categoriesCubit.searchCtrl.text.isNotEmpty) {
+                        var temp = categoriesCubit.searchCtrl.text;
+                        categoriesCubit.searchCtrl.clear();
+                        GoRouter.of(context).pushNamed(
+                          SearchPage.route,
+                          queryParameters: {'title': temp},
+                        );
+                      }
+                    },
+                  ),
                 ),
                 Expanded(
                   child: state.loading

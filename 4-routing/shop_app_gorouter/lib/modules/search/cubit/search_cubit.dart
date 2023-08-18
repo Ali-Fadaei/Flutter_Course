@@ -5,21 +5,20 @@ import 'package:shop_app_gorouter/domains/store_repository/models/category.dart'
 import 'package:shop_app_gorouter/domains/store_repository/models/product.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 
-part 'category_state.dart';
+part 'search_state.dart';
 
-class CategoryCubit extends Cubit<CategoryState> {
-//
+class SearchCubit extends Cubit<SearchState> {
   final StoreRepository _storeRepo;
 
   final searchCtrl = TextEditingController();
 
-  final int categoryId;
+  final String? initialSearchTitle;
 
-  CategoryCubit({
-    required this.categoryId,
+  SearchCubit({
+    required this.initialSearchTitle,
     required StoreRepository storeRepo,
   })  : _storeRepo = storeRepo,
-        super(const CategoryState()) {
+        super(const SearchState()) {
     _init();
   }
 
@@ -27,22 +26,28 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> _init() async {
     emit(state.copyWith(loading: true));
+    searchCtrl.text = initialSearchTitle ?? '';
     await Future.wait([
-      _getCategory(),
+      _getCategories(),
       _getProducts(),
     ]);
     emit(state.copyWith(loading: false));
   }
 
-  Future<void> _getCategory() async {
-    var res = await _storeRepo.readCategories(id: categoryId);
-    emit(state.copyWith(category: res.first));
+  Future<void> _getCategories() async {
+    var res = await _storeRepo.readCategories();
+    emit(
+      state.copyWith(
+        categories: res,
+        selectedCategories: res,
+      ),
+    );
   }
 
   Future<void> _getProducts() async {
     var res = await _storeRepo.readProducts(
       title: searchCtrl.text.isEmpty ? null : searchCtrl.text,
-      categoriesId: [categoryId],
+      categoriesId: state.selectedCategories.map((e) => e.id).toList(),
       minRating: state.minRating,
       maxRating: state.maxRating,
       minPrice: state.minPrice,
@@ -53,7 +58,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     emit(state.copyWith(products: res));
   }
 
-  //==========================***Events***======================================
+  //=============================***Events***===================================
 
   void onPriceRangeChanged(double min, double max) {
     emit(state.copyWith(minPrice: min.toInt(), maxPrice: max.toInt()));
@@ -69,6 +74,19 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   void onOrderChanged(int order) {
     emit(state.copyWith(order: order));
+  }
+
+  void onSelectedCategoryChanged(bool check, Category category) {
+    var temp = [...state.selectedCategories];
+    if (check) {
+      temp.add(category);
+    } else {
+      temp.remove(category);
+    }
+    if (temp.isEmpty) {
+      temp = [...state.categories];
+    }
+    emit(state.copyWith(selectedCategories: temp));
   }
 
   Future<void> onFilterApplyPressed() async {

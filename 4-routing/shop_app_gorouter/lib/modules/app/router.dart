@@ -7,6 +7,7 @@ import 'package:shop_app_gorouter/modules/home/home_shell.dart';
 import 'package:shop_app_gorouter/modules/profile/a_page.dart';
 import 'package:shop_app_gorouter/modules/profile/b_page.dart';
 import 'package:shop_app_gorouter/modules/profile/profile_page.dart';
+import 'package:shop_app_gorouter/modules/search/search_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_gorouter/modules/store/store_page.dart';
 
@@ -57,6 +58,17 @@ final router = GoRouter(
               builder: (context, state) {
                 return const StorePage();
               },
+              routes: [
+                GoRoute(
+                  path: SearchPage.route,
+                  name: SearchPage.route,
+                  builder: (context, state) {
+                    return SearchPage(
+                      initialSearchTitle: state.uri.queryParameters['title'],
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),

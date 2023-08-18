@@ -21,6 +21,7 @@ class ProductCard extends StatelessWidget {
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
+        shopCartCubit: shopCartCubit,
       ),
       child: U.Card(
         width: 185,
