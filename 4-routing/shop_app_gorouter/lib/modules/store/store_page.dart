@@ -8,6 +8,7 @@ import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
 //
+  static const route = '/store';
 
   const StorePage({
     super.key,

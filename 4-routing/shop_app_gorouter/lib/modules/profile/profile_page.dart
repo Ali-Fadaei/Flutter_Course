@@ -5,6 +5,8 @@ import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatelessWidget {
 //
+  static const route = '/profile';
+
   const ProfilePage({super.key});
 
   @override

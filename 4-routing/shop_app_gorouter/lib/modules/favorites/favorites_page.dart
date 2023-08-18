@@ -9,6 +9,8 @@ import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class FavoritesPage extends StatelessWidget {
 //
+  static const route = '/favorites';
+
   const FavoritesPage({super.key});
 
   @override
