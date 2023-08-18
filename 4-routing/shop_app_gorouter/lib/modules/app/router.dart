@@ -56,7 +56,11 @@ final router = GoRouter(
               path: StorePage.route,
               name: StorePage.route,
               builder: (context, state) {
-                return const StorePage();
+                return StorePage(
+                  initialProductId: int.tryParse(
+                    state.uri.queryParameters['id'] ?? '',
+                  ),
+                );
               },
               routes: [
                 GoRoute(
