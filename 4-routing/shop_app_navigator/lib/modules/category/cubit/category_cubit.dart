@@ -23,44 +23,43 @@ class CategoryCubit extends Cubit<CategoryState> {
     init();
   }
 
+  //==================================Functions=================================
+
   void init() async {
     emit(state.copyWith(loading: true));
-    //Approach 1
-    // var categories = await _storeRepo.readCategories(id: categoryId);
-    // var products = await _storeRepo.readProducts(
-    //   categoryId: categoryId,
-    //   sortId: state.sortId,
-    //   orderId: state.sortId,
-    // );
-
-    late List<Category> categories;
-    late List<Product> products;
-
-    var categoriesFuture = _storeRepo
-        .readCategories(id: categoryId)
-        .then((value) => categories = value);
-
-    var productsFuture = _storeRepo
-        .readProducts(
-          categoryId: categoryId,
-          sortId: state.sortId,
-          orderId: state.sortId,
-        )
-        .then((value) => products = value);
 
     await Future.wait([
-      categoriesFuture,
-      productsFuture,
+      getCategories(),
+      getProducts(),
     ]);
 
     emit(state.copyWith(
       loading: false,
-      category: categories.first,
-      products: products,
     ));
   }
 
-  //events
+  Future<void> getCategories() async {
+    var res = await _storeRepo.readCategories(id: categoryId);
+    emit(state.copyWith(category: res.first));
+  }
+
+  Future<void> getProducts() async {
+    var res = await _storeRepo.readProducts(
+      categoryId: categoryId,
+      title: searchCtrl.text,
+      minRating: state.minRating,
+      maxRating: state.maxRating,
+      minPrice: state.minPrice,
+      maxPrice: state.maxPrice,
+      sortId: state.sortId,
+      orderId: state.orderId,
+    );
+
+    emit(state.copyWith(products: res));
+  }
+
+  //==================================Event=====================================
+
   void onRatingSliderChanged(double min, double max) {
     emit(state.copyWith(minRating: min, maxRating: max));
   }
@@ -79,16 +78,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> onFilterApplyPressed() async {
     emit(state.copyWith(loading: true));
-    var res = await _storeRepo.readProducts(
-      categoryId: categoryId,
-      title: searchCtrl.text,
-      minRating: state.minRating,
-      maxRating: state.maxRating,
-      minPrice: state.minPrice,
-      maxPrice: state.maxPrice,
-      sortId: state.sortId,
-      orderId: state.orderId,
-    );
-    emit(state.copyWith(loading: false, products: res));
+    await getProducts();
+    emit(state.copyWith(loading: false));
   }
 }
