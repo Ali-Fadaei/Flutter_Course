@@ -36,8 +36,8 @@ class CategoriesPage extends StatelessWidget {
                     hintText: 'جستجوی محصول',
                     controller: categoriesCubit.searchCtrl,
                     onSearch: () {
-                      if (categoriesCubit.searchCtrl.text.isNotEmpty) {
-                        var temp = categoriesCubit.searchCtrl.text;
+                      var temp = categoriesCubit.searchCtrl.text;
+                      if (temp.isNotEmpty) {
                         categoriesCubit.searchCtrl.clear();
                         GoRouter.of(context).pushNamed(
                           SearchPage.route,

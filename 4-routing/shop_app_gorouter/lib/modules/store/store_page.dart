@@ -75,11 +75,13 @@ class StorePage extends StatelessWidget {
                             hintText: 'جستجوی محصول',
                             controller: storeCubit.searchCtrl,
                             onSearch: () async {
-                              if (storeCubit.onProductSearched()) {
+                              var temp = storeCubit.searchCtrl.text;
+                              if (temp.isNotEmpty) {
+                                storeCubit.searchCtrl.clear();
                                 GoRouter.of(context).goNamed(
                                   SearchPage.route,
                                   queryParameters: {
-                                    'title': storeCubit.searchCtrl,
+                                    'title': temp,
                                   },
                                 );
                               }

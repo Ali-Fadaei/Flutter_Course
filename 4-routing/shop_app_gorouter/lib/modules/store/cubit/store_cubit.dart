@@ -45,13 +45,4 @@ class StoreCubit extends Cubit<StoreState> {
   }
 
   //==================================Events====================================
-
-  bool onProductSearched() {
-    if (searchCtrl.text.isNotEmpty) {
-      searchCtrl.clear();
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
