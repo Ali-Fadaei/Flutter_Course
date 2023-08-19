@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/profile/a_page.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
@@ -22,7 +23,7 @@ class ProfilePage extends StatelessWidget {
             child: U.Button(
               title: 'goto Page A',
               onPressed: () {
-                Navigator.of(context).pushNamed(APage.route);
+                GoRouter.of(context).goNamed(APage.route);
               },
             ),
           ),
