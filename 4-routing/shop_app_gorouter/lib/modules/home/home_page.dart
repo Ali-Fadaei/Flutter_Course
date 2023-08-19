@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
@@ -14,10 +14,45 @@ class HomePage extends StatelessWidget {
 //
   static const route = '/home';
 
-  const HomePage({super.key});
+  final Widget child;
+
+  final String location;
+
+  const HomePage({
+    super.key,
+    required this.location,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
+    const destinations = [
+      U.NavigationBarDestination(
+        title: 'پروفایل',
+        icon: U.Images.profileIcon,
+        route: ProfilePage.route,
+      ),
+      U.NavigationBarDestination(
+        title: 'علاقه‌مندی‌ها',
+        icon: U.Images.favoriteIcon,
+        route: FavoritesPage.route,
+      ),
+      U.NavigationBarDestination(
+        title: 'فروشگاه',
+        icon: U.Images.storeIcon,
+        route: StorePage.route,
+      ),
+      U.NavigationBarDestination(
+        title: 'سبدخرید',
+        icon: U.Images.shopCartIcon,
+        route: CartPage.route,
+      ),
+      U.NavigationBarDestination(
+        title: 'دسته‌بندی',
+        icon: U.Images.categoriesIcon,
+        route: CategoriesPage.route,
+      ),
+    ];
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: Scaffold(
@@ -33,79 +68,17 @@ class HomePage extends StatelessWidget {
           builder: (context, state) {
             var homeCubit = BlocProvider.of<HomeCubit>(context);
             return U.NavigationBar(
-              selectedIndex: state.selectedDes,
-              onDestnationChange: homeCubit.onDestnationChange,
-              destinations: const [
-                U.NavigationBarDestination(
-                  title: 'پروفایل',
-                  icon: U.Images.profileIcon,
-                ),
-                U.NavigationBarDestination(
-                  title: 'علاقه‌مندی‌ها',
-                  icon: U.Images.favoriteIcon,
-                ),
-                U.NavigationBarDestination(
-                  title: 'فروشگاه',
-                  icon: U.Images.storeIcon,
-                ),
-                U.NavigationBarDestination(
-                  title: 'سبدخرید',
-                  icon: U.Images.shopCartIcon,
-                ),
-                U.NavigationBarDestination(
-                  title: 'دسته‌بندی',
-                  icon: U.Images.categoriesIcon,
-                ),
-              ],
+              selectedIndex: destinations.indexWhere(
+                (element) => location.contains(element.route),
+              ),
+              onDestnationChange: (selectedIndex) {
+                GoRouter.of(context).goNamed(destinations[selectedIndex].route);
+              },
+              destinations: destinations,
             );
           },
         ),
-        body: BlocBuilder<HomeCubit, HomeState>(
-          buildWhen: (previous, current) =>
-              previous.selectedDes != current.selectedDes,
-          builder: (context, state) {
-            return IndexedStack(
-              index: state.selectedDes,
-              children: [
-                const ProfilePage(),
-                const FavoritesPage(),
-                const StorePage(),
-                const CartPage(),
-                Navigator(
-                  initialRoute: CategoriesPage.route,
-                  onGenerateRoute: (settings) {
-                    switch (settings.name) {
-                      case CategoriesPage.route:
-                        return MaterialPageRoute(
-                          settings: settings,
-                          builder: (context) {
-                            return const CategoriesPage();
-                          },
-                        );
-                      case CategoryPage.route:
-                        return MaterialPageRoute(
-                          settings: settings,
-                          builder: (context) {
-                            return CategoryPage(
-                              id: settings.arguments as int? ?? 1,
-                            );
-                          },
-                        );
-                      default:
-                        return MaterialPageRoute(
-                          settings:
-                              const RouteSettings(name: CategoriesPage.route),
-                          builder: (context) {
-                            return const CategoriesPage();
-                          },
-                        );
-                    }
-                  },
-                ),
-              ],
-            );
-          },
-        ),
+        body: child,
       ),
     );
   }

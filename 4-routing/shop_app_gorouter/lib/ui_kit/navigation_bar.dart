@@ -64,9 +64,12 @@ class NavigationBarDestination {
 
   final String icon;
 
+  final String route;
+
   const NavigationBarDestination({
     required this.title,
     required this.icon,
+    required this.route,
   });
 }
 
