@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
-import 'package:shop_app_gorouter/modules/home/home_page.dart';
+import 'package:shop_app_gorouter/modules/home/home_shell.dart';
 import 'package:shop_app_gorouter/modules/profile/a_page.dart';
 import 'package:shop_app_gorouter/modules/profile/b_page.dart';
 import 'package:shop_app_gorouter/modules/profile/profile_page.dart';
@@ -22,41 +22,103 @@ final router = GoRouter(
     }
   },
   routes: [
-    ShellRoute(
-      builder: (context, state, child) {
-        return HomePage(
-          location: state.uri.toString(),
-          child: child,
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        // navigationShell.
+        return HomeShell(
+          // location: state.uri.toString(),
+          child: navigationShell,
         );
       },
-      routes: [
-        GoRoute(
-          path: ProfilePage.route,
-          name: ProfilePage.route,
-          builder: (context, state) => const ProfilePage(),
+      branches: [
+        StatefulShellBranch(
+          initialLocation: ProfilePage.route,
+          routes: [
+            GoRoute(
+              path: ProfilePage.route,
+              name: ProfilePage.route,
+              builder: (context, state) => const ProfilePage(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: FavoritesPage.route,
-          name: FavoritesPage.route,
-          builder: (context, state) => const FavoritesPage(),
+        StatefulShellBranch(
+          initialLocation: FavoritesPage.route,
+          routes: [
+            GoRoute(
+              path: FavoritesPage.route,
+              name: FavoritesPage.route,
+              builder: (context, state) => const FavoritesPage(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: StorePage.route,
-          name: StorePage.route,
-          builder: (context, state) => const StorePage(),
+        StatefulShellBranch(
+          initialLocation: StorePage.route,
+          routes: [
+            GoRoute(
+              path: StorePage.route,
+              name: StorePage.route,
+              builder: (context, state) => const StorePage(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: CartPage.route,
-          name: CartPage.route,
-          builder: (context, state) => const CartPage(),
+        StatefulShellBranch(
+          initialLocation: CartPage.route,
+          routes: [
+            GoRoute(
+              path: CartPage.route,
+              name: CartPage.route,
+              builder: (context, state) => const CartPage(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: CategoriesPage.route,
-          name: CategoriesPage.route,
-          builder: (context, state) => const CategoriesPage(),
+        StatefulShellBranch(
+          initialLocation: CategoriesPage.route,
+          routes: [
+            GoRoute(
+              path: CategoriesPage.route,
+              name: CategoriesPage.route,
+              builder: (context, state) => const CategoriesPage(),
+            ),
+          ],
         ),
       ],
     ),
+
+    // ShellRoute(
+    //   builder: (context, state, child) {
+    //     return HomePage(
+    //       location: state.uri.toString(),
+    //       child: child,
+    //     );
+    //   },
+    //   routes: [
+    //     GoRoute(
+    //       path: ProfilePage.route,
+    //       name: ProfilePage.route,
+    //       builder: (context, state) => const ProfilePage(),
+    //     ),
+    //     GoRoute(
+    //       path: FavoritesPage.route,
+    //       name: FavoritesPage.route,
+    //       builder: (context, state) => const FavoritesPage(),
+    //     ),
+    //     GoRoute(
+    //       path: StorePage.route,
+    //       name: StorePage.route,
+    //       builder: (context, state) => const StorePage(),
+    //     ),
+    //     GoRoute(
+    //       path: CartPage.route,
+    //       name: CartPage.route,
+    //       builder: (context, state) => const CartPage(),
+    //     ),
+    //     GoRoute(
+    //       path: CategoriesPage.route,
+    //       name: CategoriesPage.route,
+    //       builder: (context, state) => const CategoriesPage(),
+    //     ),
+    //   ],
+    // ),
 
     // GoRoute(
     //   path: HomePage.route,
