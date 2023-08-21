@@ -9,18 +9,40 @@ class CategoryCard extends StatelessWidget {
 //
   final Category category;
 
+  final bool push;
+
+  // final bool fromStore;
+
   const CategoryCard({
     super.key,
+    this.push = false,
+    // this.fromStore = false,
     required this.category,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => GoRouter.of(context).goNamed(
-        CategoryPage.route,
-        pathParameters: {'id': category.id.toString()},
-      ),
+      onTap: () {
+        if (push) {
+          GoRouter.of(context).pushNamed(
+            CategoryPage.route,
+            pathParameters: {'id': category.id.toString()},
+          );
+        }
+        // if (fromStore) {
+        //   GoRouter.of(context).goNamed(
+        //     StorePage.route + CategoryPage.route,
+        //     pathParameters: {'id': category.id.toString()},
+        //   );
+        // }
+        else {
+          GoRouter.of(context).goNamed(
+            CategoryPage.route,
+            pathParameters: {'id': category.id.toString()},
+          );
+        }
+      },
       child: Container(
         width: 200,
         height: 300,

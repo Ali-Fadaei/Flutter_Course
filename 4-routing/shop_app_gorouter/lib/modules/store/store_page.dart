@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
+import 'package:shop_app_gorouter/modules/categories/categories_card.dart';
+import 'package:shop_app_gorouter/modules/categories/cubit/categories_cubit.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/product_card.dart';
@@ -19,6 +21,9 @@ class StorePage extends StatelessWidget {
     var storeRepository = RepositoryProvider.of<StoreRepository>(context);
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => CategoriesCubit(storeRepo: storeRepository),
+        ),
         BlocProvider(
           create: (context) => StoreCubit(storeRepo: storeRepository),
         ),
@@ -99,6 +104,53 @@ class StorePage extends StatelessWidget {
                       ),
                     ),
                     //witeSpace
+                    const SizedBox(height: 30),
+                    //Best categories
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          U.Text(
+                            'دسته‌بندی‌های پرطرفدار',
+                            color: U.Theme.secondary,
+                            font: U.TextFont.bYekan,
+                            size: U.TextSize.xxxl,
+                            weight: U.TextWeight.bold,
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                    //witeSpace
+                    const SizedBox(height: 20),
+                    //Best Sellers listview
+                    SizedBox(
+                      height: 200,
+                      child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                        builder: (context, state) {
+                          return state.loading
+                              ? const U.Loading()
+                              : ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  children: state.categories
+                                      .expand(
+                                        (element) => [
+                                          const SizedBox(width: 8),
+                                          CategoryCard(
+                                            push: true,
+                                            // fromStore: true,
+                                            category: element,
+                                          ),
+                                          if (element == state.categories.last)
+                                            const SizedBox(width: 8),
+                                        ],
+                                      )
+                                      .toList(),
+                                );
+                        },
+                      ),
+                    ),
                     const SizedBox(height: 30),
                     //Best Sellers
                     const Padding(

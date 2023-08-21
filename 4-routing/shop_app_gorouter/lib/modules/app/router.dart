@@ -59,6 +59,15 @@ final router = GoRouter(
               path: StorePage.route,
               name: StorePage.route,
               builder: (context, state) => const StorePage(),
+              routes: [
+                GoRoute(
+                  path: CategoryPage.route,
+                  name: StorePage.route + CategoryPage.route,
+                  builder: (context, state) => CategoryPage(
+                    id: int.parse(state.pathParameters['id']!),
+                  ),
+                )
+              ],
             ),
           ],
         ),
