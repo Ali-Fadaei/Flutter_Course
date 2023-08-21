@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
+import 'package:shop_app_gorouter/modules/checkout/checkout_page.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
 import 'package:shop_app_gorouter/modules/home/home_shell.dart';
 import 'package:shop_app_gorouter/modules/profile/a_page.dart';
@@ -11,7 +12,10 @@ import 'package:shop_app_gorouter/modules/search/search_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_gorouter/modules/store/store_page.dart';
 
+final rootNavKey = GlobalKey<NavigatorState>();
+
 final router = GoRouter(
+  navigatorKey: rootNavKey,
   initialLocation: StorePage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
@@ -84,6 +88,16 @@ final router = GoRouter(
               builder: (context, state) {
                 return const CartPage();
               },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: rootNavKey,
+                  path: CheckoutPage.route,
+                  name: CheckoutPage.route,
+                  builder: (context, state) {
+                    return const CheckoutPage();
+                  },
+                ),
+              ],
             ),
           ],
         ),

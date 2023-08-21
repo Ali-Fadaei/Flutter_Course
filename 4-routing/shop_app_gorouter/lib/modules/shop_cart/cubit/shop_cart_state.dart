@@ -20,7 +20,7 @@ class ShopCartState extends Equatable {
   int get totalAmount {
     var temp = 0;
     for (var element in shopItems) {
-      temp += element.product.price;
+      temp += element.product.price * element.count;
     }
     return temp;
   }
