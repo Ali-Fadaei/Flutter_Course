@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/models/category.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
 
@@ -16,9 +17,9 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(
+      onTap: () => GoRouter.of(context).goNamed(
         CategoryPage.route,
-        arguments: category.id,
+        pathParameters: {'id': category.id.toString()},
       ),
       child: Container(
         width: 200,

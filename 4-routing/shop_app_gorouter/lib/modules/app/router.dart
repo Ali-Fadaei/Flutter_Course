@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
+import 'package:shop_app_gorouter/modules/category/category_page.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
 import 'package:shop_app_gorouter/modules/home/home_shell.dart';
-import 'package:shop_app_gorouter/modules/profile/a_page.dart';
-import 'package:shop_app_gorouter/modules/profile/b_page.dart';
+// import 'package:shop_app_gorouter/modules/profile/a_page.dart';
+// import 'package:shop_app_gorouter/modules/profile/b_page.dart';
 import 'package:shop_app_gorouter/modules/profile/profile_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_gorouter/modules/store/store_page.dart';
@@ -78,6 +79,15 @@ final router = GoRouter(
               path: CategoriesPage.route,
               name: CategoriesPage.route,
               builder: (context, state) => const CategoriesPage(),
+              routes: [
+                GoRoute(
+                  path: CategoryPage.route,
+                  name: CategoryPage.route,
+                  builder: (context, state) => CategoryPage(
+                    id: int.parse(state.pathParameters['id']!),
+                  ),
+                )
+              ],
             ),
           ],
         ),
