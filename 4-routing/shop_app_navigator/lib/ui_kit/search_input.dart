@@ -20,6 +20,10 @@ class SearchInput extends StatefulWidget {
 
 class _SearchInputState extends State<SearchInput> {
   ///
+  final focusNode = FocusNode();
+
+  bool hasFocus = false;
+
   late bool textIsEmpty;
 
   bool searched = false;
@@ -34,6 +38,11 @@ class _SearchInputState extends State<SearchInput> {
         searched = false;
       }
     });
+    focusNode.addListener(() {
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
+    });
     super.initState();
   }
 
@@ -46,45 +55,52 @@ class _SearchInputState extends State<SearchInput> {
 
   @override
   Widget build(BuildContext context) {
-    return U.Card(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: _onSearch,
-            icon: const U.Image(path: U.Images.searchIcon),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: TextField(
-              controller: widget.controller,
-              onEditingComplete: _onSearch,
-              style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'IranSans',
-                fontWeight: FontWeight.w500,
-                color: U.Theme.secondary,
-              ),
-              decoration: InputDecoration(
-                hintText: widget.hintText,
-                hintStyle: const TextStyle(
+    return InkWell(
+      canRequestFocus: false,
+      borderRadius: BorderRadius.circular(U.Theme.radius),
+      onTap: () => focusNode.requestFocus(),
+      child: U.Card(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        borderColor: hasFocus ? U.Theme.primary : null,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: _onSearch,
+              icon: const U.Image(path: U.Images.searchIcon),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: TextField(
+                focusNode: focusNode,
+                controller: widget.controller,
+                onEditingComplete: _onSearch,
+                style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
                   fontWeight: FontWeight.w500,
-                  color: U.Theme.outline2,
+                  color: U.Theme.secondary,
                 ),
-                border: InputBorder.none,
+                decoration: InputDecoration(
+                  hintText: widget.hintText,
+                  hintStyle: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'IranSans',
+                    fontWeight: FontWeight.w500,
+                    color: U.Theme.outline2,
+                  ),
+                  border: InputBorder.none,
+                ),
               ),
             ),
-          ),
-          if (!textIsEmpty) ...[
-            const SizedBox(width: 4),
-            GestureDetector(
-              onTap: () => widget.controller.clear(),
-              child: const U.Image(path: U.Images.removeIcon),
-            ),
+            if (!textIsEmpty) ...[
+              const SizedBox(width: 4),
+              GestureDetector(
+                onTap: () => widget.controller.clear(),
+                child: const U.Image(path: U.Images.removeIcon),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

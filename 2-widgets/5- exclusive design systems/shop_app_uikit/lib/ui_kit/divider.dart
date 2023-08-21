@@ -5,14 +5,38 @@ class Divider extends M.StatelessWidget {
   ///
   final bool isVertical;
 
-  const Divider.vertical({super.key}) : isVertical = true;
+  final double thickness;
 
-  const Divider.horizontal({super.key}) : isVertical = false;
+  final double space;
+
+  final M.Color? color;
+
+  const Divider.vertical({
+    super.key,
+    this.color,
+    this.space = 20,
+    this.thickness = 1,
+  }) : isVertical = true;
+
+  const Divider.horizontal({
+    super.key,
+    this.color,
+    this.space = 5,
+    this.thickness = 1,
+  }) : isVertical = false;
 
   @override
   M.Widget build(M.BuildContext context) {
     return isVertical
-        ? M.VerticalDivider(color: U.Theme.outline2.withOpacity(0.5))
-        : M.Divider(color: U.Theme.outline2.withOpacity(0.5));
+        ? M.VerticalDivider(
+            width: space,
+            thickness: 1,
+            color: color ?? U.Theme.outline2.withOpacity(0.5),
+          )
+        : M.Divider(
+            height: space,
+            thickness: 1,
+            color: color ?? U.Theme.outline2.withOpacity(0.5),
+          );
   }
 }

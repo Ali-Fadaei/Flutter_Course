@@ -9,6 +9,8 @@ class Card extends StatelessWidget {
 
   final EdgeInsets? padding;
 
+  final Color? borderColor;
+
   final Widget? child;
 
   const Card({
@@ -16,6 +18,7 @@ class Card extends StatelessWidget {
     this.height,
     this.width,
     this.padding,
+    this.borderColor,
     this.child,
   });
 
@@ -28,7 +31,7 @@ class Card extends StatelessWidget {
       decoration: BoxDecoration(
         color: U.Theme.surface,
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        border: Border.all(color: U.Theme.outline),
+        border: Border.all(color: borderColor ?? U.Theme.outline),
       ),
       child: child,
     );

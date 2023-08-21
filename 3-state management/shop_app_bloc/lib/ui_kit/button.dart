@@ -81,8 +81,7 @@ class Button extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
             children: [
-              if (_hasTrailing) trailing!,
-              const Spacer(),
+              if (!_hasTrailing) const Spacer(),
               U.Text(
                 title,
                 size: _textStyle.size,
@@ -96,7 +95,8 @@ class Button extends StatelessWidget {
                   color: _colors.foreground,
                 )
               ],
-              if (!_hasTrailing) const Spacer(),
+              const Spacer(),
+              if (_hasTrailing) trailing!,
             ],
           ),
         ),

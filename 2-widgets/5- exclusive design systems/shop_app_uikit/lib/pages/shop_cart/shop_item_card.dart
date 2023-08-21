@@ -57,7 +57,7 @@ class ShopCardItem extends StatelessWidget {
                 const Spacer(),
                 U.Text(
                   shopItem.product.title,
-                  size: U.TextSize.xl,
+                  size: U.TextSize.lg,
                   weight: U.TextWeight.bold,
                 ),
                 U.Text(

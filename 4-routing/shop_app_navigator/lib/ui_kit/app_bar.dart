@@ -67,7 +67,7 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: onNotifPressed,
                   icon: const U.Image(path: U.Images.notifIcon),
                 )
-              : action ?? const SizedBox()
+              : action ?? const SizedBox(width: 40)
         ],
       ),
     );
