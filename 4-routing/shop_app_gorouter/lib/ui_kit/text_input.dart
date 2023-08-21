@@ -67,9 +67,8 @@ class _TextInputState extends State<TextInput> {
                   alignment: Alignment.center,
                   child: U.Text(
                     '${widget.title}: ',
-                    font: U.TextFont.bYekan,
-                    size: U.TextSize.xl,
-                    weight: U.TextWeight.regular,
+                    size: U.TextSize.md,
+                    weight: U.TextWeight.medium,
                   ),
                 ),
               ],

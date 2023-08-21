@@ -94,7 +94,9 @@ final router = GoRouter(
                   path: CheckoutPage.route,
                   name: CheckoutPage.route,
                   builder: (context, state) {
-                    return const CheckoutPage();
+                    return CheckoutPage(
+                      shopItems: state.extra as dynamic,
+                    );
                   },
                 ),
               ],

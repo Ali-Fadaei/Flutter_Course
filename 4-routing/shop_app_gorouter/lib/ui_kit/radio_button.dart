@@ -29,11 +29,11 @@ class RadioButton<T> extends StatelessWidget {
         children: [
           U.Text(
             title,
-            size: U.TextSize.lg,
+            size: U.TextSize.md,
             weight: U.TextWeight.medium,
             color: enabled ? U.Theme.primary : U.Theme.secondary,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 5),
           U.Image(
             path: enabled
                 ? U.Images.radioBoxFilledIcon

@@ -29,6 +29,7 @@ class CartPage extends StatelessWidget {
         },
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
           builder: (context, state) {
+            var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
             return Column(
               children: [
                 U.AppBar.primary(
@@ -91,6 +92,7 @@ class CartPage extends StatelessWidget {
                                       onPressed: () {
                                         GoRouter.of(context).goNamed(
                                           CheckoutPage.route,
+                                          extra: shopCartCubit.state.shopItems,
                                         );
                                       },
                                     ),
