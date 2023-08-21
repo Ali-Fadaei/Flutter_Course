@@ -13,7 +13,7 @@ class StoreRepository {
 
   Future<List<Product>> readProducts({
     int? id,
-    int? categoryId,
+    List<int>? categoriesId,
     String? title,
     double? minRating,
     double? maxRating,
@@ -161,9 +161,9 @@ class StoreRepository {
       products = products.where((element) => element.id == id).toList();
     }
 
-    if (categoryId != null) {
+    if (categoriesId != null && categoriesId.isNotEmpty) {
       products = products
-          .where((element) => element.category.id == categoryId)
+          .where((p) => categoriesId.any((c) => p.category.id == c))
           .toList();
     }
 
