@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' as M;
+import 'package:flutter/widgets.dart';
 
 abstract class Images {
   /// Logos
@@ -25,6 +26,12 @@ abstract class Images {
   static const radioBoxEmptyIcon = 'assets/icons/radio_box_empty.png';
   static const requiredIcon = 'assets/icons/required.png';
   static const removIcon = 'assets/icons/removIcon.png';
+  static const orderIcon = 'assets/icons/order.png';
+  static const paymentIcon = 'assets/icons/payment.png';
+  static const userInfoIcon = 'assets/icons/user_info.png';
+  static const locationIcon = 'assets/icons/location.png';
+  static const infoIcon = 'assets/icons/info.png';
+  static const discountIcon = 'assets/icons/discount.png';
 
   // Vectors
   static const favEmpty = 'assets/imgs/vectors/empty_fav.png';
@@ -35,15 +42,28 @@ class Image extends M.StatelessWidget {
   ///
   final String path;
 
+  final double? size;
+
   final M.Color? color;
 
-  const Image({super.key, required this.path, this.color});
+  final M.BoxFit fit;
+
+  const Image({
+    super.key,
+    required this.path,
+    this.fit = BoxFit.contain,
+    this.color,
+    this.size,
+  });
 
   @override
   M.Widget build(M.BuildContext context) {
     return M.Image.asset(
       path,
       color: color,
+      height: size,
+      width: size,
+      fit: fit,
     );
   }
 }

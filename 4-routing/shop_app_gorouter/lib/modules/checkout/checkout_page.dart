@@ -51,12 +51,13 @@ class CheckoutPage extends StatelessWidget {
                                   const Row(
                                     children: [
                                       U.Image(
-                                        path: U.Images.shopCartIcon,
+                                        size: 30,
+                                        path: U.Images.orderIcon,
                                         color: U.Theme.primary,
                                       ),
                                       SizedBox(width: 5),
                                       U.Text(
-                                        'فاکتور سبد',
+                                        'سبدخرید',
                                         size: U.TextSize.xl,
                                         weight: U.TextWeight.medium,
                                       ),
@@ -79,7 +80,8 @@ class CheckoutPage extends StatelessWidget {
                                             .expand(
                                               (element) => [
                                                 _CheckoutItem(
-                                                    shopItem: element),
+                                                  shopItem: element,
+                                                ),
                                                 if (state.shopItems.last !=
                                                     element)
                                                   const U.Divider.horizontal(),
@@ -122,18 +124,16 @@ class CheckoutPage extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        Row(
+                                        const Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            const U.Text(
+                                            U.Text(
                                               'جمع تخفیفات: ',
                                               size: U.TextSize.lg,
-                                              // weight: U.TextWeight.medium,
                                               color: U.Theme.primary,
-                                              // color: U.Theme.outline2,
                                             ),
                                             U.Text(
-                                              '${state.totalAmount}',
+                                              '0',
                                               size: U.TextSize.lg,
                                               weight: U.TextWeight.medium,
                                             ),
@@ -145,9 +145,7 @@ class CheckoutPage extends StatelessWidget {
                                             const U.Text(
                                               'قابل پرداخت: ',
                                               size: U.TextSize.lg,
-                                              // weight: U.TextWeight.medium,
                                               color: U.Theme.primary,
-                                              // color: U.Theme.outline2,
                                             ),
                                             U.Text(
                                               '${state.totalAmount}',
@@ -173,7 +171,8 @@ class CheckoutPage extends StatelessWidget {
                                   const Row(
                                     children: [
                                       U.Image(
-                                        path: U.Images.shopCartIcon,
+                                        size: 30,
+                                        path: U.Images.paymentIcon,
                                         color: U.Theme.primary,
                                       ),
                                       SizedBox(width: 5),
@@ -198,13 +197,28 @@ class CheckoutPage extends StatelessWidget {
                                         children: [
                                           const Spacer(),
                                           U.TextInput(
+                                            title: 'آدرس تحویل',
+                                            hintText: 'استان، شهر، منطقه...',
                                             controller: TextEditingController(),
-                                            title: 'نام تحویل گیرنده',
                                           ),
                                           const Spacer(),
-                                          U.TextInput(
-                                            controller: TextEditingController(),
-                                            title: 'آدرس تحویل',
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: U.TextInput(
+                                                  title: 'کد تخفیف',
+                                                  hintText: 'ABCXyz10%',
+                                                  controller:
+                                                      TextEditingController(),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              U.IconButton(
+                                                icon: U.Images.discountIcon,
+                                                toolTip: 'اعمال کد تخفیف',
+                                                onPressed: () {},
+                                              ),
+                                            ],
                                           ),
                                           const Spacer(),
                                           U.Button(
