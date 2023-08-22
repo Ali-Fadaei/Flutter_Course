@@ -69,6 +69,7 @@ class IconButton extends StatelessWidget {
                 : U.Image(
                     path: icon,
                     color: _colors.foreground,
+                    fit: BoxFit.none,
                   ),
           ),
         ),
