@@ -30,12 +30,14 @@ class _TextInputState extends State<TextInput> {
   //
   final focusNode = FocusNode();
 
-  var hasFocused = false;
+  bool hasFocus = false;
 
   @override
   void initState() {
     focusNode.addListener(() {
-      hasFocused = focusNode.hasFocus;
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
     });
     super.initState();
   }
@@ -44,11 +46,11 @@ class _TextInputState extends State<TextInput> {
   Widget build(BuildContext context) {
     return InkWell(
       canRequestFocus: false,
-      onTap: () => focusNode.requestFocus(),
       borderRadius: BorderRadius.circular(U.Theme.radius),
+      onTap: () => focusNode.requestFocus(),
       child: U.Card(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        borderColor: hasFocused ? U.Theme.primary : null,
+        borderColor: hasFocus ? U.Theme.primary : null,
         child: Row(
           children: [
             Stack(
@@ -65,9 +67,8 @@ class _TextInputState extends State<TextInput> {
                   alignment: Alignment.center,
                   child: U.Text(
                     '${widget.title}: ',
-                    font: U.TextFont.bYekan,
-                    size: U.TextSize.xl,
-                    weight: U.TextWeight.regular,
+                    size: U.TextSize.md,
+                    weight: U.TextWeight.medium,
                   ),
                 ),
               ],
@@ -75,6 +76,7 @@ class _TextInputState extends State<TextInput> {
             const SizedBox(width: 5),
             Expanded(
               child: TextField(
+                focusNode: focusNode,
                 controller: widget.controller,
                 onEditingComplete: widget.onEditingCompleted != null
                     ? () => widget.onEditingCompleted!(widget.controller.text)

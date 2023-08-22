@@ -24,7 +24,7 @@ class CheckBox extends StatelessWidget {
         children: [
           U.Text(
             title,
-            size: U.TextSize.lg,
+            size: U.TextSize.md,
             weight: U.TextWeight.medium,
             color: isChecked ? U.Theme.primary : U.Theme.secondary,
           ),

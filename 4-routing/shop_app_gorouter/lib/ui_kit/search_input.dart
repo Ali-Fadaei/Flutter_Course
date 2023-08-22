@@ -20,13 +20,13 @@ class SearchInput extends StatefulWidget {
 
 class _SearchInputState extends State<SearchInput> {
   ///
+  final focusNode = FocusNode();
+
+  bool hasFocus = false;
+
   late bool textIsEmpty;
 
   bool searched = false;
-
-  final focusNode = FocusNode();
-
-  var hasFocused = false;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _SearchInputState extends State<SearchInput> {
     });
     focusNode.addListener(() {
       setState(() {
-        hasFocused = focusNode.hasFocus;
+        hasFocus = focusNode.hasFocus;
       });
     });
     super.initState();
@@ -57,11 +57,11 @@ class _SearchInputState extends State<SearchInput> {
   Widget build(BuildContext context) {
     return InkWell(
       canRequestFocus: false,
-      onTap: () => focusNode.requestFocus(),
       borderRadius: BorderRadius.circular(U.Theme.radius),
+      onTap: () => focusNode.requestFocus(),
       child: U.Card(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        borderColor: hasFocused ? U.Theme.primary : null,
+        borderColor: hasFocus ? U.Theme.primary : null,
         child: Row(
           children: [
             IconButton(
@@ -71,9 +71,9 @@ class _SearchInputState extends State<SearchInput> {
             const SizedBox(width: 10),
             Expanded(
               child: TextField(
+                focusNode: focusNode,
                 controller: widget.controller,
                 onEditingComplete: _onSearch,
-                focusNode: focusNode,
                 style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
