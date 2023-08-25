@@ -9,6 +9,8 @@ class OutlinedButton extends StatelessWidget {
   ///
   final bool loading;
 
+  final bool disabled;
+
   final String title;
 
   final OutlinedButtonSize size;
@@ -20,6 +22,7 @@ class OutlinedButton extends StatelessWidget {
   const OutlinedButton({
     super.key,
     this.loading = false,
+    this.disabled = false,
     required this.title,
     required this.onPressed,
     this.size = OutlinedButtonSize.md,
@@ -38,16 +41,17 @@ class OutlinedButton extends StatelessWidget {
   }
 
   ({Color textColor, Color outlineColor}) get _colors {
+    var opacity = disabled || loading ? 0.75 : 1.0;
     switch (color) {
       case OutlinedButtonColor.primary:
         return (
-          textColor: U.Theme.primary.withOpacity(loading ? 0.75 : 1),
-          outlineColor: U.Theme.primary.withOpacity(loading ? 0.75 : 1)
+          textColor: U.Theme.primary.withOpacity(opacity),
+          outlineColor: U.Theme.primary.withOpacity(opacity),
         );
       case OutlinedButtonColor.secondary:
         return (
-          textColor: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
-          outlineColor: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
+          textColor: U.Theme.secondary.withOpacity(opacity),
+          outlineColor: U.Theme.secondary.withOpacity(opacity),
         );
     }
   }
@@ -69,7 +73,7 @@ class OutlinedButton extends StatelessWidget {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(U.Theme.radius),
       child: InkWell(
-        onTap: loading ? null : onPressed,
+        onTap: loading || disabled ? null : onPressed,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: Container(
           height: _size,
