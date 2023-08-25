@@ -36,4 +36,20 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   //================================Events======================================
+
+  void onDiscountApplyPressed() async {
+    emit(state.copyWith(discountLoading: true));
+    var res = await _storeRepo.readDiscount(discountCtrl.text);
+    emit(state.copyWith(discountLoading: false, discountPercent: res));
+  }
+
+  void onPaymentPressed() async {
+    emit(state.copyWith(paymentLoading: true));
+    await _storeRepo.createOrder(
+      state.shopItems,
+      addressCtrl.text,
+      discountCtrl.text,
+    );
+    emit(state.copyWith(paymentLoading: false));
+  }
 }

@@ -9,7 +9,7 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
-  final latency = 100;
+  final latency = 1000;
 
   Future<List<Product>> readProducts({
     int? id,
@@ -264,5 +264,19 @@ class StoreRepository {
     await Future.delayed(Duration(milliseconds: latency));
     _shopItems = shopItems;
     return true;
+  }
+
+  Future<int> readDiscount(String discountCode) async {
+    await Future.delayed(Duration(milliseconds: latency));
+    return 15;
+  }
+
+  Future<String> createOrder(
+    List<ShopItem> shopItems,
+    String address,
+    String discountCode,
+  ) async {
+    await Future.delayed(Duration(milliseconds: latency));
+    return 'https://';
   }
 }

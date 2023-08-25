@@ -11,6 +11,8 @@ class Button extends StatelessWidget {
 
   final bool loading;
 
+  final bool disabled;
+
   final ButtonSize size;
 
   final ButtonColor color;
@@ -26,6 +28,7 @@ class Button extends StatelessWidget {
     required this.title,
     required this.onPressed,
     this.loading = false,
+    this.disabled = false,
     this.size = ButtonSize.md,
     this.color = ButtonColor.primary,
     this.trailing,
@@ -43,16 +46,17 @@ class Button extends StatelessWidget {
   }
 
   ({Color background, Color foreground}) get _colors {
+    var opacity = disabled || loading ? 0.75 : 1.0;
     switch (color) {
       case ButtonColor.primary:
         return (
-          background: U.Theme.primary.withOpacity(loading ? 0.75 : 1),
-          foreground: U.Theme.onPrimary.withOpacity(loading ? 0.75 : 1),
+          background: U.Theme.primary.withOpacity(opacity),
+          foreground: U.Theme.onPrimary.withOpacity(opacity),
         );
       case ButtonColor.secondary:
         return (
-          background: U.Theme.secondary.withOpacity(loading ? 0.75 : 1),
-          foreground: U.Theme.onSecondary.withOpacity(loading ? 0.75 : 1),
+          background: U.Theme.secondary.withOpacity(opacity),
+          foreground: U.Theme.onSecondary.withOpacity(opacity),
         );
     }
   }
@@ -75,7 +79,7 @@ class Button extends StatelessWidget {
       borderRadius: BorderRadius.circular(U.Theme.radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        onTap: loading ? null : onPressed,
+        onTap: loading || disabled ? null : onPressed,
         child: Container(
           height: _size,
           padding: const EdgeInsets.symmetric(horizontal: 24),

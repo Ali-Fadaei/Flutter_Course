@@ -33,6 +33,7 @@ class CheckoutPage extends StatelessWidget {
         ),
         body: BlocBuilder<CheckoutCubit, CheckoutState>(
           builder: (context, state) {
+            var checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
             return state.loading
                 ? const U.Loading()
                 : Container(
@@ -118,22 +119,22 @@ class CheckoutPage extends StatelessWidget {
                                               // color: U.Theme.outline2,
                                             ),
                                             U.Text(
-                                              '${state.totalAmount}',
+                                              state.totalAmount.toString(),
                                               size: U.TextSize.lg,
                                               weight: U.TextWeight.medium,
                                             ),
                                           ],
                                         ),
-                                        const Row(
+                                        Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            U.Text(
+                                            const U.Text(
                                               'جمع تخفیفات: ',
                                               size: U.TextSize.lg,
                                               color: U.Theme.primary,
                                             ),
                                             U.Text(
-                                              '0',
+                                              state.discountAmount.toString(),
                                               size: U.TextSize.lg,
                                               weight: U.TextWeight.medium,
                                             ),
@@ -148,7 +149,7 @@ class CheckoutPage extends StatelessWidget {
                                               color: U.Theme.primary,
                                             ),
                                             U.Text(
-                                              '${state.totalAmount}',
+                                              state.payableAmount.toString(),
                                               size: U.TextSize.lg,
                                               weight: U.TextWeight.medium,
                                             ),
@@ -199,7 +200,8 @@ class CheckoutPage extends StatelessWidget {
                                           U.TextInput(
                                             title: 'آدرس تحویل',
                                             hintText: 'استان، شهر، منطقه...',
-                                            controller: TextEditingController(),
+                                            controller:
+                                                checkoutCubit.addressCtrl,
                                           ),
                                           const Spacer(),
                                           Row(
@@ -208,15 +210,18 @@ class CheckoutPage extends StatelessWidget {
                                                 child: U.TextInput(
                                                   title: 'کد تخفیف',
                                                   hintText: 'ABCXyz10%',
-                                                  controller:
-                                                      TextEditingController(),
+                                                  controller: checkoutCubit
+                                                      .discountCtrl,
                                                 ),
                                               ),
                                               const SizedBox(width: 10),
                                               U.IconButton(
                                                 icon: U.Images.discountIcon,
+                                                disabled: state.paymentLoading,
+                                                loading: state.discountLoading,
                                                 toolTip: 'اعمال کد تخفیف',
-                                                onPressed: () {},
+                                                onPressed: checkoutCubit
+                                                    .onDiscountApplyPressed,
                                               ),
                                             ],
                                           ),
@@ -224,7 +229,10 @@ class CheckoutPage extends StatelessWidget {
                                           U.Button(
                                             title: 'پرداخت',
                                             size: U.ButtonSize.lg,
-                                            onPressed: () {},
+                                            disabled: state.discountLoading,
+                                            loading: state.paymentLoading,
+                                            onPressed:
+                                                checkoutCubit.onPaymentPressed,
                                           ),
                                           // const Spacer(),
                                         ],
