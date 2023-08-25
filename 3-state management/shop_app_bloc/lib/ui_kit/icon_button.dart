@@ -13,6 +13,8 @@ class IconButton extends StatelessWidget {
 
   final bool loading;
 
+  final bool disabled;
+
   final IconButtonSize size;
 
   final IconButtonColor color;
@@ -25,6 +27,7 @@ class IconButton extends StatelessWidget {
     required this.onPressed,
     this.toolTip = "",
     this.loading = false,
+    this.disabled = false,
     this.size = IconButtonSize.md,
     this.color = IconButtonColor.primary,
   });
@@ -41,24 +44,31 @@ class IconButton extends StatelessWidget {
   }
 
   ({Color background, Color foreground}) get _colors {
+    var opacity = disabled || loading ? 0.75 : 1.0;
     switch (color) {
       case IconButtonColor.primary:
-        return (background: U.Theme.primary, foreground: U.Theme.onPrimary);
+        return (
+          background: U.Theme.primary.withOpacity(opacity),
+          foreground: U.Theme.onPrimary.withOpacity(opacity),
+        );
       case IconButtonColor.secondary:
-        return (background: U.Theme.secondary, foreground: U.Theme.onSecondary);
+        return (
+          background: U.Theme.secondary.withOpacity(opacity),
+          foreground: U.Theme.onSecondary.withOpacity(opacity),
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return U.Tooltip(
-      message: toolTip,
+      message: loading || disabled ? '' : toolTip,
       child: Material(
         color: _colors.background,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         child: InkWell(
           borderRadius: BorderRadius.circular(U.Theme.radius),
-          onTap: loading ? null : onPressed,
+          onTap: loading || disabled ? null : onPressed,
           child: SizedBox.square(
             dimension: _size,
             child: loading
