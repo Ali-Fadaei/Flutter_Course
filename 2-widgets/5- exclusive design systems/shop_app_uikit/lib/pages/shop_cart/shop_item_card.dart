@@ -47,35 +47,38 @@ class ShopCardItem extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 120,
+              width: 80,
               child: U.Image(path: shopItem.product.image),
             ),
-            const SizedBox(width: 15),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                U.Text(
-                  shopItem.product.title,
-                  size: U.TextSize.lg,
-                  weight: U.TextWeight.bold,
-                ),
-                U.Text(
-                  shopItem.product.category.title,
-                  size: U.TextSize.md,
-                  color: U.Theme.outline2,
-                ),
-                const Spacer(),
-              ],
+            const SizedBox(width: 5),
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  U.Text(
+                    shopItem.product.title,
+                    size: U.TextSize.md,
+                    weight: U.TextWeight.bold,
+                  ),
+                  U.Text(
+                    shopItem.product.category.title,
+                    size: U.TextSize.sm,
+                    color: U.Theme.outline2,
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
-            const Spacer(),
+            const SizedBox(width: 5),
             Column(
               children: [
                 const Spacer(),
                 U.Text(
                   '${shopItem.product.price * shopItem.count} تومان',
-                  size: U.TextSize.lg,
-                  weight: U.TextWeight.bold,
+                  size: U.TextSize.md,
+                  weight: U.TextWeight.medium,
                 ),
                 const SizedBox(height: 8),
                 U.Counter(

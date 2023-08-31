@@ -74,16 +74,10 @@ class RangeSlider extends M.StatelessWidget {
           padding: const M.EdgeInsets.symmetric(horizontal: 22),
           child: M.Row(
             children: [
-              U.Text(
-                'از $minRangeString',
-                size: U.TextSize.lg,
-              ),
+              U.Text('از $minRangeString'),
               if (sign != null) sign!,
               const M.Spacer(),
-              U.Text(
-                'تا $maxRangeString',
-                size: U.TextSize.lg,
-              ),
+              U.Text('تا $maxRangeString'),
               if (sign != null) sign!,
             ],
           ),

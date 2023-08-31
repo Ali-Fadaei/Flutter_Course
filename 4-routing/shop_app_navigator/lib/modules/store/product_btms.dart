@@ -62,7 +62,7 @@ class ProductBottomSheet extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 400,
+                  height: 300,
                   child: U.Image(path: product.image),
                 ),
                 const SizedBox(height: 25),
@@ -73,10 +73,14 @@ class ProductBottomSheet extends StatelessWidget {
                       children: [
                         U.Text(
                           product.title,
-                          size: U.TextSize.xxl,
+                          size: U.TextSize.lg,
                           weight: U.TextWeight.bold,
                         ),
-                        U.Text(product.category.title)
+                        U.Text(
+                          product.category.title,
+                          size: U.TextSize.sm,
+                          color: U.Theme.outline2,
+                        )
                       ],
                     ),
                     const Spacer(),
@@ -118,14 +122,14 @@ class ProductBottomSheet extends StatelessWidget {
                         children: [
                           const U.Text(
                             "امتیاز: ",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Spacer(),
                           U.Text(
                             "${product.rating}",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Icon(
                             Icons.star,
@@ -144,8 +148,8 @@ class ProductBottomSheet extends StatelessWidget {
                         children: [
                           const U.Text(
                             "قیمت: ",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Spacer(),
                           BlocBuilder<ShopCartCubit, ShopCartState>(
@@ -161,8 +165,8 @@ class ProductBottomSheet extends StatelessWidget {
                                 count == 0
                                     ? '${product.price} تومان'
                                     : '${product.price * count} تومان',
-                                size: U.TextSize.xl,
-                                weight: U.TextWeight.bold,
+                                size: U.TextSize.md,
+                                weight: U.TextWeight.medium,
                               );
                             },
                           ),
@@ -181,7 +185,7 @@ class ProductBottomSheet extends StatelessWidget {
                   children: [
                     const U.Text(
                       'توضیحات محصول',
-                      size: U.TextSize.xl,
+                      size: U.TextSize.md,
                       weight: U.TextWeight.bold,
                     ),
                     const Spacer(),
@@ -194,8 +198,10 @@ class ProductBottomSheet extends StatelessWidget {
                     )
                   ],
                 ),
-                U.Text(product.description),
-
+                U.Text(
+                  product.description,
+                  size: U.TextSize.sm,
+                ),
                 const SizedBox(height: 80),
               ],
             ),

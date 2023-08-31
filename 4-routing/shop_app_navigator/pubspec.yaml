@@ -44,6 +44,3 @@ flutter:
     - family: BYekan
       fonts:
         - asset: assets/fonts/Yekan.ttf
-    - family: AGhasem
-      fonts:
-        - asset: assets/fonts/AGhasem.ttf

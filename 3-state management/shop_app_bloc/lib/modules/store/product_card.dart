@@ -21,10 +21,11 @@ class ProductCard extends StatelessWidget {
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
+        shopCartCubit: shopCartCubit,
       ),
       child: U.Card(
-        width: 185,
-        height: 350,
+        width: 200,
+        height: 320,
         padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +35,7 @@ class ProductCard extends StatelessWidget {
             U.Text(
               product.title,
               size: U.TextSize.md,
-              weight: U.TextWeight.bold,
+              weight: U.TextWeight.medium,
             ),
             const SizedBox(height: 5),
             Row(
@@ -44,7 +45,6 @@ class ProductCard extends StatelessWidget {
                   'امتیاز: ${product.rating}',
                   size: U.TextSize.sm,
                   color: U.Theme.outline2,
-                  weight: U.TextWeight.bold,
                 ),
                 Icon(
                   Icons.star,
@@ -68,8 +68,8 @@ class ProductCard extends StatelessWidget {
                 U.Text(
                   '${product.price} تومان',
                   font: U.TextFont.iranSans,
-                  size: U.TextSize.md,
-                  weight: U.TextWeight.bold,
+                  size: U.TextSize.sm,
+                  weight: U.TextWeight.medium,
                 ),
               ],
             ),

@@ -66,9 +66,9 @@ class Button extends StatelessWidget {
       case ButtonSize.sm:
         return (size: U.TextSize.sm, weight: U.TextWeight.medium);
       case ButtonSize.md:
-        return (size: U.TextSize.lg, weight: U.TextWeight.medium);
+        return (size: U.TextSize.md, weight: U.TextWeight.medium);
       case ButtonSize.lg:
-        return (size: U.TextSize.xl, weight: U.TextWeight.medium);
+        return (size: U.TextSize.lg, weight: U.TextWeight.medium);
     }
   }
 

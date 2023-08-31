@@ -100,7 +100,7 @@ class StorePage extends StatelessWidget {
                               'پیشنهادهای ویژه',
                               color: U.Theme.secondary,
                               font: U.TextFont.bYekan,
-                              size: U.TextSize.xxxl,
+                              size: U.TextSize.xxl,
                               weight: U.TextWeight.bold,
                             ),
                             Spacer(),
@@ -111,7 +111,7 @@ class StorePage extends StatelessWidget {
                       const SizedBox(height: 20),
                       //products listview
                       SizedBox(
-                        height: 350,
+                        height: 320,
                         child: BlocBuilder<StoreCubit, StoreState>(
                           builder: (context, state) {
                             return state.loading
@@ -144,7 +144,7 @@ class StorePage extends StatelessWidget {
                               'دسته‌بندی‌های پر طرفدار',
                               color: U.Theme.secondary,
                               font: U.TextFont.bYekan,
-                              size: U.TextSize.xxxl,
+                              size: U.TextSize.xxl,
                               weight: U.TextWeight.bold,
                             ),
                             Spacer(),
@@ -192,7 +192,7 @@ class StorePage extends StatelessWidget {
                               'پرفروش‌ها',
                               color: U.Theme.secondary,
                               font: U.TextFont.bYekan,
-                              size: U.TextSize.xxxl,
+                              size: U.TextSize.xxl,
                               weight: U.TextWeight.bold,
                             ),
                             Spacer(),
@@ -203,7 +203,7 @@ class StorePage extends StatelessWidget {
                       const SizedBox(height: 20),
                       //Best Sellers listview
                       SizedBox(
-                        height: 350,
+                        height: 320,
                         child: BlocBuilder<StoreCubit, StoreState>(
                           builder: (context, state) {
                             return state.loading

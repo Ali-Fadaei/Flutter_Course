@@ -56,31 +56,33 @@ class HomeShell extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => HomeCubit(),
-      child: Scaffold(
-        backgroundColor: U.Theme.background,
-        drawer: const Drawer(
-          child: Column(
-            children: [],
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: U.Theme.background,
+          drawer: const Drawer(
+            child: Column(
+              children: [],
+            ),
           ),
+          bottomNavigationBar: Builder(
+            builder: (context) {
+              var homeCubit = BlocProvider.of<HomeCubit>(context);
+              // var currentIndex = destinations.indexWhere(
+              //   (element) => route.contains(element.route),
+              // );
+              var currentIndex = child.currentIndex;
+              homeCubit.onDestnationChange(currentIndex);
+              return U.NavigationBar(
+                selectedIndex: currentIndex,
+                onDestnationChange: (i) =>
+                    // GoRouter.of(context).goNamed(destinations[i].route),
+                    child.goBranch(i),
+                destinations: destinations,
+              );
+            },
+          ),
+          body: child,
         ),
-        bottomNavigationBar: Builder(
-          builder: (context) {
-            var homeCubit = BlocProvider.of<HomeCubit>(context);
-            // var currentIndex = destinations.indexWhere(
-            //   (element) => route.contains(element.route),
-            // );
-            var currentIndex = child.currentIndex;
-            homeCubit.onDestnationChange(currentIndex);
-            return U.NavigationBar(
-              selectedIndex: currentIndex,
-              onDestnationChange: (i) =>
-                  // GoRouter.of(context).goNamed(destinations[i].route),
-                  child.goBranch(i),
-              destinations: destinations,
-            );
-          },
-        ),
-        body: child,
       ),
     );
   }

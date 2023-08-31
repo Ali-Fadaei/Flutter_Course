@@ -38,7 +38,7 @@ class AuthPage extends StatelessWidget {
                 children: [
                   const U.Text(
                     'ورود به حساب‌کاربری',
-                    size: U.TextSize.xxl,
+                    size: U.TextSize.xl,
                     weight: U.TextWeight.medium,
                   ),
                   const U.Divider.horizontal(),

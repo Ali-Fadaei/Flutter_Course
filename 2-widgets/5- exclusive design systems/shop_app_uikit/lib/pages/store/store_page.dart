@@ -63,7 +63,7 @@ class _StorePageState extends State<StorePage> {
                   'پیشنهادهای ویژه',
                   color: U.Theme.secondary,
                   font: U.TextFont.bYekan,
-                  size: U.TextSize.xxxl,
+                  size: U.TextSize.xxl,
                   weight: U.TextWeight.bold,
                 ),
                 Spacer(),
@@ -74,7 +74,7 @@ class _StorePageState extends State<StorePage> {
           const SizedBox(height: 20),
           //products listview
           SizedBox(
-            height: 350,
+            height: 320,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
@@ -109,7 +109,7 @@ class _StorePageState extends State<StorePage> {
                   'پرفروش‌ها',
                   color: U.Theme.secondary,
                   font: U.TextFont.bYekan,
-                  size: U.TextSize.xxxl,
+                  size: U.TextSize.xxl,
                   weight: U.TextWeight.bold,
                 ),
                 Spacer(),
@@ -120,7 +120,7 @@ class _StorePageState extends State<StorePage> {
           const SizedBox(height: 20),
           //Best Sellers listview
           SizedBox(
-            height: 350,
+            height: 320,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),

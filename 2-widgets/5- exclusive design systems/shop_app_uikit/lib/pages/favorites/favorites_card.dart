@@ -51,30 +51,32 @@ class FavoritesCard extends StatelessWidget {
               height: 120,
               child: U.Image(path: product.image),
             ),
-            const SizedBox(width: 15),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                U.Text(
-                  product.title,
-                  size: U.TextSize.lg,
-                  weight: U.TextWeight.bold,
-                ),
-                U.Text(
-                  product.category.title,
-                  size: U.TextSize.md,
-                  color: U.Theme.outline2,
-                ),
-                U.Text(
-                  '${product.price} تومان',
-                  size: U.TextSize.md,
-                  color: U.Theme.outline2,
-                ),
-                const Spacer(),
-              ],
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  U.Text(
+                    product.title,
+                    size: U.TextSize.md,
+                    weight: U.TextWeight.bold,
+                  ),
+                  U.Text(
+                    product.category.title,
+                    size: U.TextSize.sm,
+                    color: U.Theme.outline2,
+                  ),
+                  U.Text(
+                    '${product.price} تومان',
+                    size: U.TextSize.md,
+                    color: U.Theme.outline2,
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
-            const Spacer(),
+            const SizedBox(width: 5),
             IconButton(
               onPressed: () => onFavoriatePressed(product),
               icon: const Icon(

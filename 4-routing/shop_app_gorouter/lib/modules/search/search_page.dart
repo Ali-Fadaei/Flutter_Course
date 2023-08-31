@@ -74,11 +74,11 @@ class SearchPage extends StatelessWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount:
-                                    (MediaQuery.of(context).size.width / 220)
+                                    (MediaQuery.of(context).size.width / 190)
                                         .floor(),
                                 mainAxisSpacing: 20,
                                 crossAxisSpacing: 20,
-                                childAspectRatio: 2 / 3.2,
+                                childAspectRatio: 2 / 3.5,
                               ),
                               itemBuilder: (context, index) {
                                 return ProductCard(

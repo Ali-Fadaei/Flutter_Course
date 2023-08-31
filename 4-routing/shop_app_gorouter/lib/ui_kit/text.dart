@@ -2,9 +2,9 @@ import 'package:flutter/material.dart' as M;
 import 'package:flutter/widgets.dart';
 import 'ui_kit.dart' as U;
 
-enum TextFont { bYekan, iranSans, ghasem }
+enum TextFont { bYekan, iranSans }
 
-enum TextSize { xs, sm, md, lg, xl, xxl, xxxl }
+enum TextSize { xs, sm, md, lg, xl, xxl }
 
 enum TextWeight { light, regular, medium, bold }
 
@@ -35,8 +35,6 @@ class Text extends M.StatelessWidget {
         return 'BYekan';
       case TextFont.iranSans:
         return 'IranSans';
-      case TextFont.ghasem:
-        return 'AGhasem';
     }
   }
 
@@ -54,8 +52,6 @@ class Text extends M.StatelessWidget {
         return 18.0;
       case TextSize.xxl:
         return 20.0;
-      case TextSize.xxxl:
-        return 22.0;
     }
   }
 

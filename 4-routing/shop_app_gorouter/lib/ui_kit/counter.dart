@@ -33,9 +33,9 @@ class Counter extends StatelessWidget {
   ({U.TextSize size, U.TextWeight weight}) get _textStyle {
     switch (size) {
       case CounterSize.md:
-        return (size: U.TextSize.lg, weight: U.TextWeight.bold);
+        return (size: U.TextSize.md, weight: U.TextWeight.bold);
       case CounterSize.lg:
-        return (size: U.TextSize.xl, weight: U.TextWeight.bold);
+        return (size: U.TextSize.lg, weight: U.TextWeight.bold);
     }
   }
 
@@ -49,11 +49,12 @@ class Counter extends StatelessWidget {
           IconButton(
             onPressed: onIncrementer,
             icon: const U.Image(
+              size: 12,
               path: U.Images.addIcon,
               color: U.Theme.primary,
             ),
           ),
-          SizedBox(width: _size / 3),
+          const SizedBox(width: 5),
           U.Card(
             height: _size,
             width: _size,
@@ -66,10 +67,11 @@ class Counter extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: _size / 3),
+          const SizedBox(width: 5),
           IconButton(
             onPressed: onDecrementer,
             icon: const U.Image(
+              size: 12,
               path: U.Images.removIcon,
               color: U.Theme.secondary,
             ),

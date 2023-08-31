@@ -68,7 +68,7 @@ class _StorePageState extends State<StorePage> {
                   Text(
                     'Exclusive Offers',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -80,7 +80,7 @@ class _StorePageState extends State<StorePage> {
             const SizedBox(height: 20),
             //Exclusive Offers listview
             SizedBox(
-              height: 350,
+              height: 320,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
@@ -114,7 +114,7 @@ class _StorePageState extends State<StorePage> {
                   Text(
                     'Best Sellers',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

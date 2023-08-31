@@ -18,7 +18,7 @@ class ProductBottomSheet extends StatefulWidget {
       isScrollControlled: true,
       constraints: BoxConstraints(
         maxWidth: 1024,
-        maxHeight: MediaQuery.of(context).size.height * 0.90,
+        maxHeight: MediaQuery.of(context).size.height * 0.80,
       ),
       builder: (context) {
         return ProductBottomSheet(
@@ -124,7 +124,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 400,
+                        height: 300,
                         child: Image.asset(widget.product.image),
                       ),
                       const SizedBox(height: 25),
@@ -136,11 +136,14 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                               Text(
                                 widget.product.title,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(widget.product.category.title)
+                              Text(
+                                widget.product.category.title,
+                                style: const TextStyle(fontSize: 12),
+                              )
                             ],
                           ),
                           const Spacer(),
@@ -167,16 +170,16 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                 const Text(
                                   'Rating: ',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const Spacer(),
                                 Text(
                                   '${widget.product.rating}',
                                   style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const Icon(
@@ -197,8 +200,8 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                 const Text(
                                   'Price: ',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const Spacer(),
@@ -207,8 +210,8 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                                       ? '\$${widget.product.price}'
                                       : '\$${widget.product.price * count}',
                                   style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const Spacer(),
@@ -227,7 +230,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           const Text(
                             'Product Details',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -238,7 +241,10 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                           )
                         ],
                       ),
-                      Text(widget.product.description),
+                      Text(
+                        widget.product.description,
+                        style: const TextStyle(fontSize: 12),
+                      ),
                       const SizedBox(height: 80),
                     ],
                   ),

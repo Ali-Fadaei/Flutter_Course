@@ -40,8 +40,8 @@ class ProductCard extends StatelessWidget {
         onRemovefromShopCartPressed: onRemovefromShopCartPressed,
       ),
       child: SizedBox(
-        width: 185,
-        height: 350,
+        width: 200,
+        height: 320,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
@@ -53,8 +53,8 @@ class ProductCard extends StatelessWidget {
                 Text(
                   product.title,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -64,7 +64,6 @@ class ProductCard extends StatelessWidget {
                       'rating: ${product.rating}',
                       style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
@@ -86,8 +85,8 @@ class ProductCard extends StatelessWidget {
                     Text(
                       '\$${product.price}',
                       style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

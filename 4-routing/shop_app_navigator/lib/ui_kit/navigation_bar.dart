@@ -89,30 +89,28 @@ class _NavigationBarDestination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Material(
-        color: Colors.transparent,
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(U.Theme.radius),
+      child: InkWell(
         borderRadius: BorderRadius.circular(U.Theme.radius),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(U.Theme.radius),
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                U.Image(
-                  path: icon,
-                  color: isSelected ? U.Theme.primary : U.Theme.secondary,
-                ),
-                const SizedBox(height: 4),
-                U.Text(
-                  title,
-                  size: U.TextSize.md,
-                  color: isSelected ? U.Theme.primary : U.Theme.secondary,
-                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.regular,
-                ),
-              ],
-            ),
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            children: [
+              U.Image(
+                path: icon,
+                color: isSelected ? U.Theme.primary : U.Theme.secondary,
+              ),
+              const Spacer(),
+              U.Text(
+                title,
+                size: U.TextSize.sm,
+                color: isSelected ? U.Theme.primary : U.Theme.secondary,
+                weight: isSelected ? U.TextWeight.bold : U.TextWeight.medium,
+              ),
+            ],
           ),
         ),
       ),

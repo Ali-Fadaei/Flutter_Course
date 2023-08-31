@@ -106,7 +106,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 400,
+                  height: 300,
                   child: U.Image(path: widget.product.image),
                 ),
                 const SizedBox(height: 25),
@@ -117,10 +117,14 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                       children: [
                         U.Text(
                           widget.product.title,
-                          size: U.TextSize.xxl,
+                          size: U.TextSize.lg,
                           weight: U.TextWeight.bold,
                         ),
-                        U.Text(widget.product.category.title)
+                        U.Text(
+                          widget.product.category.title,
+                          size: U.TextSize.sm,
+                          color: U.Theme.outline2,
+                        )
                       ],
                     ),
                     const Spacer(),
@@ -144,14 +148,14 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         children: [
                           const U.Text(
                             "امتیاز: ",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Spacer(),
                           U.Text(
                             "${widget.product.rating}",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Icon(
                             Icons.star,
@@ -170,16 +174,16 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                         children: [
                           const U.Text(
                             "قیمت: ",
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Spacer(),
                           U.Text(
                             count == 0
                                 ? '${widget.product.price} تومان'
                                 : '${widget.product.price * count} تومان',
-                            size: U.TextSize.xl,
-                            weight: U.TextWeight.bold,
+                            size: U.TextSize.md,
+                            weight: U.TextWeight.medium,
                           ),
                           const Spacer(),
                         ],
@@ -196,7 +200,7 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                   children: [
                     const U.Text(
                       'توضیحات محصول',
-                      size: U.TextSize.xl,
+                      size: U.TextSize.md,
                       weight: U.TextWeight.bold,
                     ),
                     const Spacer(),
@@ -209,7 +213,10 @@ class ProductBottomSheetState extends State<ProductBottomSheet> {
                     )
                   ],
                 ),
-                U.Text(widget.product.description),
+                U.Text(
+                  widget.product.description,
+                  size: U.TextSize.sm,
+                ),
                 const SizedBox(height: 80),
               ],
             ),

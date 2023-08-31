@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_gorouter/modules/search/cubit/search_cubit.dart';
-import 'package:shop_app_gorouter/ui_kit/text.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class SearchFilterBtms extends StatelessWidget {
@@ -13,7 +12,7 @@ class SearchFilterBtms extends StatelessWidget {
   }) {
     return U.BottomSheet.show(
       context,
-      maxHeight: 600,
+      maxHeight: 530,
       builder: (context) {
         return BlocProvider.value(
           value: searchCubit,
@@ -37,8 +36,8 @@ class SearchFilterBtms extends StatelessWidget {
               SizedBox(width: 8),
               U.Text(
                 'فیلتر جستحو',
-                size: TextSize.xxl,
-                weight: TextWeight.medium,
+                size: U.TextSize.lg,
+                weight: U.TextWeight.medium,
               ),
               Spacer(),
             ],
@@ -49,9 +48,7 @@ class SearchFilterBtms extends StatelessWidget {
             children: [
               U.Text(
                 'بر اساس امتیاز: ',
-                size: TextSize.xl,
-                font: TextFont.iranSans,
-                weight: TextWeight.medium,
+                weight: U.TextWeight.medium,
               ),
               Spacer(),
             ],
@@ -77,8 +74,7 @@ class SearchFilterBtms extends StatelessWidget {
             children: [
               U.Text(
                 'بر اساس قیمت: ',
-                size: TextSize.xl,
-                weight: TextWeight.medium,
+                weight: U.TextWeight.medium,
               ),
               Spacer(),
             ],
@@ -105,9 +101,7 @@ class SearchFilterBtms extends StatelessWidget {
             children: [
               U.Text(
                 'در دسته‌بندی های: ',
-                size: TextSize.xl,
-                font: TextFont.iranSans,
-                weight: TextWeight.medium,
+                weight: U.TextWeight.medium,
               ),
               Spacer(),
             ],
@@ -122,11 +116,6 @@ class SearchFilterBtms extends StatelessWidget {
                         const Spacer(),
                         U.CheckBox(
                           title: element.title,
-                          // isChecked: state.selectedCategories
-                          //     .where(
-                          //       (s) => s.id == element.id,
-                          //     )
-                          //     .isNotEmpty,
                           isChecked: state.selectedCategories.any(
                             (s) => s.id == element.id,
                           ),
@@ -145,9 +134,7 @@ class SearchFilterBtms extends StatelessWidget {
             children: [
               U.Text(
                 'به ترتیب: ',
-                size: TextSize.xl,
-                font: TextFont.iranSans,
-                weight: TextWeight.medium,
+                weight: U.TextWeight.medium,
               ),
               Spacer(),
             ],
@@ -202,7 +189,6 @@ class SearchFilterBtms extends StatelessWidget {
                 width: 500,
                 child: U.Button(
                   title: 'اعمال فیلتر',
-                  size: U.ButtonSize.lg,
                   loading: state.loading,
                   onPressed: () {
                     searchCubit
@@ -213,7 +199,7 @@ class SearchFilterBtms extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 15),
         ],
       ),
     );

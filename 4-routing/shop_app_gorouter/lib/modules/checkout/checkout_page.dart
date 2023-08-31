@@ -25,229 +25,230 @@ class CheckoutPage extends StatelessWidget {
         shopItems: shopItems,
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
-      child: Scaffold(
-        backgroundColor: U.Theme.background,
-        appBar: U.AppBar.secondary(
-          title: 'تکمیل خرید',
-          onBackPressed: () => GoRouter.of(context).pop(),
-        ),
-        body: BlocBuilder<CheckoutCubit, CheckoutState>(
-          builder: (context, state) {
-            var checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
-            return state.loading
-                ? const U.Loading()
-                : Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(12.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1000),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 60,
-                            child: U.Card(
-                              padding: const EdgeInsets.all(18),
-                              child: Column(
-                                children: [
-                                  const Row(
-                                    children: [
-                                      U.Image(
-                                        size: 30,
-                                        path: U.Images.orderIcon,
-                                        color: U.Theme.primary,
-                                      ),
-                                      SizedBox(width: 5),
-                                      U.Text(
-                                        'سبدخرید',
-                                        size: U.TextSize.xl,
-                                        weight: U.TextWeight.medium,
-                                      ),
-                                      Spacer(),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 5),
-                                  const U.Divider.horizontal(
-                                    space: 0,
-                                    color: U.Theme.secondary,
-                                  ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: ListView(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 15,
-                                      ),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: U.Theme.background,
+          appBar: U.AppBar.secondary(
+            title: 'تکمیل خرید',
+            onBackPressed: () => GoRouter.of(context).pop(),
+          ),
+          body: BlocBuilder<CheckoutCubit, CheckoutState>(
+            builder: (context, state) {
+              var checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
+              return state.loading
+                  ? const U.Loading()
+                  : Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(12.0),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1000),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 60,
+                              child: U.Card(
+                                padding: const EdgeInsets.all(18),
+                                child: Column(
+                                  children: [
+                                    const Row(
                                       children: [
-                                        ...state.shopItems
-                                            .expand(
-                                              (element) => [
-                                                _CheckoutItem(
-                                                  shopItem: element,
-                                                ),
-                                                if (state.shopItems.last !=
-                                                    element)
-                                                  const U.Divider.horizontal(),
-                                              ],
-                                            )
-                                            .toList(),
+                                        U.Image(
+                                          size: 30,
+                                          path: U.Images.orderIcon,
+                                          color: U.Theme.primary,
+                                        ),
+                                        SizedBox(width: 5),
+                                        U.Text(
+                                          'سبدخرید',
+                                          size: U.TextSize.lg,
+                                          weight: U.TextWeight.medium,
+                                        ),
+                                        Spacer(),
                                       ],
                                     ),
-                                  ),
-                                  const U.Divider.horizontal(
-                                    space: 0,
-                                    color: U.Theme.secondary,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 15,
+                                    const SizedBox(height: 5),
+                                    const U.Divider.horizontal(
+                                      space: 0,
+                                      color: U.Theme.secondary,
                                     ),
-                                    child: Wrap(
-                                      spacing: 20,
-                                      runSpacing: 20,
-                                      alignment: WrapAlignment.center,
-                                      runAlignment: WrapAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const U.Text(
-                                              'جمع سبد: ',
-                                              size: U.TextSize.lg,
-                                              // weight: U.TextWeight.medium,
-                                              color: U.Theme.primary,
-
-                                              // color: U.Theme.outline2,
-                                            ),
-                                            U.Text(
-                                              state.totalAmount.toString(),
-                                              size: U.TextSize.lg,
-                                              weight: U.TextWeight.medium,
-                                            ),
-                                          ],
+                                    Expanded(
+                                      flex: 3,
+                                      child: ListView(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 15,
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const U.Text(
-                                              'جمع تخفیفات: ',
-                                              size: U.TextSize.lg,
-                                              color: U.Theme.primary,
-                                            ),
-                                            U.Text(
-                                              state.discountAmount.toString(),
-                                              size: U.TextSize.lg,
-                                              weight: U.TextWeight.medium,
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const U.Text(
-                                              'قابل پرداخت: ',
-                                              size: U.TextSize.lg,
-                                              color: U.Theme.primary,
-                                            ),
-                                            U.Text(
-                                              state.payableAmount.toString(),
-                                              size: U.TextSize.lg,
-                                              weight: U.TextWeight.medium,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox.square(dimension: 12),
-                          Expanded(
-                            flex: 40,
-                            child: U.Card(
-                              padding: const EdgeInsets.all(18),
-                              child: Column(
-                                children: [
-                                  const Row(
-                                    children: [
-                                      U.Image(
-                                        size: 30,
-                                        path: U.Images.paymentIcon,
-                                        color: U.Theme.primary,
-                                      ),
-                                      SizedBox(width: 5),
-                                      U.Text(
-                                        'اطلاعات ارسال و پرداخت',
-                                        size: U.TextSize.xl,
-                                        weight: U.TextWeight.medium,
-                                      ),
-                                      Spacer(),
-                                    ],
-                                  ),
-                                  const U.Divider.horizontal(
-                                    color: U.Theme.secondary,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      child: Column(
                                         children: [
-                                          const Spacer(),
-                                          U.TextInput(
-                                            title: 'آدرس تحویل',
-                                            hintText: 'استان، شهر، منطقه...',
-                                            controller:
-                                                checkoutCubit.addressCtrl,
-                                          ),
-                                          const Spacer(),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: U.TextInput(
-                                                  title: 'کد تخفیف',
-                                                  hintText: 'ABCXyz10%',
-                                                  controller: checkoutCubit
-                                                      .discountCtrl,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              U.IconButton(
-                                                icon: U.Images.discountIcon,
-                                                disabled: state.paymentLoading,
-                                                loading: state.discountLoading,
-                                                toolTip: 'اعمال کد تخفیف',
-                                                onPressed: checkoutCubit
-                                                    .onDiscountApplyPressed,
-                                              ),
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                          U.Button(
-                                            title: 'پرداخت',
-                                            size: U.ButtonSize.lg,
-                                            disabled: state.discountLoading,
-                                            loading: state.paymentLoading,
-                                            onPressed:
-                                                checkoutCubit.onPaymentPressed,
-                                          ),
-                                          // const Spacer(),
+                                          ...state.shopItems
+                                              .expand(
+                                                (element) => [
+                                                  _CheckoutItem(
+                                                    shopItem: element,
+                                                  ),
+                                                  if (state.shopItems.last !=
+                                                      element)
+                                                    const U
+                                                        .Divider.horizontal(),
+                                                ],
+                                              )
+                                              .toList(),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    const U.Divider.horizontal(
+                                      space: 0,
+                                      color: U.Theme.secondary,
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                      ),
+                                      child: Wrap(
+                                        spacing: 20,
+                                        runSpacing: 20,
+                                        alignment: WrapAlignment.center,
+                                        runAlignment: WrapAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const U.Text(
+                                                'جمع سبد: ',
+                                                size: U.TextSize.md,
+                                                color: U.Theme.primary,
+                                              ),
+                                              U.Text(
+                                                state.totalAmount.toString(),
+                                                size: U.TextSize.md,
+                                                weight: U.TextWeight.medium,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const U.Text(
+                                                'جمع تخفیفات: ',
+                                                size: U.TextSize.md,
+                                                color: U.Theme.primary,
+                                              ),
+                                              U.Text(
+                                                state.discountAmount.toString(),
+                                                size: U.TextSize.md,
+                                                weight: U.TextWeight.medium,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const U.Text(
+                                                'قابل پرداخت: ',
+                                                size: U.TextSize.md,
+                                                color: U.Theme.primary,
+                                              ),
+                                              U.Text(
+                                                state.payableAmount.toString(),
+                                                size: U.TextSize.md,
+                                                weight: U.TextWeight.medium,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 12),
+                            Expanded(
+                              flex: 40,
+                              child: U.Card(
+                                padding: const EdgeInsets.all(18),
+                                child: Column(
+                                  children: [
+                                    const Row(
+                                      children: [
+                                        U.Image(
+                                          size: 30,
+                                          path: U.Images.paymentIcon,
+                                          color: U.Theme.primary,
+                                        ),
+                                        SizedBox(width: 5),
+                                        U.Text(
+                                          'اطلاعات ارسال و پرداخت',
+                                          size: U.TextSize.lg,
+                                          weight: U.TextWeight.medium,
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                    const U.Divider.horizontal(
+                                      color: U.Theme.secondary,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Expanded(
+                                      flex: 10,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        child: ListView(
+                                          children: [
+                                            U.TextInput(
+                                              title: 'آدرس تحویل',
+                                              hintText: 'استان، شهر، منطقه...',
+                                              controller:
+                                                  checkoutCubit.addressCtrl,
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: U.TextInput(
+                                                    title: 'کد تخفیف',
+                                                    hintText: 'ABCXyz10%',
+                                                    controller: checkoutCubit
+                                                        .discountCtrl,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                U.IconButton(
+                                                  icon: U.Images.discountIcon,
+                                                  disabled:
+                                                      state.paymentLoading,
+                                                  loading:
+                                                      state.discountLoading,
+                                                  toolTip: 'اعمال کد تخفیف',
+                                                  onPressed: checkoutCubit
+                                                      .onDiscountApplyPressed,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 20),
+                                            U.Button(
+                                              title: 'پرداخت',
+                                              size: U.ButtonSize.lg,
+                                              disabled: state.discountLoading,
+                                              loading: state.paymentLoading,
+                                              onPressed: checkoutCubit
+                                                  .onPaymentPressed,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-          },
+                    );
+            },
+          ),
         ),
       ),
     );
@@ -265,35 +266,51 @@ class _CheckoutItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
+    return Padding(
       padding: const EdgeInsets.all(5),
       child: Row(
         children: [
           U.Image(
+            size: 50,
             path: shopItem.product.image,
           ),
           const SizedBox(width: 8),
-          U.Text(
-            shopItem.product.title,
-            size: U.TextSize.lg,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                U.Text(
+                  shopItem.product.title,
+                  size: U.TextSize.sm,
+                  weight: U.TextWeight.medium,
+                ),
+                Row(
+                  children: [
+                    U.Text(
+                      shopItem.product.price.toString(),
+                      size: U.TextSize.sm,
+                    ),
+                    const SizedBox(width: 8),
+                    const U.Text(
+                      '*',
+                      size: U.TextSize.sm,
+                      weight: U.TextWeight.bold,
+                      color: U.Theme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    U.Text(
+                      shopItem.count.toString(),
+                      size: U.TextSize.sm,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const SizedBox(width: 8),
-          const U.Text(
-            '*',
-            size: U.TextSize.xl,
-            weight: U.TextWeight.bold,
-            color: U.Theme.primary,
-          ),
-          const SizedBox(width: 8),
-          U.Text(
-            shopItem.count.toString(),
-            size: U.TextSize.lg,
-          ),
-          const Spacer(),
+          const SizedBox(width: 10),
           U.Text(
             (shopItem.product.price * shopItem.count).toString(),
-            size: U.TextSize.lg,
+            size: U.TextSize.sm,
           ),
         ],
       ),

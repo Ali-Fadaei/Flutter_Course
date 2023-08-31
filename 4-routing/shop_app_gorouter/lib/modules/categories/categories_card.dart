@@ -51,7 +51,7 @@ class CategoryCard extends StatelessWidget {
             ),
             U.Text(
               category.title,
-              size: U.TextSize.xl,
+              size: U.TextSize.lg,
               weight: U.TextWeight.medium,
             ),
           ],
