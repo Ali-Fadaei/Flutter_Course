@@ -43,21 +43,21 @@ class CategoryPage extends StatelessWidget {
         builder: (context, state) {
           var categoryCubit = BlocProvider.of<CategoryCubit>(context);
           return Scaffold(
-            body: Container(
-              color: U.Theme.background,
+            backgroundColor: U.Theme.background,
+            appBar: U.AppBar.secondary(
+              title: state.category?.title ?? categoryTitle,
+              onBackPressed: () => GoRouter.of(context).pop(),
+              action: U.IconButton(
+                icon: U.Images.filterIcon,
+                onPressed: () => CategoryFilterBtms.show(
+                  context,
+                  categoryCubit: categoryCubit,
+                ),
+              ),
+            ),
+            body: SizedBox.expand(
               child: Column(
                 children: [
-                  U.AppBar.secondary(
-                    title: state.category?.title ?? categoryTitle,
-                    onBackPressed: () => GoRouter.of(context).pop(),
-                    action: U.IconButton(
-                      icon: U.Images.filterIcon,
-                      onPressed: () => CategoryFilterBtms.show(
-                        context,
-                        categoryCubit: categoryCubit,
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),

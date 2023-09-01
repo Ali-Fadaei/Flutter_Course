@@ -39,21 +39,21 @@ class SearchPage extends StatelessWidget {
       child: Builder(builder: (context) {
         var searchCubit = BlocProvider.of<SearchCubit>(context);
         return Scaffold(
-          body: Container(
-            color: U.Theme.background,
+          backgroundColor: U.Theme.background,
+          appBar: U.AppBar.secondary(
+            title: 'جستجوی محصولات',
+            onBackPressed: () => GoRouter.of(context).pop(),
+            action: U.IconButton(
+              onPressed: () => SearchFilterBtms.show(
+                context,
+                searchCubit: searchCubit,
+              ),
+              icon: U.Images.filterIcon,
+            ),
+          ),
+          body: SizedBox.expand(
             child: Column(
               children: [
-                U.AppBar.secondary(
-                  title: 'جستجوی محصولات',
-                  onBackPressed: () => GoRouter.of(context).pop(),
-                  action: U.IconButton(
-                    onPressed: () => SearchFilterBtms.show(
-                      context,
-                      searchCubit: searchCubit,
-                    ),
-                    icon: U.Images.filterIcon,
-                  ),
-                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
