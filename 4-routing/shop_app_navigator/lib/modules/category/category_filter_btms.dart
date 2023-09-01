@@ -32,7 +32,10 @@ class CategoryFilterBtms extends StatelessWidget {
         children: [
           Row(
             children: [
-              const U.Image(path: U.Images.filterIcon),
+              const U.Image(
+                path: U.Images.filterIcon,
+                size: 24,
+              ),
               const SizedBox(width: 8),
               U.Text(
                 'فیلتر محصولات ${categoryCubit.state.category?.title ?? ''}',

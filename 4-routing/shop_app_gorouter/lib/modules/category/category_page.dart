@@ -50,12 +50,12 @@ class CategoryPage extends StatelessWidget {
                   U.AppBar.secondary(
                     title: state.category?.title ?? categoryTitle,
                     onBackPressed: () => GoRouter.of(context).pop(),
-                    action: IconButton(
+                    action: U.IconButton(
+                      icon: U.Images.filterIcon,
                       onPressed: () => CategoryFilterBtms.show(
                         context,
                         categoryCubit: categoryCubit,
                       ),
-                      icon: const U.Image(path: U.Images.filterIcon),
                     ),
                   ),
                   Padding(

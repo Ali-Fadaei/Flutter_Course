@@ -35,6 +35,7 @@ class RadioButton<T> extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           U.Image(
+            size: 20,
             path: enabled
                 ? U.Images.radioBoxFilledIcon
                 : U.Images.radioBoxEmptyIcon,

@@ -46,12 +46,12 @@ class SearchPage extends StatelessWidget {
                 U.AppBar.secondary(
                   title: 'جستجوی محصولات',
                   onBackPressed: () => GoRouter.of(context).pop(),
-                  action: IconButton(
+                  action: U.IconButton(
                     onPressed: () => SearchFilterBtms.show(
                       context,
                       searchCubit: searchCubit,
                     ),
-                    icon: const U.Image(path: U.Images.filterIcon),
+                    icon: U.Images.filterIcon,
                   ),
                 ),
                 Padding(

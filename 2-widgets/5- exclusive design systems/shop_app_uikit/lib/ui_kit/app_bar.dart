@@ -44,17 +44,20 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
         textDirection: TextDirection.ltr,
         children: [
           isPrimary
-              ? IconButton(
+              ? U.IconButton(
+                  icon: U.Images.menuIcon,
                   onPressed: onMenuPressed,
-                  icon: const U.Image(path: U.Images.menuIcon),
                 )
-              : IconButton(
+              : U.IconButton(
+                  icon: U.Images.arrowLeftIcon,
                   onPressed: onBackPressed,
-                  icon: const U.Image(path: U.Images.arrowLeftIcon),
                 ),
           const Spacer(),
           title == null
-              ? const U.Image(path: U.Images.shopLogo)
+              ? const U.Image(
+                  path: U.Images.shopLogo,
+                  size: 110,
+                )
               : U.Text(
                   title!,
                   size: U.TextSize.xxl,
@@ -62,9 +65,9 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
           const Spacer(),
           isPrimary
-              ? IconButton(
+              ? U.IconButton(
+                  icon: U.Images.notifIcon,
                   onPressed: onNotifPressed,
-                  icon: const U.Image(path: U.Images.notifIcon),
                 )
               : action ?? const SizedBox(width: 40)
         ],

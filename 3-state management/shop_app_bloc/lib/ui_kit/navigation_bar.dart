@@ -101,6 +101,7 @@ class _NavigationBarDestination extends StatelessWidget {
             children: [
               U.Image(
                 path: icon,
+                size: 24,
                 color: isSelected ? U.Theme.primary : U.Theme.secondary,
               ),
               const Spacer(),

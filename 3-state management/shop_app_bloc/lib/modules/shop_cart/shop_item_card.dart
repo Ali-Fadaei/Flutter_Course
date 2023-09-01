@@ -66,9 +66,9 @@ class ShopCardItem extends StatelessWidget {
                 U.Counter(
                   count: shopItem.count,
                   size: U.CounterSize.md,
-                  onIncrementer: () =>
+                  onAddPressed: () =>
                       shopCartCubit.onAddtoShopCartPressed(shopItem.product),
-                  onDecrementer: () => shopCartCubit
+                  onRemovePressed: () => shopCartCubit
                       .onRemovefromShopCartPressed(shopItem.product),
                 ),
                 const Spacer(),

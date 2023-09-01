@@ -137,7 +137,7 @@ class _StorePageState extends State<StorePage> {
                         onRemovefromShopCartPressed:
                             widget.onRemovefromShopCartPressed,
                       ),
-                      if (element == widget.products.last)
+                      if (element == widget.products.reversed.last)
                         const SizedBox(width: 8),
                     ],
                   )

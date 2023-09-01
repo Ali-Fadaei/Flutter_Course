@@ -49,18 +49,22 @@ class _TextInputState extends State<TextInput> {
       borderRadius: BorderRadius.circular(U.Theme.radius),
       onTap: () => focusNode.requestFocus(),
       child: U.Card(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
         borderColor: hasFocus ? U.Theme.primary : null,
+        height: 45,
         child: Row(
           children: [
+            const SizedBox(width: 10),
             Stack(
               children: [
                 if (widget.isRequired)
                   const Positioned(
-                    top: 0,
+                    top: 10,
                     left: 0,
                     child: SizedBox(
-                      child: U.Image(path: U.Images.requiredIcon),
+                      child: U.Image(
+                        path: U.Images.requiredIcon,
+                        size: 6,
+                      ),
                     ),
                   ),
                 Align(
@@ -73,7 +77,7 @@ class _TextInputState extends State<TextInput> {
                 ),
               ],
             ),
-            const SizedBox(width: 5),
+            const SizedBox(width: 3),
             Expanded(
               child: TextField(
                 focusNode: focusNode,

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 abstract class Images {
   /// Logos
-  static const shopLogo = 'assets/logos/Amazon.png';
+  static const shopLogo = 'assets/logos/Amazon1.png';
 
   // Icons
   static const addIcon = 'assets/icons/add.png';
@@ -16,6 +16,7 @@ abstract class Images {
   static const notifIcon = 'assets/icons/notif.png';
   static const profileIcon = 'assets/icons/profile.png';
   static const removeIcon = 'assets/icons/remove.png';
+  static const clearIcon = 'assets/icons/clear.png';
   static const searchIcon = 'assets/icons/search.png';
   static const shareIcon = 'assets/icons/share.png';
   static const shopCartIcon = 'assets/icons/shopCart.png';
@@ -25,7 +26,6 @@ abstract class Images {
   static const radioBoxFilledIcon = 'assets/icons/radio_box_fill.png';
   static const radioBoxEmptyIcon = 'assets/icons/radio_box_empty.png';
   static const requiredIcon = 'assets/icons/required.png';
-  static const removIcon = 'assets/icons/removIcon.png';
   static const orderIcon = 'assets/icons/order.png';
   static const paymentIcon = 'assets/icons/payment.png';
   static const userInfoIcon = 'assets/icons/user_info.png';
