@@ -9,16 +9,16 @@ class Counter extends StatelessWidget {
 
   final CounterSize size;
 
-  final void Function() onIncrementer;
+  final void Function() onAddPressed;
 
-  final void Function() onDecrementer;
+  final void Function() onRemovePressed;
 
   const Counter({
     super.key,
     required this.count,
     this.size = CounterSize.md,
-    required this.onIncrementer,
-    required this.onDecrementer,
+    required this.onAddPressed,
+    required this.onRemovePressed,
   });
 
   double get _size {
@@ -46,13 +46,11 @@ class Counter extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            onPressed: onIncrementer,
-            icon: const U.Image(
-              size: 12,
-              path: U.Images.addIcon,
-              color: U.Theme.primary,
-            ),
+          U.IconButton(
+            icon: U.Images.addIcon,
+            size: U.IconButtonSize.sm,
+            iconColor: U.Theme.primary,
+            onPressed: onAddPressed,
           ),
           const SizedBox(width: 5),
           U.Card(
@@ -68,13 +66,10 @@ class Counter extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 5),
-          IconButton(
-            onPressed: onDecrementer,
-            icon: const U.Image(
-              size: 12,
-              path: U.Images.removIcon,
-              color: U.Theme.secondary,
-            ),
+          U.IconButton(
+            icon: count == 1 ? U.Images.removeIcon : U.Images.minIcon,
+            size: U.IconButtonSize.sm,
+            onPressed: onRemovePressed,
           ),
         ],
       ),

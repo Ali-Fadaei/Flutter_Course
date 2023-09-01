@@ -60,15 +60,19 @@ class _SearchInputState extends State<SearchInput> {
       borderRadius: BorderRadius.circular(U.Theme.radius),
       onTap: () => focusNode.requestFocus(),
       child: U.Card(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        height: 45,
         borderColor: hasFocus ? U.Theme.primary : null,
         child: Row(
           children: [
+            const SizedBox(width: 5),
             IconButton(
               onPressed: _onSearch,
-              icon: const U.Image(path: U.Images.searchIcon),
+              icon: const U.Image(
+                path: U.Images.searchIcon,
+                size: 20,
+              ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 3),
             Expanded(
               child: TextField(
                 focusNode: focusNode,
@@ -92,13 +96,17 @@ class _SearchInputState extends State<SearchInput> {
                 ),
               ),
             ),
-            if (!textIsEmpty) ...[
-              const SizedBox(width: 4),
-              GestureDetector(
-                onTap: () => widget.controller.clear(),
-                child: const U.Image(path: U.Images.removeIcon),
+            if (!textIsEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: GestureDetector(
+                  onTap: () => widget.controller.clear(),
+                  child: const U.Image(
+                    path: U.Images.clearIcon,
+                    size: 18,
+                  ),
+                ),
               ),
-            ],
           ],
         ),
       ),

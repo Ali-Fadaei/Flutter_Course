@@ -24,6 +24,7 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(useMaterial3: true),
           scrollBehavior: const MaterialScrollBehavior().copyWith(
+            physics: const BouncingScrollPhysics(),
             dragDevices: {
               PointerDeviceKind.mouse,
               PointerDeviceKind.touch,

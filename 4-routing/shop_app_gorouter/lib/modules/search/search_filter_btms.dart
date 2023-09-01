@@ -32,7 +32,10 @@ class SearchFilterBtms extends StatelessWidget {
         children: [
           const Row(
             children: [
-              U.Image(path: U.Images.filterIcon),
+              U.Image(
+                path: U.Images.filterIcon,
+                size: 24,
+              ),
               SizedBox(width: 8),
               U.Text(
                 'فیلتر جستحو',

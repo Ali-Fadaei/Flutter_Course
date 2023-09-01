@@ -41,18 +41,15 @@ class CategoryPage extends StatelessWidget {
         builder: (context, state) {
           var categoryCubit = BlocProvider.of<CategoryCubit>(context);
           return Scaffold(
+            backgroundColor: U.Theme.background,
             appBar: U.AppBar.secondary(
               title: (state.category?.title) ?? 'دسته‌بندی',
               onBackPressed: () => Navigator.of(context).pop(),
-              action: IconButton(
-                onPressed: () {
-                  CategoryFilterBtms.show(
-                    context,
-                    categoryCubit: categoryCubit,
-                  );
-                },
-                icon: const U.Image(
-                  path: U.Images.filterIcon,
+              action: U.IconButton(
+                icon: U.Images.filterIcon,
+                onPressed: () => CategoryFilterBtms.show(
+                  context,
+                  categoryCubit: categoryCubit,
                 ),
               ),
             ),

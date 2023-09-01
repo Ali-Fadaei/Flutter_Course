@@ -3,7 +3,7 @@ import './ui_kit.dart' as U;
 
 enum IconButtonSize { sm, md, lg }
 
-enum IconButtonColor { primary, secondary }
+enum IconButtonColor { neutral, primary, secondary }
 
 class IconButton extends StatelessWidget {
   ///
@@ -19,27 +19,30 @@ class IconButton extends StatelessWidget {
 
   final IconButtonColor color;
 
-  final void Function() onPressed;
+  final Color? iconColor;
+
+  final void Function()? onPressed;
 
   const IconButton({
     super.key,
     required this.icon,
-    required this.onPressed,
+    this.onPressed,
     this.toolTip = "",
     this.loading = false,
     this.disabled = false,
     this.size = IconButtonSize.md,
-    this.color = IconButtonColor.primary,
+    this.color = IconButtonColor.neutral,
+    this.iconColor,
   });
 
   double get _size {
     switch (size) {
       case IconButtonSize.sm:
-        return 40;
+        return 35;
       case IconButtonSize.md:
-        return 50;
+        return 40;
       case IconButtonSize.lg:
-        return 60;
+        return 45;
     }
   }
 
@@ -56,6 +59,11 @@ class IconButton extends StatelessWidget {
           background: U.Theme.secondary.withOpacity(opacity),
           foreground: U.Theme.onSecondary.withOpacity(opacity),
         );
+      case IconButtonColor.neutral:
+        return (
+          background: Colors.transparent,
+          foreground: U.Theme.onBackground.withOpacity(opacity),
+        );
     }
   }
 
@@ -69,8 +77,10 @@ class IconButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(U.Theme.radius),
           onTap: loading || disabled ? null : onPressed,
-          child: SizedBox.square(
-            dimension: _size,
+          child: Container(
+            height: _size,
+            width: _size,
+            padding: const EdgeInsets.all(8),
             child: loading
                 ? U.Loading(
                     isSmall: true,
@@ -78,8 +88,7 @@ class IconButton extends StatelessWidget {
                   )
                 : U.Image(
                     path: icon,
-                    color: _colors.foreground,
-                    fit: BoxFit.none,
+                    color: iconColor ?? _colors.foreground,
                   ),
           ),
         ),

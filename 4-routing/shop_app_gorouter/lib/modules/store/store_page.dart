@@ -195,7 +195,8 @@ class StorePage extends StatelessWidget {
                                           (element) => [
                                             const SizedBox(width: 8),
                                             ProductCard(product: element),
-                                            if (element == state.products.last)
+                                            if (element ==
+                                                state.products.reversed.last)
                                               const SizedBox(width: 8),
                                           ],
                                         )
