@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_gorouter/modules/search/cubit/search_cubit.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class SearchFilterBtms extends StatelessWidget {
 //
-  static Future show(
+  static Future<void> show(
     BuildContext context, {
     required SearchCubit searchCubit,
-  }) async {
-    U.BottomSheet.show(
+  }) {
+    return U.BottomSheet.show(
       context,
-      maxHeight: 500,
+      maxHeight: 530,
       builder: (context) {
         return BlocProvider.value(
           value: searchCubit,
@@ -31,135 +32,150 @@ class SearchFilterBtms extends StatelessWidget {
         children: [
           const Row(
             children: [
+              U.Image(path: U.Images.filterIcon),
+              SizedBox(width: 8),
               U.Text(
-                'بر اساس امتیاز: ',
-                size: U.TextSize.xl,
+                'فیلتر جستحو',
+                size: U.TextSize.lg,
                 weight: U.TextWeight.medium,
               ),
-              Spacer()
+              Spacer(),
             ],
           ),
-          Row(
+          const U.Divider.horizontal(),
+          const SizedBox(height: 20),
+          const Row(
             children: [
-              BlocBuilder<SearchCubit, SearchState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: U.RangeSlider(
-                      minValue: 0,
-                      maxValue: 5,
-                      divisions: 10,
-                      minRangeValue: state.minRating,
-                      maxRangeValue: state.maxRating,
-                      sign: const Icon(Icons.star, color: Colors.amber),
-                      onChanged: searchCubit.onRatingSliderChanged,
-                    ),
-                  );
-                },
+              U.Text(
+                'بر اساس امتیاز: ',
+                weight: U.TextWeight.medium,
               ),
+              Spacer(),
             ],
           ),
-          const SizedBox(height: 25),
+          BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              return U.RangeSlider(
+                minValue: 0,
+                maxValue: 5,
+                divisions: 10,
+                minRangeValue: state.minRating,
+                maxRangeValue: state.maxRating,
+                sign: const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onChanged: searchCubit.onRatingSliderChanged,
+              );
+            },
+          ),
+          const SizedBox(height: 20),
           const Row(
             children: [
               U.Text(
                 'بر اساس قیمت: ',
-                size: U.TextSize.xl,
                 weight: U.TextWeight.medium,
               ),
-              Spacer()
+              Spacer(),
             ],
           ),
-          Row(
+          BlocBuilder<SearchCubit, SearchState>(
+            buildWhen: (previous, current) =>
+                previous.maxPrice != current.maxPrice ||
+                previous.minPrice != current.minPrice,
+            builder: (context, state) {
+              return U.RangeSlider(
+                minValue: 0,
+                maxValue: 500000000,
+                divisions: 500,
+                minRangeValue: state.minPrice.toDouble(),
+                maxRangeValue: state.maxPrice.toDouble(),
+                sign: const U.Text(' تومان'),
+                showType: U.RangeSliderShowType.int,
+                onChanged: searchCubit.onPriceSliderChanged,
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          const Row(
             children: [
-              BlocBuilder<SearchCubit, SearchState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: U.RangeSlider(
-                      showType: U.RangeSliderShowType.int,
-                      minValue: 0,
-                      maxValue: 500000000,
-                      divisions: 500,
-                      minRangeValue: state.minPrice.toDouble(),
-                      maxRangeValue: state.maxPrice.toDouble(),
-                      sign: const U.Text('تومان'),
-                      onChanged: searchCubit.onPriceSliderChanged,
-                    ),
-                  );
-                },
+              U.Text(
+                'در دسته‌بندی های: ',
+                weight: U.TextWeight.medium,
               ),
+              Spacer(),
             ],
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 10),
           BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               return Row(
-                children: [
-                  const U.Text(
-                    'در دسته‌بندی های: ',
-                    size: U.TextSize.xl,
-                    weight: U.TextWeight.medium,
-                  ),
-                  ...state.categories
-                      .expand((element) => [
-                            const Spacer(),
-                            U.CheckBox(
-                              title: element.title,
-                              isChecked: state.selectedCategories.any(
-                                (e) => element.id == e.id,
-                              ),
-                              onPressed: (checked) =>
-                                  searchCubit.onCategoriesChecked(
-                                checked,
-                                element,
-                              ),
-                            ),
-                            if (state.categories.last != element)
-                              const Spacer(),
-                          ])
-                      .toList(),
-                ],
+                children: state.categories
+                    .expand(
+                      (element) => [
+                        const Spacer(),
+                        U.CheckBox(
+                          title: element.title,
+                          isChecked: state.selectedCategories.any(
+                            (s) => s.id == element.id,
+                          ),
+                          onPressed: (checked) =>
+                              searchCubit.onCategoriesChecked(checked, element),
+                        ),
+                        if (element == state.categories.last) const Spacer(),
+                      ],
+                    )
+                    .toList(),
               );
             },
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 20),
+          const Row(
+            children: [
+              U.Text(
+                'به ترتیب: ',
+                weight: U.TextWeight.medium,
+              ),
+              Spacer(),
+            ],
+          ),
+          const SizedBox(height: 10),
           BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               return Row(
                 children: [
-                  const U.Text(
-                    'به ترتیب: ',
-                    size: U.TextSize.xl,
-                    weight: U.TextWeight.medium,
-                  ),
                   const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.sortId,
-                    value: 1,
+                  U.RadioButton(
                     title: 'قیمت',
-                    onPressed: searchCubit.onSortIdChanged,
-                  ),
-                  const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.sortId,
-                    value: 2,
-                    title: 'امتیاز',
-                    onPressed: searchCubit.onSortIdChanged,
-                  ),
-                  const Spacer(),
-                  const SizedBox(height: 25, child: U.Divider.vertical()),
-                  const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.orderId,
                     value: 1,
-                    title: 'صعودی',
-                    onPressed: searchCubit.onOrderIdChanged,
+                    groupValue: state.sortId,
+                    onPressed: searchCubit.onSortIdChanged,
                   ),
                   const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.orderId,
+                  U.RadioButton(
+                    title: 'امتیاز',
                     value: 2,
+                    groupValue: state.sortId,
+                    onPressed: searchCubit.onSortIdChanged,
+                  ),
+                  const Spacer(),
+                  const SizedBox(
+                    height: 30,
+                    child: U.Divider.vertical(),
+                  ),
+                  const Spacer(),
+                  U.RadioButton(
+                    title: 'صعودی',
+                    value: 1,
+                    groupValue: state.sortId,
+                    onPressed: searchCubit.onSortIdChanged,
+                  ),
+                  const Spacer(),
+                  U.RadioButton(
                     title: 'نزولی',
-                    onPressed: searchCubit.onOrderIdChanged,
+                    value: 2,
+                    groupValue: state.sortId,
+                    onPressed: searchCubit.onSortIdChanged,
                   ),
                   const Spacer(),
                 ],
@@ -169,18 +185,21 @@ class SearchFilterBtms extends StatelessWidget {
           const Spacer(),
           BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
-              return U.Button(
-                loading: state.loading,
-                title: 'اعمال فیلتر',
-                onPressed: () {
-                  searchCubit
-                      .onFilterApplyPressed()
-                      .then((value) => Navigator.of(context).pop());
-                },
+              return SizedBox(
+                width: 500,
+                child: U.Button(
+                  title: 'اعمال فیلتر',
+                  loading: state.loading,
+                  onPressed: () {
+                    searchCubit
+                        .onFilterApplyPressed()
+                        .then((value) => GoRouter.of(context).pop());
+                  },
+                ),
               );
             },
           ),
-          const Spacer(),
+          const SizedBox(height: 15),
         ],
       ),
     );

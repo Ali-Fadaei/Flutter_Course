@@ -14,7 +14,7 @@ class BottomSheet extends StatelessWidget {
       isScrollControlled: true,
       constraints: BoxConstraints(
         maxWidth: maxWidth ?? 1024,
-        maxHeight: maxHeight ?? MediaQuery.of(context).size.height * 0.90,
+        maxHeight: maxHeight ?? MediaQuery.of(context).size.height * 0.80,
       ),
       builder: builder,
     );

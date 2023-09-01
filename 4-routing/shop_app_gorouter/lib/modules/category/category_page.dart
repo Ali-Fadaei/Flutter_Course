@@ -79,11 +79,11 @@ class CategoryPage extends StatelessWidget {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount:
-                                      (MediaQuery.of(context).size.width / 230)
+                                      (MediaQuery.of(context).size.width / 190)
                                           .floor(),
                                   mainAxisSpacing: 20,
                                   crossAxisSpacing: 20,
-                                  childAspectRatio: 2 / 3.2,
+                                  childAspectRatio: 2 / 3.5,
                                 ),
                                 itemCount: state.products.length,
                                 itemBuilder: (context, index) {

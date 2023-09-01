@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_gorouter/modules/category/cubit/category_cubit.dart';
+import 'package:shop_app_gorouter/ui_kit/text.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class CategoryFilterBtms extends StatelessWidget {
 //
-  static Future show(
+  static Future<void> show(
     BuildContext context, {
     required CategoryCubit categoryCubit,
-  }) async {
-    U.BottomSheet.show(
+  }) {
+    return U.BottomSheet.show(
       context,
-      maxHeight: 500,
+      maxHeight: 430,
       builder: (context) {
         return BlocProvider.value(
           value: categoryCubit,
@@ -29,105 +31,118 @@ class CategoryFilterBtms extends StatelessWidget {
     return U.BottomSheet(
       child: Column(
         children: [
+          Row(
+            children: [
+              const U.Image(path: U.Images.filterIcon),
+              const SizedBox(width: 8),
+              U.Text(
+                'فیلتر محصولات ${categoryCubit.state.category?.title ?? ''}',
+                size: TextSize.lg,
+                weight: TextWeight.medium,
+              ),
+              const Spacer(),
+            ],
+          ),
+          const U.Divider.horizontal(),
+          const SizedBox(height: 20),
           const Row(
             children: [
               U.Text(
                 'بر اساس امتیاز: ',
-                size: U.TextSize.xl,
-                weight: U.TextWeight.medium,
+                weight: TextWeight.medium,
               ),
-              Spacer()
+              Spacer(),
             ],
           ),
-          Row(
-            children: [
-              BlocBuilder<CategoryCubit, CategoryState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: U.RangeSlider(
-                      minValue: 0,
-                      maxValue: 5,
-                      divisions: 10,
-                      minRangeValue: state.minRating,
-                      maxRangeValue: state.maxRating,
-                      sign: const Icon(Icons.star, color: Colors.amber),
-                      onChanged: categoryCubit.onRatingSliderChanged,
-                    ),
-                  );
-                },
-              ),
-            ],
+          BlocBuilder<CategoryCubit, CategoryState>(
+            builder: (context, state) {
+              return U.RangeSlider(
+                minValue: 0,
+                maxValue: 5,
+                divisions: 10,
+                minRangeValue: state.minRating,
+                maxRangeValue: state.maxRating,
+                sign: const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onChanged: categoryCubit.onRatingSliderChanged,
+              );
+            },
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 20),
           const Row(
             children: [
               U.Text(
                 'بر اساس قیمت: ',
-                size: U.TextSize.xl,
-                weight: U.TextWeight.medium,
+                weight: TextWeight.medium,
               ),
-              Spacer()
+              Spacer(),
             ],
           ),
-          Row(
+          BlocBuilder<CategoryCubit, CategoryState>(
+            buildWhen: (previous, current) =>
+                previous.maxPrice != current.maxPrice ||
+                previous.minPrice != current.minPrice,
+            builder: (context, state) {
+              return U.RangeSlider(
+                minValue: 0,
+                maxValue: 500000000,
+                divisions: 500,
+                minRangeValue: state.minPrice.toDouble(),
+                maxRangeValue: state.maxPrice.toDouble(),
+                sign: const U.Text(' تومان'),
+                showType: U.RangeSliderShowType.int,
+                onChanged: categoryCubit.onPriceSliderChanged,
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          const Row(
             children: [
-              BlocBuilder<CategoryCubit, CategoryState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: U.RangeSlider(
-                      showType: U.RangeSliderShowType.int,
-                      minValue: 0,
-                      maxValue: 500000000,
-                      divisions: 500,
-                      minRangeValue: state.minPrice.toDouble(),
-                      maxRangeValue: state.maxPrice.toDouble(),
-                      sign: const U.Text('تومان'),
-                      onChanged: categoryCubit.onPriceSliderChanged,
-                    ),
-                  );
-                },
+              U.Text(
+                'به ترتیب: ',
+                weight: TextWeight.medium,
               ),
+              Spacer(),
             ],
           ),
-          const SizedBox(height: 25),
           BlocBuilder<CategoryCubit, CategoryState>(
             builder: (context, state) {
               return Row(
                 children: [
-                  const U.Text(
-                    'به ترتیب: ',
-                    size: U.TextSize.xl,
-                    weight: U.TextWeight.medium,
-                  ),
                   const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.sortId,
-                    value: 1,
+                  U.RadioButton(
                     title: 'قیمت',
-                    onPressed: categoryCubit.onSortIdChanged,
-                  ),
-                  const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.sortId,
-                    value: 2,
-                    title: 'امتیاز',
-                    onPressed: categoryCubit.onSortIdChanged,
-                  ),
-                  const Spacer(),
-                  const SizedBox(height: 25, child: U.Divider.vertical()),
-                  const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.orderId,
                     value: 1,
-                    title: 'صعودی',
-                    onPressed: categoryCubit.onOrderIdChanged,
+                    groupValue: state.sortId,
+                    onPressed: categoryCubit.onSortIdChanged,
                   ),
                   const Spacer(),
-                  U.RadioButton<int>(
-                    groupValue: state.orderId,
+                  U.RadioButton(
+                    title: 'امتیاز',
                     value: 2,
+                    groupValue: state.sortId,
+                    onPressed: categoryCubit.onSortIdChanged,
+                  ),
+                  const Spacer(),
+                  const SizedBox(
+                    height: 30,
+                    child: U.Divider.vertical(),
+                  ),
+                  const Spacer(),
+                  U.RadioButton(
+                    title: 'صعودی',
+                    value: 1,
+                    groupValue: state.sortId,
+                    onPressed: categoryCubit.onSortIdChanged,
+                  ),
+                  const Spacer(),
+                  U.RadioButton(
                     title: 'نزولی',
-                    onPressed: categoryCubit.onOrderIdChanged,
+                    value: 2,
+                    groupValue: state.sortId,
+                    onPressed: categoryCubit.onSortIdChanged,
                   ),
                   const Spacer(),
                 ],
@@ -135,18 +150,23 @@ class CategoryFilterBtms extends StatelessWidget {
             },
           ),
           const Spacer(),
-          BlocBuilder<CategoryCubit, CategoryState>(builder: (context, state) {
-            return U.Button(
-              loading: state.loading,
-              title: 'اعمال فیلتر',
-              onPressed: () {
-                categoryCubit
-                    .onFilterApplyPressed()
-                    .then((value) => Navigator.of(context).pop());
-              },
-            );
-          }),
-          const Spacer(),
+          BlocBuilder<CategoryCubit, CategoryState>(
+            builder: (context, state) {
+              return SizedBox(
+                width: 500,
+                child: U.Button(
+                  title: 'اعمال فیلتر',
+                  loading: state.loading,
+                  onPressed: () {
+                    categoryCubit
+                        .onFilterApplyPressed()
+                        .then((value) => GoRouter.of(context).pop());
+                  },
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 15),
         ],
       ),
     );
