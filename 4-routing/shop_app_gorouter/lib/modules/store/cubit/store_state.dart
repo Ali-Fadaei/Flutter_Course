@@ -6,15 +6,30 @@ class StoreState extends Equatable {
 
   final List<Product> products;
 
-  const StoreState({this.products = const [], this.loading = false});
+  final Product? initialProduct;
 
-  StoreState copyWith({List<Product>? products, bool? loading}) {
+  const StoreState({
+    this.loading = false,
+    this.products = const [],
+    this.initialProduct,
+  });
+
+  StoreState copyWith({
+    bool? loading,
+    List<Product>? products,
+    Product? initialProduct,
+  }) {
     return StoreState(
-      products: products ?? this.products,
       loading: loading ?? this.loading,
+      products: products ?? this.products,
+      initialProduct: initialProduct ?? this.initialProduct,
     );
   }
 
   @override
-  List<Object?> get props => [loading, products];
+  List<Object?> get props => [
+        loading,
+        products,
+        initialProduct,
+      ];
 }

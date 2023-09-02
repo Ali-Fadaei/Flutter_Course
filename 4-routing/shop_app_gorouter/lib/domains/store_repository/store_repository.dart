@@ -9,7 +9,7 @@ class StoreRepository {
 
   List<ShopItem> _shopItems = [];
 
-  final latency = 100;
+  final latency = 1000;
 
   Future<List<Product>> readProducts({
     int? id,

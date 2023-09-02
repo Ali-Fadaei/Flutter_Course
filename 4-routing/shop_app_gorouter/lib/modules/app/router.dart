@@ -1,5 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
@@ -12,7 +13,10 @@ import 'package:shop_app_gorouter/modules/search/search_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_gorouter/modules/store/store_page.dart';
 
+final rootNavKey = GlobalKey<NavigatorState>();
+
 final router = GoRouter(
+  navigatorKey: rootNavKey,
   initialLocation: StorePage.route,
   redirect: (context, state) {
     print(state.uri.toString());
@@ -59,11 +63,16 @@ final router = GoRouter(
             GoRoute(
               path: StorePage.route,
               name: StorePage.route,
-              builder: (context, state) => const StorePage(),
+              builder: (context, state) => StorePage(
+                initialProductId: int.tryParse(
+                  state.uri.queryParameters['id'] ?? '',
+                ),
+              ),
               routes: [
                 GoRoute(
                   path: SearchPage.route,
                   name: SearchPage.route,
+                  parentNavigatorKey: rootNavKey,
                   builder: (context, state) {
                     return SearchPage(
                         searchTitle: state.pathParameters["searchTitle"]!);

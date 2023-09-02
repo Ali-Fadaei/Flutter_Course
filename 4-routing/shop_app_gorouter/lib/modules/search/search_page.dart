@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 import 'package:shop_app_gorouter/modules/search/cubit/search_cubit.dart';
 import 'package:shop_app_gorouter/modules/search/search_filter_btms.dart';
@@ -41,7 +42,7 @@ class SearchPage extends StatelessWidget {
             backgroundColor: U.Theme.background,
             appBar: U.AppBar.secondary(
               title: 'جستجوی محصولات',
-              onBackPressed: () => Navigator.of(context).pop(),
+              onBackPressed: () => GoRouter.of(context).pop(),
               action: U.IconButton(
                 onPressed: () => SearchFilterBtms.show(
                   context,
