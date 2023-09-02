@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_card.dart';
 import 'package:shop_app_gorouter/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_gorouter/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_gorouter/modules/search/search_page.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/cubit/store_cubit.dart';
@@ -42,14 +43,29 @@ class StorePage extends StatelessWidget {
           ),
         ),
       ],
-      child: BlocListener<StoreCubit, StoreState>(
-        listenWhen: (previous, current) =>
-            previous.initialProduct != current.initialProduct,
-        listener: (context, state) {
-          if (state.initialProduct != null) {
-            ProductBottomSheet.show(context, product: state.initialProduct!);
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<StoreCubit, StoreState>(
+            listenWhen: (previous, current) =>
+                previous.initialProduct != current.initialProduct,
+            listener: (context, state) {
+              if (state.initialProduct != null) {
+                ProductBottomSheet.show(context,
+                    product: state.initialProduct!);
+              }
+            },
+          ),
+          BlocListener<HomeCubit, HomeState>(
+            listenWhen: (previous, current) =>
+                previous.selectedDes != current.selectedDes,
+            listener: (context, state) {
+              if (state.selectedDes == 2) {
+                var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+                shopCartCubit.init();
+              }
+            },
+          ),
+        ],
         child: Builder(builder: (context) {
           var storeCubit = BlocProvider.of<StoreCubit>(context);
           return Column(

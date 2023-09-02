@@ -56,13 +56,18 @@ class ProductCard extends StatelessWidget {
             const Spacer(),
             Row(
               children: [
-                U.IconButton(
-                  toolTip: 'اضافه کردن به سبد خرید',
-                  icon: U.Images.addIcon,
-                  size: U.IconButtonSize.sm,
-                  color: U.IconButtonColor.primary,
-                  onPressed: () =>
-                      shopCartCubit.onAddtoShopCartPressed(product),
+                BlocBuilder<ShopCartCubit, ShopCartState>(
+                  builder: (context, state) {
+                    return U.IconButton(
+                      toolTip: 'اضافه کردن به سبد خرید',
+                      icon: U.Images.addIcon,
+                      size: U.IconButtonSize.sm,
+                      color: U.IconButtonColor.primary,
+                      disabled: state.loading,
+                      onPressed: () =>
+                          shopCartCubit.onAddtoShopCartPressed(product),
+                    );
+                  },
                 ),
                 const Spacer(),
                 U.Text(

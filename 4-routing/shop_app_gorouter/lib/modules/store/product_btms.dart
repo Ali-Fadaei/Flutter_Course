@@ -229,6 +229,7 @@ class ProductBottomSheet extends StatelessWidget {
                         )
                       : U.Counter(
                           count: count,
+                          loading: state.loading,
                           size: U.CounterSize.lg,
                           onAddPressed: () =>
                               shopCartCubit.onAddtoShopCartPressed(product),
