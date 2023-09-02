@@ -52,17 +52,20 @@ class IconButton extends StatelessWidget {
       case IconButtonColor.primary:
         return (
           background: U.Theme.primary.withOpacity(opacity),
-          foreground: U.Theme.onPrimary.withOpacity(opacity),
+          foreground: iconColor?.withOpacity(opacity) ??
+              U.Theme.onPrimary.withOpacity(opacity),
         );
       case IconButtonColor.secondary:
         return (
           background: U.Theme.secondary.withOpacity(opacity),
-          foreground: U.Theme.onSecondary.withOpacity(opacity),
+          foreground: iconColor?.withOpacity(opacity) ??
+              U.Theme.onSecondary.withOpacity(opacity),
         );
       case IconButtonColor.neutral:
         return (
           background: Colors.transparent,
-          foreground: U.Theme.onBackground.withOpacity(opacity),
+          foreground: iconColor?.withOpacity(opacity) ??
+              U.Theme.onBackground.withOpacity(opacity),
         );
     }
   }
@@ -88,7 +91,7 @@ class IconButton extends StatelessWidget {
                   )
                 : U.Image(
                     path: icon,
-                    color: iconColor ?? _colors.foreground,
+                    color: _colors.foreground,
                   ),
           ),
         ),

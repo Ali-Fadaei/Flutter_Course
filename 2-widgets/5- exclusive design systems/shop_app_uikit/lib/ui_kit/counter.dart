@@ -9,14 +9,17 @@ class Counter extends StatelessWidget {
 
   final CounterSize size;
 
+  final bool loading;
+
   final void Function() onAddPressed;
 
   final void Function() onRemovePressed;
 
   const Counter({
     super.key,
-    required this.count,
+    this.loading = false,
     this.size = CounterSize.md,
+    required this.count,
     required this.onAddPressed,
     required this.onRemovePressed,
   });
@@ -47,6 +50,7 @@ class Counter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           U.IconButton(
+            disabled: loading,
             icon: U.Images.addIcon,
             size: U.IconButtonSize.sm,
             iconColor: U.Theme.primary,
@@ -57,16 +61,21 @@ class Counter extends StatelessWidget {
             height: _size,
             width: _size,
             child: Center(
-              child: U.Text(
-                count.toString(),
-                size: _textStyle.size,
-                weight: _textStyle.weight,
-                color: U.Theme.onSurface,
-              ),
+              child: loading
+                  ? const U.Loading(
+                      isSmall: true,
+                    )
+                  : U.Text(
+                      count.toString(),
+                      size: _textStyle.size,
+                      weight: _textStyle.weight,
+                      color: U.Theme.onSurface,
+                    ),
             ),
           ),
           const SizedBox(width: 5),
           U.IconButton(
+            disabled: loading,
             icon: count == 1 ? U.Images.removeIcon : U.Images.minIcon,
             size: U.IconButtonSize.sm,
             onPressed: onRemovePressed,
