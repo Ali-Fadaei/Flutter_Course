@@ -72,7 +72,7 @@ final router = GoRouter(
                   name: SearchPage.route,
                   builder: (context, state) {
                     return SearchPage(
-                      initialSearchTitle: state.uri.queryParameters['title'],
+                      searchTitle: state.pathParameters['title']!,
                     );
                   },
                 ),

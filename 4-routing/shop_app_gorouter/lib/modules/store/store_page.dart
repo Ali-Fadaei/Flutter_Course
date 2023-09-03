@@ -96,9 +96,7 @@ class StorePage extends StatelessWidget {
                                 storeCubit.searchCtrl.clear();
                                 GoRouter.of(context).goNamed(
                                   SearchPage.route,
-                                  queryParameters: {
-                                    'title': temp,
-                                  },
+                                  pathParameters: {'title': temp},
                                 );
                               }
                             },

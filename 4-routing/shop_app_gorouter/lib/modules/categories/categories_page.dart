@@ -41,7 +41,7 @@ class CategoriesPage extends StatelessWidget {
                         categoriesCubit.searchCtrl.clear();
                         GoRouter.of(context).pushNamed(
                           SearchPage.route,
-                          queryParameters: {'title': temp},
+                          pathParameters: {'title': temp},
                         );
                       }
                     },

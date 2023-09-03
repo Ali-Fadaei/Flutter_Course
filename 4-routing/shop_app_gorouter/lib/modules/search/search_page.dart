@@ -11,13 +11,13 @@ import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
 class SearchPage extends StatelessWidget {
 //
-  static const route = 'search';
+  static const route = 'search/:title';
 
-  final String? initialSearchTitle;
+  final String searchTitle;
 
   const SearchPage({
     super.key,
-    this.initialSearchTitle = '',
+    required this.searchTitle,
   });
 
   @override
@@ -26,7 +26,7 @@ class SearchPage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SearchCubit(
-            initialSearchTitle: initialSearchTitle,
+            initialSearchTitle: searchTitle,
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),

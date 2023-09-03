@@ -21,6 +21,7 @@ class App extends StatelessWidget {
         create: (context) => AppCubit(),
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(useMaterial3: true),
           builder: (context, child) {
             var width = MediaQuery.of(context).size.width;
             late double temp;
@@ -29,16 +30,15 @@ class App extends StatelessWidget {
                 temp = width;
                 break;
               case > 480 && <= 720:
-                temp = width / 1.05;
+                temp = width * 0.95;
                 break;
               case > 720:
-                temp = width / 1.1;
+                temp = width * 0.90;
                 break;
               default:
             }
             return ResponsiveScaledBox(width: temp, child: child!);
           },
-          theme: ThemeData(useMaterial3: true),
           scrollBehavior: const MaterialScrollBehavior().copyWith(
             physics: const BouncingScrollPhysics(),
             dragDevices: {
