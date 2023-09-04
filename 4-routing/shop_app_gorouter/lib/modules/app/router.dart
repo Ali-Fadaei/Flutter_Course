@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
 import 'package:shop_app_gorouter/modules/category/category_page.dart';
+import 'package:shop_app_gorouter/modules/checkout/checkout_page.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
 import 'package:shop_app_gorouter/modules/home/home_shell.dart';
 // import 'package:shop_app_gorouter/modules/profile/a_page.dart';
@@ -89,6 +90,12 @@ final router = GoRouter(
               path: CartPage.route,
               name: CartPage.route,
               builder: (context, state) => const CartPage(),
+              routes: [
+                GoRoute(
+                    path: CheckOutPage.route,
+                    name: CheckOutPage.route,
+                    builder: (context, state) => const CheckOutPage()),
+              ],
             ),
           ],
         ),

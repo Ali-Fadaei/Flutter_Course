@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
+import 'package:shop_app_gorouter/modules/checkout/checkout_page.dart';
 import 'package:shop_app_gorouter/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_item_card.dart';
@@ -45,26 +47,55 @@ class CartPage extends StatelessWidget {
                                   child: U.Image(path: U.Images.cartEmpty),
                                 ),
                               )
-                            : SingleChildScrollView(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                physics: const BouncingScrollPhysics(),
-                                child: Column(
-                                  children: [
-                                    ...state.shopItems
-                                        .expand(
-                                          (element) => [
-                                            ShopCardItem(shopItem: element),
-                                            const SizedBox(height: 15)
-                                          ],
-                                        )
-                                        .toList(),
-                                    if (state.loading) ...[
-                                      const SizedBox(height: 15),
-                                      const U.Loading()
-                                    ],
-                                  ],
-                                ),
+                            : Stack(
+                                children: [
+                                  SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    physics: const BouncingScrollPhysics(),
+                                    child: Column(
+                                      children: [
+                                        ...state.shopItems
+                                            .expand(
+                                              (element) => [
+                                                ShopCardItem(shopItem: element),
+                                                const SizedBox(height: 15)
+                                              ],
+                                            )
+                                            .toList(),
+                                        if (state.loading) ...[
+                                          const SizedBox(height: 15),
+                                          const U.Loading()
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const Alignment(0, 0.95),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0),
+                                      child: SizedBox(
+                                        width: 500,
+                                        child: U.Button(
+                                          title: "تکمیل خرید",
+                                          color: U.ButtonColor.primary,
+                                          trailing: U.Text(
+                                            "${state.totalAmount.toString()} تومان",
+                                            color: U.Theme.onPrimary,
+                                            size: U.TextSize.lg,
+                                            weight: U.TextWeight.medium,
+                                          ),
+                                          onPressed: () {
+                                            GoRouter.of(context)
+                                                .goNamed(CheckOutPage.route);
+                                          },
+                                          size: U.ButtonSize.lg,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                   ),
                 ],
