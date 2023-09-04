@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shop_app_gorouter/domains/store_repository/models/category.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 
@@ -8,6 +9,7 @@ part 'categories_state.dart';
 class CategoriesCubit extends Cubit<CategoriesState> {
 //
   final StoreRepository storeRepo;
+  final searchCtrl = TextEditingController();
 
   CategoriesCubit({required this.storeRepo}) : super(const CategoriesState()) {
     init();
