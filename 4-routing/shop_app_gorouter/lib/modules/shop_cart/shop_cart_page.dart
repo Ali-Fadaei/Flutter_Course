@@ -87,8 +87,10 @@ class CartPage extends StatelessWidget {
                                             weight: U.TextWeight.medium,
                                           ),
                                           onPressed: () {
-                                            GoRouter.of(context)
-                                                .goNamed(CheckOutPage.route);
+                                            GoRouter.of(context).goNamed(
+                                              CheckoutPage.route,
+                                              extra: state.shopItems,
+                                            );
                                           },
                                           size: U.ButtonSize.lg,
                                         ),

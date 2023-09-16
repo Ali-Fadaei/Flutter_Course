@@ -92,9 +92,13 @@ final router = GoRouter(
               builder: (context, state) => const CartPage(),
               routes: [
                 GoRoute(
-                    path: CheckOutPage.route,
-                    name: CheckOutPage.route,
-                    builder: (context, state) => const CheckOutPage()),
+                  path: CheckoutPage.route,
+                  name: CheckoutPage.route,
+                  parentNavigatorKey: rootNavKey,
+                  builder: (context, state) => CheckoutPage(
+                    initialShopItems: state.extra as dynamic,
+                  ),
+                ),
               ],
             ),
           ],
