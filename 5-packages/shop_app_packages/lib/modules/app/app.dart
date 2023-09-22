@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/app/cubit/app_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_packages/modules/app/router.dart';
 
-// import 'package:shop_app_routing/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class App extends StatelessWidget {
 //
@@ -42,46 +43,13 @@ class App extends StatelessWidget {
             Locale('en', 'US'),
           ],
           locale: const Locale('fa', 'IR'),
+          builder: (context, child) {
+            return ResponsiveScaledBox(
+              width: context.scaledWidth,
+              child: child!,
+            );
+          },
           routerConfig: router,
-          // initialRoute: HomePage.route,
-          // // routes: {
-          // //   '/home': (context) => const HomePage(),
-          // //   '/apage': (context) => const APage(),
-          // //   '/bpage': (context) => const BPage(id: 5),
-          // // },
-          // onGenerateRoute: (settings) {
-          //   switch (settings.name) {
-          //     case HomePage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) {
-          //           return const HomePage();
-          //         },
-          //       );
-
-          //     case APage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) {
-          //           return const APage();
-          //         },
-          //       );
-          //     case BPage.route:
-          //       return MaterialPageRoute(
-          //         settings: settings,
-          //         builder: (context) {
-          //           return BPage(id: settings.arguments as int);
-          //         },
-          //       );
-          //     default:
-          //       return MaterialPageRoute(
-          //         settings: const RouteSettings(name: HomePage.route),
-          //         builder: (context) {
-          //           return const HomePage();
-          //         },
-          //       );
-          //   }
-          // },
         ),
       ),
     );
