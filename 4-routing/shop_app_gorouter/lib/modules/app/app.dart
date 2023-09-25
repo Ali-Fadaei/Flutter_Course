@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 import 'package:shop_app_gorouter/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_gorouter/modules/app/router.dart';
@@ -22,23 +21,6 @@ class App extends StatelessWidget {
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(useMaterial3: true),
-          builder: (context, child) {
-            var width = MediaQuery.of(context).size.width;
-            late double temp;
-            switch (width) {
-              case <= 480:
-                temp = width;
-                break;
-              case > 480 && <= 720:
-                temp = width * 0.95;
-                break;
-              case > 720:
-                temp = width * 0.90;
-                break;
-              default:
-            }
-            return ResponsiveScaledBox(width: temp, child: child!);
-          },
           scrollBehavior: const MaterialScrollBehavior().copyWith(
             physics: const BouncingScrollPhysics(),
             dragDevices: {
