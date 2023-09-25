@@ -37,7 +37,8 @@ class CheckoutPage extends StatelessWidget {
               var checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
               return state.loading
                   ? const U.Loading()
-                  : Padding(
+                  : Container(
+                      alignment: Alignment.center,
                       padding: const EdgeInsets.all(12.0),
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 1000),
