@@ -161,85 +161,80 @@ class CheckoutPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 12),
-                            Expanded(
-                              flex: 40,
-                              child: U.Card(
-                                padding: const EdgeInsets.all(18),
-                                child: Column(
-                                  children: [
-                                    const Row(
+                            U.Card(
+                              padding: const EdgeInsets.all(18),
+                              child: Column(
+                                children: [
+                                  const Row(
+                                    children: [
+                                      U.Image(
+                                        size: 24,
+                                        path: U.Images.paymentIcon,
+                                        color: U.Theme.primary,
+                                      ),
+                                      SizedBox(width: 5),
+                                      U.Text(
+                                        'اطلاعات ارسال و پرداخت',
+                                        size: U.TextSize.lg,
+                                        weight: U.TextWeight.medium,
+                                      ),
+                                      Spacer(),
+                                    ],
+                                  ),
+                                  const U.Divider.horizontal(
+                                    color: U.Theme.secondary,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: Column(
                                       children: [
-                                        U.Image(
-                                          size: 24,
-                                          path: U.Images.paymentIcon,
-                                          color: U.Theme.primary,
+                                        U.TextInput(
+                                          title: 'آدرس تحویل',
+                                          hintText: 'استان، شهر، منطقه...',
+                                          isRequired: true,
+                                          controller: checkoutCubit.addressCtrl,
                                         ),
-                                        SizedBox(width: 5),
-                                        U.Text(
-                                          'اطلاعات ارسال و پرداخت',
-                                          size: U.TextSize.lg,
-                                          weight: U.TextWeight.medium,
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: U.TextInput(
+                                                title: 'کد تخفیف',
+                                                hintText: 'ABCXyz10%',
+                                                controller:
+                                                    checkoutCubit.discountCtrl,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            U.IconButton(
+                                              icon: U.Images.discountIcon,
+                                              color:
+                                                  U.IconButtonColor.secondary,
+                                              size: U.IconButtonSize.lg,
+                                              disabled: state.paymentLoading,
+                                              loading: state.discountLoading,
+                                              toolTip: 'اعمال کد تخفیف',
+                                              onPressed: checkoutCubit
+                                                  .onDiscountApplyPressed,
+                                            ),
+                                          ],
                                         ),
-                                        Spacer(),
+                                        const SizedBox(height: 20),
+                                        U.Button(
+                                          title: 'پرداخت',
+                                          size: U.ButtonSize.lg,
+                                          disabled: state.discountLoading,
+                                          loading: state.paymentLoading,
+                                          onPressed:
+                                              checkoutCubit.onPaymentPressed,
+                                        ),
                                       ],
                                     ),
-                                    const U.Divider.horizontal(
-                                      color: U.Theme.secondary,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Expanded(
-                                      flex: 10,
-                                      child: ListView(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                        ),
-                                        children: [
-                                          U.TextInput(
-                                            title: 'آدرس تحویل',
-                                            hintText: 'استان، شهر، منطقه...',
-                                            isRequired: true,
-                                            controller:
-                                                checkoutCubit.addressCtrl,
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: U.TextInput(
-                                                  title: 'کد تخفیف',
-                                                  hintText: 'ABCXyz10%',
-                                                  controller: checkoutCubit
-                                                      .discountCtrl,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              U.IconButton(
-                                                icon: U.Images.discountIcon,
-                                                color:
-                                                    U.IconButtonColor.secondary,
-                                                size: U.IconButtonSize.lg,
-                                                disabled: state.paymentLoading,
-                                                loading: state.discountLoading,
-                                                toolTip: 'اعمال کد تخفیف',
-                                                onPressed: checkoutCubit
-                                                    .onDiscountApplyPressed,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 20),
-                                          U.Button(
-                                            title: 'پرداخت',
-                                            size: U.ButtonSize.lg,
-                                            disabled: state.discountLoading,
-                                            loading: state.paymentLoading,
-                                            onPressed:
-                                                checkoutCubit.onPaymentPressed,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
