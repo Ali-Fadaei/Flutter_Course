@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/categories/categories_card.dart';
 import 'package:shop_app_packages/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/search/search_page.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/cubit/store_cubit.dart';
@@ -41,17 +43,45 @@ class StorePage extends StatelessWidget {
             storeRepo: storeRepository,
           ),
         ),
+        BlocProvider(
+          create: (context) => FavoritesCubit(
+            storeRepo: storeRepository,
+          ),
+        )
       ],
-      child: BlocListener<StoreCubit, StoreState>(
-        listenWhen: (previous, current) =>
-            previous.initialProduct != current.initialProduct,
-        listener: (context, state) {
-          if (state.initialProduct != null) {
-            ProductBottomSheet.show(context, product: state.initialProduct!);
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state.selectedDes == 2) {
+                var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+                shopCartCubit.init();
+              }
+            },
+          ),
+          BlocListener<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state.selectedDes == 2) {
+                var favoriteCubit = BlocProvider.of<FavoritesCubit>(context);
+                favoriteCubit.init();
+              }
+            },
+          ),
+          BlocListener<StoreCubit, StoreState>(
+            listenWhen: (previous, current) =>
+                previous.initialProduct != current.initialProduct,
+            listener: (context, state) {
+              if (state.initialProduct != null) {
+                ProductBottomSheet.show(context,
+                    product: state.initialProduct!);
+              }
+            },
+          ),
+        ],
         child: Builder(builder: (context) {
           var storeCubit = BlocProvider.of<StoreCubit>(context);
+          var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+          var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
           return Container(
             color: U.Theme.background,
             child: Column(
@@ -122,7 +152,11 @@ class StorePage extends StatelessWidget {
                                           .expand(
                                             (element) => [
                                               const SizedBox(width: 8),
-                                              ProductCard(product: element),
+                                              ProductCard(
+                                                product: element,
+                                                shopCartCubit: shopCartCubit,
+                                                favoritesCubit: favoritesCubit,
+                                              ),
                                               if (element ==
                                                   state.products.last)
                                                 const SizedBox(width: 8),
@@ -215,7 +249,11 @@ class StorePage extends StatelessWidget {
                                           .expand(
                                             (element) => [
                                               const SizedBox(width: 8),
-                                              ProductCard(product: element),
+                                              ProductCard(
+                                                product: element,
+                                                shopCartCubit: shopCartCubit,
+                                                favoritesCubit: favoritesCubit,
+                                              ),
                                               if (element ==
                                                   state.products.reversed.last)
                                                 const SizedBox(width: 8),

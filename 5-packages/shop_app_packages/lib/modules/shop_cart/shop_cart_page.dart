@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/checkout/checkout_page.dart';
+import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/shop_item_card.dart';
@@ -16,17 +17,38 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShopCartCubit(
-        storeRepo: RepositoryProvider.of<StoreRepository>(context),
-      ),
-      child: BlocListener<HomeCubit, HomeState>(
-        listener: (context, state) {
-          if (state.selectedDes == 3) {
-            var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
-            shopCartCubit.init();
-          }
-        },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => FavoritesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state.selectedDes == 3) {
+                var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+                shopCartCubit.init();
+              }
+            },
+          ),
+          BlocListener<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state.selectedDes == 3) {
+                var favoriteCubit = BlocProvider.of<FavoritesCubit>(context);
+                favoriteCubit.init();
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<ShopCartCubit, ShopCartState>(
           builder: (context, state) {
             return Container(

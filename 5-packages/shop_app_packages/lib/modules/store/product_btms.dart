@@ -86,6 +86,7 @@ class ProductBottomSheet extends StatelessWidget {
                     const Spacer(),
                     BlocBuilder<FavoritesCubit, FavoritesState>(
                       buildWhen: (previous, current) =>
+                          previous.loading != current.loading ||
                           previous.favorites != current.favorites,
                       builder: (context, state) {
                         var isFav = state.favorites
@@ -229,6 +230,7 @@ class ProductBottomSheet extends StatelessWidget {
                         )
                       : U.Counter(
                           count: count,
+                          loading: state.loading,
                           size: U.CounterSize.lg,
                           onAddPressed: () =>
                               shopCartCubit.onAddtoShopCartPressed(product),
