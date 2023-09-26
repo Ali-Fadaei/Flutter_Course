@@ -85,6 +85,7 @@ class _TextInputState extends State<TextInput> {
                 onEditingComplete: widget.onEditingCompleted != null
                     ? () => widget.onEditingCompleted!(widget.controller.text)
                     : null,
+                onTapOutside: (event) => focusNode.unfocus(),
                 style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
