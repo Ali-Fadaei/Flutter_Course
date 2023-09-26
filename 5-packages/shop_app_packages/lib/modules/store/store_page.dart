@@ -38,11 +38,11 @@ class StorePage extends StatelessWidget {
             initialProductId: initialProductId,
           ),
         ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: storeRepository,
-          ),
-        ),
+        // BlocProvider(
+        //   create: (context) => ShopCartCubit(
+        //     storeRepo: storeRepository,
+        //   ),
+        // ),
         BlocProvider(
           create: (context) => FavoritesCubit(
             storeRepo: storeRepository,
@@ -59,21 +59,23 @@ class StorePage extends StatelessWidget {
               }
             },
           ),
-          BlocListener<HomeCubit, HomeState>(
-            listener: (context, state) {
-              if (state.selectedDes == 2) {
-                var favoriteCubit = BlocProvider.of<FavoritesCubit>(context);
-                favoriteCubit.init();
-              }
-            },
-          ),
           BlocListener<StoreCubit, StoreState>(
             listenWhen: (previous, current) =>
                 previous.initialProduct != current.initialProduct,
             listener: (context, state) {
               if (state.initialProduct != null) {
-                ProductBottomSheet.show(context,
-                    product: state.initialProduct!);
+                ProductBottomSheet.show(
+                  context,
+                  product: state.initialProduct!,
+                );
+              }
+            },
+          ),
+          BlocListener<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state.selectedDes == 2) {
+                var favoriteCubit = BlocProvider.of<FavoritesCubit>(context);
+                favoriteCubit.init();
               }
             },
           ),

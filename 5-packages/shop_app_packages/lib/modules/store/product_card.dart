@@ -60,24 +60,37 @@ class ProductCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Row(
-              children: [
-                U.IconButton(
-                  toolTip: 'اضافه کردن به سبد خرید',
-                  icon: U.Images.addIcon,
-                  size: U.IconButtonSize.sm,
-                  color: U.IconButtonColor.primary,
-                  onPressed: () =>
-                      shopCartCubit.onAddtoShopCartPressed(product),
-                ),
-                const Spacer(),
-                U.Text(
-                  '${product.price} تومان',
-                  font: U.TextFont.iranSans,
-                  size: U.TextSize.sm,
-                  weight: U.TextWeight.medium,
-                ),
-              ],
+            BlocBuilder<ShopCartCubit, ShopCartState>(
+              builder: (context, state) {
+                var count = state.shopItems
+                    .where((element) => element.product == product)
+                    .firstOrNull
+                    ?.count;
+                print(count);
+                return Row(
+                  children: [
+                    U.Badge(
+                      count: count,
+                      color: U.BadgeColor.secondary,
+                      child: U.IconButton(
+                        toolTip: 'اضافه کردن به سبد خرید',
+                        icon: U.Images.addIcon,
+                        size: U.IconButtonSize.sm,
+                        color: U.IconButtonColor.primary,
+                        onPressed: () =>
+                            shopCartCubit.onAddtoShopCartPressed(product),
+                      ),
+                    ),
+                    const Spacer(),
+                    U.Text(
+                      '${product.price} تومان',
+                      font: U.TextFont.iranSans,
+                      size: U.TextSize.sm,
+                      weight: U.TextWeight.medium,
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),

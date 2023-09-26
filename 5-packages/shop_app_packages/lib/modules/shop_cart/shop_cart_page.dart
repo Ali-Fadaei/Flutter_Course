@@ -19,11 +19,11 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
+        // BlocProvider(
+        //   create: (context) => ShopCartCubit(
+        //     storeRepo: RepositoryProvider.of<StoreRepository>(context),
+        //   ),
+        // ),
         BlocProvider(
           create: (context) => FavoritesCubit(
             storeRepo: RepositoryProvider.of<StoreRepository>(context),

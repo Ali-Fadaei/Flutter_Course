@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as M;
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 
 abstract class Images {
   /// Logos
@@ -77,5 +78,54 @@ class NetworkImage extends M.StatelessWidget {
   @override
   M.Widget build(M.BuildContext context) {
     return M.Image.network(url);
+  }
+}
+
+abstract class svgs {}
+
+class SvgImage extends M.StatelessWidget {
+  ///
+  final String path;
+
+  final double? size;
+
+  final M.Color? color;
+
+  final M.BoxFit fit;
+
+  const SvgImage({
+    super.key,
+    required this.path,
+    this.fit = BoxFit.contain,
+    this.color,
+    this.size,
+  });
+
+  @override
+  M.Widget build(M.BuildContext context) {
+    return SvgPicture.asset(
+      path,
+      height: size,
+      width: size,
+      fit: fit,
+      colorFilter: color != null
+          ? M.ColorFilter.mode(
+              color!,
+              BlendMode.srcIn,
+            )
+          : null,
+    );
+  }
+}
+
+class SvgNetworkImage extends M.StatelessWidget {
+  ///
+  final String url;
+
+  const SvgNetworkImage({super.key, required this.url});
+
+  @override
+  M.Widget build(M.BuildContext context) {
+    return SvgPicture.network(url);
   }
 }
