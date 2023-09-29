@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_navigator/domains/store_repository/models/shop_item.dart';
+import 'package:shop_app_navigator/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_navigator/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_navigator/modules/store/product_btms.dart';
 import 'package:shop_app_navigator/ui_kit/ui_kit.dart' as U;
@@ -17,11 +18,13 @@ class ShopCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: shopItem.product,
         shopCartCubit: shopCartCubit,
+        favoritesCubit: favoritesCubit,
       ),
       child: U.Card(
         height: 140,

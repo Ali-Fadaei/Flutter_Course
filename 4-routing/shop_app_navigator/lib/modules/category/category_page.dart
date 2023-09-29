@@ -23,79 +23,63 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => CategoryCubit(
-            categoryId: categoryId,
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+    return BlocBuilder<CategoryCubit, CategoryState>(
+      buildWhen: (previous, current) => previous.category != current.category,
+      builder: (context, state) {
+        var categoryCubit = BlocProvider.of<CategoryCubit>(context);
+        return Container(
+          color: U.Theme.background,
+          child: Column(
+            children: [
+              U.AppBar.secondary(
+                title: state.category?.title ?? categoryTitle,
+                onBackPressed: () => Navigator.of(context).pop(),
+                action: U.IconButton(
+                  icon: U.Images.filterIcon,
+                  onPressed: () => CategoryFilterBtms.show(
+                    context,
+                    categoryCubit: categoryCubit,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                child: U.SearchInput(
+                  controller: categoryCubit.searchCtrl,
+                  onSearch: categoryCubit.onFilterApplyPressed,
+                ),
+              ),
+              Expanded(
+                child: BlocBuilder<CategoryCubit, CategoryState>(
+                  builder: (context, state) {
+                    return state.loading
+                        ? const U.Loading()
+                        : GridView.builder(
+                            itemCount: state.products.length,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:
+                                  (MediaQuery.of(context).size.width / 190)
+                                      .floor(),
+                              mainAxisSpacing: 20,
+                              crossAxisSpacing: 20,
+                              childAspectRatio: 2 / 3.5,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ProductCard(
+                                product: state.products[index],
+                              );
+                            },
+                          );
+                  },
+                ),
+              ),
+            ],
           ),
-        ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
-      ],
-      child: BlocBuilder<CategoryCubit, CategoryState>(
-        buildWhen: (previous, current) => previous.category != current.category,
-        builder: (context, state) {
-          var categoryCubit = BlocProvider.of<CategoryCubit>(context);
-          return Container(
-            color: U.Theme.background,
-            child: Column(
-              children: [
-                U.AppBar.secondary(
-                  title: state.category?.title ?? categoryTitle,
-                  onBackPressed: () => Navigator.of(context).pop(),
-                  action: U.IconButton(
-                    icon: U.Images.filterIcon,
-                    onPressed: () => CategoryFilterBtms.show(
-                      context,
-                      categoryCubit: categoryCubit,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: U.SearchInput(
-                    controller: categoryCubit.searchCtrl,
-                    onSearch: categoryCubit.onFilterApplyPressed,
-                  ),
-                ),
-                Expanded(
-                  child: BlocBuilder<CategoryCubit, CategoryState>(
-                    builder: (context, state) {
-                      return state.loading
-                          ? const U.Loading()
-                          : GridView.builder(
-                              itemCount: state.products.length,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount:
-                                    (MediaQuery.of(context).size.width / 190)
-                                        .floor(),
-                                mainAxisSpacing: 20,
-                                crossAxisSpacing: 20,
-                                childAspectRatio: 2 / 3.5,
-                              ),
-                              itemBuilder: (context, index) {
-                                return ProductCard(
-                                  product: state.products[index],
-                                );
-                              },
-                            );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+        );
+      },
     );
   }
 }

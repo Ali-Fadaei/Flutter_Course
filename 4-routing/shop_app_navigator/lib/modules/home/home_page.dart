@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app_navigator/domains/store_repository/store_repository.dart';
 import 'package:shop_app_navigator/modules/categories/categories_page.dart';
+import 'package:shop_app_navigator/modules/categories/cubit/categories_cubit.dart';
 import 'package:shop_app_navigator/modules/category/category_page.dart';
+import 'package:shop_app_navigator/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_navigator/modules/favorites/favorites_page.dart';
 import 'package:shop_app_navigator/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_navigator/modules/profile/profile_page.dart';
+import 'package:shop_app_navigator/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_navigator/modules/shop_cart/shop_cart_page.dart';
+import 'package:shop_app_navigator/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_navigator/modules/store/store_page.dart';
 import 'package:shop_app_navigator/ui_kit/ui_kit.dart' as U;
 
@@ -17,8 +22,32 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FavoritesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StoreCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CategoriesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+      ],
       child: SafeArea(
         child: Scaffold(
           backgroundColor: U.Theme.background,
