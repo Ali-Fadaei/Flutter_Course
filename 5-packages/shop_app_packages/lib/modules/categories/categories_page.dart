@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/categories/categories_card.dart';
 import 'package:shop_app_packages/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/search/search_page.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
@@ -16,10 +17,12 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (context) => CategoriesCubit(
-        storeRepo: RepositoryProvider.of<StoreRepository>(context),
-      ),
+    return BlocListener<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if (state.selectedDes == 4) {
+          BlocProvider.of<CategoriesCubit>(context).init(loading: false);
+        }
+      },
       child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, state) {
           var categoriesCubit = BlocProvider.of<CategoriesCubit>(context);

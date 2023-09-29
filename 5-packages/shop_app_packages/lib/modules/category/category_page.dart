@@ -23,15 +23,11 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => CategoryCubit(
-            categoryId: categoryId,
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => CategoryCubit(
+        categoryId: categoryId,
+        storeRepo: RepositoryProvider.of<StoreRepository>(context),
+      ),
       child: BlocBuilder<CategoryCubit, CategoryState>(
         buildWhen: (previous, current) => previous.category != current.category,
         builder: (context, state) {

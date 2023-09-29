@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_packages/domains/store_repository/models/product.dart';
 import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
@@ -16,11 +17,13 @@ class FavoritesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
     var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
+        shopCartCubit: shopCartCubit,
         favoritesCubit: favoritesCubit,
       ),
       child: U.Card(
@@ -58,13 +61,22 @@ class FavoritesCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 5),
-            IconButton(
-              onPressed: () => favoritesCubit.onFavoriatePressed(product),
-              icon: const Icon(
-                Icons.favorite,
-                color: U.Theme.primary,
-              ),
-            )
+            BlocBuilder<FavoritesCubit, FavoritesState>(
+              builder: (context, state) {
+                return Opacity(
+                  opacity: state.loading ? 0.5 : 1,
+                  child: IconButton(
+                    onPressed: () => state.loading
+                        ? null
+                        : favoritesCubit.onFavoriatePressed(product),
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: U.Theme.primary,
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

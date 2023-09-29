@@ -23,13 +23,13 @@ class StoreCubit extends Cubit<StoreState> {
   }
 
 //==================================Functions===================================
-  Future<void> init() async {
-    emit(state.copyWith(loading: true));
+  Future<void> init({bool loading = false}) async {
+    if (loading) emit(state.copyWith(loading: true));
     await Future.wait([
       getProducts(),
       getInitialProduct(),
     ]);
-    emit(state.copyWith(loading: false));
+    if (loading) emit(state.copyWith(loading: false));
   }
 
   Future<void> getProducts() async {

@@ -44,6 +44,7 @@ class NavigationBar extends StatelessWidget {
                 title: element.title,
                 icon: element.icon,
                 isSelected: element == destinations[selectedIndex],
+                badgeCount: element.badgeCount,
                 onPressed: () => onDestnationChange(
                   destinations.indexOf(element),
                 ),
@@ -64,12 +65,15 @@ class NavigationBarDestination {
 
   final String icon;
 
-  final String route;
+  // final String route;
+
+  final int? badgeCount;
 
   const NavigationBarDestination({
     required this.title,
     required this.icon,
-    required this.route,
+    // required this.route,
+    this.badgeCount,
   });
 }
 
@@ -81,6 +85,8 @@ class _NavigationBarDestination extends StatelessWidget {
 
   final bool isSelected;
 
+  final int? badgeCount;
+
   final void Function() onPressed;
 
   const _NavigationBarDestination({
@@ -88,6 +94,7 @@ class _NavigationBarDestination extends StatelessWidget {
     required this.icon,
     required this.isSelected,
     required this.onPressed,
+    this.badgeCount,
   });
 
   @override
@@ -100,21 +107,25 @@ class _NavigationBarDestination extends StatelessWidget {
         onTap: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: [
-              U.Image(
-                path: icon,
-                size: 24,
-                color: isSelected ? U.Theme.primary : U.Theme.secondary,
-              ),
-              const Spacer(),
-              U.Text(
-                title,
-                size: U.TextSize.sm,
-                color: isSelected ? U.Theme.primary : U.Theme.secondary,
-                weight: isSelected ? U.TextWeight.bold : U.TextWeight.medium,
-              ),
-            ],
+          child: U.Badge(
+            count: badgeCount,
+            color: isSelected ? U.BadgeColor.secondary : U.BadgeColor.primary,
+            child: Column(
+              children: [
+                U.Image(
+                  path: icon,
+                  size: 24,
+                  color: isSelected ? U.Theme.primary : U.Theme.secondary,
+                ),
+                const Spacer(),
+                U.Text(
+                  title,
+                  size: U.TextSize.sm,
+                  color: isSelected ? U.Theme.primary : U.Theme.secondary,
+                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.medium,
+                ),
+              ],
+            ),
           ),
         ),
       ),
