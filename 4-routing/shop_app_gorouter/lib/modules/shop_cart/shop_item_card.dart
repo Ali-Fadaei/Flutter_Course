@@ -66,13 +66,18 @@ class ShopCardItem extends StatelessWidget {
                   weight: U.TextWeight.medium,
                 ),
                 const SizedBox(height: 8),
-                U.Counter(
-                  count: shopItem.count,
-                  size: U.CounterSize.md,
-                  onAddPressed: () =>
-                      shopCartCubit.onAddtoShopCartPressed(shopItem.product),
-                  onRemovePressed: () => shopCartCubit
-                      .onRemovefromShopCartPressed(shopItem.product),
+                BlocBuilder<ShopCartCubit, ShopCartState>(
+                  builder: (context, state) {
+                    return U.Counter(
+                      disabled: state.loading,
+                      count: shopItem.count,
+                      size: U.CounterSize.md,
+                      onAddPressed: () => shopCartCubit
+                          .onAddtoShopCartPressed(shopItem.product),
+                      onRemovePressed: () => shopCartCubit
+                          .onRemovefromShopCartPressed(shopItem.product),
+                    );
+                  },
                 ),
                 const Spacer(),
               ],

@@ -11,6 +11,8 @@ class Counter extends StatelessWidget {
 
   final bool loading;
 
+  final bool disabled;
+
   final void Function() onAddPressed;
 
   final void Function() onRemovePressed;
@@ -18,6 +20,7 @@ class Counter extends StatelessWidget {
   const Counter({
     super.key,
     this.loading = false,
+    this.disabled = false,
     this.size = CounterSize.md,
     required this.count,
     required this.onAddPressed,
@@ -50,7 +53,7 @@ class Counter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           U.IconButton(
-            disabled: loading,
+            disabled: loading || disabled,
             icon: U.Images.addIcon,
             size: U.IconButtonSize.sm,
             iconColor: U.Theme.primary,
@@ -75,7 +78,7 @@ class Counter extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           U.IconButton(
-            disabled: loading,
+            disabled: loading || disabled,
             icon: count == 1 ? U.Images.removeIcon : U.Images.minIcon,
             size: U.IconButtonSize.sm,
             onPressed: onRemovePressed,
