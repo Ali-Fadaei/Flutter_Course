@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_app_bloc/domains/store_repository/store_repository.dart';
 import 'package:shop_app_bloc/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_bloc/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_bloc/modules/favorites/cubit/favoriets_cubit.dart';
+import 'package:shop_app_bloc/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_bloc/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_bloc/modules/categories/categories_page.dart';
 import 'package:shop_app_bloc/modules/favorites/favorites_page.dart';
 import 'package:shop_app_bloc/modules/profile/profile_page.dart';
+import 'package:shop_app_bloc/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_bloc/modules/store/store_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app_bloc/ui_kit/ui_kit.dart' as U;
@@ -88,21 +92,45 @@ class App extends StatelessWidget {
                 );
               },
             ),
-            body: BlocBuilder<AppCubit, AppState>(
-              buildWhen: (previous, current) =>
-                  previous.selectedDes != current.selectedDes,
-              builder: (context, state) {
-                return IndexedStack(
-                  index: state.selectedDes,
-                  children: const [
-                    ProfilePage(),
-                    FavoritesPage(),
-                    StorePage(),
-                    CartPage(),
-                    CategoriesPage(),
-                  ],
-                );
-              },
+            body: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => FavoritesCubit(
+                    storeRepo: RepositoryProvider.of<StoreRepository>(context),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => StoreCubit(
+                    storeRepo: RepositoryProvider.of<StoreRepository>(context),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => ShopCartCubit(
+                    storeRepo: RepositoryProvider.of<StoreRepository>(context),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => CategoriesCubit(
+                    storeRepo: RepositoryProvider.of<StoreRepository>(context),
+                  ),
+                ),
+              ],
+              child: BlocBuilder<AppCubit, AppState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedDes != current.selectedDes,
+                builder: (context, state) {
+                  return IndexedStack(
+                    index: state.selectedDes,
+                    children: const [
+                      ProfilePage(),
+                      FavoritesPage(),
+                      StorePage(),
+                      CartPage(),
+                      CategoriesPage(),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),

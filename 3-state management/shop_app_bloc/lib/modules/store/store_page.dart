@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_bloc/domains/store_repository/store_repository.dart';
+import 'package:shop_app_bloc/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_bloc/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_bloc/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_bloc/modules/store/product_card.dart';
@@ -15,18 +15,13 @@ class StorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var storeRepository = RepositoryProvider.of<StoreRepository>(context);
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => StoreCubit(storeRepo: storeRepository),
-        ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: storeRepository,
-          ),
-        ),
-      ],
+    return BlocListener<AppCubit, AppState>(
+      listener: (context, state) {
+        if (state.selectedDes == 2) {
+          BlocProvider.of<StoreCubit>(context).init(loading: false);
+          BlocProvider.of<ShopCartCubit>(context).init();
+        }
+      },
       child: SingleChildScrollView(
         child: Column(
           children: [
