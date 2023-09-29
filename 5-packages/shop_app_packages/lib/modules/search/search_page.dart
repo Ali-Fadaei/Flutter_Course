@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/search/cubit/search_cubit.dart';
 import 'package:shop_app_packages/modules/search/search_filter_btms.dart';
-import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_card.dart';
 
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
