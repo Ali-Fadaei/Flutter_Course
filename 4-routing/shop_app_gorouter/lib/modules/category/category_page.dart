@@ -32,11 +32,6 @@ class CategoryPage extends StatelessWidget {
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
       ],
       child: BlocBuilder<CategoryCubit, CategoryState>(
         buildWhen: (previous, current) => previous.category != current.category,

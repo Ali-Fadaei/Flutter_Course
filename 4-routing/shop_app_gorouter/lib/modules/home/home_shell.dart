@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_gorouter/domains/store_repository/store_repository.dart';
 import 'package:shop_app_gorouter/modules/categories/categories_page.dart';
+import 'package:shop_app_gorouter/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_gorouter/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_gorouter/modules/favorites/favorites_page.dart';
 import 'package:shop_app_gorouter/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_gorouter/modules/profile/profile_page.dart';
+import 'package:shop_app_gorouter/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_gorouter/modules/shop_cart/shop_cart_page.dart';
+import 'package:shop_app_gorouter/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_gorouter/modules/store/store_page.dart';
 import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
 
@@ -54,8 +59,32 @@ class HomeShell extends StatelessWidget {
       ),
     ];
 
-    return BlocProvider(
-      create: (context) => HomeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FavoritesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StoreCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CategoriesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+      ],
       child: SafeArea(
         child: Scaffold(
           backgroundColor: U.Theme.background,

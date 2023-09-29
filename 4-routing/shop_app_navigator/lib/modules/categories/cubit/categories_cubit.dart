@@ -14,11 +14,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
 
   Future<void> init({bool loading = true}) async {
-    emit(state.copyWith(loading: true));
+    if (loading) emit(state.copyWith(loading: true));
     await getCategories();
-    emit(state.copyWith(
-      loading: false,
-    ));
+    if (loading) emit(state.copyWith(loading: false));
   }
 
   Future<void> getCategories() async {

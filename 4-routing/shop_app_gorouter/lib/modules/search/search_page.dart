@@ -30,11 +30,6 @@ class SearchPage extends StatelessWidget {
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
       ],
       child: Builder(builder: (context) {
         var searchCubit = BlocProvider.of<SearchCubit>(context);

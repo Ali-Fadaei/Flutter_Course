@@ -16,95 +16,89 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShopCartCubit(
-        storeRepo: RepositoryProvider.of<StoreRepository>(context),
-      ),
-      child: BlocListener<HomeCubit, HomeState>(
-        listener: (context, state) {
-          if (state.selectedDes == 3) {
-            var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
-            shopCartCubit.init();
-          }
-        },
-        child: BlocBuilder<ShopCartCubit, ShopCartState>(
-          builder: (context, state) {
-            var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
-            return Column(
-              children: [
-                U.AppBar.primary(
-                  onMenuPressed: () {},
-                  onNotifPressed: () {},
-                ),
-                Expanded(
-                  child: state.loading && state.shopItems.isEmpty
-                      ? const U.Loading()
-                      : state.shopItems.isEmpty
-                          ? const Center(
-                              child: SizedBox(
-                                width: 400,
-                                child: U.Image(path: U.Images.cartEmpty),
-                              ),
-                            )
-                          : Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: SingleChildScrollView(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    physics: const BouncingScrollPhysics(),
-                                    child: Column(
-                                      children: [
-                                        ...state.shopItems
-                                            .expand(
-                                              (element) => [
-                                                ShopCardItem(shopItem: element),
-                                                const SizedBox(height: 15)
-                                              ],
-                                            )
-                                            .toList(),
-                                        if (state.loading) ...[
-                                          const SizedBox(height: 15),
-                                          const U.Loading()
-                                        ],
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: const Alignment(0, 0.95),
-                                  child: Container(
-                                    width: 500,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    child: U.Button(
-                                      title: 'تکمیل خرید',
-                                      trailing: U.Text(
-                                        '${state.totalAmount} تومان',
-                                        color: U.Theme.onPrimary,
-                                        size: U.TextSize.lg,
-                                        weight: U.TextWeight.medium,
-                                      ),
-                                      size: U.ButtonSize.lg,
-                                      onPressed: () {
-                                        GoRouter.of(context).goNamed(
-                                          CheckoutPage.route,
-                                          extra: shopCartCubit.state.shopItems,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
+    return BlocListener<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if (state.selectedDes == 3) {
+          BlocProvider.of<ShopCartCubit>(context).init();
+        }
+      },
+      child: BlocBuilder<ShopCartCubit, ShopCartState>(
+        builder: (context, state) {
+          var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+          return Column(
+            children: [
+              U.AppBar.primary(
+                onMenuPressed: () {},
+                onNotifPressed: () {},
+              ),
+              Expanded(
+                child: state.loading && state.shopItems.isEmpty
+                    ? const U.Loading()
+                    : state.shopItems.isEmpty
+                        ? const Center(
+                            child: SizedBox(
+                              width: 400,
+                              child: U.Image(path: U.Images.cartEmpty),
                             ),
-                ),
-              ],
-            );
-          },
-        ),
+                          )
+                        : Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: SingleChildScrollView(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  physics: const BouncingScrollPhysics(),
+                                  child: Column(
+                                    children: [
+                                      ...state.shopItems
+                                          .expand(
+                                            (element) => [
+                                              ShopCardItem(shopItem: element),
+                                              const SizedBox(height: 15)
+                                            ],
+                                          )
+                                          .toList(),
+                                      if (state.loading) ...[
+                                        const SizedBox(height: 15),
+                                        const U.Loading()
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: const Alignment(0, 0.95),
+                                child: Container(
+                                  width: 500,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: U.Button(
+                                    title: 'تکمیل خرید',
+                                    trailing: U.Text(
+                                      '${state.totalAmount} تومان',
+                                      color: U.Theme.onPrimary,
+                                      size: U.TextSize.lg,
+                                      weight: U.TextWeight.medium,
+                                    ),
+                                    size: U.ButtonSize.lg,
+                                    onPressed: () {
+                                      GoRouter.of(context).goNamed(
+                                        CheckoutPage.route,
+                                        extra: shopCartCubit.state.shopItems,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -61,13 +61,22 @@ class FavoritesCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 5),
-            IconButton(
-              onPressed: () => favoritesCubit.onFavoriatePressed(product),
-              icon: const Icon(
-                Icons.favorite,
-                color: U.Theme.primary,
-              ),
-            )
+            BlocBuilder<FavoritesCubit, FavoritesState>(
+              builder: (context, state) {
+                return Opacity(
+                  opacity: state.loading ? 0.5 : 1,
+                  child: IconButton(
+                    onPressed: () => state.loading
+                        ? null
+                        : favoritesCubit.onFavoriatePressed(product),
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: U.Theme.primary,
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
