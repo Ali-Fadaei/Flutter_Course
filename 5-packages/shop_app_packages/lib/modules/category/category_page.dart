@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 import 'package:shop_app_packages/modules/category/category_filter_btms.dart';
 import 'package:shop_app_packages/modules/category/cubit/category_cubit.dart';
-import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_card.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
@@ -29,11 +28,6 @@ class CategoryPage extends StatelessWidget {
         BlocProvider(
           create: (context) => CategoryCubit(
             categoryId: categoryId,
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => ShopCartCubit(
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),
