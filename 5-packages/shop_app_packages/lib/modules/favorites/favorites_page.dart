@@ -26,7 +26,9 @@ class FavoritesPage extends StatelessWidget {
           return Column(
             children: [
               U.AppBar.primary(
-                onMenuPressed: () {},
+                onMenuPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
                 onNotifPressed: () {},
               ),
               Expanded(

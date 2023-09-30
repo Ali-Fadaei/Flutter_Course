@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_app_packages/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 
@@ -41,6 +42,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     emit(state.copyWith(discountLoading: true));
     var res = await _storeRepo.readDiscount(discountCtrl.text);
     emit(state.copyWith(discountLoading: false, discountPercent: res));
+    toast('تخفیف 15 درصدی اعمال شد');
   }
 
   void onPaymentPressed() async {
