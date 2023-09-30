@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/modules/categories/categories_card.dart';
 import 'package:shop_app_packages/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_packages/modules/category/category_page.dart';
 import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/search/search_page.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/modules/store/product_card.dart';
+import 'package:shop_app_packages/ui_kit/banner.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
@@ -85,6 +87,32 @@ class StorePage extends StatelessWidget {
                     ),
                     //witeSpace
                     const SizedBox(height: 30),
+                    U.Banner(
+                      items: [
+                        BannerItem(
+                          img: U.Images.banner1,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            CategoryPage.route,
+                            pathParameters: {'id': '1'},
+                          ),
+                        ),
+                        BannerItem(
+                          img: U.Images.banner2,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            CategoryPage.route,
+                            pathParameters: {'id': '2'},
+                          ),
+                        ),
+                        BannerItem(
+                          img: U.Images.banner3,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            CategoryPage.route,
+                            pathParameters: {'id': '3'},
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     // Exclusive Offers
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
