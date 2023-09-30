@@ -4,6 +4,7 @@ import 'package:shop_app_packages/domains/store_repository/models/product.dart';
 import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class ProductCard extends StatelessWidget {
@@ -80,7 +81,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     U.Text(
-                      '${product.price} تومان',
+                      '${product.price.toString().seRagham()} تومان',
                       font: U.TextFont.iranSans,
                       size: U.TextSize.sm,
                       weight: U.TextWeight.medium,
