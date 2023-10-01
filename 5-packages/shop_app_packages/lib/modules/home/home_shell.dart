@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
+import 'package:shop_app_packages/modules/categories/cubit/categories_cubit.dart';
+import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import 'package:shop_app_packages/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class HomeShell extends StatelessWidget {
@@ -28,7 +31,22 @@ class HomeShell extends StatelessWidget {
           create: (context) => HomeCubit(),
         ),
         BlocProvider(
+          create: (context) => FavoritesCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StoreCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
           create: (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CategoriesCubit(
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),
@@ -79,8 +97,8 @@ class HomeShell extends StatelessWidget {
               homeCubit.onDestnationChange(selectedIndex);
               return U.NavigationBar(
                 selectedIndex: selectedIndex,
-                onDestnationChange: (i) => child.goBranch(i),
                 destinations: destinations,
+                onDestnationChange: (i) => child.goBranch(i),
               );
             },
           ),

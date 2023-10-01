@@ -9,14 +9,11 @@ class CategoryCard extends StatelessWidget {
 //
   final Category category;
 
-  final bool push;
-
-  // final bool fromStore;
+  final bool pushRoute;
 
   const CategoryCard({
     super.key,
-    this.push = false,
-    // this.fromStore = false,
+    this.pushRoute = false,
     required this.category,
   });
 
@@ -24,24 +21,15 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (push) {
-          GoRouter.of(context).pushNamed(
-            CategoryPage.route,
-            pathParameters: {'id': category.id.toString()},
-          );
-        }
-        // if (fromStore) {
-        //   GoRouter.of(context).goNamed(
-        //     StorePage.route + CategoryPage.route,
-        //     pathParameters: {'id': category.id.toString()},
-        //   );
-        // }
-        else {
-          GoRouter.of(context).goNamed(
-            CategoryPage.route,
-            pathParameters: {'id': category.id.toString()},
-          );
-        }
+        pushRoute
+            ? GoRouter.of(context).pushNamed(
+                CategoryPage.route,
+                pathParameters: {'id': category.id.toString()},
+              )
+            : GoRouter.of(context).goNamed(
+                CategoryPage.route,
+                pathParameters: {'id': category.id.toString()},
+              );
       },
       child: Container(
         width: 200,

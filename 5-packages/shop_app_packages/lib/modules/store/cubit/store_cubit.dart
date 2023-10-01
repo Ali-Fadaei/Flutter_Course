@@ -8,42 +8,41 @@ part 'store_state.dart';
 
 class StoreCubit extends Cubit<StoreState> {
 //
-
-  final StoreRepository _storeRepo;
-
-  final int? initialProductId;
+  final StoreRepository storeRepo;
 
   final searchCtrl = TextEditingController();
 
+  final int? initialProductId;
+
 //
   StoreCubit({
-    required StoreRepository storeRepo,
+    required this.storeRepo,
     this.initialProductId,
-  })  : _storeRepo = storeRepo,
-        super(const StoreState()) {
+  }) : super(const StoreState()) {
     init();
   }
 
-  //Functions
-  Future<void> init() async {
-    emit(state.copyWith(loading: true));
+//==================================Functions===================================
+  Future<void> init({bool loading = false}) async {
+    if (loading) emit(state.copyWith(loading: true));
     await Future.wait([
-      getInitialProduct(),
       getProducts(),
+      getInitialProduct(),
     ]);
-    emit(state.copyWith(loading: false));
+    if (loading) emit(state.copyWith(loading: false));
   }
 
   Future<void> getProducts() async {
-    var res = await _storeRepo.readProducts();
+    var res = await storeRepo.readProducts();
     emit(state.copyWith(products: res));
   }
 
   Future<void> getInitialProduct() async {
     if (initialProductId != null) {
-      var res = await _storeRepo.readProducts(id: initialProductId);
-      emit(state.copyWith(initialProduct: res.isEmpty ? null : res.first));
+      var res = await storeRepo.readProducts(id: initialProductId);
+      emit(state.copyWith(initialProduct: res.first));
     }
   }
-  //events
+
+  //==================================Events====================================
 }

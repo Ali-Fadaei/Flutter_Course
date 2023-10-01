@@ -4,18 +4,16 @@ import 'package:shop_app_packages/domains/store_repository/models/product.dart';
 import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class ProductCard extends StatelessWidget {
 //
   final Product product;
-  final ShopCartCubit? shopCartCubit;
-  final FavoritesCubit? favoritesCubit;
+
   const ProductCard({
     super.key,
     required this.product,
-    this.shopCartCubit,
-    this.favoritesCubit,
   });
 
   @override
@@ -66,7 +64,6 @@ class ProductCard extends StatelessWidget {
                     .where((element) => element.product == product)
                     .firstOrNull
                     ?.count;
-                print(count);
                 return Row(
                   children: [
                     U.Badge(
@@ -77,13 +74,14 @@ class ProductCard extends StatelessWidget {
                         icon: U.Images.addIcon,
                         size: U.IconButtonSize.sm,
                         color: U.IconButtonColor.primary,
+                        disabled: state.loading,
                         onPressed: () =>
                             shopCartCubit.onAddtoShopCartPressed(product),
                       ),
                     ),
                     const Spacer(),
                     U.Text(
-                      '${product.price} تومان',
+                      '${product.price.toString().seRagham()} تومان',
                       font: U.TextFont.iranSans,
                       size: U.TextSize.sm,
                       weight: U.TextWeight.medium,

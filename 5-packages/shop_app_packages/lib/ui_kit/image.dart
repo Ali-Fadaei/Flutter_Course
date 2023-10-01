@@ -37,6 +37,11 @@ abstract class Images {
   // Vectors
   static const favEmpty = 'assets/imgs/vectors/empty_fav.png';
   static const cartEmpty = 'assets/imgs/vectors/empty_cart.png';
+
+  //banners
+  static const banner1 = 'assets/imgs/banners/banner_1.jpg';
+  static const banner2 = 'assets/imgs/banners/banner_2.jpg';
+  static const banner3 = 'assets/imgs/banners/banner_3.jpg';
 }
 
 class Image extends M.StatelessWidget {

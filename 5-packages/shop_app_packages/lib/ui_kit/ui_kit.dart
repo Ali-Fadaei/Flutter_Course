@@ -1,4 +1,5 @@
 export 'app_bar.dart';
+export 'banner.dart';
 export 'badge.dart';
 export 'bottom_sheet.dart';
 export 'button.dart';
