@@ -41,6 +41,8 @@ abstract class Images {
   static const banner1 = 'assets/imgs/banners/banner_1.jpg';
   static const banner2 = 'assets/imgs/banners/banner_2.jpg';
   static const banner3 = 'assets/imgs/banners/banner_3.jpg';
+  static const banner4 = 'assets/imgs/banners/banner_4.jpg';
+  static const banner5 = 'assets/imgs/banners/banner_5.jpg';
 }
 
 class Image extends M.StatelessWidget {

@@ -100,14 +100,28 @@ class StorePage extends StatelessWidget {
                           img: U.Images.banner2,
                           onTap: () => GoRouter.of(context).pushNamed(
                             CategoryPage.route,
-                            pathParameters: {'id': '2'},
+                            pathParameters: {'id': '0'},
                           ),
                         ),
                         BannerItem(
                           img: U.Images.banner3,
                           onTap: () => GoRouter.of(context).pushNamed(
                             CategoryPage.route,
+                            pathParameters: {'id': '1'},
+                          ),
+                        ),
+                        BannerItem(
+                          img: U.Images.banner4,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            CategoryPage.route,
                             pathParameters: {'id': '3'},
+                          ),
+                        ),
+                        BannerItem(
+                          img: U.Images.banner5,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            CategoryPage.route,
+                            pathParameters: {'id': '2'},
                           ),
                         ),
                       ],
