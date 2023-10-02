@@ -4,7 +4,7 @@ description: Shop App with packages and plug-ins.
 
 publish_to: "none"
 
-version: 0.1.0
+version: 0.1.0+1000
 
 environment:
   sdk: ">=3.0.5 <4.0.0"
@@ -24,6 +24,8 @@ dependencies:
   universal_io: ^2.2.2
   persian_number_utility: ^1.1.3
   flutter_multi_formatter: ^2.11.11
+  package_info_plus: ^4.1.0
+  device_info_plus: ^9.0.3
 
 
 dev_dependencies:
