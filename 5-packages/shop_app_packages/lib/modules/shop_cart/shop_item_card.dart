@@ -5,6 +5,7 @@ import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class ShopCardItem extends StatelessWidget {
 //
@@ -61,7 +62,9 @@ class ShopCardItem extends StatelessWidget {
               children: [
                 const Spacer(),
                 U.Text(
-                  '${shopItem.product.price * shopItem.count} تومان',
+                  T.Convertors.textToToman(
+                    (shopItem.product.price * shopItem.count).toString(),
+                  ),
                   size: U.TextSize.md,
                   weight: U.TextWeight.medium,
                 ),

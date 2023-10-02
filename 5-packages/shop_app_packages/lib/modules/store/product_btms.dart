@@ -5,6 +5,7 @@ import 'package:shop_app_packages/domains/store_repository/store_repository.dart
 import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class ProductBottomSheet extends StatelessWidget {
 //
@@ -163,9 +164,11 @@ class ProductBottomSheet extends StatelessWidget {
                                     .count;
                               } catch (_) {}
                               return U.Text(
-                                count == 0
-                                    ? '${product.price} تومان'
-                                    : '${product.price * count} تومان',
+                                T.Convertors.textToToman(
+                                  count == 0
+                                      ? product.price.toString()
+                                      : (product.price * count).toString(),
+                                ),
                                 size: U.TextSize.md,
                                 weight: U.TextWeight.medium,
                               );

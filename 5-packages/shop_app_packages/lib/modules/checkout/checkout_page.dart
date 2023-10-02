@@ -6,6 +6,7 @@ import 'package:shop_app_packages/domains/store_repository/store_repository.dart
 import 'package:shop_app_packages/modules/checkout/cubit/checkout_cubit.dart';
 
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class CheckoutPage extends StatelessWidget {
 //
@@ -118,7 +119,9 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.totalAmount.toString(),
+                                                T.Convertors.textToToman(
+                                                  state.totalAmount.toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -133,7 +136,10 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.discountAmount.toString(),
+                                                T.Convertors.textToToman(
+                                                  state.discountAmount
+                                                      .toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -148,7 +154,10 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.payableAmount.toString(),
+                                                T.Convertors.textToToman(
+                                                  state.payableAmount
+                                                      .toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -282,7 +291,9 @@ class _CheckoutItem extends StatelessWidget {
                 Row(
                   children: [
                     U.Text(
-                      shopItem.product.price.toString(),
+                      T.Convertors.textToToman(
+                        shopItem.product.price.toString(),
+                      ),
                       size: U.TextSize.sm,
                     ),
                     const SizedBox(width: 8),
@@ -304,7 +315,9 @@ class _CheckoutItem extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           U.Text(
-            (shopItem.product.price * shopItem.count).toString(),
+            T.Convertors.textToToman(
+              (shopItem.product.price * shopItem.count).toString(),
+            ),
             size: U.TextSize.sm,
           ),
         ],

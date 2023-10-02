@@ -21,6 +21,7 @@ dependencies:
   responsive_framework: ^1.1.0
   carousel_slider: ^4.2.1
   overlay_support: ^2.1.0
+  universal_io: ^2.2.2
   persian_number_utility: ^1.1.3
 
 
