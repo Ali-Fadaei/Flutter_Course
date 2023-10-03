@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:universal_io/io.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -95,4 +96,37 @@ abstract class Utils {
       }
     }
   }
+
+  // static Future<bool> checkGps() async {
+  //   var permission = await Geolocator.checkPermission();
+  //   var serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     U.SnackBar.show(
+  //       text: 'موقعیت مکانی را روشن کنید',
+  //       type: U.SnackType.warning,
+  //     );
+  //     return false;
+  //   }
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return false;
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  // static Future<Position?> searchLocation() async {
+  //   bool gpsAccess = await checkGps();
+  //   if (gpsAccess) {
+  //     return await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high,
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }

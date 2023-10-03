@@ -26,6 +26,8 @@ dependencies:
   flutter_multi_formatter: ^2.11.11
   package_info_plus: ^4.1.0
   device_info_plus: ^9.0.3
+  url_launcher: ^6.1.14
+  geolocator: ^10.1.0
 
 
 dev_dependencies:
