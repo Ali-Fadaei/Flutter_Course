@@ -81,7 +81,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     U.Text(
-                      T.Convertors.textToToman(
+                      T.Convertor.textToToman(
                         product.price.toString(),
                       ),
                       font: U.TextFont.iranSans,

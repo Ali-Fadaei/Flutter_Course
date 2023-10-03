@@ -164,7 +164,7 @@ class ProductBottomSheet extends StatelessWidget {
                                     .count;
                               } catch (_) {}
                               return U.Text(
-                                T.Convertors.textToToman(
+                                T.Convertor.textToToman(
                                   count == 0
                                       ? product.price.toString()
                                       : (product.price * count).toString(),

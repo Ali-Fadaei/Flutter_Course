@@ -1,6 +1,6 @@
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
-abstract class Formatters {
+abstract class Formatter {
   //
 
   static var mobileNumber = MaskedInputFormatter('0000-000-00-00');

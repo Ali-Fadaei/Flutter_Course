@@ -79,7 +79,7 @@ class CartPage extends StatelessWidget {
                                   child: U.Button(
                                     title: 'تکمیل خرید',
                                     trailing: U.Text(
-                                      T.Convertors.textToToman(
+                                      T.Convertor.textToToman(
                                         state.totalAmount.toString(),
                                       ),
                                       color: U.Theme.onPrimary,

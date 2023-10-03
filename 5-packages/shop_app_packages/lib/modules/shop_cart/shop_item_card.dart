@@ -62,7 +62,7 @@ class ShopCardItem extends StatelessWidget {
               children: [
                 const Spacer(),
                 U.Text(
-                  T.Convertors.textToToman(
+                  T.Convertor.textToToman(
                     (shopItem.product.price * shopItem.count).toString(),
                   ),
                   size: U.TextSize.md,

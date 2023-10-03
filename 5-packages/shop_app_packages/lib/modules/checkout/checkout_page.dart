@@ -119,7 +119,7 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                T.Convertors.textToToman(
+                                                T.Convertor.textToToman(
                                                   state.totalAmount.toString(),
                                                 ),
                                                 size: U.TextSize.md,
@@ -136,7 +136,7 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                T.Convertors.textToToman(
+                                                T.Convertor.textToToman(
                                                   state.discountAmount
                                                       .toString(),
                                                 ),
@@ -154,7 +154,7 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                T.Convertors.textToToman(
+                                                T.Convertor.textToToman(
                                                   state.payableAmount
                                                       .toString(),
                                                 ),
@@ -291,7 +291,7 @@ class _CheckoutItem extends StatelessWidget {
                 Row(
                   children: [
                     U.Text(
-                      T.Convertors.textToToman(
+                      T.Convertor.textToToman(
                         shopItem.product.price.toString(),
                       ),
                       size: U.TextSize.sm,
@@ -315,7 +315,7 @@ class _CheckoutItem extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           U.Text(
-            T.Convertors.textToToman(
+            T.Convertor.textToToman(
               (shopItem.product.price * shopItem.count).toString(),
             ),
             size: U.TextSize.sm,
