@@ -1,6 +1,7 @@
-import 'package:universal_io/io.dart';
-
 import 'package:flutter/foundation.dart';
+import 'package:universal_io/io.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 abstract class Utils {
   //
@@ -45,4 +46,53 @@ abstract class Utils {
   static bool get isDesktop => isWindows || isLinux || isMacOs;
 
   static bool get isMbile => isAndroid || isIOS;
+
+  static Future<bool> needToUpdate({
+    required String compareVersion,
+  }) async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    final currenctSplit = packageInfo.version.split('.');
+    final currentMajor = int.tryParse(currenctSplit[0]) ?? 0;
+    final currentMinor = int.tryParse(currenctSplit[1]) ?? 0;
+    final currentPatch = int.tryParse(currenctSplit[2]) ?? 0;
+
+    final compareSplit = compareVersion.split('.');
+    final compareMajor = int.tryParse(compareSplit[0]) ?? 0;
+    final compareMinor = int.tryParse(compareSplit[1]) ?? 0;
+    final comparePatch = int.tryParse(compareSplit[2]) ?? 0;
+
+    if (currentMajor < compareMajor) {
+      return true;
+    } else if (currentMajor == compareMajor && currentMinor < compareMinor) {
+      return true;
+    } else if (currentMajor == compareMajor &&
+        currentMinor == compareMinor &&
+        currentPatch < comparePatch) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<String> getDeviceUID() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (isWeb) {
+      final webInfo = await deviceInfo.webBrowserInfo;
+      return '${webInfo.deviceMemory}-${webInfo.hardwareConcurrency}-${webInfo.vendor}-${webInfo.browserName.toString()}';
+    } else {
+      switch (platform) {
+        case 'windows':
+          final windowsInfo = await deviceInfo.windowsInfo;
+          return '${windowsInfo.computerName}-${windowsInfo.numberOfCores}-${windowsInfo.systemMemoryInMegabytes}';
+        case 'android':
+          final androidInfo = await deviceInfo.androidInfo;
+          return '${androidInfo.fingerprint}-${androidInfo.bootloader}';
+        case 'linux':
+          final linuxInfo = await deviceInfo.linuxInfo;
+          return '${linuxInfo.machineId}';
+        default:
+          return 'A86242fs81d2g1483l17220gd3238i18245fc3hb2m1gfd41h2424787';
+      }
+    }
+  }
 }
