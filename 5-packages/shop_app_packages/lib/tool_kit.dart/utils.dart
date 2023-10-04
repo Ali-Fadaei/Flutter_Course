@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:universal_io/io.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -101,38 +100,6 @@ abstract class Utils {
         default:
           return 'A86242fs81d2g1483l17220gd3238i18245fc3hb2m1gfd41h2424787';
       }
-    }
-  }
-
-  ///0 => ok,
-  ///1 => serviceDisabled,
-  ///2 => accessDenied,
-  static Future<int> checkLoacationService() async {
-    var permission = await Geolocator.checkPermission();
-    var serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return 1;
-    }
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return 2;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      return 2;
-    }
-    return 0;
-  }
-
-  static Future<Position?> getLocation() async {
-    int gpsAccess = await checkLoacationService();
-    if (gpsAccess == 0) {
-      return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-    } else {
-      return null;
     }
   }
 }
