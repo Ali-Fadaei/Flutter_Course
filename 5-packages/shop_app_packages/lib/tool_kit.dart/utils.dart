@@ -75,22 +75,29 @@ abstract class Utils {
     }
   }
 
-  static Future<String> getDeviceUID() async {
-    var deviceInfo = DeviceInfoPlugin();
+  static Future<String> getDeviceUid() async {
+    final deviceInfo = DeviceInfoPlugin();
     if (isWeb) {
       final webInfo = await deviceInfo.webBrowserInfo;
       return '${webInfo.deviceMemory}-${webInfo.hardwareConcurrency}-${webInfo.vendor}-${webInfo.browserName.toString()}';
     } else {
       switch (platform) {
         case 'windows':
-          final windowsInfo = await deviceInfo.windowsInfo;
-          return '${windowsInfo.computerName}-${windowsInfo.numberOfCores}-${windowsInfo.systemMemoryInMegabytes}';
-        case 'android':
-          final androidInfo = await deviceInfo.androidInfo;
-          return '${androidInfo.fingerprint}-${androidInfo.bootloader}';
+          final winInfo = await deviceInfo.windowsInfo;
+          return '${winInfo.deviceId}-${winInfo.userName}';
         case 'linux':
           final linuxInfo = await deviceInfo.linuxInfo;
           return '${linuxInfo.machineId}';
+        case 'macos':
+          final macInfo = await deviceInfo.macOsInfo;
+          return '${macInfo.computerName}-${macInfo.memorySize}';
+
+        case 'android':
+          final androidInfo = await deviceInfo.androidInfo;
+          return '${androidInfo.bootloader}-${androidInfo.serialNumber}';
+        case 'ios':
+          final iosInfo = await deviceInfo.iosInfo;
+          return '${iosInfo.identifierForVendor}';
         default:
           return 'A86242fs81d2g1483l17220gd3238i18245fc3hb2m1gfd41h2424787';
       }

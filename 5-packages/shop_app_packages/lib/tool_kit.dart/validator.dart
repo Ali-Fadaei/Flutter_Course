@@ -2,7 +2,6 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 
 abstract class Validator {
   //
-
   static bool emptyField(String? value) {
     return value?.isEmpty ?? false;
   }
