@@ -1,24 +1,29 @@
 import 'package:url_launcher/url_launcher.dart';
+import 'tool_kit.dart' as T;
 
 abstract class Launcher {
-  static void url(String url) async {
+  static Future<bool> url(String url) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       launchUrl(uri);
+      return true;
     }
+    return false;
   }
 
-  static void tel(String number) async {
+  static Future<bool> tel(String number) async {
     final uri = Uri(
       scheme: 'tel',
       path: number,
     );
-    if (await canLaunchUrl(uri)) {
+    if (T.Validator.mobileNumber(number) && await canLaunchUrl(uri)) {
       launchUrl(uri);
+      return true;
     }
+    return false;
   }
 
-  static void sms(String number, String message) async {
+  static Future<bool> sms(String number, String message) async {
     final uri = Uri(
       scheme: 'sms',
       path: number,
@@ -26,8 +31,10 @@ abstract class Launcher {
         'body': Uri.encodeComponent(message),
       },
     );
-    if (await canLaunchUrl(uri)) {
+    if (T.Validator.mobileNumber(number) && await canLaunchUrl(uri)) {
       launchUrl(uri);
+      return true;
     }
+    return false;
   }
 }
