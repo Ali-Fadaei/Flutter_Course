@@ -5,9 +5,7 @@ class AppState extends Equatable {
 
   const AppState();
 
-  AppState copywith({
-    int? selectedDes,
-  }) {
+  AppState copywith() {
     return const AppState();
   }
 

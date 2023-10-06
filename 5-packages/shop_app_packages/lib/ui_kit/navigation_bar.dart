@@ -65,11 +65,14 @@ class NavigationBarDestination {
 
   final String icon;
 
+  // final String route;
+
   final int? badgeCount;
 
   const NavigationBarDestination({
     required this.title,
     required this.icon,
+    // required this.route,
     this.badgeCount,
   });
 }

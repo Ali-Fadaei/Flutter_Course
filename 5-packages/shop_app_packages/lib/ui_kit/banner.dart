@@ -6,14 +6,14 @@ class Banner extends StatelessWidget {
 //
   final bool loading;
 
-  final double ratio;
+  final double height;
 
   final List<BannerItem> items;
 
   const Banner({
     super.key,
     this.loading = false,
-    this.ratio = 35 / 9,
+    this.height = 180,
     required this.items,
   });
 
@@ -22,15 +22,23 @@ class Banner extends StatelessWidget {
     return CarouselSlider(
       items: items
           .map(
-            (e) => InkWell(
-              onTap: e.onTap,
-              child: U.Image(path: e.img),
+            (e) => ClipRRect(
+              borderRadius: BorderRadius.circular(U.Theme.radius),
+              child: InkWell(
+                onTap: e.onTap,
+                child: U.Image(
+                  path: e.img,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           )
           .toList(),
       options: CarouselOptions(
+        height: height,
         autoPlay: true,
-        aspectRatio: ratio,
+        enlargeCenterPage: true,
+        enlargeFactor: 0.2,
       ),
     );
   }

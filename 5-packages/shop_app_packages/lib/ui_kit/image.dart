@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' as M;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 
 abstract class Images {
   /// Logos
@@ -42,6 +41,8 @@ abstract class Images {
   static const banner1 = 'assets/imgs/banners/banner_1.jpg';
   static const banner2 = 'assets/imgs/banners/banner_2.jpg';
   static const banner3 = 'assets/imgs/banners/banner_3.jpg';
+  static const banner4 = 'assets/imgs/banners/banner_4.jpg';
+  static const banner5 = 'assets/imgs/banners/banner_5.jpg';
 }
 
 class Image extends M.StatelessWidget {
@@ -83,54 +84,5 @@ class NetworkImage extends M.StatelessWidget {
   @override
   M.Widget build(M.BuildContext context) {
     return M.Image.network(url);
-  }
-}
-
-abstract class svgs {}
-
-class SvgImage extends M.StatelessWidget {
-  ///
-  final String path;
-
-  final double? size;
-
-  final M.Color? color;
-
-  final M.BoxFit fit;
-
-  const SvgImage({
-    super.key,
-    required this.path,
-    this.fit = BoxFit.contain,
-    this.color,
-    this.size,
-  });
-
-  @override
-  M.Widget build(M.BuildContext context) {
-    return SvgPicture.asset(
-      path,
-      height: size,
-      width: size,
-      fit: fit,
-      colorFilter: color != null
-          ? M.ColorFilter.mode(
-              color!,
-              BlendMode.srcIn,
-            )
-          : null,
-    );
-  }
-}
-
-class SvgNetworkImage extends M.StatelessWidget {
-  ///
-  final String url;
-
-  const SvgNetworkImage({super.key, required this.url});
-
-  @override
-  M.Widget build(M.BuildContext context) {
-    return SvgPicture.network(url);
   }
 }

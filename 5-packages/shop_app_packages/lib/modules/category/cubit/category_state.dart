@@ -8,51 +8,51 @@ class CategoryState extends Equatable {
 
   final List<Product> products;
 
-  final double maxRating;
-
   final double minRating;
 
-  final int maxPrice;
+  final double maxRating;
 
   final int minPrice;
 
-  final int sortId;
+  final int maxPrice;
 
-  final int orderId;
+  final int sort;
+
+  final int order;
 
   const CategoryState({
-    this.category,
     this.loading = false,
+    this.category,
     this.products = const [],
-    this.maxRating = 5,
     this.minRating = 0,
-    this.maxPrice = 500000000,
+    this.maxRating = 5,
     this.minPrice = 0,
-    this.sortId = 1,
-    this.orderId = 1,
+    this.maxPrice = 500000000,
+    this.sort = 1,
+    this.order = 1,
   });
 
   CategoryState copyWith({
     bool? loading,
     Category? category,
     List<Product>? products,
-    double? maxRating,
     double? minRating,
-    int? maxPrice,
+    double? maxRating,
     int? minPrice,
-    int? sortId,
-    int? orderId,
+    int? maxPrice,
+    int? sort,
+    int? order,
   }) {
     return CategoryState(
       loading: loading ?? this.loading,
       category: category ?? this.category,
       products: products ?? this.products,
-      maxRating: maxRating ?? this.maxRating,
       minRating: minRating ?? this.minRating,
-      maxPrice: maxPrice ?? this.maxPrice,
+      maxRating: maxRating ?? this.maxRating,
       minPrice: minPrice ?? this.minPrice,
-      sortId: sortId ?? this.sortId,
-      orderId: orderId ?? this.orderId,
+      maxPrice: maxPrice ?? this.maxPrice,
+      sort: sort ?? this.sort,
+      order: order ?? this.order,
     );
   }
 
@@ -61,11 +61,11 @@ class CategoryState extends Equatable {
         loading,
         category,
         products,
-        maxRating,
-        minRating,
-        maxPrice,
         minPrice,
-        sortId,
-        orderId,
+        maxPrice,
+        minRating,
+        maxRating,
+        sort,
+        order,
       ];
 }

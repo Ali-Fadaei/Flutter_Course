@@ -6,23 +6,24 @@ import 'package:shop_app_packages/domains/store_repository/store_repository.dart
 import 'package:shop_app_packages/modules/checkout/cubit/checkout_cubit.dart';
 
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class CheckoutPage extends StatelessWidget {
 //
   static const route = 'checkout';
 
-  final List<ShopItem>? initialShopItems;
+  final List<ShopItem>? shopItems;
 
   const CheckoutPage({
     super.key,
-    this.initialShopItems,
+    this.shopItems,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CheckoutCubit(
-        initialShopItems: initialShopItems,
+        shopItems: shopItems,
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
       child: SafeArea(
@@ -45,6 +46,7 @@ class CheckoutPage extends StatelessWidget {
                         child: Column(
                           children: [
                             Expanded(
+                              flex: 60,
                               child: U.Card(
                                 padding: const EdgeInsets.all(18),
                                 child: Column(
@@ -117,7 +119,9 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.totalAmount.toString(),
+                                                T.Convertor.textToToman(
+                                                  state.totalAmount.toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -132,7 +136,10 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.discountAmount.toString(),
+                                                T.Convertor.textToToman(
+                                                  state.discountAmount
+                                                      .toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -147,7 +154,10 @@ class CheckoutPage extends StatelessWidget {
                                                 color: U.Theme.primary,
                                               ),
                                               U.Text(
-                                                state.payableAmount.toString(),
+                                                T.Convertor.textToToman(
+                                                  state.payableAmount
+                                                      .toString(),
+                                                ),
                                                 size: U.TextSize.md,
                                                 weight: U.TextWeight.medium,
                                               ),
@@ -214,11 +224,11 @@ class CheckoutPage extends StatelessWidget {
                                               color:
                                                   U.IconButtonColor.secondary,
                                               size: U.IconButtonSize.lg,
-                                              disabled: state.checkoutLoading,
+                                              disabled: state.paymentLoading,
                                               loading: state.discountLoading,
                                               toolTip: 'اعمال کد تخفیف',
                                               onPressed: checkoutCubit
-                                                  .onDiscountPressed,
+                                                  .onDiscountApplyPressed,
                                             ),
                                           ],
                                         ),
@@ -227,9 +237,9 @@ class CheckoutPage extends StatelessWidget {
                                           title: 'پرداخت',
                                           size: U.ButtonSize.lg,
                                           disabled: state.discountLoading,
-                                          loading: state.checkoutLoading,
+                                          loading: state.paymentLoading,
                                           onPressed:
-                                              checkoutCubit.onCheckoutPressed,
+                                              checkoutCubit.onPaymentPressed,
                                         ),
                                       ],
                                     ),
@@ -281,7 +291,9 @@ class _CheckoutItem extends StatelessWidget {
                 Row(
                   children: [
                     U.Text(
-                      shopItem.product.price.toString(),
+                      T.Convertor.textToToman(
+                        shopItem.product.price.toString(),
+                      ),
                       size: U.TextSize.sm,
                     ),
                     const SizedBox(width: 8),
@@ -303,7 +315,9 @@ class _CheckoutItem extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           U.Text(
-            (shopItem.product.price * shopItem.count).toString(),
+            T.Convertor.textToToman(
+              (shopItem.product.price * shopItem.count).toString(),
+            ),
             size: U.TextSize.sm,
           ),
         ],

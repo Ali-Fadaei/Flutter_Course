@@ -17,14 +17,14 @@ class FavoritesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: product,
-        favoritesCubit: favoritesCubit,
         shopCartCubit: shopCartCubit,
+        favoritesCubit: favoritesCubit,
       ),
       child: U.Card(
         height: 140,
@@ -61,13 +61,22 @@ class FavoritesCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 5),
-            IconButton(
-              onPressed: () => favoritesCubit.onFavoriatePressed(product),
-              icon: const Icon(
-                Icons.favorite,
-                color: U.Theme.primary,
-              ),
-            )
+            BlocBuilder<FavoritesCubit, FavoritesState>(
+              builder: (context, state) {
+                return Opacity(
+                  opacity: state.loading ? 0.5 : 1,
+                  child: IconButton(
+                    onPressed: () => state.loading
+                        ? null
+                        : favoritesCubit.onFavoriatePressed(product),
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: U.Theme.primary,
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

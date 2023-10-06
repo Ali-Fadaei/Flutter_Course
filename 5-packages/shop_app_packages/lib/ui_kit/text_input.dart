@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './ui_kit.dart' as U;
 
 class TextInput extends StatefulWidget {
@@ -11,6 +12,8 @@ class TextInput extends StatefulWidget {
 
   final TextEditingController controller;
 
+  final List<TextInputFormatter>? formatters;
+
   final void Function(String text)? onEditingCompleted;
 
   const TextInput({
@@ -19,6 +22,7 @@ class TextInput extends StatefulWidget {
     this.hintText,
     this.isRequired = false,
     this.onEditingCompleted,
+    this.formatters,
     required this.controller,
   });
 
@@ -85,13 +89,14 @@ class _TextInputState extends State<TextInput> {
                 onEditingComplete: widget.onEditingCompleted != null
                     ? () => widget.onEditingCompleted!(widget.controller.text)
                     : null,
-                onTapOutside: (event) => focusNode.unfocus(),
+                onTapOutside: (_) => focusNode.unfocus(),
                 style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',
                   fontWeight: FontWeight.w500,
                   color: U.Theme.secondary,
                 ),
+                inputFormatters: widget.formatters,
                 decoration: InputDecoration(
                   hintText: widget.hintText,
                   hintStyle: const TextStyle(

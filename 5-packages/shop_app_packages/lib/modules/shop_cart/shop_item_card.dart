@@ -5,6 +5,7 @@ import 'package:shop_app_packages/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class ShopCardItem extends StatelessWidget {
 //
@@ -18,13 +19,13 @@ class ShopCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
-    var favotiresCubit = BlocProvider.of<FavoritesCubit>(context);
+    var favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () => ProductBottomSheet.show(
         context,
         product: shopItem.product,
         shopCartCubit: shopCartCubit,
-        favoritesCubit: favotiresCubit,
+        favoritesCubit: favoritesCubit,
       ),
       child: U.Card(
         height: 140,
@@ -32,7 +33,7 @@ class ShopCardItem extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 120,
+              width: 80,
               child: U.Image(path: shopItem.product.image),
             ),
             const SizedBox(width: 5),
@@ -61,7 +62,9 @@ class ShopCardItem extends StatelessWidget {
               children: [
                 const Spacer(),
                 U.Text(
-                  '${shopItem.product.price * shopItem.count} تومان',
+                  T.Convertor.textToToman(
+                    (shopItem.product.price * shopItem.count).toString(),
+                  ),
                   size: U.TextSize.md,
                   weight: U.TextWeight.medium,
                 ),

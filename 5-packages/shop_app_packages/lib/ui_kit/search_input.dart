@@ -78,7 +78,7 @@ class _SearchInputState extends State<SearchInput> {
                 focusNode: focusNode,
                 controller: widget.controller,
                 onEditingComplete: _onSearch,
-                onTapOutside: (event) => focusNode.unfocus(),
+                onTapOutside: (_) => focusNode.unfocus(),
                 style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'IranSans',

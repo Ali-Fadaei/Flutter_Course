@@ -15,16 +15,20 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         children: [
           U.AppBar.primary(
-            onMenuPressed: () => Scaffold.of(context).openDrawer(),
+            onMenuPressed: () {},
             onNotifPressed: () {},
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: U.Button(
-              title: 'goto Page A',
+              title: 'go Page a',
               onPressed: () {
                 GoRouter.of(context).goNamed(APage.route);
+                // GoRouter.of(context).goNamed(
+                //   BPage.route,
+                //   pathParameters: {'id': '552'},
+                // );
               },
             ),
           ),

@@ -13,14 +13,14 @@ class StoreRepository {
 
   Future<List<Product>> readProducts({
     int? id,
-    List<int>? categoriesId,
     String? title,
     double? minRating,
     double? maxRating,
-    int? maxPrice,
     int? minPrice,
-    int? sortId,
-    int? orderId,
+    int? maxPrice,
+    List<int>? categoriesId,
+    int? sort,
+    int? order,
   }) async {
     await Future.delayed(Duration(milliseconds: latency));
     var categories = await readCategories();
@@ -163,67 +163,44 @@ class StoreRepository {
 
     if (categoriesId != null && categoriesId.isNotEmpty) {
       products = products
-          .where((p) => categoriesId.any((c) => p.category.id == c))
+          .where((element) => categoriesId.any((e) => e == element.category.id))
           .toList();
     }
-
     if (title != null) {
-      products = products
-          .where(
-            (element) => element.title.contains(title),
-          )
-          .toList();
+      products =
+          products.where((element) => element.title.contains(title)).toList();
     }
-
-    if (minRating != null) {
-      products = products
-          .where(
-            (element) => element.rating >= minRating,
-          )
-          .toList();
-    }
-
-    if (maxRating != null) {
-      products = products
-          .where(
-            (element) => element.rating <= maxRating,
-          )
-          .toList();
-    }
-
     if (minPrice != null) {
-      products = products
-          .where(
-            (element) => element.price >= minPrice,
-          )
-          .toList();
+      products =
+          products.where((element) => element.price >= minPrice).toList();
     }
-
     if (maxPrice != null) {
-      products = products
-          .where(
-            (element) => element.price <= maxPrice,
-          )
-          .toList();
+      products =
+          products.where((element) => element.price <= maxPrice).toList();
+    }
+    if (minRating != null) {
+      products =
+          products.where((element) => element.rating >= minRating).toList();
+    }
+    if (maxRating != null) {
+      products =
+          products.where((element) => element.rating <= maxRating).toList();
     }
 
-    //1: price 2: rating
-    if (sortId != null) {
-      switch (sortId) {
+    if (sort != null) {
+      switch (sort) {
+        //price
         case 1:
-          products.sort(
-            (a, b) => a.price.compareTo(b.price),
-          );
+          products.sort((a, b) => a.price.compareTo(b.price));
+        //rate
         case 2:
-          products.sort(
-            (a, b) => a.rating.compareTo(b.rating),
-          );
+          products.sort((a, b) => a.rating.compareTo(b.rating));
       }
     }
 
-    //1: asc 2: dcs
-    if (orderId != null) {
-      if (orderId == 2) {
+    //1=> asc 2=> dec
+    if (order != null) {
+      if (order == 2) {
         products = products.reversed.toList();
       }
     }
@@ -233,35 +210,37 @@ class StoreRepository {
 
   Future<List<Category>> readCategories({int? id}) async {
     await Future.delayed(Duration(milliseconds: latency));
-    var categories = const [
-      Category(
+    var categories = [
+      const Category(
         id: 0,
         title: 'موبایل',
         image: 'assets/imgs/products/Z_Fold_4.png',
         color: Color.fromARGB(255, 161, 207, 178),
       ),
-      Category(
+      const Category(
         id: 1,
         title: 'لپتاپ',
         image: 'assets/imgs/products/zenbook_14x.png',
         color: Color.fromARGB(255, 255, 210, 161),
       ),
-      Category(
+      const Category(
         id: 2,
         title: 'هندزفری',
         image: 'assets/imgs/products/sony_airbuds.png',
         color: Color.fromARGB(255, 217, 197, 224),
       ),
-      Category(
+      const Category(
         id: 3,
         title: 'ابزار شبکه',
         image: 'assets/imgs/products/asus_rt.png',
         color: Color.fromARGB(255, 218, 241, 254),
       ),
     ];
+
     if (id != null) {
       categories = categories.where((element) => element.id == id).toList();
     }
+
     return categories;
   }
 
@@ -285,5 +264,19 @@ class StoreRepository {
     await Future.delayed(Duration(milliseconds: latency));
     _shopItems = shopItems;
     return true;
+  }
+
+  Future<int> readDiscount(String discountCode) async {
+    await Future.delayed(Duration(milliseconds: latency));
+    return 15;
+  }
+
+  Future<String> createOrder(
+    List<ShopItem> shopItems,
+    String address,
+    String discountCode,
+  ) async {
+    await Future.delayed(Duration(milliseconds: latency));
+    return 'https://';
   }
 }

@@ -68,7 +68,7 @@ class SearchFilterBtms extends StatelessWidget {
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onChanged: searchCubit.onRatingSliderChanged,
+                onChanged: searchCubit.onRatingRangeChanged,
               );
             },
           ),
@@ -95,7 +95,7 @@ class SearchFilterBtms extends StatelessWidget {
                 maxRangeValue: state.maxPrice.toDouble(),
                 sign: const U.Text(' تومان'),
                 showType: U.RangeSliderShowType.int,
-                onChanged: searchCubit.onPriceSliderChanged,
+                onChanged: searchCubit.onPriceRangeChanged,
               );
             },
           ),
@@ -122,8 +122,8 @@ class SearchFilterBtms extends StatelessWidget {
                           isChecked: state.selectedCategories.any(
                             (s) => s.id == element.id,
                           ),
-                          onPressed: (checked) =>
-                              searchCubit.onCategoriesChecked(checked, element),
+                          onPressed: (checked) => searchCubit
+                              .onSelectedCategoryChanged(checked, element),
                         ),
                         if (element == state.categories.last) const Spacer(),
                       ],
@@ -151,15 +151,15 @@ class SearchFilterBtms extends StatelessWidget {
                   U.RadioButton(
                     title: 'قیمت',
                     value: 1,
-                    groupValue: state.sortId,
-                    onPressed: searchCubit.onSortIdChanged,
+                    groupValue: state.sort,
+                    onPressed: searchCubit.onSortChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'امتیاز',
                     value: 2,
-                    groupValue: state.sortId,
-                    onPressed: searchCubit.onSortIdChanged,
+                    groupValue: state.sort,
+                    onPressed: searchCubit.onSortChanged,
                   ),
                   const Spacer(),
                   const SizedBox(
@@ -170,15 +170,15 @@ class SearchFilterBtms extends StatelessWidget {
                   U.RadioButton(
                     title: 'صعودی',
                     value: 1,
-                    groupValue: state.sortId,
-                    onPressed: searchCubit.onSortIdChanged,
+                    groupValue: state.order,
+                    onPressed: searchCubit.onOrderChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'نزولی',
                     value: 2,
-                    groupValue: state.sortId,
-                    onPressed: searchCubit.onSortIdChanged,
+                    groupValue: state.order,
+                    onPressed: searchCubit.onOrderChanged,
                   ),
                   const Spacer(),
                 ],

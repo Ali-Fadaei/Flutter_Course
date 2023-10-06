@@ -4,10 +4,9 @@ import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
 
 class BPage extends StatelessWidget {
 //
-  // static const route = 'bpage/:id';
-  static const route = 'bpage';
-
   final int id;
+
+  static const route = 'bpage/:id';
 
   const BPage({
     super.key,
@@ -16,20 +15,19 @@ class BPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(24),
+    return Scaffold(
+      backgroundColor: U.Theme.background,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: SizedBox.expand(
           child: Column(
             children: [
               const Spacer(),
-              Text('Page B , value: $id'),
+              U.Text('Page-B, id: $id'),
               const Spacer(),
               U.Button(
-                title: 'return',
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
+                title: 'go back',
+                onPressed: () => GoRouter.of(context).pop(),
               ),
               const Spacer(),
             ],

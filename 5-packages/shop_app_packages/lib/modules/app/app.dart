@@ -8,6 +8,7 @@ import 'package:shop_app_packages/domains/store_repository/store_repository.dart
 import 'package:shop_app_packages/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_packages/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app_packages/ui_kit/context_extentions.dart';
 
 class App extends StatelessWidget {
 //
@@ -25,21 +26,10 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(useMaterial3: true),
             builder: (context, child) {
-              var width = MediaQuery.of(context).size.width;
-              late double temp;
-              switch (width) {
-                case <= 480:
-                  temp = width;
-                  break;
-                case > 480 && <= 720:
-                  temp = width * 0.95;
-                  break;
-                case > 720:
-                  temp = width * 0.90;
-                  break;
-                default:
-              }
-              return ResponsiveScaledBox(width: temp, child: child!);
+              return ResponsiveScaledBox(
+                width: context.scaledWidth,
+                child: child!,
+              );
             },
             scrollBehavior: const MaterialScrollBehavior().copyWith(
               physics: const BouncingScrollPhysics(),

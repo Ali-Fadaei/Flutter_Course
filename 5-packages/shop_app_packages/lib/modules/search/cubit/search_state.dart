@@ -10,29 +10,29 @@ class SearchState extends Equatable {
 
   final List<Category> selectedCategories;
 
-  final double maxRating;
-
   final double minRating;
 
-  final int maxPrice;
+  final double maxRating;
 
   final int minPrice;
 
-  final int sortId;
+  final int maxPrice;
 
-  final int orderId;
+  final int sort;
+
+  final int order;
 
   const SearchState({
     this.loading = false,
     this.categories = const [],
     this.products = const [],
     this.selectedCategories = const [],
-    this.maxRating = 5,
     this.minRating = 0,
-    this.maxPrice = 500000000,
+    this.maxRating = 5,
     this.minPrice = 0,
-    this.sortId = 1,
-    this.orderId = 1,
+    this.maxPrice = 500000000,
+    this.sort = 1,
+    this.order = 1,
   });
 
   SearchState copyWith({
@@ -40,24 +40,24 @@ class SearchState extends Equatable {
     List<Category>? categories,
     List<Product>? products,
     List<Category>? selectedCategories,
-    double? maxRating,
     double? minRating,
-    int? maxPrice,
+    double? maxRating,
     int? minPrice,
-    int? sortId,
-    int? orderId,
+    int? maxPrice,
+    int? sort,
+    int? order,
   }) {
     return SearchState(
       loading: loading ?? this.loading,
       categories: categories ?? this.categories,
       products: products ?? this.products,
       selectedCategories: selectedCategories ?? this.selectedCategories,
-      maxRating: maxRating ?? this.maxRating,
       minRating: minRating ?? this.minRating,
-      maxPrice: maxPrice ?? this.maxPrice,
+      maxRating: maxRating ?? this.maxRating,
       minPrice: minPrice ?? this.minPrice,
-      sortId: sortId ?? this.sortId,
-      orderId: orderId ?? this.orderId,
+      maxPrice: maxPrice ?? this.maxPrice,
+      sort: sort ?? this.sort,
+      order: order ?? this.order,
     );
   }
 
@@ -67,11 +67,11 @@ class SearchState extends Equatable {
         categories,
         products,
         selectedCategories,
-        maxRating,
-        minRating,
-        maxPrice,
         minPrice,
-        sortId,
-        orderId,
+        maxPrice,
+        minRating,
+        maxRating,
+        sort,
+        order,
       ];
 }

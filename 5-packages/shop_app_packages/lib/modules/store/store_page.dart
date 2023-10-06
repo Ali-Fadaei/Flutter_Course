@@ -10,8 +10,8 @@ import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/modules/store/product_card.dart';
-import 'package:shop_app_packages/ui_kit/banner.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
 
 class StorePage extends StatelessWidget {
 //
@@ -89,26 +89,34 @@ class StorePage extends StatelessWidget {
                     const SizedBox(height: 30),
                     U.Banner(
                       items: [
-                        BannerItem(
+                        U.BannerItem(
                           img: U.Images.banner1,
                           onTap: () => GoRouter.of(context).pushNamed(
                             CategoryPage.route,
                             pathParameters: {'id': '1'},
                           ),
                         ),
-                        BannerItem(
+                        U.BannerItem(
                           img: U.Images.banner2,
                           onTap: () => GoRouter.of(context).pushNamed(
                             CategoryPage.route,
-                            pathParameters: {'id': '2'},
+                            pathParameters: {'id': '0'},
                           ),
                         ),
-                        BannerItem(
+                        U.BannerItem(
                           img: U.Images.banner3,
                           onTap: () => GoRouter.of(context).pushNamed(
                             CategoryPage.route,
-                            pathParameters: {'id': '3'},
+                            pathParameters: {'id': '1'},
                           ),
+                        ),
+                        U.BannerItem(
+                          img: U.Images.banner4,
+                          onTap: () => T.Launcher.url('https://pub.dev'),
+                        ),
+                        U.BannerItem(
+                          img: U.Images.banner5,
+                          onTap: () => T.Launcher.url('https://pub.dev'),
                         ),
                       ],
                     ),

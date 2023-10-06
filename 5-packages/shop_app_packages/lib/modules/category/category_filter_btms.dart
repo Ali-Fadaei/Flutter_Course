@@ -69,7 +69,7 @@ class CategoryFilterBtms extends StatelessWidget {
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onChanged: categoryCubit.onRatingSliderChanged,
+                onChanged: categoryCubit.onRatingRangeChanged,
               );
             },
           ),
@@ -96,7 +96,7 @@ class CategoryFilterBtms extends StatelessWidget {
                 maxRangeValue: state.maxPrice.toDouble(),
                 sign: const U.Text(' تومان'),
                 showType: U.RangeSliderShowType.int,
-                onChanged: categoryCubit.onPriceSliderChanged,
+                onChanged: categoryCubit.onPriceRangeChanged,
               );
             },
           ),
@@ -118,15 +118,15 @@ class CategoryFilterBtms extends StatelessWidget {
                   U.RadioButton(
                     title: 'قیمت',
                     value: 1,
-                    groupValue: state.sortId,
-                    onPressed: categoryCubit.onSortIdChanged,
+                    groupValue: state.sort,
+                    onPressed: categoryCubit.onSortChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'امتیاز',
                     value: 2,
-                    groupValue: state.sortId,
-                    onPressed: categoryCubit.onSortIdChanged,
+                    groupValue: state.sort,
+                    onPressed: categoryCubit.onSortChanged,
                   ),
                   const Spacer(),
                   const SizedBox(
@@ -137,15 +137,15 @@ class CategoryFilterBtms extends StatelessWidget {
                   U.RadioButton(
                     title: 'صعودی',
                     value: 1,
-                    groupValue: state.sortId,
-                    onPressed: categoryCubit.onSortIdChanged,
+                    groupValue: state.order,
+                    onPressed: categoryCubit.onOrderChanged,
                   ),
                   const Spacer(),
                   U.RadioButton(
                     title: 'نزولی',
                     value: 2,
-                    groupValue: state.sortId,
-                    onPressed: categoryCubit.onSortIdChanged,
+                    groupValue: state.order,
+                    onPressed: categoryCubit.onOrderChanged,
                   ),
                   const Spacer(),
                 ],

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_app_packages/domains/store_repository/models/product.dart';
 import 'package:shop_app_packages/domains/store_repository/store_repository.dart';
 
@@ -23,12 +24,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   void onFavoriatePressed(Product product) async {
     var temp = [...state.favorites];
-    if (temp.contains(product)) {
+    bool shouldRemove = temp.contains(product);
+    if (shouldRemove) {
       temp.remove(product);
     } else {
       temp.add(product);
     }
     emit(state.copyWith(favorites: temp));
     await storeRepo.updateFavorites(temp);
+    shouldRemove ? toast('!حذف شد') : toast('!اضافه شد');
   }
 }
