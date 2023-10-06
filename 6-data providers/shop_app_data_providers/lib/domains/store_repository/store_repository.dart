@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/category.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/product.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/shop_item.dart';
+import 'package:shop_app_data_providers/domains/store_repository/store_box.dart';
 
 class StoreRepository {
 //
+  static Future<StoreRepository> init() async {
+    await StoreBox.open();
+    return StoreRepository();
+  }
+
   List<Product> _favorites = [];
 
   List<ShopItem> _shopItems = [];
