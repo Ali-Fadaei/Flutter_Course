@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_data_providers/modules/auth/auth_confirm_page.dart';
+import 'package:shop_app_data_providers/modules/auth/auth_otp_page.dart';
+import 'package:shop_app_data_providers/modules/auth/auth_shell.dart';
 import 'package:shop_app_data_providers/modules/categories/categories_page.dart';
 import 'package:shop_app_data_providers/modules/category/category_page.dart';
 import 'package:shop_app_data_providers/modules/checkout/checkout_page.dart';
 import 'package:shop_app_data_providers/modules/favorites/favorites_page.dart';
 import 'package:shop_app_data_providers/modules/home/home_shell.dart';
-import 'package:shop_app_data_providers/modules/profile/a_page.dart';
-import 'package:shop_app_data_providers/modules/profile/b_page.dart';
 import 'package:shop_app_data_providers/modules/profile/profile_page.dart';
 import 'package:shop_app_data_providers/modules/search/search_page.dart';
 import 'package:shop_app_data_providers/modules/shop_cart/shop_cart_page.dart';
@@ -16,7 +18,7 @@ final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: StorePage.route,
+  initialLocation: OtpPage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
       return state.namedLocation(StorePage.route);
@@ -129,33 +131,58 @@ final router = GoRouter(
         ),
       ],
     ),
-    GoRoute(
-      path: APage.route,
-      name: APage.route,
-      pageBuilder: (context, state) {
-        return const CupertinoPage(
-          child: APage(),
+    ShellRoute(
+      builder: (context, state, child) {
+        return AuthShell(
+          child: child,
         );
       },
       routes: [
         GoRoute(
-          path: BPage.route,
-          name: BPage.route,
+          path: OtpPage.route,
+          name: OtpPage.route,
           pageBuilder: (context, state) {
-            return CustomTransitionPage(
-              transitionsBuilder: (context, anim1, anim2, child) {
-                return FadeTransition(
-                  opacity: anim1,
-                  child: child,
-                );
-              },
-              child: BPage(
-                id: int.parse(state.pathParameters['id']!),
-              ),
-            );
+            return const MaterialPage(child: OtpPage());
           },
+          routes: [
+            GoRoute(
+              path: OtpConfirmPage.route,
+              name: OtpConfirmPage.route,
+              pageBuilder: (context, state) {
+                return const MaterialPage(child: OtpConfirmPage());
+              },
+            ),
+          ],
         ),
       ],
-    ),
+    )
+    // GoRoute(
+    //   path: APage.route,
+    //   name: APage.route,
+    //   pageBuilder: (context, state) {
+    //     return const CupertinoPage(
+    //       child: APage(),
+    //     );
+    //   },
+    //   routes: [
+    //     GoRoute(
+    //       path: BPage.route,
+    //       name: BPage.route,
+    //       pageBuilder: (context, state) {
+    //         return CustomTransitionPage(
+    //           transitionsBuilder: (context, anim1, anim2, child) {
+    //             return FadeTransition(
+    //               opacity: anim1,
+    //               child: child,
+    //             );
+    //           },
+    //           child: BPage(
+    //             id: int.parse(state.pathParameters['id']!),
+    //           ),
+    //         );
+    //       },
+    //     ),
+    //   ],
+    // ),
   ],
 );

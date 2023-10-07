@@ -12,6 +12,7 @@ export 'image.dart';
 export 'loading.dart';
 export 'navigation_bar.dart';
 export 'outline_button.dart';
+export 'pin_code.dart';
 export 'radio_button.dart';
 export 'range_slider.dart';
 export 'search_input.dart';
