@@ -18,20 +18,20 @@ class GoNoTransition extends CustomTransitionPage {
         );
 }
 
-class GoFadeInTransition extends CustomTransitionPage {
+class GoFadeTransition extends CustomTransitionPage {
 //
-  GoFadeInTransition({
+  GoFadeTransition({
     required super.key,
     required super.child,
     super.transitionDuration = goDefaultDuration,
   }) : super(
           transitionsBuilder: (context, anim1, anim2, child) {
             return FadeTransition(
-              opacity: Tween<double>(
-                begin: 0,
-                end: 1,
-              ).animate(anim1),
-              child: child,
+              opacity: anim1,
+              child: FadeTransition(
+                opacity: ReverseAnimation(anim2),
+                child: child,
+              ),
             );
           },
         );
@@ -75,61 +75,7 @@ class GoFadeInTransition extends CustomTransitionPage {
 //         );
 // }
 
-class GoLeftToRightFadeTransition extends CustomTransitionPage {
-//
-  GoLeftToRightFadeTransition({
-    required super.key,
-    required super.child,
-    super.transitionDuration = goDefaultDuration,
-  }) : super(
-          transitionsBuilder: (context, anim1, anim2, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(-1.0, 0.0),
-                end: Offset.zero,
-              ).animate(anim1),
-              child: FadeTransition(
-                opacity: anim1,
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: Offset.zero,
-                    end: const Offset(1.0, 0.0),
-                  ).animate(anim2),
-                  child: child,
-                ),
-              ),
-            );
-          },
-        );
-}
-
-class GoRightToLeftFadeTransition extends CustomTransitionPage {
-//
-  GoRightToLeftFadeTransition({
-    required super.key,
-    required super.child,
-    super.transitionDuration = goDefaultDuration,
-  }) : super(
-          transitionsBuilder: (context, anim1, anim2, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1.0, 0.0),
-                end: Offset.zero,
-              ).animate(anim1),
-              child: FadeTransition(
-                opacity: anim1,
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: Offset.zero,
-                    end: const Offset(-1.0, 0.0),
-                  ).animate(anim2),
-                  child: child,
-                ),
-              ),
-            );
-          },
-        );
-}
+//============================Study Case Transitions============================
 
 class GoSlideDownTransition extends CustomTransitionPage {
 //
@@ -150,9 +96,9 @@ class GoSlideDownTransition extends CustomTransitionPage {
         );
 }
 
-class GoSlideTopTransition extends CustomTransitionPage {
+class GoSlideUpTransition extends CustomTransitionPage {
 //
-  GoSlideTopTransition({
+  GoSlideUpTransition({
     required super.key,
     required super.child,
     super.transitionDuration = goDefaultDuration,
@@ -163,13 +109,7 @@ class GoSlideTopTransition extends CustomTransitionPage {
                 begin: const Offset(0.0, -1.0),
                 end: Offset.zero,
               ).animate(anim1),
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: Offset.zero,
-                  end: const Offset(0.0, -1.0),
-                ).animate(anim2),
-                child: child,
-              ),
+              child: child,
             );
           },
         );
@@ -213,9 +153,53 @@ class GoSlideRightTransition extends CustomTransitionPage {
         );
 }
 
-class GoZoomInTransition extends CustomTransitionPage {
+class GoHorizontalFadeTransition extends CustomTransitionPage {
 //
-  GoZoomInTransition({
+  GoHorizontalFadeTransition({
+    required super.key,
+    required super.child,
+    super.transitionDuration = goDefaultDuration,
+  }) : super(
+          transitionsBuilder: (context, anim1, anim2, child) {
+            final isRtl = Directionality.of(context) == TextDirection.rtl;
+            final enterTwin = isRtl
+                ? Tween<Offset>(
+                    begin: const Offset(1.0, 0.0),
+                    end: Offset.zero,
+                  )
+                : Tween<Offset>(
+                    begin: const Offset(-1.0, 0.0),
+                    end: Offset.zero,
+                  );
+            final exitTwin = isRtl
+                ? Tween<Offset>(
+                    begin: Offset.zero,
+                    end: const Offset(-1.0, 0.0),
+                  )
+                : Tween<Offset>(
+                    begin: Offset.zero,
+                    end: const Offset(1.0, 0.0),
+                  );
+            return SlideTransition(
+              position: enterTwin.animate(anim1),
+              child: FadeTransition(
+                opacity: anim1,
+                child: SlideTransition(
+                  position: exitTwin.animate(anim2),
+                  child: FadeTransition(
+                    opacity: ReverseAnimation(anim2),
+                    child: child,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+}
+
+class GoZoomTransition extends CustomTransitionPage {
+//
+  GoZoomTransition({
     required super.key,
     required super.child,
     super.transitionDuration = goDefaultDuration,
