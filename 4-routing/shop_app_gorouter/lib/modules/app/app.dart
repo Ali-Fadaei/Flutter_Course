@@ -20,7 +20,15 @@ class App extends StatelessWidget {
         create: (context) => AppCubit(),
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(useMaterial3: true),
+          theme: ThemeData(
+            useMaterial3: true,
+            pageTransitionsTheme: const PageTransitionsTheme(
+              builders: {
+                TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+              },
+            ),
+          ),
           scrollBehavior: const MaterialScrollBehavior().copyWith(
             physics: const BouncingScrollPhysics(),
             dragDevices: {

@@ -74,21 +74,24 @@ class CartPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
                                   ),
-                                  child: U.Button(
-                                    title: 'تکمیل خرید',
-                                    trailing: U.Text(
-                                      '${state.totalAmount} تومان',
-                                      color: U.Theme.onPrimary,
-                                      size: U.TextSize.lg,
-                                      weight: U.TextWeight.medium,
+                                  child: Hero(
+                                    tag: 'Btn1',
+                                    child: U.Button(
+                                      title: 'تکمیل خرید',
+                                      trailing: U.Text(
+                                        '${state.totalAmount} تومان',
+                                        color: U.Theme.onPrimary,
+                                        size: U.TextSize.lg,
+                                        weight: U.TextWeight.medium,
+                                      ),
+                                      size: U.ButtonSize.lg,
+                                      onPressed: () {
+                                        GoRouter.of(context).goNamed(
+                                          CheckoutPage.route,
+                                          extra: shopCartCubit.state.shopItems,
+                                        );
+                                      },
                                     ),
-                                    size: U.ButtonSize.lg,
-                                    onPressed: () {
-                                      GoRouter.of(context).goNamed(
-                                        CheckoutPage.route,
-                                        extra: shopCartCubit.state.shopItems,
-                                      );
-                                    },
                                   ),
                                 ),
                               ),
