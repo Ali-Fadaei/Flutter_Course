@@ -76,23 +76,26 @@ class CartPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
                                   ),
-                                  child: U.Button(
-                                    title: 'تکمیل خرید',
-                                    trailing: U.Text(
-                                      T.Convertor.textToToman(
-                                        state.totalAmount.toString(),
+                                  child: Hero(
+                                    tag: 'Btn-1',
+                                    child: U.Button(
+                                      title: 'تکمیل خرید',
+                                      trailing: U.Text(
+                                        T.Convertor.textToToman(
+                                          state.totalAmount.toString(),
+                                        ),
+                                        color: U.Theme.onPrimary,
+                                        size: U.TextSize.lg,
+                                        weight: U.TextWeight.medium,
                                       ),
-                                      color: U.Theme.onPrimary,
-                                      size: U.TextSize.lg,
-                                      weight: U.TextWeight.medium,
+                                      size: U.ButtonSize.lg,
+                                      onPressed: () {
+                                        GoRouter.of(context).goNamed(
+                                          CheckoutPage.route,
+                                          extra: shopCartCubit.state.shopItems,
+                                        );
+                                      },
                                     ),
-                                    size: U.ButtonSize.lg,
-                                    onPressed: () {
-                                      GoRouter.of(context).goNamed(
-                                        CheckoutPage.route,
-                                        extra: shopCartCubit.state.shopItems,
-                                      );
-                                    },
                                   ),
                                 ),
                               ),

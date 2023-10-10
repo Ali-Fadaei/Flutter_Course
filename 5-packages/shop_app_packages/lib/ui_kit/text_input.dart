@@ -10,6 +10,8 @@ class TextInput extends StatefulWidget {
 
   final bool isRequired;
 
+  final bool autoFocus;
+
   final TextEditingController controller;
 
   final List<TextInputFormatter>? formatters;
@@ -21,6 +23,7 @@ class TextInput extends StatefulWidget {
     this.title = 'emptyTitle',
     this.hintText,
     this.isRequired = false,
+    this.autoFocus = false,
     this.onEditingCompleted,
     this.formatters,
     required this.controller,
@@ -85,6 +88,7 @@ class _TextInputState extends State<TextInput> {
             Expanded(
               child: TextField(
                 focusNode: focusNode,
+                autofocus: widget.autoFocus,
                 controller: widget.controller,
                 onEditingComplete: widget.onEditingCompleted != null
                     ? () => widget.onEditingCompleted!(widget.controller.text)

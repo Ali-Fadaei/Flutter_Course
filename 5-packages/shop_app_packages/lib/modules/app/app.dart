@@ -8,6 +8,7 @@ import 'package:shop_app_packages/domains/store_repository/store_repository.dart
 import 'package:shop_app_packages/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_packages/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animations/animations.dart';
 
 class App extends StatelessWidget {
 //
@@ -23,7 +24,18 @@ class App extends StatelessWidget {
         child: OverlaySupport.global(
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(useMaterial3: true),
+            theme: ThemeData(
+              useMaterial3: true,
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.macOS: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.linux: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.android: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.iOS: FadeThroughPageTransitionsBuilder(),
+                },
+              ),
+            ),
             builder: (context, child) {
               var width = MediaQuery.of(context).size.width;
               late double temp;
