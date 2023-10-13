@@ -24,99 +24,96 @@ class AuthConfirmPage extends StatelessWidget {
           extra: state.hashId,
         );
       },
-      buildWhen: (previous, current) => previous.loading != current.loading,
+      buildWhen: (previous, current) =>
+          previous.otpConfirmLoading != current.otpConfirmLoading,
       builder: (context, state) {
-        return Container(
-          color: U.Theme.surface,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Row(
+        return Column(
+          children: [
+            Row(
+              children: [
+                const Spacer(flex: 2),
+                const U.Text(
+                  'تایید کد یکبارمصرف',
+                  size: U.TextSize.lg,
+                  weight: U.TextWeight.bold,
+                ),
+                const Spacer(flex: 1),
+                U.IconButton(
+                  icon: U.Images.arrowLeftIcon,
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            const U.Divider.horizontal(space: 10),
+            const Spacer(flex: 2),
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.start,
                 children: [
-                  const Spacer(flex: 2),
                   const U.Text(
-                    'تایید کد یکبارمصرف',
-                    size: U.TextSize.lg,
+                    'کد تایید ارسال شده به شماره موبایل',
+                    size: U.TextSize.sm,
+                    weight: U.TextWeight.medium,
+                  ),
+                  U.Text(
+                    ' ${authCubit.phoneCtrl.text} ',
+                    size: U.TextSize.sm,
                     weight: U.TextWeight.bold,
                   ),
-                  const Spacer(flex: 1),
-                  U.IconButton(
-                    icon: U.Images.arrowLeftIcon,
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
+                  const U.Text(
+                    'را وارد نمایید.',
+                    size: U.TextSize.sm,
+                    weight: U.TextWeight.medium,
                   ),
                 ],
               ),
-              const U.Divider.horizontal(space: 10),
-              const Spacer(flex: 2),
-              SizedBox(
-                width: double.infinity,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  children: [
-                    const U.Text(
-                      'کد تایید ارسال شده به شماره موبایل',
-                      size: U.TextSize.sm,
-                      weight: U.TextWeight.medium,
-                    ),
-                    U.Text(
-                      ' ${authCubit.phoneCtrl.text} ',
-                      size: U.TextSize.sm,
-                      weight: U.TextWeight.bold,
-                    ),
-                    const U.Text(
-                      'را وارد نمایید.',
-                      size: U.TextSize.sm,
-                      weight: U.TextWeight.medium,
-                    ),
-                  ],
-                ),
-              ),
-              const Spacer(flex: 2),
-              U.PinInput(
-                controller: authCubit.otpCtrl,
-                onCompleted: authCubit.onConfirmPressed,
-                loading: state.loading,
-              ),
-              const Spacer(),
-              BlocBuilder<AuthCubit, AuthState>(
-                buildWhen: (previous, current) =>
-                    previous.timer != current.timer,
-                builder: (context, state) {
-                  return Container(
-                    height: 40,
-                    alignment: Alignment.center,
-                    child: state.timer != 0
-                        ? U.Text(
-                            '${state.timer} ثانیه مانده تا دریافت مجدد کد',
-                            size: U.TextSize.md,
-                            weight: U.TextWeight.medium,
-                          )
-                        : U.OutlinedButton(
-                            title: 'ارسال مجدد',
-                            color: U.OutlinedButtonColor.secondary,
-                            size: U.OutlinedButtonSize.md,
-                            onPressed: authCubit.onOtpCompleted,
-                            loading: state.loading,
-                            disabled: state.timer != 0,
-                          ),
-                  );
-                },
-              ),
-              const Spacer(),
-              U.Button(
-                title: 'تایید',
-                loading: state.loading,
-                color: U.ButtonColor.primary,
-                size: U.ButtonSize.lg,
-                onPressed: () {
-                  authCubit.onConfirmPressed();
-                },
-              ),
-              const Spacer(),
-            ],
-          ),
+            ),
+            const Spacer(flex: 2),
+            U.PinInput(
+              controller: authCubit.otpCtrl,
+              onCompleted: authCubit.onOtpConfirmed,
+              loading: state.otpConfirmLoading,
+            ),
+            const Spacer(),
+            BlocBuilder<AuthCubit, AuthState>(
+              buildWhen: (previous, current) =>
+                  previous.timer != current.timer ||
+                  previous.otpRequestLoading != current.otpRequestLoading,
+              builder: (context, state) {
+                return Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: state.timer != 0
+                      ? U.Text(
+                          '${state.timer} ثانیه مانده تا دریافت مجدد کد',
+                          size: U.TextSize.md,
+                          weight: U.TextWeight.medium,
+                        )
+                      : U.OutlinedButton(
+                          title: 'ارسال مجدد',
+                          color: U.OutlinedButtonColor.secondary,
+                          size: U.OutlinedButtonSize.md,
+                          onPressed: authCubit.onOtpRequested,
+                          loading: state.otpRequestLoading,
+                        ),
+                );
+              },
+            ),
+            const Spacer(),
+            U.Button(
+              title: 'تایید',
+              loading: state.otpConfirmLoading,
+              color: U.ButtonColor.primary,
+              size: U.ButtonSize.lg,
+              onPressed: () {
+                authCubit.onOtpConfirmed();
+              },
+            ),
+            const Spacer(),
+          ],
         );
       },
     );

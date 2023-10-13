@@ -24,54 +24,53 @@ class AuthOtpPage extends StatelessWidget {
           extra: state.hashId,
         );
       },
-      buildWhen: (previous, current) => previous.loading != current.loading,
+      buildWhen: (previous, current) =>
+          previous.otpRequestLoading != current.otpRequestLoading,
       builder: (context, state) {
-        return Container(
-          color: U.Theme.surface,
-          child: Column(
-            children: [
-              const U.Text(
-                'ورود | ثبت‌نام',
-                size: U.TextSize.lg,
-                weight: U.TextWeight.bold,
-              ),
-              const U.Divider.horizontal(space: 10),
-              const Spacer(flex: 2),
-              const Row(
-                children: [
-                  U.Text('سلام!'),
-                  Spacer(),
-                ],
-              ),
-              const Row(
-                children: [
-                  U.Text('برای ادامه شماره موبایل خود را وارد نمایید.'),
-                  Spacer(),
-                ],
-              ),
-              const Spacer(),
-              U.TextInput(
-                title: 'شماره موبایل',
-                autoFocus: true,
-                controller: authCubit.phoneCtrl,
-                formatters: [T.Formatter.mobileNumber],
-              ),
-              const Spacer(flex: 2),
-              U.Button(
-                title: 'ادامه',
-                color: U.ButtonColor.primary,
-                loading: state.loading,
-                size: U.ButtonSize.lg,
-                onPressed: () => authCubit.onOtpCompleted(),
-              ),
-              const SizedBox(height: 10),
-              const U.Text(
-                'ورود شما به معنای پذیرش شرایط آمازون و قوانین حریم‌خصوصی است.',
-                size: U.TextSize.xs,
-              ),
-              const Spacer(),
-            ],
-          ),
+        return Column(
+          children: [
+            const U.Text(
+              'ورود | ثبت‌نام',
+              size: U.TextSize.lg,
+              weight: U.TextWeight.bold,
+            ),
+            const U.Divider.horizontal(space: 10),
+            const Spacer(flex: 2),
+            const Row(
+              children: [
+                U.Text('سلام!'),
+                Spacer(),
+              ],
+            ),
+            const Row(
+              children: [
+                U.Text('برای ادامه شماره موبایل خود را وارد نمایید.'),
+                Spacer(),
+              ],
+            ),
+            const Spacer(),
+            U.TextInput(
+              title: 'شماره موبایل',
+              autoFocus: true,
+              disabled: false,
+              controller: authCubit.phoneCtrl,
+              formatters: [T.Formatter.mobileNumber],
+            ),
+            const Spacer(flex: 2),
+            U.Button(
+              title: 'ادامه',
+              color: U.ButtonColor.primary,
+              loading: state.otpRequestLoading,
+              size: U.ButtonSize.lg,
+              onPressed: () => authCubit.onOtpRequested(),
+            ),
+            const SizedBox(height: 10),
+            const U.Text(
+              'ورود شما به معنای پذیرش شرایط آمازون و قوانین حریم‌خصوصی است.',
+              size: U.TextSize.xs,
+            ),
+            const Spacer(),
+          ],
         );
       },
     );

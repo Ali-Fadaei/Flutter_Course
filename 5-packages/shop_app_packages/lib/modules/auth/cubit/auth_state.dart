@@ -2,7 +2,11 @@ part of 'auth_cubit.dart';
 
 class AuthState extends Equatable {
   //
-  final bool loading;
+  final bool otpRequestLoading;
+
+  final bool otpConfirmLoading;
+
+  final bool registerLoading;
 
   final int timer;
 
@@ -13,7 +17,9 @@ class AuthState extends Equatable {
   final UniqueKey? goRegisterPage;
 
   const AuthState({
-    this.loading = false,
+    this.otpRequestLoading = false,
+    this.otpConfirmLoading = false,
+    this.registerLoading = false,
     this.timer = 0,
     this.hashId,
     this.goConfirmPage,
@@ -21,14 +27,18 @@ class AuthState extends Equatable {
   });
 
   AuthState copyWith({
-    bool? loading,
+    bool? otpRequestLoading,
+    bool? otpConfirmLoading,
+    bool? registerLoading,
     int? timer,
     String? hashId,
     UniqueKey? goConfirmPage,
     UniqueKey? goRegisterPage,
   }) {
     return AuthState(
-      loading: loading ?? this.loading,
+      otpRequestLoading: otpRequestLoading ?? this.otpRequestLoading,
+      otpConfirmLoading: otpConfirmLoading ?? this.otpConfirmLoading,
+      registerLoading: registerLoading ?? this.registerLoading,
       timer: timer ?? this.timer,
       hashId: hashId ?? this.hashId,
       goConfirmPage: goConfirmPage ?? this.goConfirmPage,
@@ -38,7 +48,9 @@ class AuthState extends Equatable {
 
   @override
   List<dynamic> get props => [
-        loading,
+        otpRequestLoading,
+        otpConfirmLoading,
+        registerLoading,
         timer,
         hashId,
         goConfirmPage,
