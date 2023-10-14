@@ -20,7 +20,6 @@ dependencies:
   go_router: ^10.0.0
   responsive_framework: ^1.1.0
   carousel_slider: ^4.2.1
-  pin_code_fields: ^8.0.1
   overlay_support: ^2.1.0
   animations: ^2.0.8
   universal_io: ^2.2.2

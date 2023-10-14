@@ -7,6 +7,8 @@ import 'package:shop_app_gorouter/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_gorouter/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:shop_app_gorouter/ui_kit/ui_kit.dart' as U;
+
 class App extends StatelessWidget {
 //
   const App({super.key});
@@ -22,6 +24,7 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
+            canvasColor: U.Theme.background,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
                 TargetPlatform.windows: ZoomPageTransitionsBuilder(),

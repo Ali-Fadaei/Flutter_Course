@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import './ui_kit.dart' as U;
-import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
+import 'package:shop_app_data_providers/tool_kit.dart/tool_kit.dart' as T;
 
 class PinInput extends StatelessWidget {
   //

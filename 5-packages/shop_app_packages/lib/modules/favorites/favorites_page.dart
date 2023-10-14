@@ -23,46 +23,50 @@ class FavoritesPage extends StatelessWidget {
       },
       child: BlocBuilder<FavoritesCubit, FavoritesState>(
         builder: (context, state) {
-          return Column(
-            children: [
-              U.AppBar.primary(
-                onMenuPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                onNotifPressed: () {},
-              ),
-              Expanded(
-                child: state.loading && state.favorites.isEmpty
-                    ? const U.Loading()
-                    : state.favorites.isEmpty
-                        ? const Center(
-                            child: SizedBox(
-                              width: 400,
-                              child: U.Image(
-                                path: 'assets/imgs/vectors/empty_fav.png',
+          return Container(
+            color: U.Theme.background,
+            child: Column(
+              children: [
+                U.AppBar.primary(
+                  onMenuPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  onNotifPressed: () {},
+                ),
+                Expanded(
+                  child: state.loading && state.favorites.isEmpty
+                      ? const U.Loading()
+                      : state.favorites.isEmpty
+                          ? const Center(
+                              child: SizedBox(
+                                width: 400,
+                                child: U.Image(
+                                  path: 'assets/imgs/vectors/empty_fav.png',
+                                ),
                               ),
+                            )
+                          : SingleChildScrollView(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(children: [
+                                ...state.favorites
+                                    .expand(
+                                      (element) => [
+                                        FavoritesCard(product: element),
+                                        const SizedBox(height: 15)
+                                      ],
+                                    )
+                                    .toList(),
+                                if (state.loading) ...[
+                                  const SizedBox(height: 15),
+                                  const U.Loading()
+                                ],
+                              ]),
                             ),
-                          )
-                        : SingleChildScrollView(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            physics: const BouncingScrollPhysics(),
-                            child: Column(children: [
-                              ...state.favorites
-                                  .expand(
-                                    (element) => [
-                                      FavoritesCard(product: element),
-                                      const SizedBox(height: 15)
-                                    ],
-                                  )
-                                  .toList(),
-                              if (state.loading) ...[
-                                const SizedBox(height: 15),
-                                const U.Loading()
-                              ],
-                            ]),
-                          ),
-              ),
-            ],
+                ),
+              ],
+            ),
           );
         },
       ),

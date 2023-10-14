@@ -10,6 +10,8 @@ import 'package:shop_app_packages/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:animations/animations.dart';
 
+import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+
 class App extends StatelessWidget {
 //
   const App({super.key});
@@ -26,6 +28,7 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               useMaterial3: true,
+              canvasColor: U.Theme.background,
               pageTransitionsTheme: const PageTransitionsTheme(
                 builders: {
                   TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),

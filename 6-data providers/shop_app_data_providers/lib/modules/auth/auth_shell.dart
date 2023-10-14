@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app_packages/modules/app/transitions.dart';
-import 'package:shop_app_packages/modules/auth/auth_confirm_page.dart';
-import 'package:shop_app_packages/modules/auth/auth_otp_page.dart';
-import 'package:shop_app_packages/modules/auth/cubit/auth_cubit.dart';
-import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
+import 'package:shop_app_data_providers/domains/user_repository/user_repository.dart';
+import 'package:shop_app_data_providers/modules/app/transitions.dart';
+import 'package:shop_app_data_providers/modules/auth/auth_confirm_page.dart';
+import 'package:shop_app_data_providers/modules/auth/auth_otp_page.dart';
+import 'package:shop_app_data_providers/modules/auth/cubit/auth_cubit.dart';
+import 'package:shop_app_data_providers/ui_kit/ui_kit.dart' as U;
 
 class AuthShell extends StatelessWidget {
 //
@@ -22,7 +23,9 @@ class AuthShell extends StatelessWidget {
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     return BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => AuthCubit(
+        userRepo: RepositoryProvider.of<UserRepository>(context),
+      ),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: U.Theme.background,

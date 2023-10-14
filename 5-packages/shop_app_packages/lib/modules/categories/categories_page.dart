@@ -26,44 +26,47 @@ class CategoriesPage extends StatelessWidget {
         builder: (context, state) {
           var categoriesCubit = BlocProvider.of<CategoriesCubit>(context);
           return SizedBox.expand(
-            child: Column(
-              children: [
-                U.AppBar.primary(
-                  onMenuPressed: () {},
-                  onNotifPressed: () {},
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: U.SearchInput(
-                    hintText: 'جستجوی محصول',
-                    controller: categoriesCubit.searchCtrl,
-                    onSearch: () {
-                      var temp = categoriesCubit.searchCtrl.text;
-                      if (temp.isNotEmpty) {
-                        categoriesCubit.searchCtrl.clear();
-                        GoRouter.of(context).pushNamed(
-                          SearchPage.route,
-                          pathParameters: {'title': temp},
-                        );
-                      }
-                    },
+            child: Container(
+              color: U.Theme.background,
+              child: Column(
+                children: [
+                  U.AppBar.primary(
+                    onMenuPressed: () {},
+                    onNotifPressed: () {},
                   ),
-                ),
-                Expanded(
-                  child: state.loading
-                      ? const U.Loading()
-                      : GridView.count(
-                          crossAxisCount: (screenWidth / 180).floor(),
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                          childAspectRatio: 2 / 3,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          children: state.categories.map((e) {
-                            return CategoryCard(category: e);
-                          }).toList(),
-                        ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: U.SearchInput(
+                      hintText: 'جستجوی محصول',
+                      controller: categoriesCubit.searchCtrl,
+                      onSearch: () {
+                        var temp = categoriesCubit.searchCtrl.text;
+                        if (temp.isNotEmpty) {
+                          categoriesCubit.searchCtrl.clear();
+                          GoRouter.of(context).pushNamed(
+                            SearchPage.route,
+                            pathParameters: {'title': temp},
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: state.loading
+                        ? const U.Loading()
+                        : GridView.count(
+                            crossAxisCount: (screenWidth / 180).floor(),
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20,
+                            childAspectRatio: 2 / 3,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            children: state.categories.map((e) {
+                              return CategoryCard(category: e);
+                            }).toList(),
+                          ),
+                  ),
+                ],
+              ),
             ),
           );
         },

@@ -86,6 +86,7 @@ class _SearchInputState extends State<SearchInput> {
                   color: U.Theme.secondary,
                 ),
                 decoration: InputDecoration(
+                  isDense: true,
                   hintText: widget.hintText,
                   hintStyle: const TextStyle(
                     fontSize: 14,

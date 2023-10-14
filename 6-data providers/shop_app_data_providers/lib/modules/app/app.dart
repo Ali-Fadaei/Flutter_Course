@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shop_app_data_providers/domains/store_repository/store_repository.dart';
+import 'package:shop_app_data_providers/domains/user_repository/user_repository.dart';
 import 'package:shop_app_data_providers/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_data_providers/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,14 +18,32 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //
-    return RepositoryProvider(
-      create: (context) => StoreRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => UserRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => StoreRepository(),
+        ),
+      ],
       child: BlocProvider(
         create: (context) => AppCubit(),
         child: OverlaySupport.global(
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(useMaterial3: true),
+            theme: ThemeData(
+              useMaterial3: true,
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.macOS: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.linux: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.android: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.iOS: FadeThroughPageTransitionsBuilder(),
+                },
+              ),
+            ),
             builder: (context, child) {
               var width = MediaQuery.of(context).size.width;
               late double temp;

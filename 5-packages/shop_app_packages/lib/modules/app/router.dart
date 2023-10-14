@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shop_app_packages/modules/auth/auth_confirm_page.dart';
-import 'package:shop_app_packages/modules/auth/auth_otp_page.dart';
-import 'package:shop_app_packages/modules/auth/auth_register_page.dart';
-import 'package:shop_app_packages/modules/auth/auth_shell.dart';
 import 'package:shop_app_packages/modules/categories/categories_page.dart';
 import 'package:shop_app_packages/modules/category/category_page.dart';
 import 'package:shop_app_packages/modules/checkout/checkout_page.dart';
@@ -20,7 +16,7 @@ final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: AuthOtpPage.route,
+  initialLocation: StorePage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
       return state.namedLocation(StorePage.route);
@@ -29,39 +25,6 @@ final router = GoRouter(
     }
   },
   routes: [
-    ShellRoute(
-      builder: (context, state, child) => AuthShell(
-        route: state.uri.toString(),
-        child: child,
-      ),
-      routes: [
-        GoRoute(
-          path: AuthOtpPage.route,
-          name: AuthOtpPage.route,
-          builder: (context, state) {
-            return const AuthOtpPage();
-          },
-          routes: [
-            GoRoute(
-              path: AuthConfirmPage.route,
-              name: AuthConfirmPage.route,
-              redirect: (context, state) {
-                return state.extra == null ? AuthOtpPage.route : null;
-              },
-              builder: (context, state) => const AuthConfirmPage(),
-            ),
-            GoRoute(
-              path: AuthRegisterPage.route,
-              name: AuthRegisterPage.route,
-              redirect: (context, state) {
-                return state.extra == null ? AuthOtpPage.route : null;
-              },
-              builder: (context, state) => const AuthRegisterPage(),
-            )
-          ],
-        ),
-      ],
-    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeShell(

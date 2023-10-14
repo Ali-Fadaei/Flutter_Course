@@ -21,6 +21,7 @@ dependencies:
   responsive_framework: ^1.1.0
   carousel_slider: ^4.2.1
   overlay_support: ^2.1.0
+  animations: ^2.0.8
   universal_io: ^2.2.2
   persian_number_utility: ^1.1.3
   flutter_multi_formatter: ^2.11.11
@@ -30,6 +31,8 @@ dependencies:
   geolocator: ^10.1.0
   hive: ^2.2.3
   path_provider: ^2.1.1
+  pin_code_fields: ^8.0.1
+
 
 dev_dependencies:
   flutter_test:
