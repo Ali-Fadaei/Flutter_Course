@@ -6,7 +6,7 @@ import 'package:shop_app_packages/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_packages/modules/shop_cart/shop_item_card.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
-import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
+import 'package:shop_app_packages/tool_kit/tool_kit.dart' as T;
 
 class CartPage extends StatelessWidget {
 //

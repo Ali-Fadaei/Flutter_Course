@@ -11,7 +11,7 @@ import 'package:shop_app_packages/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app_packages/modules/store/product_btms.dart';
 import 'package:shop_app_packages/modules/store/product_card.dart';
 import 'package:shop_app_packages/ui_kit/ui_kit.dart' as U;
-import 'package:shop_app_packages/tool_kit.dart/tool_kit.dart' as T;
+import 'package:shop_app_packages/tool_kit/tool_kit.dart' as T;
 
 class StorePage extends StatelessWidget {
 //
