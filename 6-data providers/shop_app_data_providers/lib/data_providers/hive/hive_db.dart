@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:shop_app_data_providers/tool_kit.dart/tool_kit.dart' as T;
+import 'package:shop_app_data_providers/tool_kit/tool_kit.dart' as T;
 
 abstract class HiveDB {
   //

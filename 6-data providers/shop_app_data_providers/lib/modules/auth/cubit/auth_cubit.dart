@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_app_data_providers/domains/user_repository/user_repository.dart';
-import 'package:shop_app_data_providers/tool_kit.dart/tool_kit.dart' as T;
+import 'package:shop_app_data_providers/tool_kit/tool_kit.dart' as T;
 
 part 'auth_state.dart';
 
