@@ -4,7 +4,9 @@ import './ui_kit.dart' as U;
 class SearchInput extends StatefulWidget {
 //
   final String? hintText;
+
   final TextEditingController controller;
+
   final void Function() onSearch;
 
   const SearchInput({
