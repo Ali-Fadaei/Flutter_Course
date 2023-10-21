@@ -43,11 +43,13 @@ class GoFadeTransition extends CustomTransitionPage {
 //     required super.key,
 //     required super.child,
 //     super.transitionDuration = goDefaultDuration,
+//     Color? fillColor,
 //   }) : super(
 //           transitionsBuilder: (context, anim1, anim2, child) {
 //             return FadeThroughTransition(
 //               animation: anim1,
 //               secondaryAnimation: anim2,
+//               fillColor: fillColor,
 //               child: child,
 //             );
 //           },
@@ -55,19 +57,20 @@ class GoFadeTransition extends CustomTransitionPage {
 // }
 
 // class GoSharedAxisTransition extends CustomTransitionPage {
-// //
-//   final SharedAxisTransitionType type;
+//   //
 
 //   GoSharedAxisTransition({
 //     required super.key,
 //     required super.child,
-//     this.type = SharedAxisTransitionType.horizontal,
 //     super.transitionDuration = goDefaultDuration,
+//     Color? fillColor,
+//     SharedAxisTransitionType type = SharedAxisTransitionType.horizontal,
 //   }) : super(
 //           transitionsBuilder: (context, anim1, anim2, child) {
 //             return SharedAxisTransition(
 //               animation: anim1,
 //               secondaryAnimation: anim2,
+//               fillColor: fillColor,
 //               transitionType: type,
 //               child: child,
 //             );

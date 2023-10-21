@@ -225,7 +225,7 @@ class CheckoutPage extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 20),
                                         Hero(
-                                          tag: 'Btn1',
+                                          tag: 'Btn-1',
                                           child: U.Button(
                                             title: 'پرداخت',
                                             size: U.ButtonSize.lg,

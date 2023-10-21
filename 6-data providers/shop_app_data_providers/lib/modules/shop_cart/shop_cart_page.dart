@@ -79,7 +79,7 @@ class CartPage extends StatelessWidget {
                                       horizontal: 8,
                                     ),
                                     child: Hero(
-                                      tag: 'btn-1',
+                                      tag: 'Btn-1',
                                       child: U.Button(
                                         title: 'تکمیل خرید',
                                         trailing: U.Text(

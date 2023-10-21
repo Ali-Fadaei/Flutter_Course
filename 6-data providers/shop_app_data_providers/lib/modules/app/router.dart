@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_data_providers/modules/app/transitions.dart';
 import 'package:shop_app_data_providers/modules/auth/auth_confirm_page.dart';
 import 'package:shop_app_data_providers/modules/auth/auth_otp_page.dart';
 import 'package:shop_app_data_providers/modules/auth/auth_register_page.dart';
@@ -16,11 +17,14 @@ import 'package:shop_app_data_providers/modules/search/search_page.dart';
 import 'package:shop_app_data_providers/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_data_providers/modules/store/store_page.dart';
 
+import 'package:shop_app_data_providers/ui_kit/ui_kit.dart' as U;
+
 final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: AuthOtpPage.route,
+  initialLocation: StorePage.route,
+  // initialLocation: AuthOtpPage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
       return state.namedLocation(StorePage.route);
@@ -38,8 +42,12 @@ final router = GoRouter(
         GoRoute(
           path: AuthOtpPage.route,
           name: AuthOtpPage.route,
-          builder: (context, state) {
-            return const AuthOtpPage();
+          pageBuilder: (context, state) {
+            return GoFadeTroughTransition(
+              key: state.pageKey,
+              fillColor: U.Theme.surface,
+              child: const AuthOtpPage(),
+            );
           },
           routes: [
             GoRoute(
@@ -48,7 +56,13 @@ final router = GoRouter(
               redirect: (context, state) {
                 return state.extra == null ? AuthOtpPage.route : null;
               },
-              builder: (context, state) => const AuthConfirmPage(),
+              pageBuilder: (context, state) {
+                return GoFadeTroughTransition(
+                  key: state.pageKey,
+                  fillColor: U.Theme.surface,
+                  child: const AuthConfirmPage(),
+                );
+              },
             ),
             GoRoute(
               path: AuthRegisterPage.route,
@@ -56,7 +70,13 @@ final router = GoRouter(
               redirect: (context, state) {
                 return state.extra == null ? AuthOtpPage.route : null;
               },
-              builder: (context, state) => const AuthRegisterPage(),
+              pageBuilder: (context, state) {
+                return GoFadeTroughTransition(
+                  key: state.pageKey,
+                  fillColor: U.Theme.surface,
+                  child: const AuthRegisterPage(),
+                );
+              },
             )
           ],
         ),
