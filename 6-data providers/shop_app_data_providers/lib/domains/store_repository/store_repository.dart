@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shop_app_data_providers/data_providers/shop_api/shop_api.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/category.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/product.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/shop_item.dart';
@@ -215,39 +215,15 @@ class StoreRepository {
   }
 
   Future<List<Category>> readCategories({int? id}) async {
-    await Future.delayed(Duration(milliseconds: latency));
-    var categories = [
-      const Category(
-        id: 0,
-        title: 'موبایل',
-        image: 'assets/imgs/products/Z_Fold_4.png',
-        color: Color.fromARGB(255, 161, 207, 178),
-      ),
-      const Category(
-        id: 1,
-        title: 'لپتاپ',
-        image: 'assets/imgs/products/zenbook_14x.png',
-        color: Color.fromARGB(255, 255, 210, 161),
-      ),
-      const Category(
-        id: 2,
-        title: 'هندزفری',
-        image: 'assets/imgs/products/sony_airbuds.png',
-        color: Color.fromARGB(255, 217, 197, 224),
-      ),
-      const Category(
-        id: 3,
-        title: 'ابزار شبکه',
-        image: 'assets/imgs/products/asus_rt.png',
-        color: Color.fromARGB(255, 218, 241, 254),
-      ),
-    ];
-
-    if (id != null) {
-      categories = categories.where((element) => element.id == id).toList();
+    final res = await ShopApi.client.get(
+      ShopApi.urls.productCategory,
+      param: id?.toString(),
+    );
+    if (id == null) {
+      return List.from(res.data.map((e) => Category.fromMap(e)));
+    } else {
+      return [Category.fromMap(res.data)];
     }
-
-    return categories;
   }
 
   Future<List<Product>> readFavorites() async {

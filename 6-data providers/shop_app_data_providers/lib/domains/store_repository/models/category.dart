@@ -18,6 +18,15 @@ class Category extends Equatable {
     required this.color,
   });
 
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+      id: map['id'],
+      title: map['title'],
+      image: map['Image'],
+      color: Color(int.parse(map['color'])),
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,
