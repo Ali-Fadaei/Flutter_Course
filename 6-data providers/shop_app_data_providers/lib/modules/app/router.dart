@@ -18,7 +18,7 @@ final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: OtpPage.route,
+  initialLocation: StorePage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
       return state.namedLocation(StorePage.route);

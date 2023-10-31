@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -8,6 +9,7 @@ import 'package:shop_app_data_providers/domains/store_repository/store_repositor
 import 'package:shop_app_data_providers/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_data_providers/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app_data_providers/ui_kit/ui_kit.dart' as U;
 
 class App extends StatelessWidget {
 //
@@ -23,7 +25,19 @@ class App extends StatelessWidget {
         child: OverlaySupport.global(
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(useMaterial3: true),
+            theme: ThemeData(
+              useMaterial3: true,
+              canvasColor: U.Theme.background,
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.android: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.iOS: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.macOS: FadeThroughPageTransitionsBuilder(),
+                  TargetPlatform.linux: FadeThroughPageTransitionsBuilder(),
+                },
+              ),
+            ),
             builder: (context, child) {
               var width = MediaQuery.of(context).size.width;
               late double temp;

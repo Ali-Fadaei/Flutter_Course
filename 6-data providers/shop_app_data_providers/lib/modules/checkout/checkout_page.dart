@@ -233,13 +233,16 @@ class CheckoutPage extends StatelessWidget {
                                           ],
                                         ),
                                         const SizedBox(height: 20),
-                                        U.Button(
-                                          title: 'پرداخت',
-                                          size: U.ButtonSize.lg,
-                                          disabled: state.discountLoading,
-                                          loading: state.paymentLoading,
-                                          onPressed:
-                                              checkoutCubit.onPaymentPressed,
+                                        Hero(
+                                          tag: 'btn1',
+                                          child: U.Button(
+                                            title: 'پرداخت',
+                                            size: U.ButtonSize.lg,
+                                            disabled: state.discountLoading,
+                                            loading: state.paymentLoading,
+                                            onPressed:
+                                                checkoutCubit.onPaymentPressed,
+                                          ),
                                         ),
                                       ],
                                     ),
