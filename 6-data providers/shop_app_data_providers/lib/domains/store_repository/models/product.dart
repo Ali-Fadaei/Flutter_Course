@@ -27,6 +27,20 @@ class Product extends Equatable {
     required this.category,
   });
 
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      title: map['title'],
+      rating: map['rating'],
+      price: map['price'],
+      image: map['Image'],
+      description: map['description'],
+      category: Category.fromMap(
+        map['category'],
+      ),
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,
