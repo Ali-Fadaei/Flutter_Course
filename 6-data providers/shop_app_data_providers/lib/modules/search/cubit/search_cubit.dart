@@ -47,7 +47,7 @@ class SearchCubit extends Cubit<SearchState> {
   Future<void> _getProducts() async {
     var res = await _storeRepo.readProducts(
       title: searchCtrl.text.isEmpty ? null : searchCtrl.text,
-      categoriesId: state.selectedCategories.map((e) => e.id).toList(),
+      categoriesIds: state.selectedCategories.map((e) => e.id).toList(),
       minRating: state.minRating,
       maxRating: state.maxRating,
       minPrice: state.minPrice,
