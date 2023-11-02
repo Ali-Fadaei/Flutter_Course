@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app_data_providers/data_providers/shop_api/shop_response.dart';
 
@@ -15,7 +16,19 @@ class ShopHttpClient {
     _dio.options.sendTimeout = const Duration(minutes: 1);
     _dio.options.receiveTimeout = const Duration(minutes: 1);
     if (logger) addLogger();
+    addErrorInterceptor();
     addResponseInterceptor();
+  }
+
+  void addErrorInterceptor() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) {
+          exceptionHandler(error);
+          handler.next(error);
+        },
+      ),
+    );
   }
 
   void addResponseInterceptor() {
@@ -73,6 +86,44 @@ class ShopHttpClient {
     return temp;
   }
 
+  void exceptionHandler(DioException error) async {
+    //
+    final int? statusCode = error.response?.statusCode;
+    if (error.message
+            ?.contains('The connection errored: Failed host lookup:') ??
+        false) {
+      toast('عدم اتصال به شبکه');
+      throw Exception('network Error! can\'t connect to network.');
+    } else if (error.type == DioExceptionType.connectionTimeout ||
+        error.type == DioExceptionType.receiveTimeout ||
+        error.type == DioExceptionType.sendTimeout) {
+      toast('سرویس پاسخگو نبود');
+      throw Exception(
+        'connection timeout! (${error.requestOptions.connectTimeout})ms',
+      );
+    } else if (error.type == DioExceptionType.unknown) {
+      toast('مشکلی در برقراری ارتباط با سرویس رخ داد');
+      throw Exception(error.message);
+    } else if (statusCode == 401) {
+      // onUnAuthorized();
+      await Future.delayed(const Duration(milliseconds: 50));
+      toast('کلید دسترسی شما منقضی شده است');
+      throw Exception('access token expired! (401)');
+    } else if (statusCode == 403) {
+      toast('دسترسی مجاز نمی باشد');
+      throw Exception('access denied! (403)');
+    } else if (statusCode == 500) {
+      toast('مشکلی در سرویس رخ داده');
+      throw Exception('internal server error! (500)');
+    } else if (statusCode == 502) {
+      toast('سرویس در دسترس نمی باشد');
+      throw Exception(error);
+    } else if (error.response?.data['messages']?['general'] != null &&
+        error.response?.data['messages']?['general'] != '') {
+      toast(error.response?.data['messages']?['general']);
+    }
+  }
+
   Options _buildReqOptions({String? accessToken}) {
     return Options(
       headers: {
@@ -100,7 +151,7 @@ class ShopHttpClient {
     return res.data;
   }
 
-  Future post(
+  Future<ShopResponse> post(
     String url, {
     String? accessToken,
     Map<String, dynamic>? data,
@@ -112,10 +163,10 @@ class ShopHttpClient {
         accessToken: accessToken,
       ),
     );
-    return res;
+    return res.data;
   }
 
-  Future put(
+  Future<ShopResponse> put(
     String url, {
     required String param,
     String? accessToken,
@@ -128,10 +179,10 @@ class ShopHttpClient {
         accessToken: accessToken,
       ),
     );
-    return res;
+    return res.data;
   }
 
-  Future delete(
+  Future<ShopResponse> delete(
     String url,
     String? accessToken,
     List<int> ids,
@@ -145,6 +196,6 @@ class ShopHttpClient {
         accessToken: accessToken,
       ),
     );
-    return res;
+    return res.data;
   }
 }
