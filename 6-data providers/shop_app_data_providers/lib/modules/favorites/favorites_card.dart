@@ -33,7 +33,7 @@ class FavoritesCard extends StatelessWidget {
           children: [
             SizedBox(
               width: 120,
-              child: U.Image(path: product.image),
+              child: U.NetworkImage(url: product.image),
             ),
             const SizedBox(width: 5),
             Expanded(

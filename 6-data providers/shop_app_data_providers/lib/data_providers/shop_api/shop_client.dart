@@ -39,6 +39,40 @@ class ShopHttpClient {
     );
   }
 
+  Map<String, dynamic>? nullKiller(Map<String, dynamic>? map) {
+    Map<String, dynamic>? temp = {};
+    map?.forEach(
+      (key, value) {
+        if (value != null) {
+          if (value == '') {
+            temp[key] = null;
+          } else if (value.runtimeType == Map) {
+            temp[key] = nullKiller(value);
+          } else {
+            temp[key] = value;
+          }
+        }
+      },
+    );
+    return temp;
+  }
+
+  Map<String, dynamic>? qpNullKiller(Map<String, dynamic>? map) {
+    Map<String, dynamic>? temp = {};
+    map?.forEach(
+      (key, value) {
+        if (value != null && value != '') {
+          if (value.runtimeType == Map) {
+            temp[key] = qpNullKiller(value);
+          } else {
+            temp[key] = value;
+          }
+        }
+      },
+    );
+    return temp;
+  }
+
   Options _buildReqOptions({String? accessToken}) {
     return Options(
       headers: {
@@ -58,7 +92,7 @@ class ShopHttpClient {
   }) async {
     final res = await _dio.get(
       param == null ? url : '$url/$param',
-      queryParameters: queryParams,
+      queryParameters: qpNullKiller(queryParams),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),
@@ -73,7 +107,7 @@ class ShopHttpClient {
   }) async {
     final res = await _dio.post(
       url,
-      data: data,
+      data: nullKiller(data),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),
@@ -89,7 +123,7 @@ class ShopHttpClient {
   }) async {
     final res = await _dio.put(
       '$url/$param',
-      data: data,
+      data: nullKiller(data),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),

@@ -34,7 +34,7 @@ class ShopCardItem extends StatelessWidget {
           children: [
             SizedBox(
               width: 80,
-              child: U.Image(path: shopItem.product.image),
+              child: U.NetworkImage(url: shopItem.product.image),
             ),
             const SizedBox(width: 5),
             Expanded(
