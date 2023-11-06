@@ -41,8 +41,8 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> _getProducts() async {
     var res = await _storeRepo.readProducts(
-      title: searchCtrl.text.isEmpty ? null : searchCtrl.text,
-      categoriesId: [categoryId],
+      title: searchCtrl.text,
+      categoriesIds: [categoryId],
       minRating: state.minRating,
       maxRating: state.maxRating,
       minPrice: state.minPrice,

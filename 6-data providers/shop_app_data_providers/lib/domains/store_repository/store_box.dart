@@ -1,4 +1,6 @@
 import 'package:shop_app_data_providers/data_providers/hive/hive_db.dart';
+import 'package:shop_app_data_providers/domains/store_repository/models/product.dart';
+import 'package:shop_app_data_providers/domains/store_repository/models/shop_item.dart';
 
 enum StoreBoxKeys {
   favorites,
@@ -18,33 +20,37 @@ abstract class StoreBox {
     }
   }
 
-  static bool setFavorites(List<int> favs) {
+  static void setFavorites(List<Product> favs) {
     return HiveDB.setValue(
-      name,
-      StoreBoxKeys.favorites.toString(),
-      favs,
+      box: name,
+      key: StoreBoxKeys.favorites.toString(),
+      value: favs.map((e) => e.toMap()),
     );
   }
 
-  static List<int> getFavorites() {
-    return HiveDB.getValue(
-      name,
-      StoreBoxKeys.favorites.toString(),
-    );
+  static List<Product> getFavorites() {
+    final res = HiveDB.getValue(
+          box: name,
+          key: StoreBoxKeys.favorites.toString(),
+        ) ??
+        [];
+    return List.from(res.map((e) => Product.fromMap(e)));
   }
 
-  static bool setShopItems(List<int> items) {
+  static void setShopItems(List<ShopItem> items) {
     return HiveDB.setValue(
-      name,
-      StoreBoxKeys.shopItems.toString(),
-      items,
+      box: name,
+      key: StoreBoxKeys.shopItems.toString(),
+      value: items.map((e) => e.toMap()),
     );
   }
 
-  static List<int> getShopItems() {
-    return HiveDB.getValue(
-      name,
-      StoreBoxKeys.shopItems.toString(),
-    );
+  static List<ShopItem> getShopItems() {
+    final res = HiveDB.getValue(
+          box: name,
+          key: StoreBoxKeys.shopItems.toString(),
+        ) ??
+        [];
+    return List.from(res.map((e) => ShopItem.fromMap(e)));
   }
 }

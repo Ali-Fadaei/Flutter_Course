@@ -27,6 +27,15 @@ class Category extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'Image': image,
+      'color': color.value.toString(),
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,

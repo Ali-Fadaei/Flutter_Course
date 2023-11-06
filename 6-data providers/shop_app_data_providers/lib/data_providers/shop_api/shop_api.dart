@@ -8,9 +8,9 @@ abstract class ShopApi {
 
   static final urls = ShopUrls();
 
-  static late ShopHttpClient client;
+  static late final ShopHttpClient client;
 
-  static init({
+  static void init({
     String? server,
     bool? logger,
   }) {

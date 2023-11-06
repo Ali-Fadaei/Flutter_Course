@@ -64,7 +64,7 @@ class ProductBottomSheet extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 300,
-                  child: U.Image(path: product.image),
+                  child: U.NetworkImage(url: product.image),
                 ),
                 const SizedBox(height: 25),
                 Row(

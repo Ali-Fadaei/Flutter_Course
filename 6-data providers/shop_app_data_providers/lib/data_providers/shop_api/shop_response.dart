@@ -8,7 +8,7 @@ class ShopResponse {
 
   final ShopResponseMessage? message;
 
-  const ShopResponse({
+  ShopResponse({
     required this.result,
     required this.status,
     this.data,
@@ -20,7 +20,9 @@ class ShopResponse {
       result: map['result'],
       status: map['status'],
       data: map['data'],
-      message: map['message'],
+      message: ShopResponseMessage.fromMap(
+        map['message'],
+      ),
     );
   }
 }
@@ -29,10 +31,17 @@ class ShopResponseMessage {
   //
   final String? general;
 
-  final Map<String, String>? validations;
+  final dynamic validations;
 
   ShopResponseMessage({
     this.general,
     this.validations,
   });
+
+  factory ShopResponseMessage.fromMap(Map<String, dynamic>? map) {
+    return ShopResponseMessage(
+      general: map?['general'],
+      validations: map?['validation'],
+    );
+  }
 }

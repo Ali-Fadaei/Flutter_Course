@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app_data_providers/data_providers/shop_api/shop_response.dart';
 
@@ -8,27 +9,29 @@ class ShopHttpClient {
 
   ShopHttpClient({
     required String server,
-    bool logger = false,
+    required bool logger,
   }) {
     _dio.options.baseUrl = server;
-    _dio.options.connectTimeout = const Duration(seconds: 60);
-    _dio.options.sendTimeout = const Duration(seconds: 60);
-    _dio.options.receiveTimeout = const Duration(seconds: 60);
+    _dio.options.connectTimeout = const Duration(minutes: 1);
+    _dio.options.sendTimeout = const Duration(minutes: 1);
+    _dio.options.receiveTimeout = const Duration(minutes: 1);
     if (logger) addLogger();
-    addBaseResponseInterceptor();
+    addErrorInterceptor();
+    addResponseInterceptor();
   }
 
-  void addLogger() {
+  void addErrorInterceptor() {
     _dio.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseHeader: true,
+      InterceptorsWrapper(
+        onError: (error, handler) {
+          exceptionHandler(error);
+          handler.next(error);
+        },
       ),
     );
   }
 
-  void addBaseResponseInterceptor() {
+  void addResponseInterceptor() {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onResponse: (response, handler) {
@@ -39,12 +42,94 @@ class ShopHttpClient {
     );
   }
 
+  void addLogger() {
+    _dio.interceptors.add(
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
+    );
+  }
+
+  Map<String, dynamic>? nullKiller(Map<String, dynamic>? map) {
+    Map<String, dynamic>? temp = {};
+    map?.forEach(
+      (key, value) {
+        if (value != null) {
+          if (value == '') {
+            temp[key] = null;
+          } else if (value.runtimeType == Map) {
+            temp[key] = nullKiller(value);
+          } else {
+            temp[key] = value;
+          }
+        }
+      },
+    );
+    return temp;
+  }
+
+  Map<String, dynamic>? qpNullKiller(Map<String, dynamic>? map) {
+    Map<String, dynamic>? temp = {};
+    map?.forEach(
+      (key, value) {
+        if (value != null && value != '') {
+          if (value.runtimeType == Map) {
+            temp[key] = qpNullKiller(value);
+          } else {
+            temp[key] = value;
+          }
+        }
+      },
+    );
+    return temp;
+  }
+
+  void exceptionHandler(DioException error) async {
+    //
+    final int? statusCode = error.response?.statusCode;
+    if (error.message
+            ?.contains('The connection errored: Failed host lookup:') ??
+        false) {
+      toast('عدم اتصال به شبکه');
+      throw Exception('network Error! can\'t connect to network.');
+    } else if (error.type == DioExceptionType.connectionTimeout ||
+        error.type == DioExceptionType.receiveTimeout ||
+        error.type == DioExceptionType.sendTimeout) {
+      toast('سرویس پاسخگو نبود');
+      throw Exception(
+        'connection timeout! (${error.requestOptions.connectTimeout})ms',
+      );
+    } else if (error.type == DioExceptionType.unknown) {
+      toast('مشکلی در برقراری ارتباط با سرویس رخ داد');
+      throw Exception(error.message);
+    } else if (statusCode == 401) {
+      // onUnAuthorized();
+      await Future.delayed(const Duration(milliseconds: 50));
+      toast('کلید دسترسی شما منقضی شده است');
+      throw Exception('access token expired! (401)');
+    } else if (statusCode == 403) {
+      toast('دسترسی مجاز نمی باشد');
+      throw Exception('access denied! (403)');
+    } else if (statusCode == 500) {
+      toast('مشکلی در سرویس رخ داده');
+      throw Exception('internal server error! (500)');
+    } else if (statusCode == 502) {
+      toast('سرویس در دسترس نمی باشد');
+      throw Exception(error);
+    } else if (error.response?.data['messages']?['general'] != null &&
+        error.response?.data['messages']?['general'] != '') {
+      toast(error.response?.data['messages']?['general']);
+    }
+  }
+
   Options _buildReqOptions({String? accessToken}) {
     return Options(
       headers: {
-        'Accept-Language': 'fa',
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
+        "Accept-language": "fa",
+        "Accept": "application/json",
+        "content": "application/json",
         if (accessToken != null) "Authorization": accessToken,
       },
     );
@@ -56,10 +141,9 @@ class ShopHttpClient {
     String? accessToken,
     Map<String, dynamic>? queryParams,
   }) async {
-    if (param != null) url = '$url/$param';
     final res = await _dio.get(
-      url,
-      queryParameters: queryParams,
+      param == null ? url : '$url/$param',
+      queryParameters: qpNullKiller(queryParams),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),
@@ -74,7 +158,7 @@ class ShopHttpClient {
   }) async {
     final res = await _dio.post(
       url,
-      data: data,
+      data: nullKiller(data),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),
@@ -90,7 +174,7 @@ class ShopHttpClient {
   }) async {
     final res = await _dio.put(
       '$url/$param',
-      data: data,
+      data: nullKiller(data),
       options: _buildReqOptions(
         accessToken: accessToken,
       ),
@@ -99,13 +183,15 @@ class ShopHttpClient {
   }
 
   Future<ShopResponse> delete(
-    String url, {
+    String url,
     String? accessToken,
-    required List<int> ids,
-  }) async {
-    final res = await _dio.put(
+    List<int> ids,
+  ) async {
+    final res = await _dio.delete(
       url,
-      data: {"ids": ids},
+      data: {
+        "ids": ids,
+      },
       options: _buildReqOptions(
         accessToken: accessToken,
       ),

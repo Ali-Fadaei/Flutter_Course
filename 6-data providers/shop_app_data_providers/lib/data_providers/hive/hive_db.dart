@@ -22,33 +22,24 @@ abstract class HiveDB {
     await Hive.openBox(name);
   }
 
-  static bool setValue<T>(
-    String boxName,
-    String key,
-    T value,
-  ) {
-    if (!Hive.isBoxOpen(boxName)) {
-      throw '$boxName Box is not oppened yet!';
+  static void setValue<T>({
+    required String box,
+    required String key,
+    required T? value,
+  }) {
+    if (!Hive.isBoxOpen(box)) {
+      throw '$box Box is not oppened yet!';
     }
-    try {
-      Hive.box(boxName).put(key, value);
-      return true;
-    } catch (_) {
-      return false;
-    }
+    Hive.box(box).put(key, value);
   }
 
-  static T? getValue<T>(
-    String boxName,
-    String key,
-  ) {
-    if (!Hive.isBoxOpen(boxName)) {
-      throw '$boxName Box is not oppened yet!';
+  static T? getValue<T>({
+    required String box,
+    required String key,
+  }) {
+    if (!Hive.isBoxOpen(box)) {
+      throw '$box Box is not oppened yet!';
     }
-    try {
-      return Hive.box(boxName).get(key.toString());
-    } catch (_) {
-      return null;
-    }
+    return Hive.box(box).get(key);
   }
 }
