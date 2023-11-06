@@ -18,7 +18,7 @@ class Category extends Equatable {
     required this.color,
   });
 
-  factory Category.fromMap(Map<String, dynamic> map) {
+  factory Category.fromMap(Map<dynamic, dynamic> map) {
     return Category(
       id: map['id'],
       title: map['title'],

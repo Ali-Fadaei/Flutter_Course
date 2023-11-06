@@ -20,7 +20,11 @@ void main() async {
       image: 'image',
       description: 'description',
       category: Category(
-          id: 1, title: 'title', image: 'image', color: Colors.transparent),
+        id: 1,
+        title: 'title',
+        image: 'image',
+        color: Colors.transparent,
+      ),
     )
   ]);
 

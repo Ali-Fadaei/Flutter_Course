@@ -14,7 +14,10 @@ abstract class HiveDB {
   }
 
   static Future<void> openBox({required String boxName}) async {
-    await Hive.openBox(boxName);
+    await Hive.openBox(
+      boxName,
+      crashRecovery: true,
+    );
   }
 
   static void setValue<T>({
