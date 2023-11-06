@@ -12,6 +12,20 @@ class ShopItem extends Equatable {
     this.count = 1,
   });
 
+  factory ShopItem.fromMap(Map<String, dynamic> map) {
+    return ShopItem(
+      product: Product.fromMap(map['product']),
+      count: map['count'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'product': product.toMap(),
+      'count': count,
+    };
+  }
+
   ShopItem copyWith({
     Product? product,
     int? count,

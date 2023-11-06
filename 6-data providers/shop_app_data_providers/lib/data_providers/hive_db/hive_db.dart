@@ -18,27 +18,23 @@ abstract class HiveDB {
   }
 
   static void setValue<T>({
-    required String boxName,
-    required String key,
+    required String box,
+    required int key,
     required T value,
-    Map<String, dynamic> Function(T value)? toMap,
   }) {
-    if (toMap != null) {
-      Hive.box(boxName).put(key, toMap(value));
-    } else {
-      Hive.box(boxName).put(key, value);
+    if (!Hive.isBoxOpen(box)) {
+      throw Exception('$box box is not openned yet!');
     }
+    Hive.box(box).put(key.toString(), value);
   }
 
   static T? getValue<T>({
-    required String boxName,
-    required String key,
-    T? Function(dynamic e)? fromMap,
+    required String box,
+    required int key,
   }) {
-    if (fromMap != null) {
-      return fromMap(Hive.box(boxName).get(key));
-    } else {
-      return Hive.box(boxName).get(key);
+    if (!Hive.isBoxOpen(box)) {
+      throw Exception('$box box is not openned yet!');
     }
+    return Hive.box(box).get(key.toString());
   }
 }

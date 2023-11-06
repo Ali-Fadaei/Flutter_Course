@@ -41,6 +41,18 @@ class Product extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'rating': rating,
+      'price': price,
+      'Image': image,
+      'description': description,
+      'category': category.toMap(),
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,
