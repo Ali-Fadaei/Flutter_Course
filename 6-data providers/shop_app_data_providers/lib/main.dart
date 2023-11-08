@@ -5,10 +5,10 @@ import 'package:shop_app_data_providers/domains/store_repository/store_repositor
 import 'package:shop_app_data_providers/modules/app/app.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   ShopApi.init(logger: false);
   await HiveDB.init(appName: 'shopApp');
   final storeRepo = await StoreRepository.init();
-
   runApp(
     App(storeRepo: storeRepo),
   );
