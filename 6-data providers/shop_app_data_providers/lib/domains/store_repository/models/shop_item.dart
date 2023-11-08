@@ -12,7 +12,7 @@ class ShopItem extends Equatable {
     this.count = 1,
   });
 
-  factory ShopItem.fromMap(Map<String, dynamic> map) {
+  factory ShopItem.fromMap(Map<dynamic, dynamic> map) {
     return ShopItem(
       product: Product.fromMap(map['product']),
       count: map['count'],

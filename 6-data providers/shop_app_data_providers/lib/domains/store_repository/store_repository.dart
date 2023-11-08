@@ -2,12 +2,14 @@ import 'package:shop_app_data_providers/data_providers/shop_api/shop_api.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/category.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/product.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/shop_item.dart';
+import 'package:shop_app_data_providers/domains/store_repository/store_box.dart';
 
 class StoreRepository {
 //
-  List<Product> _favorites = [];
-
-  List<ShopItem> _shopItems = [];
+  static Future<StoreRepository> init() async {
+    await StoreBox.open();
+    return StoreRepository();
+  }
 
   final latency = 1000;
 
@@ -60,25 +62,19 @@ class StoreRepository {
   }
 
   Future<List<Product>> readFavorites() async {
-    await Future.delayed(Duration(milliseconds: latency));
-    return _favorites;
+    return StoreBox.getFavorites();
   }
 
-  Future<bool> updateFavorites(List<Product> favs) async {
-    await Future.delayed(Duration(milliseconds: latency));
-    _favorites = favs;
-    return true;
+  Future<void> updateFavorites(List<Product> favs) async {
+    return StoreBox.setFavorites(favs);
   }
 
   Future<List<ShopItem>> readShopItems() async {
-    await Future.delayed(Duration(milliseconds: latency));
-    return _shopItems;
+    return StoreBox.getShopItems();
   }
 
-  Future<bool> updateShopItems(List<ShopItem> shopItems) async {
-    await Future.delayed(Duration(milliseconds: latency));
-    _shopItems = shopItems;
-    return true;
+  Future<void> updateShopItems(List<ShopItem> shopItems) async {
+    StoreBox.setShopItem(shopItems);
   }
 
   Future<int> readDiscount(String discountCode) async {

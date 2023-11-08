@@ -13,13 +13,22 @@ import 'package:shop_app_data_providers/ui_kit/ui_kit.dart' as U;
 
 class App extends StatelessWidget {
 //
-  const App({super.key});
+  final StoreRepository storeRepo;
+
+  const App({
+    super.key,
+    required this.storeRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
 //
-    return RepositoryProvider(
-      create: (context) => StoreRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: storeRepo,
+        ),
+      ],
       child: BlocProvider(
         create: (context) => AppCubit(),
         child: OverlaySupport.global(
