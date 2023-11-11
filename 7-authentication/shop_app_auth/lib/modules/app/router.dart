@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_auth/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_auth/modules/auth/auth_confirm_page.dart';
 import 'package:shop_app_auth/modules/auth/auth_otp_page.dart';
 import 'package:shop_app_auth/modules/auth/auth_shell.dart';
+import 'package:shop_app_auth/modules/auth/register_page.dart';
 import 'package:shop_app_auth/modules/categories/categories_page.dart';
 import 'package:shop_app_auth/modules/category/category_page.dart';
 import 'package:shop_app_auth/modules/checkout/checkout_page.dart';
@@ -18,12 +21,18 @@ final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: StorePage.route,
+  initialLocation: AuthOtpPage.route,
   redirect: (context, state) {
-    if (state.uri.toString() == '/') {
-      return state.namedLocation(StorePage.route);
+    final isAuthorized = BlocProvider.of<AppCubit>(context).state.jwtAuthCheck;
+    final location = state.uri.toString();
+    if (isAuthorized) {
+      return (location.contains('/auth') || location == '/')
+          ? StorePage.route
+          : null;
     } else {
-      return null;
+      return (!location.contains('/auth') || location == '/')
+          ? AuthOtpPage.route
+          : null;
     }
   },
   routes: [
@@ -134,55 +143,29 @@ final router = GoRouter(
     ShellRoute(
       builder: (context, state, child) {
         return AuthShell(
+          route: state.uri.toString(),
           child: child,
         );
       },
       routes: [
         GoRoute(
-          path: OtpPage.route,
-          name: OtpPage.route,
-          pageBuilder: (context, state) {
-            return const MaterialPage(child: OtpPage());
-          },
+          path: AuthOtpPage.route,
+          name: AuthOtpPage.route,
+          builder: (context, state) => const AuthOtpPage(),
           routes: [
             GoRoute(
-              path: OtpConfirmPage.route,
-              name: OtpConfirmPage.route,
-              pageBuilder: (context, state) {
-                return const MaterialPage(child: OtpConfirmPage());
-              },
+              path: AuthConfirmPage.route,
+              name: AuthConfirmPage.route,
+              builder: (context, state) => const AuthConfirmPage(),
+            ),
+            GoRoute(
+              path: AuthRegisterPage.route,
+              name: AuthRegisterPage.route,
+              builder: (context, state) => const AuthRegisterPage(),
             ),
           ],
         ),
       ],
     )
-    // GoRoute(
-    //   path: APage.route,
-    //   name: APage.route,
-    //   pageBuilder: (context, state) {
-    //     return const CupertinoPage(
-    //       child: APage(),
-    //     );
-    //   },
-    //   routes: [
-    //     GoRoute(
-    //       path: BPage.route,
-    //       name: BPage.route,
-    //       pageBuilder: (context, state) {
-    //         return CustomTransitionPage(
-    //           transitionsBuilder: (context, anim1, anim2, child) {
-    //             return FadeTransition(
-    //               opacity: anim1,
-    //               child: child,
-    //             );
-    //           },
-    //           child: BPage(
-    //             id: int.parse(state.pathParameters['id']!),
-    //           ),
-    //         );
-    //       },
-    //     ),
-    //   ],
-    // ),
   ],
 );

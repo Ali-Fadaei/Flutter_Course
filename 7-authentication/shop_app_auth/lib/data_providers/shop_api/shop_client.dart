@@ -168,12 +168,12 @@ class ShopHttpClient {
 
   Future<ShopResponse> put(
     String url, {
-    required String param,
+    String? param,
     String? accessToken,
     Map<String, dynamic>? data,
   }) async {
     final res = await _dio.put(
-      '$url/$param',
+      param == null ? url : '$url/$param',
       data: nullKiller(data),
       options: _buildReqOptions(
         accessToken: accessToken,

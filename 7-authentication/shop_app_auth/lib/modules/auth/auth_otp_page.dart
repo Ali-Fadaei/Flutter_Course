@@ -6,47 +6,72 @@ import 'package:shop_app_auth/modules/auth/cubit/auth_cubit.dart';
 import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 import 'package:shop_app_auth/tool_kit/tool_kit.dart' as T;
 
-class OtpPage extends StatelessWidget {
+class AuthOtpPage extends StatelessWidget {
   //
-  static const route = '/otp';
+  static const route = '/auth/otp';
 
-  const OtpPage({super.key});
+  const AuthOtpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocConsumer<AuthCubit, AuthState>(
-      listenWhen: (previous, current) => previous.hashId != current.hashId,
+      listenWhen: (previous, current) =>
+          previous.goConfirmPage != current.goConfirmPage,
       listener: (context, state) {
-        GoRouter.of(context).goNamed(OtpConfirmPage.route);
+        GoRouter.of(context).goNamed(
+          AuthConfirmPage.route,
+          extra: state.hashId,
+        );
       },
-      buildWhen: (previous, current) => previous.loading != current.loading,
+      buildWhen: (previous, current) =>
+          previous.otpGenerateLoading != current.otpGenerateLoading,
       builder: (context, state) {
         return Container(
           color: U.Theme.surface,
           child: Column(
             children: [
               const U.Text(
-                'ورود | ثبت‌نام حساب‌کاربری',
-                size: U.TextSize.xl,
-                weight: U.TextWeight.medium,
+                'ورود | ثبت‌نام',
+                size: U.TextSize.lg,
+                weight: U.TextWeight.bold,
               ),
-              const U.Divider.horizontal(),
+              const U.Divider.horizontal(space: 10),
+              const Spacer(flex: 2),
+              const Row(
+                children: [
+                  U.Text('سلام!'),
+                  Spacer(),
+                ],
+              ),
+              const Row(
+                children: [
+                  U.Text('برای ادامه شماره موبایل خود را وارد نمایید.'),
+                  Spacer(),
+                ],
+              ),
               const Spacer(),
               U.TextInput(
-                controller: TextEditingController(),
                 title: 'شماره موبایل',
+                autoFocus: true,
+                disabled: false,
+                controller: authCubit.phoneCtrl,
                 formatters: [T.Formatter.mobileNumber],
               ),
-              const Spacer(),
+              const Spacer(flex: 2),
               U.Button(
                 title: 'ادامه',
                 color: U.ButtonColor.primary,
-                loading: state.loading,
+                loading: state.otpGenerateLoading,
                 size: U.ButtonSize.lg,
-                onPressed: () => authCubit.onOtpCompleted(),
+                onPressed: () => authCubit.onOtpRequested(),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 10),
+              const U.Text(
+                'ورود شما به معنای پذیرش شرایط آمازون و قوانین حریم‌خصوصی است.',
+                size: U.TextSize.xs,
+              ),
+              const Spacer(),
             ],
           ),
         );
