@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
-import 'package:shop_app_auth/modules/profile/a_page.dart';
 import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatelessWidget {
