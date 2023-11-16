@@ -12,12 +12,6 @@ class StoreRepository {
     return StoreRepository();
   }
 
-  // List<Product> _favorites = [];
-
-  // List<ShopItem> _shopItems = [];
-
-  // final latency = 1000;
-
   Future<List<Product>> readProducts({
     int? id,
     String? title,

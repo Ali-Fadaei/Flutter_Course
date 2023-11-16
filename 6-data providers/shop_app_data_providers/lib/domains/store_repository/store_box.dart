@@ -15,42 +15,41 @@ abstract class StoreBox {
 
   static Future<void> open() async {
     if (!isOpen) {
-      await HiveDB.openBox(name);
-      isOpen = true;
+      await HiveDB.openBox(boxName: name);
     }
   }
 
   static void setFavorites(List<Product> favs) {
-    return HiveDB.setValue(
+    HiveDB.setValue(
       box: name,
-      key: StoreBoxKeys.favorites.toString(),
-      value: favs.map((e) => e.toMap()),
+      key: StoreBoxKeys.favorites.index,
+      value: favs.map((e) => e.toMap()).toList(),
     );
   }
 
   static List<Product> getFavorites() {
     final res = HiveDB.getValue(
           box: name,
-          key: StoreBoxKeys.favorites.toString(),
+          key: StoreBoxKeys.favorites.index,
         ) ??
         [];
     return List.from(res.map((e) => Product.fromMap(e)));
   }
 
-  static void setShopItems(List<ShopItem> items) {
-    return HiveDB.setValue(
+  static void setShopItems(List<ShopItem> shopItems) {
+    HiveDB.setValue(
       box: name,
-      key: StoreBoxKeys.shopItems.toString(),
-      value: items.map((e) => e.toMap()),
+      key: StoreBoxKeys.shopItems.index,
+      value: shopItems.map((e) => e.toMap()).toList(),
     );
   }
 
   static List<ShopItem> getShopItems() {
-    final res = HiveDB.getValue(
+    final result = HiveDB.getValue(
           box: name,
-          key: StoreBoxKeys.shopItems.toString(),
+          key: StoreBoxKeys.shopItems.index,
         ) ??
         [];
-    return List.from(res.map((e) => ShopItem.fromMap(e)));
+    return List.from(result.map((e) => ShopItem.fromMap(e)));
   }
 }

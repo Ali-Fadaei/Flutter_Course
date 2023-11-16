@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shop_app_data_providers/domains/store_repository/store_repository.dart';
-import 'package:shop_app_data_providers/domains/user_repository/user_repository.dart';
 import 'package:shop_app_data_providers/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_data_providers/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +26,6 @@ class App extends StatelessWidget {
 //
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
-          create: (context) => UserRepository(),
-        ),
         RepositoryProvider.value(
           value: storeRepo,
         ),

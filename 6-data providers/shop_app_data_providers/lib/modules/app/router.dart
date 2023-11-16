@@ -1,10 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shop_app_data_providers/modules/app/transitions.dart';
-import 'package:shop_app_data_providers/modules/auth/auth_confirm_page.dart';
-import 'package:shop_app_data_providers/modules/auth/auth_otp_page.dart';
-import 'package:shop_app_data_providers/modules/auth/auth_register_page.dart';
-import 'package:shop_app_data_providers/modules/auth/auth_shell.dart';
 import 'package:shop_app_data_providers/modules/categories/categories_page.dart';
 import 'package:shop_app_data_providers/modules/category/category_page.dart';
 import 'package:shop_app_data_providers/modules/checkout/checkout_page.dart';
@@ -17,14 +12,11 @@ import 'package:shop_app_data_providers/modules/search/search_page.dart';
 import 'package:shop_app_data_providers/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_app_data_providers/modules/store/store_page.dart';
 
-import 'package:shop_app_data_providers/ui_kit/ui_kit.dart' as U;
-
 final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
   initialLocation: StorePage.route,
-  // initialLocation: AuthOtpPage.route,
   redirect: (context, state) {
     if (state.uri.toString() == '/') {
       return state.namedLocation(StorePage.route);
@@ -33,55 +25,6 @@ final router = GoRouter(
     }
   },
   routes: [
-    ShellRoute(
-      builder: (context, state, child) => AuthShell(
-        route: state.uri.toString(),
-        child: child,
-      ),
-      routes: [
-        GoRoute(
-          path: AuthOtpPage.route,
-          name: AuthOtpPage.route,
-          pageBuilder: (context, state) {
-            return GoFadeTroughTransition(
-              key: state.pageKey,
-              fillColor: U.Theme.surface,
-              child: const AuthOtpPage(),
-            );
-          },
-          routes: [
-            GoRoute(
-              path: AuthConfirmPage.route,
-              name: AuthConfirmPage.route,
-              redirect: (context, state) {
-                return state.extra == null ? AuthOtpPage.route : null;
-              },
-              pageBuilder: (context, state) {
-                return GoFadeTroughTransition(
-                  key: state.pageKey,
-                  fillColor: U.Theme.surface,
-                  child: const AuthConfirmPage(),
-                );
-              },
-            ),
-            GoRoute(
-              path: AuthRegisterPage.route,
-              name: AuthRegisterPage.route,
-              redirect: (context, state) {
-                return state.extra == null ? AuthOtpPage.route : null;
-              },
-              pageBuilder: (context, state) {
-                return GoFadeTroughTransition(
-                  key: state.pageKey,
-                  fillColor: U.Theme.surface,
-                  child: const AuthRegisterPage(),
-                );
-              },
-            )
-          ],
-        ),
-      ],
-    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeShell(
