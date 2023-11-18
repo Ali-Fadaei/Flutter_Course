@@ -3,6 +3,7 @@ import 'package:shop_app_auth/domains/store_repository/models/category.dart';
 import 'package:shop_app_auth/domains/store_repository/models/product.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_auth/domains/store_repository/store_box.dart';
+import 'package:shop_app_auth/domains/user_repository/user_box.dart';
 
 class StoreRepository {
 //
@@ -61,12 +62,26 @@ class StoreRepository {
     }
   }
 
-  Future<List<Product>> readFavorites() async {
-    return StoreBox.getFavorites();
+  Future<List<Product>> readFavorites(String token) async {
+    final res =
+        await ShopApi.client.get(ShopApi.urls.favorite, accessToken: token);
+    return List.from(res.data.map((e) => Product.fromMap(e)));
   }
 
-  Future<void> updateFavorites(List<Product> favs) async {
-    return StoreBox.setFavorites(favs);
+  Future<void> addFavorite(Product product, String token) async {
+    final res = await ShopApi.client.post(
+      ShopApi.urls.favorite,
+      accessToken: token,
+      data: {'productId': product.id},
+    );
+  }
+
+  Future<void> removeFavorite(Product product, String token) async {
+    final res = await ShopApi.client.delete(
+      ShopApi.urls.favorite,
+      accessToken: token,
+      ids: [product.id],
+    );
   }
 
   Future<List<ShopItem>> readShopItems() async {

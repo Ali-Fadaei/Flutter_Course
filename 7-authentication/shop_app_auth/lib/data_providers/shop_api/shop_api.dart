@@ -13,10 +13,12 @@ abstract class ShopApi {
   static void init({
     String? server,
     bool? logger,
+    Function? onUnAuthorized,
   }) {
     client = ShopHttpClient(
       server: server ?? servers.current,
       logger: logger ?? kDebugMode,
+      onUnAuthorized: onUnAuthorized ?? () {},
     );
   }
 }

@@ -7,10 +7,13 @@ import 'package:shop_app_auth/modules/app/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ShopApi.init(logger: true);
   await HiveDB.init(appName: 'shopApp');
   final userRepo = await UserRepository.init();
   final storeRepo = await StoreRepository.init();
+  ShopApi.init(
+    logger: true,
+    onUnAuthorized: userRepo.logOut,
+  );
   runApp(
     App(
       userRepo: userRepo,

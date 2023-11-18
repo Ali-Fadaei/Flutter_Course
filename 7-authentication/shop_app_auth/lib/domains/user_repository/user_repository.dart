@@ -19,6 +19,10 @@ class UserRepository {
     return UserBox.getToken().isNotEmpty;
   }
 
+  String get accessToken {
+    return UserBox.getToken();
+  }
+
   Future<({String id, int expTime})> otpGenerate(
     String mobileNumber,
   ) async {
