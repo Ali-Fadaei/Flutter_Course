@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' as M;
-import 'package:flutter/widgets.dart';
+import 'ui_kit.dart' as U;
 
 abstract class Images {
   /// Logos
@@ -58,7 +58,7 @@ class Image extends M.StatelessWidget {
   const Image({
     super.key,
     required this.path,
-    this.fit = BoxFit.contain,
+    this.fit = M.BoxFit.contain,
     this.color,
     this.size,
   });
@@ -88,7 +88,7 @@ class NetworkImage extends M.StatelessWidget {
   const NetworkImage({
     super.key,
     required this.url,
-    this.fit = BoxFit.contain,
+    this.fit = M.BoxFit.contain,
     this.color,
     this.size,
   });
@@ -101,6 +101,9 @@ class NetworkImage extends M.StatelessWidget {
       height: size,
       width: size,
       fit: fit,
+      loadingBuilder: (context, child, loadingProgress) {
+        return loadingProgress == null ? child : const U.Loading(isSmall: true);
+      },
     );
   }
 }

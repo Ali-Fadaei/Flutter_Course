@@ -3,7 +3,6 @@ import 'package:shop_app_auth/domains/store_repository/models/category.dart';
 import 'package:shop_app_auth/domains/store_repository/models/product.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_auth/domains/store_repository/store_box.dart';
-import 'package:shop_app_auth/domains/user_repository/user_box.dart';
 
 class StoreRepository {
 //
@@ -68,16 +67,16 @@ class StoreRepository {
     return List.from(res.data.map((e) => Product.fromMap(e)));
   }
 
-  Future<void> addFavorite(Product product, String token) async {
-    final res = await ShopApi.client.post(
+  Future<void> addFavorite(String token, Product product) async {
+    await ShopApi.client.post(
       ShopApi.urls.favorite,
       accessToken: token,
       data: {'productId': product.id},
     );
   }
 
-  Future<void> removeFavorite(Product product, String token) async {
-    final res = await ShopApi.client.delete(
+  Future<void> removeFavorite(String token, Product product) async {
+    await ShopApi.client.delete(
       ShopApi.urls.favorite,
       accessToken: token,
       ids: [product.id],

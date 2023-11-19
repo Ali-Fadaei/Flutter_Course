@@ -20,7 +20,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         _storeRepo = storeRepo,
         super(
           const FavoritesState(),
-        );
+        ) {
+    init();
+  }
 
   Future<void> init() async {
     emit(state.copyWith(loading: true));
@@ -38,14 +40,13 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   // Events
   void onFavoriatePressed(Product product) async {
     final token = _userRepo.accessToken;
-    print(token);
     var temp = [...state.favorites];
     bool shouldRemove = temp.contains(product);
     if (shouldRemove) {
-      await _storeRepo.removeFavorite(product, token);
+      await _storeRepo.removeFavorite(token, product);
       toast('!حذف شد');
     } else {
-      await _storeRepo.addFavorite(product, token);
+      await _storeRepo.addFavorite(token, product);
       toast('!اضافه شد');
     }
     await _getFavorites();
