@@ -27,7 +27,7 @@ class Product extends Equatable {
     required this.category,
   });
 
-  factory Product.fromMap(Map<String, dynamic> map) {
+  factory Product.fromMap(Map<dynamic, dynamic> map) {
     return Product(
       id: map['id'],
       title: map['title'],

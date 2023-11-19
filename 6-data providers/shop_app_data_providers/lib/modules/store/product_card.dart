@@ -34,7 +34,10 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            U.NetworkImage(url: product.image),
+            SizedBox(
+              height: 160,
+              child: U.NetworkImage(url: product.image),
+            ),
             const SizedBox(height: 15),
             U.Text(
               product.title,

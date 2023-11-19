@@ -6,13 +6,11 @@ import 'package:shop_app_data_providers/modules/app/app.dart';
 
 void main() async {
   //
-  ShopApi.init(logger: false);
+  ShopApi.init(logger: true);
   await HiveDB.init(appName: 'shopApp');
   final storeRepo = await StoreRepository.init();
 
   runApp(
-    App(
-      storeRepo: storeRepo,
-    ),
+    App(storeRepo: storeRepo),
   );
 }

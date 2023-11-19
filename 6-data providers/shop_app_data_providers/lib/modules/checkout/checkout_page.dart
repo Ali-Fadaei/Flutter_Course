@@ -277,9 +277,9 @@ class _CheckoutItem extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: Row(
         children: [
-          U.Image(
+          U.NetworkImage(
             size: 50,
-            path: shopItem.product.image,
+            url: shopItem.product.image,
           ),
           const SizedBox(width: 8),
           Expanded(
