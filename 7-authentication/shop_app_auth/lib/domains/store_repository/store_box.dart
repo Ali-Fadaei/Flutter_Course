@@ -1,4 +1,4 @@
-import 'package:shop_app_auth/data_providers/hive/hive_db.dart';
+import 'package:shop_app_auth/data_providers/hive_db/hive_db.dart';
 import 'package:shop_app_auth/domains/store_repository/models/product.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 

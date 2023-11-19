@@ -1,4 +1,4 @@
-import 'package:shop_app_data_providers/data_providers/hive/hive_db.dart';
+import 'package:shop_app_data_providers/data_providers/hive_db/hive_db.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/product.dart';
 import 'package:shop_app_data_providers/domains/store_repository/models/shop_item.dart';
 

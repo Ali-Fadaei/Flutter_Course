@@ -13,4 +13,8 @@ class ShopUrls {
   //
   final productCategory = '/product-category';
   final product = '/product';
+  final otpGenerate = '/client/otp/generate';
+  final otpConfirm = '/client/otp/confirm';
+  final otpRegister = '/client/otp/register';
+  final favorite = '/client/favorite';
 }

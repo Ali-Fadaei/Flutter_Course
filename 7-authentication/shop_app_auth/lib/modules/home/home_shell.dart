@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/domains/store_repository/store_repository.dart';
+import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 import 'package:shop_app_auth/modules/categories/cubit/categories_cubit.dart';
 import 'package:shop_app_auth/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_auth/modules/home/cubit/home_cubit.dart';
@@ -32,6 +33,7 @@ class HomeShell extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavoritesCubit(
+            userRepo: RepositoryProvider.of<UserRepository>(context),
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),

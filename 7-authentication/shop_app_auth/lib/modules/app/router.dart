@@ -1,5 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_auth/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_auth/modules/auth/auth_confirm_page.dart';
+import 'package:shop_app_auth/modules/auth/auth_otp_page.dart';
+import 'package:shop_app_auth/modules/auth/auth_register_page.dart';
+import 'package:shop_app_auth/modules/auth/auth_shell.dart';
 import 'package:shop_app_auth/modules/categories/categories_page.dart';
 import 'package:shop_app_auth/modules/category/category_page.dart';
 import 'package:shop_app_auth/modules/checkout/checkout_page.dart';
@@ -18,13 +24,50 @@ final router = GoRouter(
   navigatorKey: rootNavKey,
   initialLocation: StorePage.route,
   redirect: (context, state) {
-    if (state.uri.toString() == '/') {
-      return state.namedLocation(StorePage.route);
+    final isAuthorized = BlocProvider.of<AppCubit>(context).state.jwtAuthCheck;
+    final location = state.uri.toString();
+    if (isAuthorized) {
+      return (location.contains('/auth') || location == '/')
+          ? StorePage.route
+          : null;
     } else {
-      return null;
+      return (!location.contains('/auth') || location == '/')
+          ? AuthOtpPage.route
+          : null;
     }
   },
   routes: [
+    ShellRoute(
+      builder: (context, state, child) {
+        return AuthShell(
+          route: state.uri.toString(),
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+          path: AuthOtpPage.route,
+          name: AuthOtpPage.route,
+          builder: (context, state) => const AuthOtpPage(),
+          routes: [
+            GoRoute(
+              path: AuthConfirmPage.route,
+              name: AuthConfirmPage.route,
+              redirect: (context, state) =>
+                  state.extra == null ? AuthOtpPage.route : null,
+              builder: (context, state) => const AuthConfirmPage(),
+            ),
+            GoRoute(
+              path: AuthRegisterPage.route,
+              name: AuthRegisterPage.route,
+              redirect: (context, state) =>
+                  state.extra == null ? AuthOtpPage.route : null,
+              builder: (context, state) => const AuthRegisterPage(),
+            ),
+          ],
+        ),
+      ],
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeShell(

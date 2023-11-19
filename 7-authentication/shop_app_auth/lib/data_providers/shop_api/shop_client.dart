@@ -7,9 +7,12 @@ class ShopHttpClient {
   //
   final _dio = Dio();
 
+  final Function onUnAuthorized;
+
   ShopHttpClient({
     required String server,
     required bool logger,
+    required this.onUnAuthorized,
   }) {
     _dio.options.baseUrl = server;
     _dio.options.connectTimeout = const Duration(minutes: 1);
@@ -105,7 +108,7 @@ class ShopHttpClient {
       toast('مشکلی در برقراری ارتباط با سرویس رخ داد');
       throw Exception(error.message);
     } else if (statusCode == 401) {
-      // onUnAuthorized();
+      onUnAuthorized();
       await Future.delayed(const Duration(milliseconds: 50));
       toast('کلید دسترسی شما منقضی شده است');
       throw Exception('access token expired! (401)');
@@ -130,7 +133,7 @@ class ShopHttpClient {
         "Accept-language": "fa",
         "Accept": "application/json",
         "content": "application/json",
-        if (accessToken != null) "Authorization": accessToken,
+        if (accessToken != null) "Authorization": 'Bearer $accessToken',
       },
     );
   }
@@ -183,10 +186,10 @@ class ShopHttpClient {
   }
 
   Future<ShopResponse> delete(
-    String url,
+    String url, {
     String? accessToken,
-    List<int> ids,
-  ) async {
+    List<int>? ids,
+  }) async {
     final res = await _dio.delete(
       url,
       data: {
