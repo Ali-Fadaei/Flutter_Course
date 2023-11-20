@@ -8,7 +8,7 @@ import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 
 class AuthConfirmPage extends StatelessWidget {
   //
-  static const route = 'auth/confirm';
+  static const route = 'confirm';
 
   const AuthConfirmPage({super.key});
 

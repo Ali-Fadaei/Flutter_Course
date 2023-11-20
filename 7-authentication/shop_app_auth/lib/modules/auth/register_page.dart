@@ -6,7 +6,7 @@ import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 
 class AuthRegisterPage extends StatelessWidget {
 //
-  static const route = 'auth/register';
+  static const route = 'register';
 
   const AuthRegisterPage({super.key});
 

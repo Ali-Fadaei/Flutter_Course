@@ -36,6 +36,37 @@ final router = GoRouter(
     }
   },
   routes: [
+    ShellRoute(
+      builder: (context, state, child) {
+        return AuthShell(
+          route: state.uri.toString(),
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+          path: AuthOtpPage.route,
+          name: AuthOtpPage.route,
+          builder: (context, state) => const AuthOtpPage(),
+          routes: [
+            GoRoute(
+              path: AuthConfirmPage.route,
+              name: AuthConfirmPage.route,
+              redirect: (context, state) =>
+                  state.extra == null ? AuthOtpPage.route : null,
+              builder: (context, state) => const AuthConfirmPage(),
+            ),
+            GoRoute(
+              path: AuthRegisterPage.route,
+              name: AuthRegisterPage.route,
+              redirect: (context, state) =>
+                  state.extra == null ? AuthOtpPage.route : null,
+              builder: (context, state) => const AuthRegisterPage(),
+            ),
+          ],
+        ),
+      ],
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeShell(
@@ -140,32 +171,5 @@ final router = GoRouter(
         ),
       ],
     ),
-    ShellRoute(
-      builder: (context, state, child) {
-        return AuthShell(
-          route: state.uri.toString(),
-          child: child,
-        );
-      },
-      routes: [
-        GoRoute(
-          path: AuthOtpPage.route,
-          name: AuthOtpPage.route,
-          builder: (context, state) => const AuthOtpPage(),
-          routes: [
-            GoRoute(
-              path: AuthConfirmPage.route,
-              name: AuthConfirmPage.route,
-              builder: (context, state) => const AuthConfirmPage(),
-            ),
-            GoRoute(
-              path: AuthRegisterPage.route,
-              name: AuthRegisterPage.route,
-              builder: (context, state) => const AuthRegisterPage(),
-            ),
-          ],
-        ),
-      ],
-    )
   ],
 );
