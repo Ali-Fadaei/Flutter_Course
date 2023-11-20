@@ -32,14 +32,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   // Methods
   Future<void> _getFavorites() async {
-    final token = _userRepo.accessToken;
+    final token = await _userRepo.getAccessToken();
     var res = await _storeRepo.readFavorites(token);
     emit(state.copyWith(favorites: res));
   }
 
   // Events
   void onFavoriatePressed(Product product) async {
-    final token = _userRepo.accessToken;
+    final token = await _userRepo.getAccessToken();
     var temp = [...state.favorites];
     bool shouldRemove = temp.contains(product);
     if (shouldRemove) {

@@ -16,5 +16,7 @@ class ShopUrls {
   final otpGenerate = '/client/otp/generate';
   final otpConfirm = '/client/otp/confirm';
   final otpRegister = '/client/otp/register';
+  final refresh = '/client/auth/refresh';
+  final logout = '/client/auth/logout';
   final favorite = '/client/favorite';
 }

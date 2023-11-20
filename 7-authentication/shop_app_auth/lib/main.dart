@@ -14,6 +14,7 @@ void main() async {
     logger: true,
     onUnAuthorized: userRepo.logOut,
   );
+
   runApp(
     App(
       userRepo: userRepo,

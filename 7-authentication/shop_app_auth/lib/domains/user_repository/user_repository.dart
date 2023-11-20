@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:shop_app_auth/data_providers/shop_api/shop_api.dart';
+import 'package:shop_app_auth/domains/user_repository/models/access_token.dart';
 import 'package:shop_app_auth/domains/user_repository/models/user.dart';
 import 'package:shop_app_auth/domains/user_repository/user_box.dart';
 
@@ -16,11 +17,22 @@ class UserRepository {
   Stream<bool> get jwtAuthStream => _jwtAuthCtrl.stream;
 
   bool checkJwtAuth() {
-    return UserBox.getToken().isNotEmpty;
+    return UserBox.getToken()?.canUse() ?? false;
   }
 
-  String get accessToken {
-    return UserBox.getToken();
+  Future<String> getAccessToken() async {
+    final aceessToken = UserBox.getToken();
+    if (aceessToken?.canUse() ?? false) {
+      if (aceessToken?.shouldRefresh() ?? false) {
+        await refresh();
+        return await getAccessToken();
+      } else {
+        return aceessToken!.token;
+      }
+    } else {
+      logOut();
+      throw Exception('Access Token Expired');
+    }
   }
 
   Future<({String id, int expTime})> otpGenerate(
@@ -52,7 +64,7 @@ class UserRepository {
     );
     final user = User.fromMap(res.data);
     if (user.isRegistered) {
-      UserBox.setToken(user.token);
+      UserBox.setToken(AccessToken.create(token: user.token));
       _jwtAuthCtrl.add(true);
     }
     return user.isRegistered;
@@ -74,12 +86,29 @@ class UserRepository {
     });
 
     final user = User.fromMap(res.data);
-    UserBox.setToken(user.token);
+    UserBox.setToken(AccessToken.create(token: user.token));
+    _jwtAuthCtrl.add(true);
+  }
+
+  Future<void> refresh() async {
+    final res = await ShopApi.client.post(
+      ShopApi.urls.refresh,
+      accessToken: UserBox.getToken()?.token,
+    );
+    final user = User.fromMap(res.data);
+    UserBox.setToken(AccessToken.create(token: user.token));
     _jwtAuthCtrl.add(true);
   }
 
   Future<void> logOut() async {
-    UserBox.setToken('');
+    final accessToken = UserBox.getToken();
+    if (accessToken?.canUse() ?? false) {
+      await ShopApi.client.post(
+        ShopApi.urls.logout,
+        accessToken: accessToken?.token,
+      );
+    }
+    UserBox.setToken(null);
     _jwtAuthCtrl.add(false);
   }
 }
