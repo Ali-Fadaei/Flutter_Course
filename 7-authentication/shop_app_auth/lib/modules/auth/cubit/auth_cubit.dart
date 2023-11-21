@@ -98,13 +98,14 @@ class AuthCubit extends Cubit<AuthState> {
     if (validateRegisterForm()) {
       try {
         emit(state.copyWith(registerLoading: true));
-        await _userRepo.userRegister(
+        final res = await _userRepo.userRegister(
           id: state.hashId!,
           firstName: nameCtrl.text,
           lastName: lastNameCtrl.text,
           email: emailCtrl.text,
           address: addressCtrl.text,
         );
+        if (!res.result) {}
       } finally {
         emit(state.copyWith(registerLoading: false));
       }

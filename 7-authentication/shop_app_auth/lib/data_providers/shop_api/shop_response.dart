@@ -31,17 +31,17 @@ class ShopResponseMessage {
   //
   final String? general;
 
-  final dynamic validations;
+  final dynamic validation;
 
   ShopResponseMessage({
     this.general,
-    this.validations,
+    this.validation,
   });
 
   factory ShopResponseMessage.fromMap(Map<String, dynamic>? map) {
     return ShopResponseMessage(
       general: map?['general'],
-      validations: map?['validation'],
+      validation: map?['validation'],
     );
   }
 }
