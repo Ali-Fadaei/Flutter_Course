@@ -118,9 +118,9 @@ class ShopHttpClient {
     } else if (statusCode == 502) {
       toast('سرویس در دسترس نمی باشد');
       throw Exception(error);
-    } else if (error.response?.data['messages']?['general'] != null &&
-        error.response?.data['messages']?['general'] != '') {
-      toast(error.response?.data['messages']?['general']);
+    } else if (error.response?.data['message']?['general'] != null &&
+        error.response?.data['message']?['general'] != '') {
+      toast(error.response?.data['message']?['general']);
     }
   }
 
@@ -130,7 +130,7 @@ class ShopHttpClient {
         "Accept-language": "fa",
         "Accept": "application/json",
         "content": "application/json",
-        if (accessToken != null) "Authorization": accessToken,
+        if (accessToken != null) "Authorization": "Bearer $accessToken",
       },
     );
   }
