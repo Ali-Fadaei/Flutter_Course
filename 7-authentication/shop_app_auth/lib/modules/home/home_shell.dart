@@ -44,8 +44,8 @@ class HomeShell extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ShopCartCubit(
-            storeRepo: RepositoryProvider.of<StoreRepository>(context),
-          ),
+              storeRepo: RepositoryProvider.of<StoreRepository>(context),
+              userRepo: RepositoryProvider.of<UserRepository>(context)),
         ),
         BlocProvider(
           create: (context) => CategoriesCubit(

@@ -83,12 +83,38 @@ class StoreRepository {
     );
   }
 
-  Future<List<ShopItem>> readShopItems() async {
-    return StoreBox.getShopItems();
+  Future<List<ShopItem>> readShopItems(String token) async {
+    final res = await ShopApi.client.get(
+      ShopApi.urls.shopItem,
+      accessToken: token,
+    );
+    return List.from(
+      res.data.map(
+        (e) => ShopItem.fromMap(e),
+      ),
+    );
   }
 
-  Future<void> updateShopItems(List<ShopItem> shopItems) async {
-    StoreBox.setShopItem(shopItems);
+  // Future<void> updateShopItems(List<ShopItem> shopItems) async {
+  //   final res = await ShopApi.client.post(
+  //     ShopApi.urls.shopItemIncrement
+  //   );
+  // }
+
+  Future<void> shopItemIncrement(String token, Product product) async {
+    await ShopApi.client.post(
+      ShopApi.urls.shopItemIncrement,
+      accessToken: token,
+      data: {"productId": product.id},
+    );
+  }
+
+  Future<void> shopItemDecrement(String token, Product product) async {
+    await ShopApi.client.post(
+      ShopApi.urls.shopItemDecrement,
+      accessToken: token,
+      data: {"productId": product.id},
+    );
   }
 
   Future<int> readDiscount(String discountCode) async {

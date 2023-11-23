@@ -3,63 +3,48 @@ import 'package:equatable/equatable.dart';
 import 'package:shop_app_auth/domains/store_repository/models/product.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_auth/domains/store_repository/store_repository.dart';
+import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 
 part 'shop_cart_state.dart';
 
 class ShopCartCubit extends Cubit<ShopCartState> {
 //
-  final StoreRepository storeRepo;
+  final UserRepository _userRepo;
+
+  final StoreRepository _storeRepo;
 
   ShopCartCubit({
-    required this.storeRepo,
-  }) : super(const ShopCartState()) {
+    required UserRepository userRepo,
+    required StoreRepository storeRepo,
+  })  : _userRepo = userRepo,
+        _storeRepo = storeRepo,
+        super(const ShopCartState()) {
     init();
   }
 
   Future<void> init() async {
     emit(state.copywith(loading: true));
-    var res = await storeRepo.readShopItems();
-    emit(state.copywith(
-      loading: false,
-      shopItems: res,
-    ));
+    await _getShopItems();
+    emit(state.copywith(loading: false));
+  }
+
+  // Methods
+
+  Future<void> _getShopItems() async {
+    var token = await _userRepo.getAccessToken();
+    final res = await _storeRepo.readShopItems(token);
+    emit(state.copywith(shopItems: res));
   }
 
   Future<void> onAddtoShopCartPressed(Product product) async {
-    var shopItems = [...state.shopItems];
-    try {
-      var existingShopItem = shopItems.firstWhere((element) {
-        return element.product.id == product.id;
-      });
-      var existingShopItemIndex = shopItems.indexWhere((element) {
-        return element.product.id == product.id;
-      });
-      if (existingShopItem.count < 10) {
-        shopItems[existingShopItemIndex] = existingShopItem.inc();
-      }
-    } catch (_) {
-      shopItems.add(ShopItem(product: product));
-    }
-    emit(state.copywith(shopItems: shopItems));
-    await storeRepo.updateShopItems(shopItems);
+    var token = await _userRepo.getAccessToken();
+    await _storeRepo.shopItemIncrement(token, product);
+    await _getShopItems();
   }
 
   Future<void> onRemovefromShopCartPressed(Product product) async {
-    var shopItems = [...state.shopItems];
-    try {
-      var existingShopItem = shopItems.firstWhere((element) {
-        return element.product.id == product.id;
-      });
-      var existingShopItemIndex = shopItems.indexWhere((element) {
-        return element.product.id == product.id;
-      });
-      if (existingShopItem.count <= 1) {
-        shopItems.removeAt(existingShopItemIndex);
-      } else {
-        shopItems[existingShopItemIndex] = existingShopItem.dec();
-      }
-    } catch (_) {}
-    emit(state.copywith(shopItems: shopItems));
-    await storeRepo.updateShopItems(shopItems);
+    var token = await _userRepo.getAccessToken();
+    await _storeRepo.shopItemDecrement(token, product);
+    await _getShopItems();
   }
 }

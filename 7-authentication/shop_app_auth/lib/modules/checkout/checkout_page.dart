@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_auth/domains/store_repository/store_repository.dart';
+import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 import 'package:shop_app_auth/modules/checkout/cubit/checkout_cubit.dart';
 
 import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
@@ -24,6 +25,7 @@ class CheckoutPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CheckoutCubit(
         shopItems: shopItems,
+        userRepository: RepositoryProvider.of<UserRepository>(context),
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
       child: SafeArea(
