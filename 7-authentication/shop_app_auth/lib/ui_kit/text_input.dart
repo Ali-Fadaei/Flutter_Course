@@ -8,6 +8,8 @@ class TextInput extends StatefulWidget {
 
   final String? hintText;
 
+  final String? errorMessage;
+
   final bool isRequired;
 
   final bool autoFocus;
@@ -24,6 +26,7 @@ class TextInput extends StatefulWidget {
     super.key,
     this.title = 'emptyTitle',
     this.hintText,
+    this.errorMessage,
     this.isRequired = false,
     this.autoFocus = false,
     this.disabled = false,
@@ -60,70 +63,85 @@ class _TextInputState extends State<TextInput> {
         canRequestFocus: false,
         borderRadius: BorderRadius.circular(U.Theme.radius),
         onTap: () => !hasFocus ? focusNode.requestFocus() : null,
-        child: U.Card(
-          height: 45,
-          borderColor: hasFocus ? U.Theme.primary : null,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(width: 10),
-              Stack(
+        child: Column(
+          children: [
+            U.Card(
+              height: 45,
+              borderColor: hasFocus ? U.Theme.primary : null,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (widget.isRequired)
-                    const Positioned(
-                      top: 10,
-                      left: 0,
-                      child: SizedBox(
-                        child: U.Image(
-                          path: U.Images.requiredIcon,
-                          size: 6,
+                  const SizedBox(width: 10),
+                  Stack(
+                    children: [
+                      if (widget.isRequired)
+                        const Positioned(
+                          top: 10,
+                          left: 0,
+                          child: SizedBox(
+                            child: U.Image(
+                              path: U.Images.requiredIcon,
+                              size: 6,
+                            ),
+                          ),
+                        ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: U.Text(
+                          '${widget.title}: ',
+                          size: U.TextSize.md,
+                          weight: U.TextWeight.medium,
                         ),
                       ),
-                    ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: U.Text(
-                      '${widget.title}: ',
-                      size: U.TextSize.md,
-                      weight: U.TextWeight.medium,
+                    ],
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TextField(
+                      textAlign: TextAlign.start,
+                      enabled: !widget.disabled,
+                      focusNode: focusNode,
+                      autofocus: widget.autoFocus,
+                      controller: widget.controller,
+                      inputFormatters: widget.formatters,
+                      onTapOutside: (_) => focusNode.unfocus(),
+                      onEditingComplete: widget.onEditingCompleted != null
+                          ? () =>
+                              widget.onEditingCompleted!(widget.controller.text)
+                          : null,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'IranSans',
+                        fontWeight: FontWeight.w500,
+                        color: U.Theme.secondary,
+                      ),
+                      decoration: InputDecoration(
+                        isDense: true,
+                        hintText: widget.hintText,
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'IranSans',
+                          fontWeight: FontWeight.w500,
+                          color: U.Theme.outline2,
+                        ),
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(width: 3),
-              Expanded(
-                child: TextField(
-                  textAlign: TextAlign.start,
-                  enabled: !widget.disabled,
-                  focusNode: focusNode,
-                  autofocus: widget.autoFocus,
-                  controller: widget.controller,
-                  inputFormatters: widget.formatters,
-                  onTapOutside: (_) => focusNode.unfocus(),
-                  onEditingComplete: widget.onEditingCompleted != null
-                      ? () => widget.onEditingCompleted!(widget.controller.text)
-                      : null,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'IranSans',
-                    fontWeight: FontWeight.w500,
-                    color: U.Theme.secondary,
+            ),
+            if (widget.errorMessage != null)
+              Row(
+                children: [
+                  U.Text(
+                    widget.errorMessage!,
+                    color: U.Theme.primary,
+                    size: U.TextSize.sm,
                   ),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    hintText: widget.hintText,
-                    hintStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'IranSans',
-                      fontWeight: FontWeight.w500,
-                      color: U.Theme.outline2,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
+                ],
+              )
+          ],
         ),
       ),
     );

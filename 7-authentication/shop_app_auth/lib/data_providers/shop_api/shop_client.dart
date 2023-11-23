@@ -28,6 +28,9 @@ class ShopHttpClient {
       InterceptorsWrapper(
         onError: (error, handler) {
           exceptionHandler(error);
+          if (error.response != null) {
+            error.response!.data = ShopResponse.fromMap(error.response!.data);
+          }
           handler.next(error);
         },
       ),
@@ -121,9 +124,9 @@ class ShopHttpClient {
     } else if (statusCode == 502) {
       toast('سرویس در دسترس نمی باشد');
       throw Exception(error);
-    } else if (error.response?.data['messages']?['general'] != null &&
-        error.response?.data['messages']?['general'] != '') {
-      toast(error.response?.data['messages']?['general']);
+    } else if (error.response?.data['message']?['general'] != null &&
+        error.response?.data['message']?['general'] != '') {
+      toast(error.response?.data['message']?['general']);
     }
   }
 
@@ -159,14 +162,22 @@ class ShopHttpClient {
     String? accessToken,
     Map<String, dynamic>? data,
   }) async {
-    final res = await _dio.post(
-      url,
-      data: nullKiller(data),
-      options: _buildReqOptions(
-        accessToken: accessToken,
-      ),
-    );
-    return res.data;
+    try {
+      final res = await _dio.post(
+        url,
+        data: nullKiller(data),
+        options: _buildReqOptions(
+          accessToken: accessToken,
+        ),
+      );
+      return res.data;
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return e.response!.data;
+      } else {
+        rethrow;
+      }
+    }
   }
 
   Future<ShopResponse> put(
@@ -175,14 +186,22 @@ class ShopHttpClient {
     String? accessToken,
     Map<String, dynamic>? data,
   }) async {
-    final res = await _dio.put(
-      param == null ? url : '$url/$param',
-      data: nullKiller(data),
-      options: _buildReqOptions(
-        accessToken: accessToken,
-      ),
-    );
-    return res.data;
+    try {
+      final res = await _dio.put(
+        param == null ? url : '$url/$param',
+        data: nullKiller(data),
+        options: _buildReqOptions(
+          accessToken: accessToken,
+        ),
+      );
+      return res.data;
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return e.response!.data;
+      } else {
+        rethrow;
+      }
+    }
   }
 
   Future<ShopResponse> delete(

@@ -15,7 +15,8 @@ class AuthRegisterPage extends StatelessWidget {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocBuilder<AuthCubit, AuthState>(
       buildWhen: (previous, current) =>
-          previous.registerLoading != current.registerLoading,
+          previous.registerLoading != current.registerLoading ||
+          previous.registerValidation != current.registerValidation,
       builder: (context, state) {
         return Container(
           color: U.Theme.surface,
@@ -69,6 +70,7 @@ class AuthRegisterPage extends StatelessWidget {
                 isRequired: true,
                 disabled: state.registerLoading,
                 controller: authCubit.nameCtrl,
+                errorMessage: state.registerValidation?.firstName,
               ),
               const Spacer(),
               U.TextInput(
@@ -76,6 +78,7 @@ class AuthRegisterPage extends StatelessWidget {
                 isRequired: true,
                 disabled: state.registerLoading,
                 controller: authCubit.lastNameCtrl,
+                errorMessage: state.registerValidation?.lastName,
               ),
               const Spacer(),
               U.TextInput(
@@ -83,6 +86,7 @@ class AuthRegisterPage extends StatelessWidget {
                 isRequired: true,
                 disabled: state.registerLoading,
                 controller: authCubit.emailCtrl,
+                errorMessage: state.registerValidation?.email,
               ),
               const Spacer(),
               U.TextInput(
@@ -91,6 +95,7 @@ class AuthRegisterPage extends StatelessWidget {
                 disabled: state.registerLoading,
                 hintText: 'استان، شهر، منطقه...',
                 controller: authCubit.addressCtrl,
+                errorMessage: state.registerValidation?.address,
               ),
               const Spacer(flex: 2),
               BlocBuilder<AuthCubit, AuthState>(

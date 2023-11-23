@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:shop_app_auth/data_providers/shop_api/shop_api.dart';
 import 'package:shop_app_auth/domains/user_repository/models/access_token.dart';
+import 'package:shop_app_auth/domains/user_repository/models/register.dart';
 import 'package:shop_app_auth/domains/user_repository/models/user.dart';
 import 'package:shop_app_auth/domains/user_repository/user_box.dart';
 
@@ -70,7 +71,11 @@ class UserRepository {
     return user.isRegistered;
   }
 
-  Future<void> userRegister({
+  Future<
+      ({
+        bool result,
+        RegisterPV? validation,
+      })> userRegister({
     required String id,
     required String firstName,
     required String lastName,
@@ -84,10 +89,15 @@ class UserRepository {
       'email': email,
       'address': address,
     });
-
-    final user = User.fromMap(res.data);
-    UserBox.setToken(AccessToken.create(token: user.token));
-    _jwtAuthCtrl.add(true);
+    if (res.result) {
+      final user = User.fromMap(res.data);
+      UserBox.setToken(AccessToken.create(token: user.token));
+      _jwtAuthCtrl.add(true);
+      return (result: true, validation: null);
+    } else {
+      final validation = RegisterPV.fromMap(res.message?.validations);
+      return (result: false, validation: validation);
+    }
   }
 
   Future<void> refresh() async {

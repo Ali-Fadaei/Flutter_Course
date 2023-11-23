@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shop_app_auth/domains/user_repository/models/register.dart';
 import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 import 'package:shop_app_auth/tool_kit/tool_kit.dart' as T;
 
@@ -98,13 +99,16 @@ class AuthCubit extends Cubit<AuthState> {
     if (validateRegisterForm()) {
       try {
         emit(state.copyWith(registerLoading: true));
-        await _userRepo.userRegister(
+        final res = await _userRepo.userRegister(
           id: state.hashId!,
           firstName: nameCtrl.text,
           lastName: lastNameCtrl.text,
           email: emailCtrl.text,
           address: addressCtrl.text,
         );
+        if (res.validation != null) {
+          emit(state.copyWith(registerValidation: res.validation));
+        }
       } finally {
         emit(state.copyWith(registerLoading: false));
       }
