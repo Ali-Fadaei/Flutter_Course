@@ -29,7 +29,7 @@ class ShopHttpClient {
         onError: (error, handler) {
           exceptionHandler(error);
           if (error.response != null) {
-            error.response?.data = ShopResponse.fromMap(error.response?.data);
+            error.response!.data = ShopResponse.fromMap(error.response!.data);
           }
           handler.next(error);
         },
@@ -172,7 +172,7 @@ class ShopHttpClient {
       );
       return res.data;
     } on DioException catch (e) {
-      if (e.response?.data != null) {
+      if (e.response != null) {
         return e.response!.data;
       } else {
         rethrow;
@@ -196,7 +196,7 @@ class ShopHttpClient {
       );
       return res.data;
     } on DioException catch (e) {
-      if (e.response?.data != null) {
+      if (e.response != null) {
         return e.response!.data;
       } else {
         rethrow;

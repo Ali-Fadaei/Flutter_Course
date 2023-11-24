@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shop_app_auth/domains/user_repository/models/user_register.dart';
 import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 import 'package:shop_app_auth/tool_kit/tool_kit.dart' as T;
 
@@ -36,7 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
     return isValid;
   }
 
-  Future<bool> onOtpRequested() async {
+  Future<void> onOtpRequested() async {
     final phoneNumber = phoneCtrl.text.replaceAll('-', '');
 
     if (T.Validator.mobileNumber(phoneNumber)) {
@@ -63,14 +64,12 @@ class AuthCubit extends Cubit<AuthState> {
       } finally {
         emit(state.copyWith(otpGenerateLoading: false));
       }
-      return true;
     } else {
       toast('شماره موبایل صحیح نمیباشد');
-      return false;
     }
   }
 
-  Future<bool> onOtpConfirmed() async {
+  Future<void> onOtpConfirmed() async {
     if (otpCtrl.text.length == 4) {
       emit(state.copyWith(otpConfirmLoading: true));
       try {
@@ -86,15 +85,12 @@ class AuthCubit extends Cubit<AuthState> {
       } finally {
         emit(state.copyWith(otpConfirmLoading: false));
       }
-
-      return false;
     } else {
       toast('کد را کامل کنید!');
-      return false;
     }
   }
 
-  Future<bool> onRegisterRequested() async {
+  Future<void> onRegisterRequested() async {
     if (validateRegisterForm()) {
       try {
         emit(state.copyWith(registerLoading: true));
@@ -105,14 +101,16 @@ class AuthCubit extends Cubit<AuthState> {
           email: emailCtrl.text,
           address: addressCtrl.text,
         );
-        if (!res.result) {}
+        if (res.result == false) {
+          print(res.result);
+          print(res.err?.email);
+          emit(state.copyWith(userRegisterValidation: res.err));
+        }
       } finally {
         emit(state.copyWith(registerLoading: false));
       }
-      return true;
     } else {
       toast('فرم ثبت‌نام ناقص میباشد.');
-      return false;
     }
   }
 

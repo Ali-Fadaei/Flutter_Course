@@ -16,6 +16,8 @@ class AuthState extends Equatable {
 
   final UniqueKey? goRegisterPage;
 
+  final UserRegisterValidation? userRegisterValidation;
+
   const AuthState({
     this.otpGenerateLoading = false,
     this.otpConfirmLoading = false,
@@ -24,6 +26,7 @@ class AuthState extends Equatable {
     this.hashId,
     this.goConfirmPage,
     this.goRegisterPage,
+    this.userRegisterValidation,
   });
 
   AuthState copyWith({
@@ -34,6 +37,7 @@ class AuthState extends Equatable {
     String? hashId,
     UniqueKey? goConfirmPage,
     UniqueKey? goRegisterPage,
+    UserRegisterValidation? userRegisterValidation,
   }) {
     return AuthState(
       otpGenerateLoading: otpGenerateLoading ?? this.otpGenerateLoading,
@@ -43,6 +47,8 @@ class AuthState extends Equatable {
       hashId: hashId ?? this.hashId,
       goConfirmPage: goConfirmPage ?? this.goConfirmPage,
       goRegisterPage: goRegisterPage ?? this.goRegisterPage,
+      userRegisterValidation:
+          userRegisterValidation ?? this.userRegisterValidation,
     );
   }
 
@@ -55,5 +61,6 @@ class AuthState extends Equatable {
         hashId,
         goConfirmPage,
         goRegisterPage,
+        userRegisterValidation,
       ];
 }

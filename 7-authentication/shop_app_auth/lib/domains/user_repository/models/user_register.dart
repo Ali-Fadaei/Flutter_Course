@@ -11,16 +11,16 @@ class UserRegisterValidation {
   const UserRegisterValidation({
     this.firstName,
     this.lastName,
-    this.address,
     this.email,
+    this.address,
   });
 
   factory UserRegisterValidation.fromMap(Map map) {
     return UserRegisterValidation(
       firstName: map['firstName'],
       lastName: map['lastName'],
+      email: map['email'],
       address: map['address'],
-      email: map['map'],
     );
   }
 }
