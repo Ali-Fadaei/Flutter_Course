@@ -24,6 +24,7 @@ class ProductBottomSheet extends StatelessWidget {
             shopCartCubit == null
                 ? BlocProvider(
                     create: (_) => ShopCartCubit(
+                      userRepo: RepositoryProvider.of<UserRepository>(context),
                       storeRepo:
                           RepositoryProvider.of<StoreRepository>(context),
                     ),

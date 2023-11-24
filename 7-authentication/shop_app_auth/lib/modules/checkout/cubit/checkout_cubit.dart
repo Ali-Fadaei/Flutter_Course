@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_app_auth/domains/store_repository/models/shop_item.dart';
 import 'package:shop_app_auth/domains/store_repository/store_repository.dart';
+import 'package:shop_app_auth/domains/user_repository/user_repository.dart';
 
 part 'checkout_state.dart';
 
 class CheckoutCubit extends Cubit<CheckoutState> {
 //
+  final UserRepository _userRepo;
+
   final StoreRepository _storeRepo;
 
   final List<ShopItem>? shopItems;
@@ -19,8 +22,10 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   CheckoutCubit({
     required StoreRepository storeRepo,
+    required UserRepository userRepo,
     this.shopItems,
-  })  : _storeRepo = storeRepo,
+  })  : _userRepo = userRepo,
+        _storeRepo = storeRepo,
         super(const CheckoutState()) {
     init();
   }
@@ -29,7 +34,8 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   void init() async {
     if (shopItems == null) {
       emit(state.copyWith(loading: true));
-      var res = await _storeRepo.readShopItems();
+      var token = await _userRepo.getAccessToken();
+      var res = await _storeRepo.readShopItems(token);
       emit(state.copyWith(loading: false, shopItems: res));
     } else {
       emit(state.copyWith(shopItems: shopItems));

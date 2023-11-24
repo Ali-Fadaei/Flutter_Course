@@ -19,4 +19,7 @@ class ShopUrls {
   final refresh = '/client/auth/refresh';
   final logout = '/client/auth/logout';
   final favorite = '/client/favorite';
+  final shopItem = '/client/shopItem/';
+  final shopItemIncrement = '/client/shopItem/inc';
+  final shopItemDecrement = '/client/shopItem/dec';
 }
