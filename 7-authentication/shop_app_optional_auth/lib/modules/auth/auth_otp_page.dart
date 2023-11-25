@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_optional_auth/modules/auth/auth_confirm_page.dart';
 import 'package:shop_app_optional_auth/modules/auth/cubit/auth_cubit.dart';
+import 'package:shop_app_optional_auth/modules/store/store_page.dart';
 import 'package:shop_app_optional_auth/ui_kit/ui_kit.dart' as U;
 import 'package:shop_app_optional_auth/tool_kit/tool_kit.dart' as T;
 
@@ -65,6 +66,15 @@ class AuthOtpPage extends StatelessWidget {
                 loading: state.otpGenerateLoading,
                 size: U.ButtonSize.lg,
                 onPressed: () => authCubit.onOtpRequested(),
+              ),
+              const SizedBox(height: 10),
+              U.OutlinedButton(
+                title: 'انصراف',
+                color: U.OutlinedButtonColor.secondary,
+                size: U.OutlinedButtonSize.md,
+                onPressed: () => GoRouter.of(context).goNamed(
+                  StorePage.route,
+                ),
               ),
               const SizedBox(height: 10),
               const U.Text(

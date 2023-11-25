@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_optional_auth/domains/store_repository/models/product.dart';
+import 'package:shop_app_optional_auth/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_optional_auth/modules/auth/auth_otp_page.dart';
 import 'package:shop_app_optional_auth/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_optional_auth/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_optional_auth/modules/store/product_btms.dart';
@@ -72,14 +75,24 @@ class ProductCard extends StatelessWidget {
                     U.Badge(
                       count: count,
                       color: U.BadgeColor.secondary,
-                      child: U.IconButton(
-                        toolTip: 'اضافه کردن به سبد خرید',
-                        icon: U.Images.addIcon,
-                        size: U.IconButtonSize.sm,
-                        color: U.IconButtonColor.primary,
-                        disabled: state.loading,
-                        onPressed: () =>
-                            shopCartCubit.onAddtoShopCartPressed(product),
+                      child: BlocBuilder<AppCubit, AppState>(
+                        builder: (context, appState) {
+                          return U.IconButton(
+                            toolTip: 'اضافه کردن به سبد خرید',
+                            icon: U.Images.addIcon,
+                            size: U.IconButtonSize.sm,
+                            color: U.IconButtonColor.primary,
+                            disabled: state.loading,
+                            onPressed: () {
+                              appState.jwtAuthCheck
+                                  ? shopCartCubit
+                                      .onAddtoShopCartPressed(product)
+                                  : GoRouter.of(context).goNamed(
+                                      AuthOtpPage.route,
+                                    );
+                            },
+                          );
+                        },
                       ),
                     ),
                     const Spacer(),

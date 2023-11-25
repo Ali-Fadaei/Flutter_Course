@@ -32,23 +32,29 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   // Methods
   Future<void> _getFavorites() async {
-    final token = await _userRepo.getAccessToken();
-    var res = await _storeRepo.readFavorites(token);
-    emit(state.copyWith(favorites: res));
+    if (_userRepo.checkJwtAuth()) {
+      final token = await _userRepo.getAccessToken();
+      var res = await _storeRepo.readFavorites(token);
+      emit(state.copyWith(favorites: res));
+    } else {
+      emit(state.copyWith(favorites: []));
+    }
   }
 
   // Events
   void onFavoriatePressed(Product product) async {
-    final token = await _userRepo.getAccessToken();
-    var temp = [...state.favorites];
-    bool shouldRemove = temp.contains(product);
-    if (shouldRemove) {
-      await _storeRepo.removeFavorite(token, product);
-      toast('!حذف شد');
-    } else {
-      await _storeRepo.addFavorite(token, product);
-      toast('!اضافه شد');
+    if (_userRepo.checkJwtAuth()) {
+      final token = await _userRepo.getAccessToken();
+      var temp = [...state.favorites];
+      bool shouldRemove = temp.contains(product);
+      if (shouldRemove) {
+        await _storeRepo.removeFavorite(token, product);
+        toast('!حذف شد');
+      } else {
+        await _storeRepo.addFavorite(token, product);
+        toast('!اضافه شد');
+      }
+      await _getFavorites();
     }
-    await _getFavorites();
   }
 }

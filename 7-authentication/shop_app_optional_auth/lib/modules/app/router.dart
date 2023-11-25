@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_optional_auth/modules/app/cubit/app_cubit.dart';
@@ -21,7 +20,7 @@ final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: AuthOtpPage.route,
+  initialLocation: StorePage.route,
   redirect: (context, state) {
     final isAuthorized = BlocProvider.of<AppCubit>(context).state.jwtAuthCheck;
     final location = state.uri.toString();
@@ -30,9 +29,7 @@ final router = GoRouter(
           ? StorePage.route
           : null;
     } else {
-      return (!location.contains('/auth') || location == '/')
-          ? AuthOtpPage.route
-          : null;
+      return null;
     }
   },
   routes: [

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_app_optional_auth/domains/store_repository/models/product.dart';
 import 'package:shop_app_optional_auth/domains/store_repository/store_repository.dart';
 import 'package:shop_app_optional_auth/domains/user_repository/user_repository.dart';
+import 'package:shop_app_optional_auth/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_optional_auth/modules/auth/auth_otp_page.dart';
 import 'package:shop_app_optional_auth/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_optional_auth/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app_optional_auth/ui_kit/ui_kit.dart' as U;
@@ -95,22 +98,31 @@ class ProductBottomSheet extends StatelessWidget {
                       builder: (context, state) {
                         var isFav = state.favorites
                             .any((element) => element.id == product.id);
-                        return IconButton(
-                          onPressed: () {
-                            state.loading
-                                ? null
-                                : favoritesCubit.onFavoriatePressed(product);
+                        return BlocBuilder<AppCubit, AppState>(
+                          builder: (context, appState) {
+                            return IconButton(
+                              onPressed: () {
+                                state.loading
+                                    ? null
+                                    : appState.jwtAuthCheck
+                                        ? favoritesCubit
+                                            .onFavoriatePressed(product)
+                                        : GoRouter.of(context).goNamed(
+                                            AuthOtpPage.route,
+                                          );
+                              },
+                              icon: state.loading
+                                  ? const U.Loading(isSmall: true)
+                                  : Icon(
+                                      isFav
+                                          ? Icons.favorite
+                                          : Icons.favorite_border_outlined,
+                                      color: isFav
+                                          ? U.Theme.primary
+                                          : U.Theme.onBackground,
+                                    ),
+                            );
                           },
-                          icon: state.loading
-                              ? const U.Loading(isSmall: true)
-                              : Icon(
-                                  isFav
-                                      ? Icons.favorite
-                                      : Icons.favorite_border_outlined,
-                                  color: isFav
-                                      ? U.Theme.primary
-                                      : U.Theme.onBackground,
-                                ),
                         );
                       },
                     )
@@ -227,12 +239,22 @@ class ProductBottomSheet extends StatelessWidget {
                         .count;
                   } catch (_) {}
                   return count == 0
-                      ? U.Button(
-                          title: 'افزودن به سبدخرید',
-                          loading: state.loading,
-                          size: U.ButtonSize.lg,
-                          onPressed: () =>
-                              shopCartCubit.onAddtoShopCartPressed(product),
+                      ? BlocBuilder<AppCubit, AppState>(
+                          builder: (context, appState) {
+                            return U.Button(
+                              title: 'افزودن به سبدخرید',
+                              loading: state.loading,
+                              size: U.ButtonSize.lg,
+                              onPressed: () {
+                                appState.jwtAuthCheck
+                                    ? shopCartCubit
+                                        .onAddtoShopCartPressed(product)
+                                    : GoRouter.of(context).goNamed(
+                                        AuthOtpPage.route,
+                                      );
+                              },
+                            );
+                          },
                         )
                       : U.Counter(
                           count: count,

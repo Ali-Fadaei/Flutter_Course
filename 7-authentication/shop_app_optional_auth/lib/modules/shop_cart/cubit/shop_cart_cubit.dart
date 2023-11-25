@@ -24,27 +24,38 @@ class ShopCartCubit extends Cubit<ShopCartState> {
 
   Future<void> init() async {
     emit(state.copywith(loading: true));
-    await _getShopItems();
-    emit(state.copywith(loading: false));
+    try {
+      await _getShopItems();
+    } finally {
+      emit(state.copywith(loading: false));
+    }
   }
 
   // Methods
 
   Future<void> _getShopItems() async {
-    var token = await _userRepo.getAccessToken();
-    final res = await _storeRepo.readShopItems(token);
-    emit(state.copywith(shopItems: res));
+    if (_userRepo.checkJwtAuth()) {
+      var token = await _userRepo.getAccessToken();
+      final res = await _storeRepo.readShopItems(token);
+      emit(state.copywith(shopItems: res));
+    } else {
+      emit(state.copywith(shopItems: []));
+    }
   }
 
   Future<void> onAddtoShopCartPressed(Product product) async {
-    var token = await _userRepo.getAccessToken();
-    await _storeRepo.shopItemIncrement(token, product);
-    await _getShopItems();
+    if (_userRepo.checkJwtAuth()) {
+      var token = await _userRepo.getAccessToken();
+      await _storeRepo.shopItemIncrement(token, product);
+      await _getShopItems();
+    }
   }
 
   Future<void> onRemovefromShopCartPressed(Product product) async {
-    var token = await _userRepo.getAccessToken();
-    await _storeRepo.shopItemDecrement(token, product);
-    await _getShopItems();
+    if (_userRepo.checkJwtAuth()) {
+      var token = await _userRepo.getAccessToken();
+      await _storeRepo.shopItemDecrement(token, product);
+      await _getShopItems();
+    }
   }
 }

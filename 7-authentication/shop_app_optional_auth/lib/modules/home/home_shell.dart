@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_optional_auth/domains/store_repository/store_repository.dart';
 import 'package:shop_app_optional_auth/domains/user_repository/user_repository.dart';
+import 'package:shop_app_optional_auth/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_optional_auth/modules/categories/cubit/categories_cubit.dart';
 import 'package:shop_app_optional_auth/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app_optional_auth/modules/home/cubit/home_cubit.dart';
@@ -53,58 +54,66 @@ class HomeShell extends StatelessWidget {
           ),
         ),
       ],
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: U.Theme.background,
-          drawer: const Drawer(
-            child: Column(
-              children: [],
+      child: BlocListener<AppCubit, AppState>(
+        listenWhen: (previous, current) =>
+            previous.jwtAuthCheck != current.jwtAuthCheck,
+        listener: (context, state) {
+          BlocProvider.of<FavoritesCubit>(context).init();
+          BlocProvider.of<ShopCartCubit>(context).init();
+        },
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: U.Theme.background,
+            drawer: const Drawer(
+              child: Column(
+                children: [],
+              ),
             ),
+            bottomNavigationBar: BlocBuilder<ShopCartCubit, ShopCartState>(
+              buildWhen: (previous, current) =>
+                  previous.shopItems.length != current.shopItems.length,
+              builder: (context, state) {
+                var homeCubit = BlocProvider.of<HomeCubit>(context);
+                var selectedIndex = child.currentIndex;
+                var destinations = [
+                  const U.NavigationBarDestination(
+                    title: 'پروفایل',
+                    icon: U.Images.profileIcon,
+                    // route: ProfilePage.route,
+                  ),
+                  const U.NavigationBarDestination(
+                    title: 'علاقه‌مندی‌ها',
+                    icon: U.Images.favoriteIcon,
+                    // route: FavoritesPage.route,
+                  ),
+                  const U.NavigationBarDestination(
+                    title: 'فروشگاه',
+                    icon: U.Images.storeIcon,
+                    // route: StorePage.route,
+                  ),
+                  U.NavigationBarDestination(
+                    title: 'سبدخرید',
+                    icon: U.Images.shopCartIcon,
+                    badgeCount:
+                        state.shopItems.isEmpty ? null : state.shopItems.length,
+                    // route: CartPage.route,
+                  ),
+                  const U.NavigationBarDestination(
+                    title: 'دسته‌بندی',
+                    icon: U.Images.categoriesIcon,
+                    // route: CategoriesPage.route,
+                  ),
+                ];
+                homeCubit.onDestnationChange(selectedIndex);
+                return U.NavigationBar(
+                  selectedIndex: selectedIndex,
+                  destinations: destinations,
+                  onDestnationChange: (i) => child.goBranch(i),
+                );
+              },
+            ),
+            body: child,
           ),
-          bottomNavigationBar: BlocBuilder<ShopCartCubit, ShopCartState>(
-            buildWhen: (previous, current) =>
-                previous.shopItems.length != current.shopItems.length,
-            builder: (context, state) {
-              var homeCubit = BlocProvider.of<HomeCubit>(context);
-              var selectedIndex = child.currentIndex;
-              var destinations = [
-                const U.NavigationBarDestination(
-                  title: 'پروفایل',
-                  icon: U.Images.profileIcon,
-                  // route: ProfilePage.route,
-                ),
-                const U.NavigationBarDestination(
-                  title: 'علاقه‌مندی‌ها',
-                  icon: U.Images.favoriteIcon,
-                  // route: FavoritesPage.route,
-                ),
-                const U.NavigationBarDestination(
-                  title: 'فروشگاه',
-                  icon: U.Images.storeIcon,
-                  // route: StorePage.route,
-                ),
-                U.NavigationBarDestination(
-                  title: 'سبدخرید',
-                  icon: U.Images.shopCartIcon,
-                  badgeCount:
-                      state.shopItems.isEmpty ? null : state.shopItems.length,
-                  // route: CartPage.route,
-                ),
-                const U.NavigationBarDestination(
-                  title: 'دسته‌بندی',
-                  icon: U.Images.categoriesIcon,
-                  // route: CategoriesPage.route,
-                ),
-              ];
-              homeCubit.onDestnationChange(selectedIndex);
-              return U.NavigationBar(
-                selectedIndex: selectedIndex,
-                destinations: destinations,
-                onDestnationChange: (i) => child.goBranch(i),
-              );
-            },
-          ),
-          body: child,
         ),
       ),
     );

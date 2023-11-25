@@ -51,9 +51,9 @@ class AuthShell extends StatelessWidget {
                     : const Alignment(0, 0.4),
                 child: AnimatedContainer(
                   height: route.endsWith(AuthOtpPage.route)
-                      ? 280
+                      ? 320
                       : route.endsWith(AuthConfirmPage.route)
-                          ? 330
+                          ? 350
                           : 450,
                   width: 340,
                   duration: goDefaultDuration,
