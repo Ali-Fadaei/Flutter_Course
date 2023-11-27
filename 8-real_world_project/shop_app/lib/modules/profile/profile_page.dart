@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app/modules/auth/auth_otp_page.dart';
 import 'package:shop_app/modules/profile/cubit/profile_cubit.dart';
+import 'package:shop_app/modules/profile/profile_btms.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatelessWidget {
@@ -137,7 +138,12 @@ class ProfilePage extends StatelessWidget {
                                   title: "حساب کاربری",
                                   color: U.OutlinedButtonColor.secondary,
                                   size: U.OutlinedButtonSize.md,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    ProfileBottomSheet.show(
+                                      context,
+                                      profileCubit: profileCubit,
+                                    );
+                                  },
                                 ),
                               ),
                               const Spacer(),
