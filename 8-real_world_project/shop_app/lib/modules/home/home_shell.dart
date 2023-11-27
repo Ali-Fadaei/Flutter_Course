@@ -7,6 +7,7 @@ import 'package:shop_app/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app/modules/categories/cubit/categories_cubit.dart';
 import 'package:shop_app/modules/favorites/cubit/favoriets_cubit.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
+import 'package:shop_app/modules/profile/cubit/profile_cubit.dart';
 import 'package:shop_app/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_app/modules/store/cubit/store_cubit.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
@@ -31,6 +32,11 @@ class HomeShell extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit(
+            userRepo: RepositoryProvider.of<UserRepository>(context),
+          ),
         ),
         BlocProvider(
           create: (context) => FavoritesCubit(

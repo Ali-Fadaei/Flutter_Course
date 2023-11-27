@@ -21,6 +21,21 @@ class UserRepository {
     return UserBox.getToken()?.canUse() ?? false;
   }
 
+  Future<User?> readProfile() async {
+    final accessToken = UserBox.getToken();
+    if (accessToken?.canUse() ?? false) {
+      await refresh();
+    } else {
+      logOut();
+      throw Exception('Access Token Expired');
+    }
+    return UserBox.getUser();
+  }
+
+  User? readProfileSync() {
+    return UserBox.getUser();
+  }
+
   Future<String> getAccessToken() async {
     final aceessToken = UserBox.getToken();
     if (aceessToken?.canUse() ?? false) {
@@ -65,6 +80,7 @@ class UserRepository {
     );
     final user = User.fromMap(res.data);
     if (user.isRegistered) {
+      UserBox.setUser(user);
       UserBox.setToken(AccessToken.create(token: user.token));
       _jwtAuthCtrl.add(true);
     }
@@ -91,6 +107,8 @@ class UserRepository {
     });
     if (res.result) {
       final user = User.fromMap(res.data);
+      UserBox.setUser(user);
+
       UserBox.setToken(AccessToken.create(token: user.token));
       _jwtAuthCtrl.add(true);
       return (result: true, validation: null);
@@ -106,6 +124,7 @@ class UserRepository {
       accessToken: UserBox.getToken()?.token,
     );
     final user = User.fromMap(res.data);
+    UserBox.setUser(user);
     UserBox.setToken(AccessToken.create(token: user.token));
     _jwtAuthCtrl.add(true);
   }
@@ -118,6 +137,7 @@ class UserRepository {
         accessToken: accessToken?.token,
       );
     }
+    UserBox.setUser(null);
     UserBox.setToken(null);
     _jwtAuthCtrl.add(false);
   }
