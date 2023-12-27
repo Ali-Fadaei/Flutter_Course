@@ -13,7 +13,7 @@ import 'package:shop_app/modules/app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/ui_kit/ui_kit.dart' as U;
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
 //
   final UserRepository userRepo;
   final StoreRepository storeRepo;
@@ -25,20 +25,31 @@ class App extends StatelessWidget {
   });
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
+    U.Theme.init(context, 3);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 //
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(
-          value: userRepo,
+          value: widget.userRepo,
         ),
         RepositoryProvider.value(
-          value: storeRepo,
+          value: widget.storeRepo,
         ),
       ],
       child: BlocProvider(
         create: (context) => AppCubit(
-          userRepo: userRepo,
+          userRepo: widget.userRepo,
         ),
         child: OverlaySupport.global(
           child: BlocListener<AppCubit, AppState>(

@@ -1,9 +1,57 @@
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
+
 abstract class Theme {
-  ///
+  //
+
+  static late final BuildContext rootContext;
+
+  static bool darkMode = platformDarkMode;
+
+  static bool get platformDarkMode =>
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+      Brightness.dark;
+
+  static void _enableSystemBrightnessListener() {
+    WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged =
+        () {
+      darkMode = platformDarkMode;
+      rebuildAllChildren(rootContext);
+    };
+  }
+
+  static void _disableSystemBrightnessListener() {
+    WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged =
+        null;
+  }
+
+  static void init(BuildContext rootContext, int id) {
+    Theme.rootContext = rootContext;
+    changeMode(id);
+  }
+
+  static void changeMode(int id) {
+    switch (id) {
+      case 0:
+        _disableSystemBrightnessListener();
+        darkMode = true;
+        break;
+      case 1:
+        _disableSystemBrightnessListener();
+        darkMode = false;
+        break;
+      case 3:
+        _enableSystemBrightnessListener();
+        darkMode = platformDarkMode;
+        break;
+    }
+    rebuildAllChildren(rootContext);
+  }
+
   //neutral colors
-  static const background = Color(0xFFF6F6F6);
+  static get background =>
+      darkMode ? const Color(0xFFF6F6F6) : const Color(0xFFF6F6F6);
 
   static const surface = Color(0xFFFEFEFE);
 
@@ -26,4 +74,13 @@ abstract class Theme {
 
   //
   static const radius = 15.0;
+
+  static void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+  }
 }
