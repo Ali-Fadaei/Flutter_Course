@@ -9,7 +9,7 @@ import 'package:shop_app_auth/tool_kit/tool_kit.dart' as T;
 abstract class HiveDB {
   //
 
-  static Future<List<int>> _getInc() async {
+  static Future<List<int>> _getEnc() async {
     final sp = await SharedPreferences.getInstance();
     final deviceId = await T.Utils.getDeviceUid();
     var key = sp.getStringList(deviceId);
@@ -18,10 +18,10 @@ abstract class HiveDB {
         return int.parse(e) - 5;
       }).toList();
     }
-    return await _setInc();
+    return await _setEnc();
   }
 
-  static Future<List<int>> _setInc() async {
+  static Future<List<int>> _setEnc() async {
     final key = Hive.generateSecureKey();
     final sp = await SharedPreferences.getInstance();
     final deviceId = await T.Utils.getDeviceUid();
@@ -47,7 +47,7 @@ abstract class HiveDB {
     await Hive.openBox(
       boxName,
       crashRecovery: true,
-      encryptionCipher: HiveAesCipher(await _getInc()),
+      encryptionCipher: HiveAesCipher(await _getEnc()),
     );
   }
 
