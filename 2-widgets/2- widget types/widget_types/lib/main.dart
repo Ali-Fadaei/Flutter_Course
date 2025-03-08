@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: CounterPage(
-        initCount: 5,
+        initCount: 0,
         step: 10,
       ),
     );

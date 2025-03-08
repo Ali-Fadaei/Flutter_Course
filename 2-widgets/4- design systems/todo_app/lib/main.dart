@@ -149,7 +149,6 @@ class _MainAppState extends State<MainApp> {
                           hintText: 'type you\'re task here!',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
-                            // gapPadding: 100,
                           ),
                         ),
                       ),

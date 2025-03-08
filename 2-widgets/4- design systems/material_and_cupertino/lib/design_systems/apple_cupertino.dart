@@ -11,8 +11,11 @@ class AppleCupertino extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CupertinoApp(
       title: 'cupertino',
-      theme: CupertinoThemeData(scaffoldBackgroundColor: Colors.white),
       home: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          backgroundColor: CupertinoColors.systemGrey,
+          middle: Text('Center Title'),
+        ),
         child: Center(
           child: Text(
             'test',
